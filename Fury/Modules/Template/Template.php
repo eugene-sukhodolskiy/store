@@ -76,6 +76,7 @@ class Template implements TemplateInterface{
 		if(strpos($template_name, '.php') === false){
 			$template_name .= '.php';
 		}
+		
 		return $this -> project_folder . '/' . $this -> templates_folder . '/' . $template_name;
 	}
 

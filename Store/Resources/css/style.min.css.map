@@ -1,0 +1,1 @@
+{"version":3,"sources":["test2.scss"],"names":[],"mappings":"AAAA,EACC,MAAA,IAGD,OACC,MAAA","file":"style.min.css","sourcesContent":["a{\r\n\tcolor: red;\r\n}\r\n\r\n.title {\r\n\tcolor: blue;\r\n}"]}
