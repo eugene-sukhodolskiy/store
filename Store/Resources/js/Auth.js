@@ -22,14 +22,17 @@ class Auth {
 		$.post(form.attr("action"), data, (resp) => {
 			if(!resp){
 				// err
+				console.log("Error");
 				return false;
 			}
 
 			resp = JSON.parse(resp);
 			if(resp.status){
 				// success
+				console.log("success");
 			}else{
 				// err of data
+				console.log("Error of signup");
 				return false;
 			}
 		});

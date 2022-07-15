@@ -6,7 +6,7 @@ const cleanCSS = require("gulp-clean-css");
 const concat = require("gulp-concat");
 
 gulp.task("sass-build", () => {
-	return gulp.src("./Store/Resources/scss/**/*.scss")
+	return gulp.src("./Store/Resources/scss/index.scss")
 	.pipe(sourcemaps.init())
 	.pipe(sass().on("error", sass.logError))
 	.pipe(concat("style.min.css"))
