@@ -52,11 +52,15 @@
 					>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group submit-btn">
 					<button class="std-btn btn-primary submit">Зарегистрироваться</button>
 				</div>
 
 				<div class="alert-container"></div>
+
+				<div class="form-footer">
+					У меня уже есть аккаунт. <a href="/auth/signin">Войти</a>
+				</div>
 			</form>
 		</div>
 

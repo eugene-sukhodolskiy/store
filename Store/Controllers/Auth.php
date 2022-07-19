@@ -14,6 +14,15 @@ class Auth extends \Store\Middleware\Controller {
 	}
 
 	public function signup($email, $password, $password_again) {
+		if(strlen($email) < 4 or !strpos($email, "@") or !strpos($email, ".")) {
+			return json_encode([
+				"status" => false,
+				"err_in_field" => [ "email" ],
+				"error_alias" => "incorrect_email",
+				"error_msg" => "Не корректный E-mail"
+			]);
+		}
+
 		if(strlen($password) < 8) {
 			return json_encode([
 				"status" => false,
@@ -29,15 +38,6 @@ class Auth extends \Store\Middleware\Controller {
 				"err_in_field" => [ "password", "password_again" ],
 				"error_alias" => "different_passwords",
 				"error_msg" => "Пароли не совпадают"
-			]);
-		}
-
-		if(strlen($email) < 4 or !strpos($email, "@") or !strpos($email, ".")) {
-			return json_encode([
-				"status" => false,
-				"err_in_field" => [ "email" ],
-				"error_alias" => "incorrect_email",
-				"error_msg" => "Не корректный E-mail"
 			]);
 		}
 

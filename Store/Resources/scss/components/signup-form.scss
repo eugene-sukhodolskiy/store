@@ -17,6 +17,24 @@
 		.title {
 
 		}
+
+		.submit-btn {
+			margin-top: $std-pd-lg;
+		}
+
+		.form-footer {
+			margin-top: $std-pd-lg;
+			width: 100%;
+			text-align: center;
+		}
+
+		.alert-container {
+			min-height: 50px;
+
+			.alert {
+				margin-top: 0;
+			}
+		}
 	}
 
 	.welcome {

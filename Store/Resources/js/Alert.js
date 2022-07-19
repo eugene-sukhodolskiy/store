@@ -1,9 +1,10 @@
 class Alert {
-	constructor(type, content, isClosable) {
+	constructor(type, content, isSingleton, isClosable) {
 		this.id = "alert-id-" + (new Date()).getTime() + Math.random();
 		alertsList[this.id] = this;
 		this.type = type;
 		this.content = content;
+		this.isSingleton = isSingleton || false;
 		this.isClosable = isClosable || false;
 
 		const referenceComponent = $(`.component.alert[data-id="alert-id-reference"]:eq(0)`);
@@ -31,10 +32,15 @@ class Alert {
 			return false;
 		}
 
+		if(this.isSingleton){
+			$(container).html("");
+		}
 		$(container).append(this.template);
 		setTimeout(() => {
 			this.template.addClass("show");
 		}, 10);
+
+		return this;
 	}
 
 	close() {
@@ -54,7 +60,7 @@ const closeAlertComponent = alertId => {
 	return alertsList[alertId].close();
 }
 
-const createAlertComponent = (type, content, isClosable) => {
+const createAlertComponent = (type, content, isSingleton, isClosable) => {
 	return new Alert(type, content, isClosable);
 }
 
