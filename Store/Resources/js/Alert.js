@@ -6,7 +6,12 @@ class Alert {
 		this.content = content;
 		this.isClosable = isClosable || false;
 
-		this.template = $(`.component.alert[data-id="alert-id-reference"]:eq(0)`).clone();
+		const referenceComponent = $(`.component.alert[data-id="alert-id-reference"]:eq(0)`);
+		if(!referenceComponent.length){
+			return console.error("Reference of alert component not found");
+		}
+		
+		this.template = referenceComponent.clone();
 		this.initComponent();
 	}
 
@@ -22,6 +27,10 @@ class Alert {
 	}
 
 	showIn(container) {
+		if(!this.template){
+			return false;
+		}
+
 		$(container).append(this.template);
 		setTimeout(() => {
 			this.template.addClass("show");
