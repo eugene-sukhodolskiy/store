@@ -1,9 +1,7 @@
 $color-primary: #9b5de5;
 $color-secondary: #f15bb5;
 $color-addition-1: #fee440;
-$color-addition-2: #00f5d4;
-$color-addition-3: #2b2d42;
-$color-primary-hover: #b177f6;
+$color-addition-3: #f94144;
 
 $color-text: #444;
 $color-text-inverted: #eee;
@@ -11,8 +9,12 @@ $color-text-lite: #777;
 $color-text-hard: #111;
 $color-link: $color-primary;
 $color-hover: $color-secondary;
-$color-bg: $color-addition-3;
+$color-bg: #eee;
 $color-bg-card: #fefefe; 
+$color-danger: $color-addition-3;
+$color-warning: $color-addition-1;
+$color-info: #00bbf9;
+$color-success: #00f5d4; 
 
 $std-mg-sm: 5px;
 $std-mg-md: 10px;

@@ -55,6 +55,8 @@
 				<div class="form-group">
 					<button class="std-btn btn-primary submit">Зарегистрироваться</button>
 				</div>
+
+				<div class="alert-container"></div>
 			</form>
 		</div>
 
