@@ -1,20 +1,20 @@
-$color-primary: #9b5de5;
+$color-primary: #227C9D;
 $color-secondary: #f15bb5;
-$color-addition-1: #fee440;
-$color-addition-3: #f94144;
+$color-success: #17C3B2;
+$color-warning: #FFCB77;
+$color-danger: #FE6D73;
+$color-addition: #e7ecef;
 
 $color-text: #444;
 $color-text-inverted: #eee;
 $color-text-lite: #777;
 $color-text-hard: #111;
+
 $color-link: $color-primary;
-$color-hover: $color-secondary;
-$color-bg: #eee;
+$color-link-hover: $color-success;
+$color-bg: $color-addition;
 $color-bg-card: #fefefe; 
-$color-danger: $color-addition-3;
-$color-warning: $color-addition-1;
-$color-info: #00bbf9;
-$color-success: #00f5d4; 
+$color-info: $color-primary;
 
 $std-mg-sm: 5px;
 $std-mg-md: 10px;
@@ -27,11 +27,11 @@ $std-pd-lg: 20px;
 $std-pd-xl: 40px;
 
 $border-rad-sm: 3px;
-$border-rad-md: 5px;
-$border-rad-lg: 8px;
-$border-rad-xl: 10px;
+$border-rad-md: 4px;
+$border-rad-lg: 6px;
+$border-rad-xl: 8px;
 
 $border-1: 1px solid #aaa;
 
-$shadow-md: 2px 2px 6px 6px rgba(0, 0, 0, .15);
+$shadow-md: 1px 1px 3px 3px rgba(0, 0, 0, .05);
 $trans-du: .15s;

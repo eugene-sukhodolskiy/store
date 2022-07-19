@@ -10,7 +10,7 @@ class Alert {
 		if(!referenceComponent.length){
 			return console.error("Reference of alert component not found");
 		}
-		
+
 		this.template = referenceComponent.clone();
 		this.initComponent();
 	}
@@ -42,7 +42,7 @@ class Alert {
 		setTimeout(() => {
 			this.template.remove();
 			delete alertsList[this.id];
-		}, 250);
+		}, 150);
 	}
 
 	changeContent(newContent) {

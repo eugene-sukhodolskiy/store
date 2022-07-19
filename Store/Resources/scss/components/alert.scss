@@ -4,7 +4,7 @@
 	margin: $std-mg-lg 0;
 	border-radius: $border-rad-md;
 	position: relative;
-	color: $color-text-inverted;
+	color: $color-text;
 	visibility: hidden;
 	opacity: 0;
 	top: 7px;
@@ -34,29 +34,38 @@
 		font-size: 20px;
 		right: 5px;
 		top: 7px;
+		display: flex;
+    justify-content: center;
+    align-items: center;
 		transition-duration: $trans-du;
-		transition-property: transform;
+		transition-property: transform, top, right;
 
 		&:hover {
 			transform: rotate(90deg);
+			top: 6px;
+			right: 6px;
 		}
 	}
 
 	&.alert-danger {
 		background-color: $color-danger;
+		color: $color-text-inverted;
 	}
 
 	&.alert-warning {
 		background-color: $color-warning;
-		color: $color-text;
 	}
 
 	&.alert-info {
 		background-color: $color-info;
+		color: $color-text-inverted;
 	}
 
 	&.alert-success {
 		background-color: $color-success;
-		color: $color-text;
+	}
+
+	&.alert-default {
+		background-color: $color-addition;
 	}
 }
