@@ -1,14 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
+* {
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	background-color: $color-bg;
 	color: $color-text; 
 	font-family: 'Nunito', sans-serif;
 }
 
+.container {
+	width: 100%;
+	padding-right: $std-pd-lg;
+	padding-left: $std-pd-lg;
+	margin-right: auto;
+	margin-left: auto;
+	box-sizing: border-box;
+
+	@include media("max", "md"){
+		padding-right: $std-pd-md;
+		padding-left: $std-pd-md;
+	}
+}
+
 .form {
 	display: block;
-	margin: $std-mg-lg;
+	margin-top: $std-mg-lg;
+	margin-bottom: $std-mg-lg;
 	padding: $std-pd-xl;
 	border-radius: $border-rad-xl;
 	background-color: $color-bg-card;
@@ -18,9 +38,19 @@ body {
 	margin: $std-mg-md 0;
 
 	.form-label {
-    display: block;
+		display: block;
 		margin-bottom: 2px;
 		font-size: 13px;
+	}
+
+	.std-input[type="checkbox"] {
+		float: left;
+		margin-right: 6px;
+
+		& + .form-label {
+			position: relative;
+			top: 2px;
+		}
 	}
 }
 
@@ -30,6 +60,7 @@ body {
 	border: $border-1;
 	border-radius: $border-rad-md;
 	font-size: 15px;
+	box-sizing: border-box;
 	transition-duration: $trans-du;
 	transition-property: border-color;
 
@@ -40,6 +71,13 @@ body {
 
 	&.error {
 		border-color: $color-danger;
+	}
+
+	&[type="checkbox"] {
+		width: 18px;
+		height: 18px;
+		margin: 0;
+		margin-right: $std-mg-xsm;
 	}
 }
 

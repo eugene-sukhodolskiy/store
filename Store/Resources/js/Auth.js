@@ -1,36 +1,34 @@
 class Auth {
 	constructor() {
 		this.alert;
-		this.alertContainer = $(".component.signup-form .alert-container");
+		this.form = $(".signup-form form");
+		this.alertContainer = this.form.find(".alert-container");
 		this.initEvents();
 	}
 
 	initEvents() {
-		const form = $(".signup-form form");
-
-		form.find(".submit").on("click", (e) => {
+		this.form.find(".submit").on("click", (e) => {
 			e.preventDefault();
 			if($(e.currentTarget).hasClass("disable")){
 				return false;
 			}
 
 			$(e.currentTarget).addClass("disable");
-
-			this.signup($(".signup-form form"));
+			this.submitSignupForm();
 		});
 
-		form.find("input[data-for-submiting]").on("input", e => {
+		this.form.find("input[data-for-submiting]").on("input", e => {
 			$(e.currentTarget).removeClass("error");
 		});
 
-		form.find("input[data-for-submiting]").on("change", e => {
+		this.form.find("input[data-for-submiting]").on("change", e => {
 			this.alert.close();
 		});
 	}
 
-	signup(form, callback) {
+	submitSignupForm() {
 		const data = {};
-		const inputs = form.find("input[data-for-submiting]");
+		const inputs = this.form.find("input[data-for-submiting]");
 
 		for(let input of inputs){
 			input = $(input);
@@ -41,8 +39,14 @@ class Auth {
 			this.alert.close();
 		}
 
-		$.post(form.attr("action"), data, (resp) => {
-			form.find(".submit").removeClass("disable");
+		if(!this.form.find("#terms_of_use").is(":checked")){
+			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
+			this.form.find(".submit").removeClass("disable");
+			return false;
+		}
+
+		$.post(this.form.attr("action"), data, (resp) => {
+			this.form.find(".submit").removeClass("disable");
 
 			if(!resp){
 				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
@@ -52,11 +56,12 @@ class Auth {
 			resp = JSON.parse(resp);
 
 			if(resp.status){
-				this.alert = createAlertComponent("success", "Регистрация успешна :) Перенаправление...", true, true).showIn(this.alertContainer);
-				// redirect to signin page
+				this.form.find(".submit").addClass("disable");
+				this.alert = createAlertComponent("success", "Регистрация успешна. Перенаправление...", true).showIn(this.alertContainer);
+				document.location = "/auth/signin";
 			}else{
 				for(let field of resp.err_in_field){
-					form.find(`[name="${field}"]`).addClass("error");
+					this.form.find(`[name="${field}"]`).addClass("error");
 				}
 
 				this.alert = createAlertComponent("danger", resp.error_msg, true, true).showIn(this.alertContainer);

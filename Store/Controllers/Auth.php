@@ -46,7 +46,7 @@ class Auth extends \Store\Middleware\Controller {
 				"status" => false,
 				"err_in_field" => [ "email" ],
 				"error_alias" => "email_already_exists",
-				"error_msg" => "Пользователь с таким E-mail уже существует"
+				"error_msg" => "Такой E-mail уже существует"
 			]);
 		}
 

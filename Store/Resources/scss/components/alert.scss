@@ -32,18 +32,18 @@
 		border: 0;
 		position: absolute;
 		font-size: 20px;
-		right: 5px;
-		top: 7px;
+		right: 6px;
+		top: 10px;
 		display: flex;
-    justify-content: center;
-    align-items: center;
+		justify-content: center;
+		align-items: center;
 		transition-duration: $trans-du;
 		transition-property: transform, top, right;
 
 		&:hover {
 			transform: rotate(90deg);
-			top: 6px;
-			right: 6px;
+			top: 9px;
+			right: 7px;
 		}
 	}
 
