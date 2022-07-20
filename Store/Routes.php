@@ -40,13 +40,24 @@ class Routes {
 	protected function uri_routes() {
 		$this -> router -> uri('/', "{$this -> cn}\\Index@index");
 		$this -> router -> uri('/auth/signup', "{$this -> cn}\\Auth@signup_page");
+		$this -> router -> uri('/auth/signin', "{$this -> cn}\\Auth@signin_page");
 	}
 
 	protected function get_routes() {
 	}
 
 	protected function post_routes() {
-		$this -> router -> post([ "signup", "email", "password", "password_again" ], "{$this -> cn}\\Auth@signup", '/api/auth/signup');
+		$this -> router -> post(
+			[ "email", "password", "password_again" ], 
+			"{$this -> cn}\\Auth@signup", 
+			$this -> urlto("Auth@signin_page")
+		);
+
+		$this -> router -> post(
+			[ "email", "password" ], 
+			"{$this -> cn}\\Auth@signin",
+			$this -> urlto("Auth@signin_page")
+		);
 	}
 
 	/**

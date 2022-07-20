@@ -13,6 +13,14 @@ class Auth extends \Store\Middleware\Controller {
 		]);
 	}
 
+	public function signin_page() {
+		return $this -> new_template() -> make('site/signin', [
+			'page_title' => 'Войти в систему',
+			'page_alias' => 'page signin'
+		]);
+	}
+
+
 	public function signup($email, $password, $password_again) {
 		if(strlen($email) < 4 or !strpos($email, "@") or !strpos($email, ".")) {
 			return json_encode([
@@ -67,7 +75,7 @@ class Auth extends \Store\Middleware\Controller {
 		]);
 	}
 
-	public function signin() {
+	public function signin($email, $password) {
 
 	}
 

@@ -1,0 +1,9 @@
+.component.signin-form {
+	max-width: 380px;
+	box-shadow: $shadow-md;
+	margin: auto;
+
+	.alert-container {
+		min-height: 50px;
+	}
+}

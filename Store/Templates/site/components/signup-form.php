@@ -15,8 +15,6 @@
 		</div>
 
 		<div class="form-body">
-			<input type="hidden" name="signup" data-for-submiting>
-
 			<div class="form-group">
 				<label class="form-label" for="email">E-mail</label>
 				<input 
@@ -80,7 +78,7 @@
 		</div>
 
 		<div class="form-footer">
-			У меня уже есть аккаунт. <a href="/auth/signin">Войти</a>
+			У меня уже есть аккаунт. <a href="<?= app() -> routes -> urlto('Auth@signin_page') ?>">Войти</a>
 		</div>
 	</form>
 	
