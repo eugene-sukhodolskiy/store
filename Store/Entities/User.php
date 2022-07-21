@@ -35,4 +35,21 @@ class User extends \Store\Middleware\Entity {
 			$field_value
 		);
 	}
+
+	public static function get_user_by_email(String $email) {
+		$result_data = app() -> thin_builder -> select(
+			self::$tablename, 
+			"*", 
+			[ ["email", "=", $email] ], 
+			["id"], 
+			"DESC", 
+			[0, 1]
+		);
+
+		if(!$result_data) {
+			return false;
+		}
+
+		return new User($result_data["id"], $result_data);
+	}
 }

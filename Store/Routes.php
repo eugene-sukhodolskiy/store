@@ -50,13 +50,13 @@ class Routes {
 		$this -> router -> post(
 			[ "email", "password", "password_again" ], 
 			"{$this -> cn}\\Auth@signup", 
-			$this -> urlto("Auth@signin_page")
+			"/api/auth/signup"
 		);
 
 		$this -> router -> post(
 			[ "email", "password" ], 
 			"{$this -> cn}\\Auth@signin",
-			$this -> urlto("Auth@signin_page")
+			"/api/auth/signin"
 		);
 	}
 

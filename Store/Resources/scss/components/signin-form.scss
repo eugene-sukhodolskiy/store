@@ -5,5 +5,10 @@
 
 	.alert-container {
 		min-height: 50px;
+		margin-top: $std-mg-lg;
+
+		.component.alert {
+			margin: 0;
+		}
 	}
 }

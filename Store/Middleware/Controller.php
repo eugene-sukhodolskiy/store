@@ -12,4 +12,8 @@ class Controller extends \Fury\Kernel\Controller{
 	public function new_template(){
 		return new Template(PROJECT_FOLDER, FCONF['templates_folder']);
 	}
+
+	public function utils() {
+		return app() -> utils;
+	}
 }

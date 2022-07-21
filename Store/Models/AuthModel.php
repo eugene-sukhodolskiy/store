@@ -12,4 +12,32 @@ class AuthModel extends \Store\Middleware\Model {
 			$password
 		);
 	}
+
+	public function signin(String $email, String $password) {
+		$password = sha1($password);
+		$user = User::get_user_by_email($email);
+		if(!$user or $user -> get_password() != $password) {
+			return false;
+		}
+
+		return $this -> create_session($user -> id());
+	}
+
+	public function signout() {
+
+	}
+
+	public function create_session(Int $uid) {
+		$token = uniqid($uid);
+		$result = $this -> this_builder -> insert("sessions", [
+			"uid" => $uid,
+			"token" => $token
+		]);
+
+		return $result ? $token : false;
+	}
+
+	public function remove_session(Int $uid) {
+		
+	}
 }

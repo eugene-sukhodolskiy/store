@@ -18,4 +18,5 @@ return [
 	"logs_folder" => "Store/Logs",
 
 	"controllers_folder" => "Controllers",
+	"text_msgs" => require_once("Store/text-msgs.php")
 ]; 

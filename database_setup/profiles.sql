@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `profile`
+-- Структура таблицы `profiles`
 --
 
-CREATE TABLE `profile` (
+CREATE TABLE `profiles` (
   `id` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -45,9 +45,9 @@ CREATE TABLE `profile` (
 --
 
 --
--- Индексы таблицы `profile`
+-- Индексы таблицы `profiles`
 --
-ALTER TABLE `profile`
+ALTER TABLE `profiles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -55,9 +55,9 @@ ALTER TABLE `profile`
 --
 
 --
--- AUTO_INCREMENT для таблицы `profile`
+-- AUTO_INCREMENT для таблицы `profiles`
 --
-ALTER TABLE `profile`
+ALTER TABLE `profiles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

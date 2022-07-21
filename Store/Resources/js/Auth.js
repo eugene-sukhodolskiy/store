@@ -1,8 +1,9 @@
 class Auth {
 	constructor() {
 		this.alert;
-		this.form = $(".signup-form form");
+		this.form = $(".auth-form .form:eq(0)");
 		this.alertContainer = this.form.find(".alert-container");
+
 		this.initEvents();
 	}
 
@@ -14,7 +15,11 @@ class Auth {
 			}
 
 			$(e.currentTarget).addClass("disable");
-			this.submitSignupForm();
+			if(this.form.attr("data-form-alias") == "signup") {
+				this.submitSignupForm();
+			}else{
+				this.submitSigninForm();
+			}
 		});
 
 		this.form.find("input[data-for-submiting]").on("input", e => {
@@ -22,16 +27,33 @@ class Auth {
 		});
 
 		this.form.find("input[data-for-submiting]").on("change", e => {
-			this.alert.close();
+			if(this.alert){
+				this.alert.close();
+			}
 		});
 	}
 
 	submitSignupForm() {
+		if(!this.form.find("#terms_of_use").is(":checked")){
+			// TODO: use text of messages by alias 
+			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
+			this.form.find(".submit").removeClass("disable");
+			return false;
+		}
+		return this.submit();
+	}
+
+	submitSigninForm() {
+		return this.submit();
+	}
+
+	submit() {
 		const data = {};
 		const inputs = this.form.find("input[data-for-submiting]");
 
 		for(let input of inputs){
 			input = $(input);
+			input.hasClass("error") && input.removeClass("error");
 			data[ input.attr("name") ] = input.val();
 		}
 
@@ -39,16 +61,11 @@ class Auth {
 			this.alert.close();
 		}
 
-		if(!this.form.find("#terms_of_use").is(":checked")){
-			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
-			this.form.find(".submit").removeClass("disable");
-			return false;
-		}
-
 		$.post(this.form.attr("action"), data, (resp) => {
 			this.form.find(".submit").removeClass("disable");
 
 			if(!resp){
+				// TODO: use text of messages by alias 
 				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
 				return false;
 			}
@@ -57,21 +74,18 @@ class Auth {
 
 			if(resp.status){
 				this.form.find(".submit").addClass("disable");
+				// TODO: use text of messages by alias 
 				this.alert = createAlertComponent("success", "Регистрация успешна. Перенаправление...", true).showIn(this.alertContainer);
 				document.location = "/auth/signin";
 			}else{
-				for(let field of resp.err_in_field){
+				for(let field of resp.failed_fields){
 					this.form.find(`[name="${field}"]`).addClass("error");
 				}
 
-				this.alert = createAlertComponent("danger", resp.error_msg, true, true).showIn(this.alertContainer);
+				this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
 				return false;
 			}
 		});
-	}
-
-	signin() {
-
 	}
 
 	signout() {

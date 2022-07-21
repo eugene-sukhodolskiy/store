@@ -6,8 +6,8 @@
 	 */
 ?>
 
-<div class="component signin-form <?= $addition_classes ?>">
-	<form action="<?= $action ?>" class="form">
+<div class="component signin-form auth-form <?= $addition_classes ?>">
+	<form action="<?= $action ?>" class="form" data-form-alias="signin">
 		<div class="form-head">
 			<? if(isset($title) and $title): ?>
 				<h1 class="title"><?= $title ?></h1>
