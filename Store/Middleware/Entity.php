@@ -6,10 +6,13 @@ class Entity {
 	protected $entity_tablename;
 	protected $entity_id;
 	protected $data;
+	protected $fiedls;
 
-	public function __construct(String $entity_tablename, Int $entity_id, Array $data = []) {
+	public function __construct(String $entity_tablename, Int $entity_id, Array $fields, Array $data = []) {
 		$this -> entity_tablename = $entity_tablename;
 		$this -> entity_id = $entity_id;
+		$this -> fields = $fields;
+
 		$where = [
 		  ['id', '=', $this -> entity_id]
 		];
@@ -41,10 +44,16 @@ class Entity {
 	}
 
 	public function get(String $field_name) {
-		return $this -> data[$field_name];
+		// TODO: normalize displaying of error
+		return isset($this -> data[$field_name]) ? $this -> data[$field_name] : dd("Error, field `{$field_name}` not found");
 	}
 
 	public function set(String $field_name, $field_val) {
+		if(!isset($this -> data[$field_name])){
+			// TODO: normalize displaying of error
+			dd("Error, field `{$field_name}` not found");
+		}
+	
 		$this -> data[$field_name] = $field_val;
 	}
 

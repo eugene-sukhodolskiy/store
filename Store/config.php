@@ -9,7 +9,7 @@ return [
 		"host" => "localhost",
 		"dbname" => "store",
 		"charset" => "utf8",
-		"user" => "root",
+		"user" => "eugene",
 		"password" => "root"
 	],
 	"app_file" => "App.php",

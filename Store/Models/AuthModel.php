@@ -16,7 +16,8 @@ class AuthModel extends \Store\Middleware\Model {
 	public function signin(String $email, String $password) {
 		$password = sha1($password);
 		$user = User::get_user_by_email($email);
-		if(!$user or $user -> get_password() != $password) {
+
+		if(!$user or $user -> get("password") != $password) {
 			return false;
 		}
 
@@ -29,7 +30,7 @@ class AuthModel extends \Store\Middleware\Model {
 
 	public function create_session(Int $uid) {
 		$token = uniqid($uid);
-		$result = $this -> this_builder -> insert("sessions", [
+		$result = $this -> thin_builder() -> insert("sessions", [
 			"uid" => $uid,
 			"token" => $token
 		]);

@@ -76,7 +76,7 @@ class Auth {
 				this.form.find(".submit").addClass("disable");
 				// TODO: use text of messages by alias 
 				this.alert = createAlertComponent("success", "Регистрация успешна. Перенаправление...", true).showIn(this.alertContainer);
-				document.location = "/auth/signin";
+				document.location = "/auth/signin.html";
 			}else{
 				for(let field of resp.failed_fields){
 					this.form.find(`[name="${field}"]`).addClass("error");

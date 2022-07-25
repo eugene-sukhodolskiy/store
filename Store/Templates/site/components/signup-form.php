@@ -82,7 +82,5 @@
 		</div>
 	</form>
 	
-	<div class="form-decoration">
-		
-	</div>
+	<div class="form-decoration"></div>
 </div>

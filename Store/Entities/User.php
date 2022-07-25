@@ -6,7 +6,9 @@ class User extends \Store\Middleware\Entity {
 	public static $tablename = "users";
 
 	public function __construct(Int $uid, Array $data = []) {
-		parent::__construct(self::$tablename, $uid, $data);
+		parent::__construct(self::$tablename, $uid, [
+			"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
+		], $data);
 	}	
 
 	// Static methods
@@ -39,7 +41,7 @@ class User extends \Store\Middleware\Entity {
 	public static function get_user_by_email(String $email) {
 		$result_data = app() -> thin_builder -> select(
 			self::$tablename, 
-			"*", 
+			["id"], 
 			[ ["email", "=", $email] ], 
 			["id"], 
 			"DESC", 
@@ -50,6 +52,6 @@ class User extends \Store\Middleware\Entity {
 			return false;
 		}
 
-		return new User($result_data["id"], $result_data);
+		return new User($result_data[0]["id"]);
 	}
 }

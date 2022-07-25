@@ -20,7 +20,12 @@ class ThinBuilder implements ThinBuilderInterface{
 		}
 
 		// TODO: if result of query() == false - we have error about trying call fetch func
-		$result = $fetch_func ? $this -> pdo -> query($sql) -> $fetch_func($fetch_func_param) : $this -> pdo -> query($sql);
+		$response = $this -> pdo -> query($sql);
+		if(!$response) {
+			$result = null;
+		} else {
+			$result = $fetch_func ? $response -> $fetch_func($fetch_func_param) : $response;
+		}
 
 		if($this -> history_enabled){
 			$this -> history -> add($sql, $result);
@@ -173,8 +178,8 @@ class ThinBuilder implements ThinBuilderInterface{
 		$tablename = addslashes($tablename);
 		$where = $this -> where_processing($where);
 		$sql = "SELECT COUNT(*) FROM `{$tablename}` {$where}";
-		list($result) = $this -> query($sql, 'fetch', \PDO::FETCH_NUM);
-		return intval($result);
+		$result = $this -> query($sql, 'fetch', \PDO::FETCH_NUM);
+		return $result ? intval($result[0]) : 0;
 	}
 
 	public function history(){
