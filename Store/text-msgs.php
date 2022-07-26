@@ -13,7 +13,9 @@ return [
 	"undefined_error" => "Ой, что-то пошло не так",
 	"empty_field" => "Поле не может быть пустым",
 	"unregistered_email" => "Такой E-mail не зарегистрирован",
-	"incorrect_password" => "Не верный пароль"
+	"incorrect_password" => "Не верный пароль",
+	"not_found_any_sessions" => "Требуется войти в систему",
+	"already_logged" => "Вы уже в системе",
 
 	// Other
 ];

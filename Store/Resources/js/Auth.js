@@ -3,18 +3,19 @@ class Auth {
 		this.alert;
 		this.form = $(".auth-form .form:eq(0)");
 		this.alertContainer = this.form.find(".alert-container");
+		this.submitBtn = this.form.find(".submit");
 
 		this.initEvents();
 	}
 
 	initEvents() {
-		this.form.find(".submit").on("click", (e) => {
+		this.form.on("submit", (e) => {
 			e.preventDefault();
-			if($(e.currentTarget).hasClass("disable")){
+			if(this.submitBtn.hasClass("disable")){
 				return false;
 			}
 
-			$(e.currentTarget).addClass("disable");
+			this.submitBtn.addClass("disable");
 			if(this.form.attr("data-form-alias") == "signup") {
 				this.submitSignupForm();
 			}else{
@@ -37,7 +38,7 @@ class Auth {
 		if(!this.form.find("#terms_of_use").is(":checked")){
 			// TODO: use text of messages by alias 
 			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
-			this.form.find(".submit").removeClass("disable");
+			this.submitBtn.removeClass("disable");
 			return false;
 		}
 		return this.submit();
@@ -62,7 +63,7 @@ class Auth {
 		}
 
 		$.post(this.form.attr("action"), data, (resp) => {
-			this.form.find(".submit").removeClass("disable");
+			this.submitBtn.removeClass("disable");
 
 			if(!resp){
 				// TODO: use text of messages by alias 
@@ -73,10 +74,12 @@ class Auth {
 			resp = JSON.parse(resp);
 
 			if(resp.status){
-				this.form.find(".submit").addClass("disable");
+				this.submitBtn.addClass("disable");
 				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("success", "Регистрация успешна. Перенаправление...", true).showIn(this.alertContainer);
-				document.location = "/auth/signin.html";
+				this.alert = createAlertComponent("success", "Успешно! Перенаправление...", true).showIn(this.alertContainer);
+				setTimeout(() => { 
+					document.location = resp.data.redirect_url; 
+				}, resp.data.redirect_delay);
 			}else{
 				for(let field of resp.failed_fields){
 					this.form.find(`[name="${field}"]`).addClass("error");

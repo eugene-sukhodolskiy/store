@@ -28,7 +28,7 @@ class Utils {
 	public function response_success(Array $resp_data = []) {
 		return json_encode([ 
 			"status" => true,
-			"response" => $resp_data
+			"data" => $resp_data
 		]);
 	}
 

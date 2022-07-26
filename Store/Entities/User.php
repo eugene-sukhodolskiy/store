@@ -17,9 +17,10 @@ class User extends \Store\Middleware\Entity {
 		$password_hash = sha1($password);
 
 		$uid = app() -> thin_builder -> insert(self::$tablename, [
-			'alias' => $alias,
-			'email' => $email,
-			'password' => $password_hash
+			"alias" => $alias,
+			"email" => $email,
+			"password" => $password_hash,
+			"create_at" => date("Y-m-d H:i:s")
 		]);
 
 		if(!$uid){

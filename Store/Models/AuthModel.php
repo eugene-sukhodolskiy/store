@@ -21,21 +21,11 @@ class AuthModel extends \Store\Middleware\Model {
 			return false;
 		}
 
-		return $this -> create_session($user -> id());
+		return app() -> sessions -> init_session($user -> id());
 	}
 
 	public function signout() {
-
-	}
-
-	public function create_session(Int $uid) {
-		$token = uniqid($uid);
-		$result = $this -> thin_builder() -> insert("sessions", [
-			"uid" => $uid,
-			"token" => $token
-		]);
-
-		return $result ? $token : false;
+		return app() -> sessions -> close_current_session();
 	}
 
 	public function remove_session(Int $uid) {

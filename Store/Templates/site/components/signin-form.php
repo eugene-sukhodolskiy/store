@@ -41,7 +41,7 @@
 
 			<div class="form-group submit-btn-container">
 				<div class="submit-btn-wrap">
-					<button class="std-btn btn-primary submit">Войти</button>
+					<button class="std-btn btn-primary submit" role="button">Войти</button>
 				</div>
 			</div>
 

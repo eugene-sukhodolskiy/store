@@ -9,9 +9,11 @@ class App extends \Fury\Kernel\BaseApp{
 	public $routes;
 	public $router;
 	public $events_handlers;
-	public $utils;
 	public $thin_builder;
+
 	// CUSTOM
+	public $utils;
+	public $sessions;
 
 	public function __construct(){
 		parent::__construct();
@@ -28,6 +30,7 @@ class App extends \Fury\Kernel\BaseApp{
 
 		// CUSTOM
 		$this -> utils = new Utils();
+		$this -> sessions = new Sessions();
 	}
 
 	public function root_folder(){
