@@ -1,0 +1,15 @@
+.component.navigation-main {
+	
+	.nav-list {
+		display: flex;
+		gap: $std-mg-lg;
+		align-items: center;
+
+		.nav-list-item {
+			.nav-link {
+				font-size: $fsize-md;
+				color: $color-text;
+			}
+		}
+	}
+}
