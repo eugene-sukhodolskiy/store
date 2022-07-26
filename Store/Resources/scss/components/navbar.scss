@@ -1,0 +1,44 @@
+.component.navbar {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	background: $color-bg-card;
+	box-shadow: $shadow-md;
+
+	.navbar-container {
+		max-width: $page-content-max-width;
+		height: inherit;
+		overflow: visible;
+		display: grid;
+		grid-template-columns: max-content 400px auto 150px;
+		grid-gap: $std-mg-lg;
+		align-items: center;
+		justify-content: space-between;
+
+
+		.logo-wrapper {
+			.logo {
+				.logo-link {
+					color: $color-text;
+					font-size: $fsize-xl;
+					border-bottom: 0;
+				}
+			}
+		}
+		
+		.search-bar-wrapper {
+
+		}
+
+		.navigation-main-wrapper {
+
+		}
+
+		.userbar-wrapper {
+
+		}
+	}
+
+}

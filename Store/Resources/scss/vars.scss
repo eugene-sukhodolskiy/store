@@ -30,6 +30,13 @@ $std-pd-lg: 18px;
 $std-pd-xl: 35px;
 $std-pd-xxl: 40px;
 
+$fsize-xsm: .75em;
+$fsize-sm: .9em;
+$fsize-md: 1em;
+$fsize-lg: 1.1em;
+$fsize-xl: 1.4em;
+$fsize-xxl: 2em;
+
 $border-rad-sm: 3px;
 $border-rad-md: 4px;
 $border-rad-lg: 6px;
@@ -47,3 +54,5 @@ $sizes: (
 	"lg": 992px, 
 	"xl": 1200px
 );
+
+$page-content-max-width: 1200px;

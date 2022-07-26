@@ -11,6 +11,11 @@ body {
 	font-family: 'Nunito', sans-serif;
 }
 
+.page {
+	margin-top: 50px;
+	padding-top: $std-pd-xl;
+}
+
 .container {
 	width: 100%;
 	padding-right: $std-pd-lg;
@@ -159,4 +164,8 @@ a {
 		color: $color-success;
 		border-color: $color-success
 	}
+}
+
+ul {
+	list-style-type: none;
 }
