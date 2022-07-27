@@ -3,4 +3,9 @@
 	gap: $std-mg-lg;
 	align-items: center;
 	justify-content: flex-end;
+
+	@include media("max", "xl") {
+	  flex-direction: column;
+	  margin-top: $std-mg-lg;
+	}
 }

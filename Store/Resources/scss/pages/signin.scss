@@ -1,5 +1,9 @@
 .page.signin {
+	.page-content {
+		margin-top: $std-mg-xxl * 2;
+	}
+
 	.component.signin-form {
-		margin-top: 10vh;
+	
 	}
 }

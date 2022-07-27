@@ -1,5 +1,9 @@
 .page.signup {
+	.page-content {
+		margin-top: $std-mg-xxl * 2;
+	}
+
 	.component.signup-form {
-		margin: 10vh auto auto auto;
+		margin: auto;
 	}
 }
