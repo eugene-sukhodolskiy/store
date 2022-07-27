@@ -2,10 +2,13 @@
 
 <?= $this -> join("site/layouts/head", [
 	"title" => $page_title,
-	"page_alias" => $page_alias
+	"page_alias" => $page_alias,
+	"is_auth" => $is_auth
 ]) ?>
 
-<?= $this -> join("site/components/navbar") ?>
+<?= $this -> join("site/components/navbar", [
+	"is_auth" => $is_auth
+]) ?>
 
 <div class="dnone">
 	<?= $this -> join("\Store\Templates\Logic\Alert:site/components/alert", [
@@ -18,7 +21,9 @@
 
 <div class="container">
 	<?= $this -> content() ?>
-	<?= $this -> join("site/layouts/footer") ?>
+	<?= $this -> join("site/layouts/footer", [
+		"is_auth" => $is_auth
+	]) ?>
 </div>
 
 </body>

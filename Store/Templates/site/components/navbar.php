@@ -15,7 +15,11 @@
 		</div>
 
 		<div class="userbar-wrapper">
-			<?= $this -> join("site/components/userbar") ?>
+			<? if($is_auth): ?>
+				<?= $this -> join("site/components/userbar") ?>
+			<? else: ?>
+				<?= $this -> join("site/components/auth-btns-group") ?>
+			<? endif ?>
 		</div>
 	</div>
 </div>

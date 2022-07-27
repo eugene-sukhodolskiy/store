@@ -28,10 +28,10 @@ class Auth extends \Store\Middleware\Controller {
 		]);
 	}
 
-	public function signout_page() {
+	public function signout_page($redirect_to) {
 		$auth = new AuthModel();
 		$auth -> signout();
-		return $this -> utils() -> redirect( app() -> routes -> urlto("Auth@signin_page") );
+		return $this -> utils() -> redirect($redirect_to);
 	}
 
 	public function signup($email, $password, $password_again) {

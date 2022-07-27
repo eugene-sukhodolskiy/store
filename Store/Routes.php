@@ -41,10 +41,10 @@ class Routes {
 		$this -> router -> uri('/', "{$this -> cn}\\Index@index");
 		$this -> router -> uri('/auth/signup.html', "{$this -> cn}\\Auth@signup_page");
 		$this -> router -> uri('/auth/signin.html', "{$this -> cn}\\Auth@signin_page");
-		$this -> router -> uri("/auth/signout.html", "{$this -> cn}\\Auth@signout_page");
 	}
 
 	protected function get_routes() {
+		$this -> router -> get(["redirect_to"], "{$this -> cn}\\Auth@signout_page", "/auth/signout.html");
 	}
 
 	protected function post_routes() {
