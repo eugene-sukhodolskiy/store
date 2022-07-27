@@ -34,6 +34,8 @@
 		.user-name-link {
 			color: $color-text;
 			font-size: $fsize-sm;
+			border: 0;
+			padding: 0;
 	    max-width: 142px;
 		}
 
@@ -43,10 +45,26 @@
 			left: auto;
 			top: auto;
 			margin-left: $std-mg-xsm;
+			margin-top: -1px;
 		}
 	}
 
 	.user-nav-wrapper {
-		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		box-shadow: 1px 3px 3px rgba(0, 0, 0, .05);
+		visibility: hidden;
+		opacity: 0;
+		transition-duration: $trans-du;
+		transition-property: opacity, visibility;
+	}
+
+	&:hover {
+		.user-nav-wrapper {
+			opacity: 1;
+			visibility: visible;
+		}
 	}
 }

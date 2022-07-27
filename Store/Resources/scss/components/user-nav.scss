@@ -1,0 +1,29 @@
+.component.user-nav {
+	background: $color-bg-card;
+	border-radius: $border-rad-md;
+	padding-top: $std-pd-md;
+
+	.user-nav-list {
+		.user-nav-item {
+			width: 100%;
+		}
+
+		.user-nav-link {
+			padding: $std-pd-sm $std-pd-md;
+			border: 0;
+			color: $color-text;
+			width: 100%;
+			box-sizing: border-box;
+			transition-property: background-color, color;
+
+			&:hover,
+			&.active {
+				color: $color-primary;
+			}
+
+			&:hover {
+				background-color: rgba(0, 0, 0, .05);
+			}
+		}
+	}
+}
