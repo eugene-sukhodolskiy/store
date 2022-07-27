@@ -3,6 +3,10 @@
 	border-radius: $border-rad-md;
 	padding-top: $std-pd-md;
 
+	@include media("max", "xl"){
+		padding-top: 0;
+	}	
+
 	.user-nav-list {
 		.user-nav-item {
 			width: 100%;
@@ -23,6 +27,10 @@
 
 			&:hover {
 				background-color: rgba(0, 0, 0, .05);
+			}
+
+			@include media("max", "xl"){
+				padding: $std-pd-lg;
 			}
 		}
 	}

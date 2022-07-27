@@ -6,6 +6,12 @@
 	justify-content: end;
 	position: relative;
 
+	@include media("max", "xl"){
+		justify-content: start;
+		box-sizing: border-box;
+		padding: $std-pd-lg;
+	}
+
 	.userpic-wrapper {
 		border-radius: 100%;
 		border: $border-1;
@@ -46,6 +52,10 @@
 			top: auto;
 			margin-left: $std-mg-xsm;
 			margin-top: -1px;
+
+			@include media("max", "xl"){
+				display: none;
+			}
 		}
 	}
 
@@ -59,6 +69,12 @@
 		opacity: 0;
 		transition-duration: $trans-du;
 		transition-property: opacity, visibility;
+
+		@include media("max", "xl"){
+			opacity: 1;
+			visibility: visible;
+			box-shadow: none;
+		}
 	}
 
 	&:hover {
