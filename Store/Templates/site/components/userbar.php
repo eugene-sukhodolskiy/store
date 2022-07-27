@@ -6,6 +6,7 @@
 	</div>
 	<div class="user-name">
 		<a href="#" class="user-name-link">John Smith Junior</a>
+		<span class="mdi mdi-chevron-down"></span>
 	</div>
 	<div class="user-nav-wrapper">
 		<?= $this -> join("site/components/user-nav") ?>

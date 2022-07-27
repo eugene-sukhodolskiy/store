@@ -1,16 +1,18 @@
 .component.userbar {
 	display: grid;
 	grid-template-columns: max-content max-content;
-	align-items: center;
 	grid-gap: $std-pd-md;
+	align-items: center;
+	justify-content: end;
+	position: relative;
 
 	.userpic-wrapper {
 		border-radius: 100%;
 		border: $border-1;
 		border-color: $color-primary;
 		box-sizing: border-box;
-		width: 44px;
-		height: 44px;
+		width: 40px;
+		height: 40px;
 		padding-top: 1px;
 		padding-left: 1px;
 		
@@ -18,16 +20,29 @@
 			border: 0;
 
 			.userpic {
-				width: 40px;
-				height: 40px;
+				width: 36px;
+				height: 36px;
 				border-radius: 100%;
 			}
 		}
 	}
 
 	.user-name {
+		position: relative;
+		padding-right: 25px;
+
 		.user-name-link {
 			color: $color-text;
+			font-size: $fsize-sm;
+	    max-width: 142px;
+		}
+
+		.mdi {
+			font-size: 20px;
+			position: absolute;
+			left: auto;
+			top: auto;
+			margin-left: $std-mg-xsm;
 		}
 	}
 

@@ -6,6 +6,8 @@
 			class="std-input search-field"
 			placeholder="Поиск"
 		>
-		<button class="submit"></button>
+		<button class="submit">
+			<span class="mdi mdi-magnify"></span>
+		</button>
 	</div>
 </div>

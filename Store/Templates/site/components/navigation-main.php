@@ -10,7 +10,10 @@
 			<a href="#" class="nav-link">Крутая страница</a>
 		</li>
 		<li class="nav-list-item">
-			<a href="#" class="std-btn btn-primary create-uadpost">Новое объявление</a>
+			<a href="#" class="std-btn btn-primary create-uadpost">
+				<span class="mdi mdi-plus"></span>
+				Новое объявление
+			</a>
 		</li>
 	</ul>
 </nav>
