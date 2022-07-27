@@ -10,11 +10,11 @@
 			<?= $this -> join("site/components/search-bar") ?>
 		</div>
 
-		<div class="navigation-main-wrapper show">
+		<div class="navigation-main-wrapper">
 			<?= $this -> join("site/components/navigation-main") ?>
 		</div>
 
-		<div class="userbar-wrapper show">
+		<div class="userbar-wrapper">
 			<? if($is_auth): ?>
 				<?= $this -> join("site/components/userbar") ?>
 			<? else: ?>
@@ -23,7 +23,8 @@
 		</div>
 
 		<button class="btn-nav-on-mob-show">
-			<span class="mdi mdi-menu"></span>	
+			<span class="mdi mdi-menu state-inactive"></span>	
+			<span class="mdi mdi-close state-active"></span>	
 		</button>
 	</div>
 </div>
