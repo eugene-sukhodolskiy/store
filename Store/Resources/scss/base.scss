@@ -169,3 +169,42 @@ a {
 ul {
 	list-style-type: none;
 }
+
+.footer {
+	display: grid;
+	margin-top: $std-mg-xxl;
+	width: 100%;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+
+	.footer-nav {
+		.nav-list {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			grid-gap: $std-mg-sm;
+			justify-content: space-between;
+			font-size: $fsize-sm;
+
+			@include media("max", "md") {
+				grid-template-columns: auto auto;
+			}
+
+			@include media("max", "sm") {
+				justify-content: center;
+				grid-template-columns: auto;
+			}
+		}
+	}
+
+	.copyright {
+		width: 100%;
+		text-align: center;
+		margin-top: $std-mg-lg;
+
+		p {
+			font-size: $fsize-sm;
+			color: $color-text-lite;
+		}
+	}
+}

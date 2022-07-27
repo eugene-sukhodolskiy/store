@@ -20,7 +20,10 @@
 </div>
 
 <div class="container">
-	<?= $this -> content() ?>
+	<div class="page-content">
+		<?= $this -> content() ?>
+	</div>
+	
 	<?= $this -> join("site/layouts/footer", [
 		"is_auth" => $is_auth
 	]) ?>
