@@ -3,25 +3,25 @@ class Alert {
 		this.id = "alert-id-" + (new Date()).getTime() + Math.random();
 		alertsList[this.id] = this;
 		this.type = type;
-		this.content = content;
+		this.content = content || "";
 		this.isSingleton = isSingleton || false;
 		this.isClosable = isClosable || false;
 
-		const referenceComponent = $(`.component.alert[data-id="alert-id-reference"]:eq(0)`);
-		if(!referenceComponent.length){
+		const referenceComponent = document.querySelector(`.component.alert[data-id="alert-id-reference"]`);
+		if(!referenceComponent){
 			return console.error("Reference of alert component not found");
 		}
 
-		this.template = referenceComponent.clone();
+		this.template = referenceComponent.cloneNode(true);
 		this.initComponent();
 	}
 
 	initComponent() {
-		this.template.addClass(`alert-${this.type}`);
-		this.template.attr("data-id", this.id);
-		this.template.find(".content").html(this.content);
+		this.template.classList.add(`alert-${this.type}`);
+		this.template.setAttribute("data-id", this.id);
+		this.template.querySelector(".content").innerHTML = this.content;
 
-		this.template.find(".close-alert").on("click", e => {
+		this.template.querySelector(".close-alert").addEventListener("click", e => {
 			e.preventDefault();
 			this.close();
 		});
@@ -33,18 +33,18 @@ class Alert {
 		}
 
 		if(this.isSingleton){
-			$(container).html("");
+			container.innerHTML = "";
 		}
-		$(container).append(this.template);
+		container.append(this.template);
 		setTimeout(() => {
-			this.template.addClass("show");
+			this.template.classList.add("show");
 		}, 10);
 
 		return this;
 	}
 
 	close() {
-		this.template.removeClass("show");
+		this.template.classList.remove("show");
 		setTimeout(() => {
 			this.template.remove();
 			delete alertsList[this.id];
@@ -52,7 +52,7 @@ class Alert {
 	}
 
 	changeContent(newContent) {
-		this.template.find(".content").html(newContent);
+		this.template.querySelector(".content").innerHTML = newContent;
 	}
 }
 
@@ -64,11 +64,13 @@ const createAlertComponent = (type, content, isSingleton, isClosable) => {
 	return new Alert(type, content, isClosable);
 }
 
-$(document).ready(() => {
-	$(`.component.alert .close-alert`).on("click", e => {
-		e.preventDefault();
-		const alertId = $(e.currentTarget).attr("data-close-alert-id");
-		closeAlertComponent(alertId);
+document.addEventListener("DOMContentLoaded", e => {
+	document.querySelectorAll(`.component.alert .close-alert`).forEach(item => {
+		item.addEventListener("click", e => {
+			e.preventDefault();
+			const alertId = e.currentTarget.getAttribute("data-close-alert-id");
+			closeAlertComponent(alertId);
+		});
 	});
 });
 

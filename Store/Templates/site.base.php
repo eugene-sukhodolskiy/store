@@ -6,6 +6,10 @@
 	"is_auth" => $is_auth
 ]) ?>
 
+<script>
+	const ISAUTH = <?= $is_auth ? "true" : "false" ?>
+</script>
+
 <?= $this -> join("site/components/navbar", [
 	"is_auth" => $is_auth
 ]) ?>
@@ -29,7 +33,6 @@
 	]) ?>
 </div>
 
-<script type="text/javascript" src="/Store/Resources/libs/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/Store/Resources/libs/autosize.min.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Alert.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Auth.js"></script>

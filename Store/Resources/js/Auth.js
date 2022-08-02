@@ -1,44 +1,48 @@
 class Auth {
 	constructor() {
 		this.alert;
-		this.form = $(".auth-form .form:eq(0)");
-		this.alertContainer = this.form.find(".alert-container");
-		this.submitBtn = this.form.find(".submit");
+		this.form = document.querySelector(".auth-form .form");
+		this.alertContainer = this.form.querySelector(".alert-container");
+		this.submitBtn = this.form.querySelector(".submit");
 
 		this.initEvents();
 	}
 
 	initEvents() {
-		this.form.on("submit", (e) => {
+		this.form.addEventListener("submit", e => {
 			e.preventDefault();
-			if(this.submitBtn.hasClass("disable")){
+			if(this.submitBtn.classList.contains("disable")){
 				return false;
 			}
 
-			this.submitBtn.addClass("disable");
-			if(this.form.attr("data-form-alias") == "signup") {
+			this.submitBtn.classList.add("disable");
+			if(this.form.getAttribute("data-form-alias") == "signup") {
 				this.submitSignupForm();
 			}else{
 				this.submitSigninForm();
 			}
 		});
 
-		this.form.find("input[data-for-submiting]").on("input", e => {
-			$(e.currentTarget).removeClass("error");
+		this.form.querySelectorAll("input[data-for-submiting]").forEach(item => {
+			item.addEventListener("input", e => {
+				e.currentTarget.classList.remove("error");
+			})
 		});
 
-		this.form.find("input[data-for-submiting]").on("change", e => {
-			if(this.alert){
-				this.alert.close();
-			}
+		this.form.querySelectorAll("input[data-for-submiting]").forEach(item => {
+			item.addEventListener("change", e => {
+				if(this.alert) {
+					this.alert.close();
+				}
+			});
 		});
 	}
 
 	submitSignupForm() {
-		if(!this.form.find("#terms_of_use").is(":checked")){
+		if(!this.form.querySelector("#terms_of_use").checked){
 			// TODO: use text of messages by alias 
 			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
-			this.submitBtn.removeClass("disable");
+			this.submitBtn.classList.remove("disable");
 			return false;
 		}
 		return this.submit();
@@ -49,49 +53,61 @@ class Auth {
 	}
 
 	submit() {
-		const data = {};
-		const inputs = this.form.find("input[data-for-submiting]");
+		const data = new FormData();
+		const inputs = this.form.querySelectorAll("input[data-for-submiting]");
 
 		for(let input of inputs){
-			input = $(input);
-			input.hasClass("error") && input.removeClass("error");
-			data[ input.attr("name") ] = input.val();
+			input.classList.contains("error") && input.classList.remove("error");
+			data.append(input.getAttribute("name"), input.value);
 		}
 
 		if(this.alert){
 			this.alert.close();
 		}
 
-		$.post(this.form.attr("action"), data, (resp) => {
-			this.submitBtn.removeClass("disable");
+		const xhr = new XMLHttpRequest();		
+		xhr.open(
+			"POST",
+			this.form.getAttribute("action")
+		);
+		
+		xhr.onload = () => {
+			this.submitBtn.classList.remove("disable");
+			
+			if (xhr.status == 200) {
+				const resp = JSON.parse(xhr.response);
 
-			if(!resp){
-				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
-				return false;
-			}
-
-			resp = JSON.parse(resp);
-
-			if(resp.status){
-				this.submitBtn.addClass("disable");
-				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("success", "Успешно! Перенаправление...", true).showIn(this.alertContainer);
-				setTimeout(() => { 
-					document.location = resp.data.redirect_url; 
-				}, resp.data.redirect_delay);
-			}else{
-				for(let field of resp.failed_fields){
-					this.form.find(`[name="${field}"]`).addClass("error");
+				if(!resp){
+					// TODO: use text of messages by alias 
+					this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
+					return false;
 				}
 
-				this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
-				return false;
+				if(resp.status){
+					this.submitBtn.classList.add("disable");
+					// TODO: use text of messages by alias 
+					this.alert = createAlertComponent("success", "Успешно! Перенаправление...", true).showIn(this.alertContainer);
+					setTimeout(() => { 
+						document.location = resp.data.redirect_url; 
+					}, resp.data.redirect_delay);
+				}else{
+					for(let field of resp.failed_fields){
+						this.form.querySelector(`[name="${field}"]`).classList.add("error");
+					}
+
+					this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
+					return false;
+				}
+			} else {
+				// TODO: use text of messages by alias 
+				this.alert = createAlertComponent("danger", "Сервер не доступен", true, true).showIn(this.alertContainer);
 			}
-		});
-	}
+		};
 
-	signout() {
-
+		xhr.onerror = function() {
+		  console.error("Error of request");
+		};
+		
+		xhr.send(data);
 	}
 }

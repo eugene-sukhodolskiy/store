@@ -61,16 +61,16 @@ class SelectLocation {
 		this.marker;
 		this.location;
 
-		this.selectorLocContainer = $(".select-location-wrap");
-		this.displayLocationContainerInside = $(".display-selected-location");
-		this.displayLocationContainerOutside = $(displayLocationContainerOutside);
+		this.selectorLocContainer = document.querySelector(".select-location-wrap");
+		this.displayLocationContainerInside = document.querySelector(".display-selected-location");
+		this.displayLocationContainerOutside = document.querySelector(displayLocationContainerOutside);
 		
 		this.initMap();
 		this.initEvents();
 	}
 
 	initMap() {
-		window.addEventListener("load", () => {
+		window.addEventListener("load", e => {
 			let mapOptions = {
 				center: new google.maps.LatLng(50.4021702, 30.3926104),
 				zoom: 4,
@@ -95,9 +95,9 @@ class SelectLocation {
 				});
 
 				this.loadLocationLabels((resultEN, resultRU, lat, lng) => {
-					this.selectorLocContainer.find(".apply-location").removeClass("disable");
+					this.selectorLocContainer.querySelector(".apply-location").classList.remove("disable");
 					this.displayLocationContainerInside
-						.html(`<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`);
+						.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`;
 				});
 
 				google.maps.event.addListener(this.marker, "click", function(e) {
@@ -111,34 +111,37 @@ class SelectLocation {
 	}
 
 	initEvents() {
-		$(".open-select-map").on("click", e => {
+		document.querySelector(".open-select-map").addEventListener("click", e => {
 			e.preventDefault();
 			this.openLocationSelector();
 		});
 
-		this.selectorLocContainer.find(".close-select-location, .cancel-selecting-location").on("click", e => {
-			e.preventDefault();
-			this.closeLocationSelector();
+		this.selectorLocContainer.querySelectorAll(".close-select-location, .cancel-selecting-location")
+		.forEach(item => {
+			item.addEventListener("click", e => {
+				e.preventDefault();
+				this.closeLocationSelector();
+			});
 		});
 
-		this.selectorLocContainer.find(".apply-location").on("click", e => {
+		this.selectorLocContainer.querySelector(".apply-location").addEventListener("click", e => {
 			e.preventDefault();
-			if($(e.currentTarget).hasClass("disable")) {
+			if(e.currentTarget.classList.contains("disable")) {
 				return false;
 			}
 
 			this.loadLocationLabels((resultEN, resultRU, lat, lng) => {
-				this.selectorLocContainer.find(`[name="lat"]`).val(lat);
-				this.selectorLocContainer.find(`[name="lng"]`).val(lng);
-				this.selectorLocContainer.find(`[name="country_ru"]`).val(resultRU.country);
-				this.selectorLocContainer.find(`[name="country_en"]`).val(resultEN.country);
-				this.selectorLocContainer.find(`[name="region_ru"]`).val(resultRU.region);
-				this.selectorLocContainer.find(`[name="region_en"]`).val(resultEN.region);
-				this.selectorLocContainer.find(`[name="city_ru"]`).val(resultRU.city);
-				this.selectorLocContainer.find(`[name="city_en"]`).val(resultEN.city);
+				this.selectorLocContainer.querySelector(`[name="lat"]`).value = lat;
+				this.selectorLocContainer.querySelector(`[name="lng"]`).value = lng;
+				this.selectorLocContainer.querySelector(`[name="country_ru"]`).value = resultRU.country;
+				this.selectorLocContainer.querySelector(`[name="country_en"]`).value = resultEN.country;
+				this.selectorLocContainer.querySelector(`[name="region_ru"]`).value = resultRU.region;
+				this.selectorLocContainer.querySelector(`[name="region_en"]`).value = resultEN.region;
+				this.selectorLocContainer.querySelector(`[name="city_ru"]`).value = resultRU.city;
+				this.selectorLocContainer.querySelector(`[name="city_en"]`).value = resultEN.city;
 				this.displayLocationContainerOutside
-					.html(`<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`);
-				$(".open-select-map").text("Изменить местоположение");
+					.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`;
+				document.querySelector(".open-select-map").innerHTML = "Изменить местоположение";
 				this.closeLocationSelector();
 			});
 		});
@@ -150,19 +153,40 @@ class SelectLocation {
 		let resultEN = {};
 		let resultRU = {};
 		let query = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDYKb4TgK3Ym5oiPzsTDtEf1jFMnWap3oo&language=en`;
-		$.getJSON(query, resp => {
+		
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", query);
+		xhr.onload = () => {
+			if(!xhr.status == 200){
+				console.error("Error of request");
+				return false;
+			}
+
+			const resp = JSON.parse(xhr.response);
 			resultEN = this.getLocationNamesFromMapRequest(resp);
 
 			let query = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDYKb4TgK3Ym5oiPzsTDtEf1jFMnWap3oo&language=ru`;
-			$.getJSON(query, resp => {
+			const xhr2 = new XMLHttpRequest();
+			xhr2.open("GET", query);
+			xhr2.onload = () => {
+				if(!xhr2.status == 200){
+					console.error("Error of request");
+					return false;
+				}
+
+				const resp = JSON.parse(xhr2.response);
 				resultRU = this.getLocationNamesFromMapRequest(resp);
 				callback(resultEN, resultRU, lat, lng);
-			});
-		});
+			}
+
+			xhr2.send();
+		};
+
+		xhr.send();
 	}
 
 	openLocationSelector() {
-		this.selectorLocContainer.addClass("show");
+		this.selectorLocContainer.classList.add("show");
 			
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
@@ -184,7 +208,7 @@ class SelectLocation {
 	}
 
 	closeLocationSelector() {
-		this.selectorLocContainer.removeClass("show");
+		this.selectorLocContainer.classList.remove("show");
 	}
 
 	getLocationNamesFromMapRequest(resp) {
