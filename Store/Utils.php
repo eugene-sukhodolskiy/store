@@ -35,4 +35,19 @@ class Utils {
 	public function get_msg_by_alias(String $alias){
 		return FCONF['text_msgs'][$alias];
 	}
+
+	public function compress_image(String $source, String $destination, Int $quality) {
+		$info = getimagesize($source);
+
+		if ($info['mime'] == 'image/jpeg') 
+			$image = imagecreatefromjpeg($source);
+		elseif ($info['mime'] == 'image/gif') 
+			$image = imagecreatefromgif($source);
+		elseif ($info['mime'] == 'image/png') 
+			$image = imagecreatefrompng($source);
+
+		imagejpeg($image, $destination, $quality);
+
+		return $destination;
+	}
 }

@@ -1,0 +1,48 @@
+.component.uadpost-form {
+	.form.uadpost {
+		display: grid;
+		grid-template-columns: auto 360px;
+		grid-gap: $std-pd-xl;
+
+		.input-fields-container {
+			.uadpost-row-fields-group {
+				display: grid;
+				grid-gap: $std-pd-xl;
+
+				&.price {
+					grid-template-columns: auto 80px;
+				}
+
+				&.username {
+					grid-template-columns: 1fr 1fr;
+				}
+
+				&.form-control-btns {
+					grid-template-columns: max-content max-content;
+					justify-content: space-between;
+				}
+			}
+
+			.form-control-btns-container {
+				margin-top: $std-pd-xl;
+			}
+
+			.condition {
+				.std-row.form-group {
+					gap: $std-mg-xsm;
+				}
+
+				.form-group {
+					margin-bottom: 0;
+					margin-top: 0;
+				}
+			}
+		}
+
+		.instructions {
+			.instruction-item {
+				margin-bottom: $std-pd-xl;
+			}
+		}
+	}
+}

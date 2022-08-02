@@ -17,9 +17,11 @@ class App {
 				$(".navigation-main-wrapper, .userbar-wrapper").addClass("show");
 			}
 		});
+
+		autosize($("textarea"));
 	}
 }
 
-$(document).ready(function(){
+document.addEventListener("DOMContentLoaded", e => {
 	window.app = new App();
 });

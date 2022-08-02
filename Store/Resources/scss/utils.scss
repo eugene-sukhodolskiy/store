@@ -1,3 +1,11 @@
 .dnone {
 	display: none;
 }
+
+.std-row {
+	display: flex;
+	flex-direction: row;
+  flex-wrap: wrap;
+  gap: $std-mg-lg;
+  align-items: center;
+}

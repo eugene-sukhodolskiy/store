@@ -29,5 +29,11 @@
 	]) ?>
 </div>
 
+<script type="text/javascript" src="/Store/Resources/libs/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/Store/Resources/libs/autosize.min.js"></script>
+<script type="text/javascript" src="/Store/Resources/js/Alert.js"></script>
+<script type="text/javascript" src="/Store/Resources/js/Auth.js"></script>
+<script type="text/javascript" src="/Store/Resources/js/App.js"></script>
+
 </body>
 </html>
