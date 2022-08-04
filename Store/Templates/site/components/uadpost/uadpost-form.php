@@ -17,6 +17,8 @@
 				>
 			</div>
 
+			<?= $this -> join("site/components/img-uploader") ?>
+
 			<div class="form-group">
 				<label for="uadpost-description" class="form-label">
 					Описание

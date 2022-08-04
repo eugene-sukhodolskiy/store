@@ -36,6 +36,7 @@
 <script type="text/javascript" src="/Store/Resources/libs/autosize.min.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Alert.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Auth.js"></script>
+<script type="text/javascript" src="/Store/Resources/js/ImgUploader.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/App.js"></script>
 
 </body>
