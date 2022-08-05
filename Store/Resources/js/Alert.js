@@ -13,6 +13,7 @@ class Alert {
 		}
 
 		this.template = referenceComponent.cloneNode(true);
+		this.template.getInstance = () => this;
 		this.initComponent();
 	}
 
