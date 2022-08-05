@@ -38,6 +38,10 @@ body {
 	padding: $std-pd-xl;
 	border-radius: $border-rad-xl;
 	background-color: $color-bg-card;
+
+	@include media("max", "sm") {
+		padding: $std-pd-lg;
+	}
 }
 
 .form-group {

@@ -45,6 +45,10 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		grid-gap: $std-mg-md;
+
+		@include media("max", "sm") {
+			grid-template-columns: 1fr 1fr;
+		}	
 	}
 
 	.add-img, .selected-img {
@@ -59,6 +63,14 @@
 		box-sizing: border-box;
 		transition-duration: $trans-du;
 		transition-property: background-color;
+
+		@include media("max", "xl") {
+			height: 100px;
+		}	
+
+		@include media("max", "lg") {
+			height: 120px;
+		}
 
 		img {
 			width: 100%;
@@ -75,6 +87,11 @@
 
 	.add-img {
 		cursor: default;
+
+		@include media("max", "xl") {
+			flex-direction: column;
+			text-align: center;
+		}	
 
 		&:hover {
 			background-color: $color-bg-card;
