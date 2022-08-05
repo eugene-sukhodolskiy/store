@@ -17,7 +17,9 @@
 				>
 			</div>
 
-			<?= $this -> join("site/components/img-uploader") ?>
+			<?= $this -> join("site/components/img-uploader", [
+				"number_images" => 8
+			]) ?>
 
 			<div class="form-group">
 				<label for="uadpost-description" class="form-label">
@@ -164,8 +166,8 @@
 			<div class="form-group form-control-btns-container">
 				<div class="uadpost-row-fields-group form-control-btns">
 					<div class="submit-group">
-						<button class="std-btn btn-success submit" role="submit">Опубликовать</button>
-						<button class="std-btn btn-primary submit-to-draft" role="submit">В черновики</button>
+						<button class="std-btn btn-success submit">Опубликовать</button>
+						<button class="std-btn btn-primary submit-to-draft">В черновики</button>
 					</div>
 					<div class="cancel-group">
 						<a href="#" class="std-btn btn-default cancel">Отмена</a>

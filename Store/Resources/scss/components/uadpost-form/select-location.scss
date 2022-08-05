@@ -23,6 +23,7 @@
 
 		.map-card {
 			width: 320px;
+			box-sizing: border-box;
 			padding: $std-pd-lg;
 			background-color: $color-bg-card;
 			border-radius: $border-rad-xl;
@@ -30,6 +31,10 @@
 			left: calc(50% - 160px);
 			bottom: 50px;
 			position: absolute;
+
+			@include media("max", "md") {
+				padding: $std-pd-md;
+			}
 
 			&-heading {
 				margin-bottom: $std-mg-lg;

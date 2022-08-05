@@ -4,10 +4,22 @@
 		grid-template-columns: auto 360px;
 		grid-gap: $std-pd-xl;
 
+		@include media("max", "lg") {
+			grid-template-columns: auto;
+		}
+
+		@include media("max", "md") {
+			padding: $std-pd-md;
+		}
+
 		.input-fields-container {
 			.uadpost-row-fields-group {
 				display: grid;
 				grid-gap: $std-pd-xl;
+
+				@include media("max", "sm") {
+					grid-gap: $std-pd-lg;
+				}
 
 				&.price {
 					grid-template-columns: auto 80px;
@@ -15,16 +27,37 @@
 
 				&.username {
 					grid-template-columns: 1fr 1fr;
+
+					@include media("max", "sm") {
+						grid-template-columns: auto;
+					}
 				}
 
 				&.form-control-btns {
 					grid-template-columns: max-content max-content;
 					justify-content: space-between;
+
+					@include media("max", "sm") {
+						grid-template-columns: 1fr;
+					}
 				}
 			}
 
 			.form-control-btns-container {
 				margin-top: $std-pd-xl;
+
+				@include media("max", "sm") {
+					margin-top: $std-pd-lg;
+				}
+
+				.submit-group {
+					@include media("max", "sm") {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+					}
+				}
 			}
 
 			.condition {
@@ -42,6 +75,16 @@
 		.instructions {
 			.instruction-item {
 				margin-bottom: $std-pd-xl;
+			}
+		}
+
+		.component.select-location {
+			> .std-row {
+				@include media("max", "sm") {
+					flex-direction: column-reverse;
+					gap: $std-mg-sm;
+					align-items: flex-start;
+				}
 			}
 		}
 	}

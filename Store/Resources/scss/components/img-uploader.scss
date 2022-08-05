@@ -4,6 +4,10 @@
 	border: $border-1;
 	border-radius: $border-rad-md;
 
+	@include media("max", "md") {
+		padding: $std-pd-md;
+	}
+
 	.img-uploader-container {
 		position: relative;
 		overflow: hidden;
