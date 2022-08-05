@@ -38,27 +38,33 @@ class Routes {
 	}
 
 	protected function uri_routes() {
-		$this -> router -> uri('/', "{$this -> cn}\\Index@index");
-		$this -> router -> uri('/auth/signup.html', "{$this -> cn}\\Auth@signup_page");
-		$this -> router -> uri('/auth/signin.html', "{$this -> cn}\\Auth@signin_page");
-		$this -> router -> uri('/uadpost/create.html', "{$this -> cn}\\UAdPost@create_page");
+		$this -> router -> uri('/', "{$this -> cn}\\IndexController@index");
+		$this -> router -> uri('/auth/signup.html', "{$this -> cn}\\AuthController@signup_page");
+		$this -> router -> uri('/auth/signin.html', "{$this -> cn}\\AuthController@signin_page");
+		$this -> router -> uri('/uadpost/create.html', "{$this -> cn}\\UAdPostController@create_page");
 	}
 
 	protected function get_routes() {
-		$this -> router -> get(["redirect_to"], "{$this -> cn}\\Auth@signout_page", "/auth/signout.html");
+		$this -> router -> get(["redirect_to"], "{$this -> cn}\\AuthController@signout_page", "/auth/signout.html");
 	}
 
 	protected function post_routes() {
 		$this -> router -> post(
 			[ "email", "password", "password_again" ], 
-			"{$this -> cn}\\Auth@signup", 
-			"/api/signup"
+			"{$this -> cn}\\AuthController@signup", 
+			"/auth/signup"
 		);
 
 		$this -> router -> post(
 			[ "email", "password" ], 
-			"{$this -> cn}\\Auth@signin",
-			"/api/signin"
+			"{$this -> cn}\\AuthController@signin",
+			"/auth/signin"
+		);
+
+		$this -> router -> post(
+			[ "img" ], 
+			"{$this -> cn}\\ImgUploaderController@upload_img",
+			"/upload/img"
 		);
 	}
 

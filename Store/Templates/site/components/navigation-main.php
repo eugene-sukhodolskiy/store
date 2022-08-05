@@ -11,7 +11,7 @@
 		</li>
 		<li class="nav-list-item">
 			<a 
-				href="<?= app() -> routes -> urlto("UAdPost@create_page") ?>" 
+				href="<?= app() -> routes -> urlto("UAdPostController@create_page") ?>" 
 				class="std-btn btn-primary create-uadpost"
 			>
 				<span class="mdi mdi-plus"></span>

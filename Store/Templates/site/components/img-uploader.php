@@ -7,6 +7,11 @@
 			accept="image/jpeg"
 			multiple
 		>
+
+		<div class="drag-and-drop-curtain">
+			<span class="mdi mdi-upload-outline"></span>
+			<span>Отпустите для загрузки <strong>JPEG</strong> файла</span>
+		</div>
 		
 		<div class="selected-imgs-grid">
 			<div class="add-img">
@@ -26,6 +31,9 @@
 							<span class="mdi mdi-trash-can-outline"></span>
 						</button>
 					</div>
+					<div class="upload-progress-bar">
+						<div class="bar"></div>
+					</div>
 				</div>
 			<? endfor ?>
 		</div>
@@ -35,6 +43,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		new ImgUploader(".img-uploader-container", 8);
+		new ImgUploader(".img-uploader-container", 8, "<?= app() -> routes -> urlto("ImgUploaderController@upload_img") ?>");
 	});
 </script>

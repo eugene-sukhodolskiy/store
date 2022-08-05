@@ -11,7 +11,7 @@
 		</li>
 		<li class="user-nav-item">
 			<a 
-				href="<?= app() -> routes -> urlto("Auth@signout_page", [ "redirect_to" => $_SERVER["REQUEST_URI"] ]) ?>" 
+				href="<?= app() -> routes -> urlto("AuthController@signout_page", [ "redirect_to" => $_SERVER["REQUEST_URI"] ]) ?>" 
 				class="user-nav-link"
 			>Выйти</a>
 		</li>

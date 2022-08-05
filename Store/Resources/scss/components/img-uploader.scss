@@ -5,9 +5,42 @@
 	border-radius: $border-rad-md;
 
 	.img-uploader-container {
+		position: relative;
+		overflow: hidden;
 
+		.drag-and-drop-curtain {
+			background-color: rgba(255, 255, 255, .8);
+			color: $color-text;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			font-size: $fsize-lg;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 2;
+			opacity: 0;
+			visibility: hidden;
+			transition-duration: $trans-du;
+			transition-property: opacity, visibility;
+
+			.mdi {
+				font-size: $fsize-xxl;
+				display: block;
+			}
+		}
+
+		&.drag-and-drop {
+			.drag-and-drop-curtain {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
 	}
-		
+
 	.selected-imgs-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -23,6 +56,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center; 
+		box-sizing: border-box;
 		transition-duration: $trans-du;
 		transition-property: background-color;
 
@@ -103,6 +137,41 @@
 
 			.mdi {
 				display: initial;
+			}
+
+			.btns-group {
+				display: none;
+			}
+		}
+
+		.upload-progress-bar {
+			position: absolute;
+			bottom: 0;
+			height: 15px;
+			width: 100%;
+			background-color: rgba(255, 255, 255, .4);
+			opacity: 0;
+			visibility: hidden;
+			transition-duration: $trans-du;
+			transition-property: opacity, visibility;
+
+			.bar {
+				width: 0;
+				height: 100%;
+				background-color: #fff;
+				transition-duration: $trans-du;
+				transition-property: width;
+			}
+		}
+
+		&.load-process {
+			.upload-progress-bar {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			img {
+				opacity: .5;
 			}
 
 			.btns-group {

@@ -2,6 +2,6 @@
 
 <?= $this -> join("\Store\Templates\Logic\SigninForm:site/components/signin-form", [
 	"title" => "Войти",
-	"action" => app() -> routes -> urlto("Auth@signin"),
+	"action" => app() -> routes -> urlto("AuthController@signin"),
 	"addition_classes" => []
 ]) ?>

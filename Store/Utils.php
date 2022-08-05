@@ -50,4 +50,23 @@ class Utils {
 
 		return $destination;
 	}
+
+	public function image_resize(String $file_name, String $output, $quality = 100, Int $width, $height = 0) {
+		list($wid, $ht) = \getimagesize($file_name);
+		$r = $wid / $ht;
+		$height = $height ? $height : $width / $r;
+
+		if ($width / $height > $r) {
+			$new_width = $height * $r;
+			$new_height = $height;
+		} else {
+			$new_height = $width / $r;
+			$new_width = $width;
+		}
+		
+		$source = \imagecreatefromjpeg($file_name);
+		$dst = \imagecreatetruecolor($new_width, $new_height);
+		\imagecopyresampled($dst, $source, 0, 0, 0, 0, $new_width, $new_height, $wid, $ht);
+		\imagejpeg($dst, $output, $quality);
+	}
 }

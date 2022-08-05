@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="form-footer">
-			У меня нет аккаунта. <a href="<?= app() -> routes -> urlto('Auth@signup_page') ?>">Зарегистрироватся</a>
+			У меня нет аккаунта. <a href="<?= app() -> routes -> urlto('AuthController@signup_page') ?>">Зарегистрироватся</a>
 		</div>
 	</form>
 </div>

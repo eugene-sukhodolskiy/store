@@ -16,6 +16,7 @@ return [
 	"incorrect_password" => "Не верный пароль",
 	"not_found_any_sessions" => "Требуется войти в систему",
 	"already_logged" => "Вы уже в системе",
+	"error_of_img_upload" => "Ошибка загрузки изображения"
 
 	// Other
 ];

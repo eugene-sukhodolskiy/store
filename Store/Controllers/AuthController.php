@@ -2,13 +2,13 @@
 
 namespace Store\Controllers;
 
-use \Store\Models\AuthModel;
+use \Store\Models\Auth;
 use \Store\Entities\User;
 
-class Auth extends \Store\Middleware\Controller {
+class AuthController extends \Store\Middleware\Controller {
 	public function signup_page() {
 		if(app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("Index@index") );
+			return $this -> utils() -> redirect( app() -> routes -> urlto("IndexController@index") );
 		}
 		
 		return $this -> new_template() -> make('site/signup', [
@@ -19,7 +19,7 @@ class Auth extends \Store\Middleware\Controller {
 
 	public function signin_page() {
 		if(app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("Index@index") );
+			return $this -> utils() -> redirect( app() -> routes -> urlto("IndexController@index") );
 		}
 
 		return $this -> new_template() -> make('site/signin', [
@@ -29,7 +29,7 @@ class Auth extends \Store\Middleware\Controller {
 	}
 
 	public function signout_page($redirect_to) {
-		$auth = new AuthModel();
+		$auth = new Auth();
 		$auth -> signout();
 		return $this -> utils() -> redirect($redirect_to);
 	}
@@ -59,7 +59,7 @@ class Auth extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("email_already_exists", [ "email" ]);
 		}
 
-		$auth = new AuthModel();
+		$auth = new Auth();
 		$user = $auth -> signup($email, $password);
 
 		if(!$user) {
@@ -67,7 +67,7 @@ class Auth extends \Store\Middleware\Controller {
 		}
 
 		return $this -> utils() -> response_success([
-			"redirect_url" => app() -> routes -> urlto("Auth@signin_page"), 
+			"redirect_url" => app() -> routes -> urlto("AuthController@signin_page"), 
 			"redirect_delay" => 250
 		]);
 	}
@@ -92,7 +92,7 @@ class Auth extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("unregistered_email", [ "email" ]);
 		}
 
-		$auth = new AuthModel();
+		$auth = new Auth();
 		$token = $auth -> signin($email, $password);
 
 		if(!$token){
@@ -111,7 +111,7 @@ class Auth extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("not_found_any_sessions");
 		}
 
-		$auth = new AuthModel();
+		$auth = new Auth();
 		$auth -> signout();
 		return $this -> utils() -> response_success();
 	}

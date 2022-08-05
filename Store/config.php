@@ -18,5 +18,13 @@ return [
 	"logs_folder" => "Store/Logs",
 
 	"controllers_folder" => "Controllers",
-	"text_msgs" => require_once("Store/text-msgs.php")
+	"text_msgs" => require_once("Store/text-msgs.php"),
+	"users_folder" => "users_files",
+
+	"image_resize_map" => [
+		"original" => [3840, 80],
+		"md" => [900, 85],
+		"sm" => [400, 75],
+		"xs" => [160, 75] 
+	]
 ]; 
