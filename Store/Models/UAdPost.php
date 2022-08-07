@@ -18,6 +18,7 @@ class UAdPost extends \Store\Middleware\Model{
 	) {
 		return $this -> thin_builder() -> insert($this -> table_name, [
 			"uid" => $uid,
+			"alias" => $this -> utils() -> gen_from_text_alias($title),
 			"title" => $title,
 			"content" => $content,
 			"condition_used" => $condition,
