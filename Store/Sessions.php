@@ -2,6 +2,7 @@
 
 namespace Store;
 use \Store\Entities\Session;
+use \Store\Entities\User;
 
 class Sessions {
 	protected $auth_user_instance;
@@ -66,7 +67,7 @@ class Sessions {
 				return null;
 			}
 
-			$this -> auth_user_instance = new User($session["uid"]);
+			$this -> auth_user_instance = new User($session -> get("uid"));
 		}
 
 		return $this -> auth_user_instance;

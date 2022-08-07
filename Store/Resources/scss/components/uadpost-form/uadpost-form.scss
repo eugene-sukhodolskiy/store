@@ -58,6 +58,16 @@
 						justify-content: space-between;
 					}
 				}
+
+				.alert-container {
+					width: 100%;
+					min-height: 50px;
+					margin-top: $std-mg-lg;
+
+					.component.alert {
+						margin: 0;
+					}
+				}
 			}
 
 			.condition {

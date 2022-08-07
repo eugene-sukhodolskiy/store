@@ -20,7 +20,7 @@ class Images extends \Store\Middleware\Model {
 	public function upload(String $img) {
 		list(, $img) = explode(";base64", $img);
 		$img = base64_decode($img);
-		$alias = uniqid();
+		$alias = uniqid(mt_rand(), true);
 		$filepath = $this -> get_path_to_image($alias);
 		if(!file_put_contents($filepath, $img)) {
 			return false;

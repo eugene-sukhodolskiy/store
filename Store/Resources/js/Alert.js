@@ -62,7 +62,7 @@ const closeAlertComponent = alertId => {
 }
 
 const createAlertComponent = (type, content, isSingleton, isClosable) => {
-	return new Alert(type, content, isClosable);
+	return new Alert(type, content, isSingleton, isClosable);
 }
 
 document.addEventListener("DOMContentLoaded", e => {

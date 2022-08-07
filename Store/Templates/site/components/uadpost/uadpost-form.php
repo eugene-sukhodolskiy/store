@@ -1,17 +1,27 @@
-<div class="component uadpost-form">
-	<form action="." class="form uadpost">
-		<input type="hidden" name="flag-to_draft" value="0">
+<? 
+/**
+ * @var String $action
+ * @var String $action_to_draft
+ */
+?>
 
+<div class="component uadpost-form">
+	<form 
+		action="<?= $action ?>" 
+		data-action-submit="<?= $action ?>"
+		data-action-submit-to-draft="<?= $action_to_draft ?>"
+		class="form uadpost"
+	>
 		<div class="input-fields-container">
 			<div class="form-group">
-				<label for="uadpost-title" class="form-label">
+				<label for="title" class="form-label">
 					Название
 				</label>
 				<input 
 					type="text" 
 					class="std-input"
-					id="uadpost-title"
-					name="uadpost-title"
+					id="title"
+					name="title"
 					maxlength="100"
 					placeholder="Название" 
 				>
@@ -22,13 +32,13 @@
 			]) ?>
 
 			<div class="form-group">
-				<label for="uadpost-description" class="form-label">
+				<label for="content" class="form-label">
 					Описание
 				</label>
 				<textarea
 					class="std-input"
-					id="uadpost-description"
-					name="uadpost-description"
+					id="content"
+					name="content"
 					maxlength="10000"
 					placeholder="Опишите, что хотите продать"
 				></textarea>
@@ -44,6 +54,7 @@
 							class="std-input"
 							name="condition"
 							id="condition_used"
+							value="used"
 							title="Б/У"
 							checked
 						>
@@ -56,6 +67,7 @@
 							class="std-input"
 							name="condition"
 							id="condition_new"
+							value="new"
 							title="Новый"
 						>
 						<label class="form-label" for="condition_new">Новый</label>
@@ -64,25 +76,26 @@
 			</div>
 
 			<div class="form-group">
-				<label for="uadpost-price" class="form-label">
+				<label for="price" class="form-label">
 					Цена
 				</label>
 				<div class="uadpost-row-fields-group price">
 					<input 
 						type="number" 
 						class="std-input"
-						id="uadpost-price"
-						name="uadpost-price"
+						id="price"
+						name="price"
 						max="1000000000"
 						min="0"
 						step="1"
+						value="0"
 						placeholder="Укажите цену" 
 					>
 
 					<select 
 						class="std-input" 
-						name="uadpost-price-currency" 
-						id="uadpost-price-currency"
+						name="currency" 
+						id="currency"
 					>
 						<option value="UAH">UAH</option>
 						<option value="USD">USD</option>
@@ -106,23 +119,23 @@
 			<hr>
 
 			<div class="form-group">
-				<label for="uadpost-first_name" class="form-label">
+				<label for="first_name" class="form-label">
 					Ваше имя и фамилия
 				</label>
 				<div class="uadpost-row-fields-group username">
 					<input 
 						type="text" 
 						class="std-input"
-						id="uadpost-first_name"
-						name="uadpost-first_name"
+						id="first_name"
+						name="first_name"
 						maxlength="100"
 						placeholder="Ваше имя"
 					>
 					<input 
 						type="text" 
 						class="std-input"
-						id="uadpost-second_name"
-						name="uadpost-second_name"
+						id="second_name"
+						name="second_name"
 						maxlength="100"
 						placeholder="Ваша фамилия" 
 					>
@@ -130,14 +143,14 @@
 			</div>
 
 			<div class="form-group">
-				<label for="uadpost-phone" class="form-label">
+				<label for="phone" class="form-label">
 					Ваш номер телефона
 				</label>
 				<input 
 					type="tel" 
 					class="std-input"
-					id="uadpost-phone"
-					name="uadpost-phone"
+					id="phone"
+					name="phone"
 					maxlength="100"
 					placeholder="Ваш номер телефона" 
 				>
@@ -173,6 +186,8 @@
 						<a href="#" class="std-btn btn-default cancel">Отмена</a>
 					</div>
 				</div>
+
+				<div class="alert-container"></div>
 			</div>
 		</div>
 
@@ -190,3 +205,11 @@
 		</div>
 	</form>
 </div>
+
+<script type="text/javascript" src="/Store/Resources/js/UAdPostForm.js"></script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", e => {
+		new UAdPostForm(".component.uadpost-form");
+	});
+</script>

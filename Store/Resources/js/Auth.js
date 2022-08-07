@@ -77,12 +77,6 @@ class Auth {
 			if (xhr.status == 200) {
 				const resp = JSON.parse(xhr.response);
 
-				if(!resp){
-					// TODO: use text of messages by alias 
-					this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
-					return false;
-				}
-
 				if(resp.status){
 					this.submitBtn.classList.add("disable");
 					// TODO: use text of messages by alias 
@@ -99,13 +93,16 @@ class Auth {
 					return false;
 				}
 			} else {
+				console.error("Undefined error on server");
 				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("danger", "Сервер не доступен", true, true).showIn(this.alertContainer);
+				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
 			}
 		};
 
 		xhr.onerror = function() {
-		  console.error("Error of request");
+		  console.error("Error of request to server");
+			// TODO: use text of messages by alias 
+			this.alert = createAlertComponent("danger", "Сервер не доступен", true, true).showIn(this.alertContainer);
 		};
 		
 		xhr.send(data);

@@ -7,7 +7,7 @@ class ImgUploader {
 		this.emptyTemplate = this.container.querySelector(".selected-img.empty").cloneNode(true);
 		this.uploadAction = uploadAction;
 
-		this.container.getPreparedData = () => this.getPreparedData();
+		this.container.parentNode.getInstance = () => this;
 	}
 
 	initEvents() {

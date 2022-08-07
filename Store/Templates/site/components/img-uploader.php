@@ -46,6 +46,8 @@
 	</div>
 </div>
 
+<script type="text/javascript" src="/Store/Resources/js/ImgUploader.js"></script>
+
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		new ImgUploader(".img-uploader-container", <?= $number_images ?>, "<?= app() -> routes -> urlto("ImgUploaderController@upload_img") ?>");

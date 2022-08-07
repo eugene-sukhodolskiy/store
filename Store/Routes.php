@@ -5,21 +5,18 @@ namespace Store;
 class Routes {
 	/**
 	 * Instance of Router module
-	 * @var [type]
 	 */
-	protected $router;
+	protected \Fury\Modules\Router\Router $router;
 
 	/**
 	 * Controllers folder
-	 * @var [type]
 	 */
-	protected $cf;
+	protected String $cf;
 
 	/**
 	 * Controllers namespace
-	 * @var [type]
 	 */
-	protected $cn;
+	protected String $cn;
 
 	/**
 	 * @method __construct
@@ -65,6 +62,18 @@ class Routes {
 			[ "img" ], 
 			"{$this -> cn}\\ImgUploaderController@upload_img",
 			"/upload/img"
+		);
+		
+		$this -> router -> post(
+			[ "title" ], 
+			"{$this -> cn}\\UAdPostController@create",
+			"/uadpost/create"
+		);
+
+		$this -> router -> post(
+			[ "title" ],
+			"{$this -> cn}\\UAdPostController@create_draft",
+			"/uadpost/create-draft"
 		);
 	}
 
