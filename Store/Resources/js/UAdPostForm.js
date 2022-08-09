@@ -57,6 +57,13 @@ class UAdPostForm {
 			this.form.classList.remove("disable");
 
 			if(xhr.status == 200) {
+				try {
+					JSON.parse(xhr.response);
+				} catch(e) {
+					this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
+					console.error("JSON unvalid, maybe server error");
+				}
+				
 				const resp = JSON.parse(xhr.response);
 				console.log(resp);
 

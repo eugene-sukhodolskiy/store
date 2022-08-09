@@ -191,6 +191,10 @@ function dd($var, $die_flag = true){
 	echo $die_flag ? die($dump) : $dump;
 }
 
+function ddjson($var, $die_flag = true) {
+	$die_flag ? die(json_encode([ "die" => $var ])) : print(json_encode([ "die" => $var ]));
+}
+
 function app(){
 	return AppContainer::app();
 }

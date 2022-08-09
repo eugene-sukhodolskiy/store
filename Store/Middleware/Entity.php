@@ -6,7 +6,7 @@ class Entity {
 	protected $entity_tablename;
 	protected $entity_id;
 	protected $data;
-	protected $fiedls;
+	protected $fields;
 	protected $modified_fields = [];
 	protected $field_name_of_update_at = "update_at";
 
@@ -47,13 +47,13 @@ class Entity {
 
 	public function get(String $field_name) {
 		// TODO: normalize displaying of error
-		return isset($this -> data[$field_name]) ? $this -> data[$field_name] : dd("Error, field `{$field_name}` not found");
+		return in_array($field_name, $this -> fields) ? $this -> data[$field_name] : ddjson(["Error of GET, field `{$field_name}` not found", $this -> data, isset($this -> data[$field_name]) ]);
 	}
 
 	public function set(String $field_name, $field_val) {
 		if(!in_array($field_name, $this -> fields)){
 			// TODO: normalize displaying of error
-			dd("Error, field `{$field_name}` not found");
+			ddjson("Error of SET, field `{$field_name}` not found");
 		}
 	
 		$this -> data[$field_name] = $field_val;
@@ -69,12 +69,20 @@ class Entity {
 		$where = [ ["id", "=", $this -> entity_id] ];
 		$this -> modified_fields[$this -> field_name_of_update_at] = date("Y-m-d H:i:s");
 
-		if(!$this -> thin_builder() -> update($this -> table_name, $this -> modified_fields, $where)) {
+		if(!$this -> thin_builder() -> update($this -> entity_tablename, $this -> modified_fields, $where)) {
 			return false;
 		}
 
 		$result = $this -> modified_fields;
 		$this -> modified_fields = [];
 		return $result;
+	}
+
+	public function __get($field_name) {
+		return $this -> get($field_name);
+	}
+
+	public function __set($field_name, $field_val) {
+		return $this -> set($field_name, $field_val);
 	}
 }

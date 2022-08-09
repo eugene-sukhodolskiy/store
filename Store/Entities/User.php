@@ -3,56 +3,31 @@
 namespace Store\Entities;
 
 class User extends \Store\Middleware\Entity {
-	public static $tablename = "users";
+	public static $table_name = "users";
+	protected $profile_instance;
 
 	public function __construct(Int $uid, Array $data = []) {
-		parent::__construct(self::$tablename, $uid, [
+		parent::__construct(self::$table_name, $uid, [
 			"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
 		], $data);
 	}	
 
-	// Static methods
-
-	public static function create_new_user(String $alias, String $email, String $password) {
-		$password_hash = sha1($password);
-
-		$uid = app() -> thin_builder -> insert(self::$tablename, [
-			"alias" => $alias,
-			"email" => $email,
-			"password" => $password_hash,
-			"create_at" => date("Y-m-d H:i:s")
-		]);
-
-		if(!$uid){
-			return false;
+	public function profile() {
+		if(!$this -> profile_instance) {
+			$this -> profile_instance = app() -> factory -> get_profile_by("uid", $this -> id());
 		}
-
-		return new User($uid);
+		
+		return $this -> profile_instance;
 	}
+
+	// Static methods
 
 	public static function is_exists_by(String $field_name, String $field_value) {
 		return app() -> utils -> table_row_is_exists(
 			app() -> thin_builder,
-			self::$tablename,
+			self::$table_name,
 			$field_name,
 			$field_value
 		);
-	}
-
-	public static function get_user_by_email(String $email) {
-		$result_data = app() -> thin_builder -> select(
-			self::$tablename, 
-			["id"], 
-			[ ["email", "=", $email] ], 
-			["id"], 
-			"DESC", 
-			[0, 1]
-		);
-
-		if(!$result_data) {
-			return false;
-		}
-
-		return new User($result_data[0]["id"]);
 	}
 }

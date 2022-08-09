@@ -90,6 +90,24 @@ class UAdPostController extends \Store\Middleware\Controller {
 			$city_ru, $images_number
 		);
 
+		$profile = app() -> sessions -> auth_user() -> profile();
+		if(
+			$profile -> first_name != $first_name 
+			or $profile -> second_name != $second_name
+			or $profile -> phone_number != $phone
+		) {
+			$profile -> first_name = $first_name;
+			$profile -> second_name = $second_name;
+			$profile -> phone_number = $phone;
+		}
+
+		if($profile -> location_lat != $lat or $profile -> location_lng != $lng) {
+			$profile -> location_lat = $lat;
+			$profile -> location_lng = $lng;
+		}
+
+		$profile -> update();
+		
 		return $this -> utils() -> response_success($_POST);
 	}
 

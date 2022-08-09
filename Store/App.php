@@ -14,6 +14,8 @@ class App extends \Fury\Kernel\BaseApp{
 	// CUSTOM
 	public $utils;
 	public $sessions;
+	public $creator;
+	public $facoty;
 
 	public function __construct(){
 		parent::__construct();
@@ -31,6 +33,8 @@ class App extends \Fury\Kernel\BaseApp{
 		// CUSTOM
 		$this -> utils = new Utils();
 		$this -> sessions = new Sessions();
+		$this -> creator = new Creator();
+		$this -> factory = new Factory();
 	}
 
 	public function root_folder(){
