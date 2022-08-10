@@ -4,6 +4,7 @@ namespace Store;
 
 use \Fury\Modules\Router\Router;
 use \Fury\Modules\ThinBuilder\ThinBuilder;
+use \Store\Factory\Factory;
 
 class App extends \Fury\Kernel\BaseApp{
 	public $routes;
@@ -14,8 +15,7 @@ class App extends \Fury\Kernel\BaseApp{
 	// CUSTOM
 	public $utils;
 	public $sessions;
-	public $creator;
-	public $facoty;
+	public $factory;
 
 	public function __construct(){
 		parent::__construct();
@@ -33,7 +33,6 @@ class App extends \Fury\Kernel\BaseApp{
 		// CUSTOM
 		$this -> utils = new Utils();
 		$this -> sessions = new Sessions();
-		$this -> creator = new Creator();
 		$this -> factory = new Factory();
 	}
 

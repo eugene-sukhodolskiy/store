@@ -6,6 +6,10 @@ use \Store\Models\UAdPost;
 
 class UAdPostController extends \Store\Middleware\Controller {
 	public function create_page() {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
 		return $this -> new_template() -> make('site/create.uadpost', [
 			'page_title' => 'Новое объявление',
 			'page_alias' => 'page create-uadpost'
@@ -14,7 +18,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 	public function create() {
 		if(!app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+			return $this -> utils() -> response_error("unlogged_user");
 		}
 
 		extract($this -> get_post_data());
@@ -81,14 +85,17 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		$images_number = (!isset($imgs) or $imgs == "") ? 0 : substr_count($imgs, ",") + 1;
 
-		$uadpost = new UAdPost();
-		$post_id = $uadpost -> create(
+		$uadpost = app() -> factory -> creator() -> create_uadpost(
 			app() -> sessions -> auth_user() -> id(),
 			$title, $content, $condition, $exchange_flag, 
 			$price, $currency, $lat, $lng, $country_en, 
 			$country_ru, $region_en, $region_ru, $city_en, 
 			$city_ru, $images_number
 		);
+
+		if(!$uadpost) {
+			return $this -> utils() -> response_error("fail_creating_uadpost");
+		}
 
 		$profile = app() -> sessions -> auth_user() -> profile();
 		if(
@@ -107,6 +114,19 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		$profile -> update();
+
+		if($images_number) {
+			$imgs_aliases = explode(",", $imgs);
+			foreach($imgs_aliases as $i => $alias) {
+				app() -> factory -> creator() -> create_image(
+					app() -> sessions -> auth_user() -> id(),
+					$uadpost -> id(),
+					"UAdPost",
+					$alias,
+					$i
+				);
+			}
+		}
 		
 		return $this -> utils() -> response_success($_POST);
 	}
@@ -114,7 +134,6 @@ class UAdPostController extends \Store\Middleware\Controller {
 	public function create_draft() {
 		return $this -> utils() -> response_success($_POST);
 	}
-
 
 	protected function get_post_data() {
 		$expected_fields = [

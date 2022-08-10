@@ -6,14 +6,12 @@ class Entity {
 	protected $entity_tablename;
 	protected $entity_id;
 	protected $data;
-	protected $fields;
 	protected $modified_fields = [];
 	protected $field_name_of_update_at = "update_at";
 
-	public function __construct(String $entity_tablename, Int $entity_id, Array $fields, Array $data = []) {
+	public function __construct(String $entity_tablename, Int $entity_id, Array $data = []) {
 		$this -> entity_tablename = $entity_tablename;
 		$this -> entity_id = $entity_id;
-		$this -> fields = $fields;
 
 		$where = [
 		  ['id', '=', $this -> entity_id]
@@ -47,11 +45,11 @@ class Entity {
 
 	public function get(String $field_name) {
 		// TODO: normalize displaying of error
-		return in_array($field_name, $this -> fields) ? $this -> data[$field_name] : ddjson(["Error of GET, field `{$field_name}` not found", $this -> data, isset($this -> data[$field_name]) ]);
+		return in_array($field_name, static::$fields) ? $this -> data[$field_name] : ddjson(["Error of GET, field `{$field_name}` not found", $this -> data, isset($this -> data[$field_name]) ]);
 	}
 
 	public function set(String $field_name, $field_val) {
-		if(!in_array($field_name, $this -> fields)){
+		if(!in_array($field_name, static::$fields)){
 			// TODO: normalize displaying of error
 			ddjson("Error of SET, field `{$field_name}` not found");
 		}
@@ -84,5 +82,9 @@ class Entity {
 
 	public function __set($field_name, $field_val) {
 		return $this -> set($field_name, $field_val);
+	}
+
+	public static function get_fields() {
+		return static::$fields;
 	}
 }

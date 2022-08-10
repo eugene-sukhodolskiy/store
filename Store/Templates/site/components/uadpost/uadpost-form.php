@@ -130,6 +130,7 @@
 						name="first_name"
 						maxlength="100"
 						placeholder="Ваше имя"
+						value="<?= $first_name ?>"
 					>
 					<input 
 						type="text" 
@@ -138,6 +139,7 @@
 						name="second_name"
 						maxlength="100"
 						placeholder="Ваша фамилия" 
+						value="<?= $second_name ?>"
 					>
 				</div>
 			</div>
@@ -153,6 +155,7 @@
 					name="phone"
 					maxlength="100"
 					placeholder="Ваш номер телефона" 
+					value="<?= $phone_number ?>"
 				>
 			</div>
 

@@ -4,17 +4,19 @@ namespace Store\Entities;
 
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
+	protected static $fields = [
+		"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
+	];
+	
 	protected $profile_instance;
 
 	public function __construct(Int $uid, Array $data = []) {
-		parent::__construct(self::$table_name, $uid, [
-			"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
-		], $data);
+		parent::__construct(self::$table_name, $uid, $data);
 	}	
 
 	public function profile() {
 		if(!$this -> profile_instance) {
-			$this -> profile_instance = app() -> factory -> get_profile_by("uid", $this -> id());
+			$this -> profile_instance = app() -> factory -> getter() -> get_profile_by("uid", $this -> id());
 		}
 		
 		return $this -> profile_instance;
