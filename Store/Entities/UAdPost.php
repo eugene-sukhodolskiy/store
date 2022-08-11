@@ -23,8 +23,12 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function get_first_image() {
-		list($img) = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost", 1);
-		return $img;
+		$imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost", 1);
+		if(!$imgs) {
+			return null;
+		}
+
+		return $imgs[0];
 	}
 
 	public function user() {
@@ -39,5 +43,9 @@ class UAdPost extends \Store\Middleware\Entity {
 		return app() -> routes -> urlto("UAdPostController@view_page", [
 			"alias" => "{$this -> alias}.html"
 		]);
+	}
+
+	public function with_images() {
+		return $this -> images_number ? true : false;
 	}
 }

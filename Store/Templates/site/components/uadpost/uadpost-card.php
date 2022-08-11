@@ -1,14 +1,17 @@
 <div class="component uadpost-card">
-	<div class="struct with-img">
-		<div class="picture">
-			<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
-				<img 
-					src="<?= $uadpost -> get_first_image() -> get_url() ?>" 
-					class="thumb" 
-					alt="<?= $uadpost -> title ?>"
-				>
-			</a>
-		</div>
+	<div class="struct <?= $uadpost -> with_images() ? "with-img" : "" ?>">
+		
+		<? if($uadpost -> with_images()): ?>
+			<div class="picture">
+				<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
+					<img 
+						src="<?= $uadpost -> get_first_image() -> get_url() ?>" 
+						class="thumb" 
+						alt="<?= $uadpost -> title ?>"
+					>
+				</a>
+			</div>
+		<? endif ?>
 
 		<div class="description">
 			<a href="<?= $uadpost -> get_url() ?>" class="title">

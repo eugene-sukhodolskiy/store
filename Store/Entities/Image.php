@@ -22,7 +22,9 @@ class Image extends \Store\Middleware\Entity {
 	}
 
 	public function get_url() {
-		return "/" . FCONF["users_folder"] . "/{$this -> alias}.jpg";
+		return $this -> image_exists() 
+			? "/" . FCONF["users_folder"] . "/{$this -> alias}.jpg" 
+			: $this -> default_image();
 	}
 
 	public function get_path_to_image() {
@@ -35,5 +37,9 @@ class Image extends \Store\Middleware\Entity {
 		}
 
 		return false;
+	}
+
+	public function default_image() {
+		return "/" . FCONF["users_folder"] . "/default-product-img.png";
 	}
 }
