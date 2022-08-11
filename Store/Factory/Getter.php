@@ -4,6 +4,8 @@ namespace Store\Factory;
 
 use \Store\Entities\User;
 use \Store\Entities\Profile;
+use \Store\Entities\Image;
+use \Store\Entities\UAdPost;
 
 class Getter {
 	public function get_user_by(String $field_name, $field_value) {
@@ -30,11 +32,14 @@ class Getter {
 		return new Profile($result[0]["id"], $result[0]);
 	}
 
-	public function get_images_by_entity(Int $ent_id, String $assignment) {
+	public function get_images_by_entity(Int $ent_id, String $assignment, Int $amount = 10) {
 		$result = app() -> thin_builder -> select(
 			Image::$table_name, Image::get_fields(), [ 
 				["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] 
-			]
+			],
+			[ "sequence" ],
+			"ASC",
+			[0, $amount]
 		);
 
 		if(!$result) {
@@ -47,5 +52,27 @@ class Getter {
 		}
 
 		return $images;
+	}
+
+	public function get_uadposts_by(String $field_name, $field_value, Int $amount = 10) {
+		$result = app() -> thin_builder -> select(
+			UAdPost::$table_name, UAdPost::get_fields(), [ 
+				[$field_name, "=", $field_value]
+			],
+			[ "id" ],
+			"DESC",
+			[0, $amount]
+		);
+
+		if(!$result) {
+			return null;
+		}
+
+		$uadposts = [];
+		foreach($result as $item) {
+			$uadposts[] = new UAdPost($item["id"], $item);
+		}
+
+		return $uadposts;
 	}
 }

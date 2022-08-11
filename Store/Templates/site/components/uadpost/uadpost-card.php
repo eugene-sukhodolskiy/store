@@ -1,17 +1,17 @@
 <div class="component uadpost-card">
 	<div class="struct with-img">
 		<div class="picture">
-			<a href="#" class="no-decoration">
+			<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
 				<img 
-					src="https://i.ebayimg.com/thumbs/images/g/LaYAAOSwDfdit2xb/s-l500.webp" 
+					src="<?= $uadpost -> get_first_image() -> get_url() ?>" 
 					class="thumb" 
-					alt=""
+					alt="<?= $uadpost -> title ?>"
 				>
 			</a>
 		</div>
 
 		<div class="description">
-			<a href="#" class="title">
+			<a href="<?= $uadpost -> get_url() ?>" class="title">
 				<?= $uadpost -> title ?>
 			</a>
 
@@ -20,14 +20,17 @@
 			</div>
 			
 			<div class="saler">
-				<?= $this -> join("site/components/user/compact-user-card") ?>
+				<?= $this -> join("site/components/user/compact-user-card", [
+					"user" => $uadpost -> user()
+				]) ?>
 			</div>
 
 			<div class="control-bar">
 				<?= $this -> join("site/components/btn-favorite", [ 
-					"state" => "" 
+					"state" => "",
+					"uadpost_id" => $uadpost -> id()
 				]) ?>
-				<a href="#" class="std-btn btn-primary">Открыть</a>
+				<a href="<?= $uadpost -> get_url() ?>" class="std-btn btn-primary">Открыть</a>
 			</div>
 		</div>
 	</div>

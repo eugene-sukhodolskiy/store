@@ -51,10 +51,12 @@ class Images extends \Store\Middleware\Model {
 		];
 	}
 
+	// TODO: this is copy of analog function in entity Image, FIXIT
 	public function get_path_to_image(String $alias) {
 		return FCONF["users_folder"] . "/{$alias}.jpg";
 	}
 
+	// TODO: this is copy of analog function in entity Image, FIXIT
 	public function get_url_by_alias(String $alias) {
 		return "/" . FCONF["users_folder"] . "/{$alias}.jpg";
 	}

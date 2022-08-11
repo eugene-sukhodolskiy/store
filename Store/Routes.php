@@ -39,6 +39,7 @@ class Routes {
 		$this -> router -> uri("/auth/signup.html", "{$this -> cn}\\AuthController@signup_page");
 		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
 		$this -> router -> uri("/uadpost/create.html", "{$this -> cn}\\UAdPostController@create_page");
+		$this -> router -> uri('/uadpost/$alias', "{$this -> cn}\\UAdPostController@view_page");
 	}
 
 	protected function get_routes() {
@@ -89,6 +90,10 @@ class Routes {
 		$desired_action = "{$this -> cn}\\{$action_name}";
 		foreach($routes_map["uri"] as $url => $action) {
 			if($action == $desired_action) {
+				foreach($url_args as $arg_name => $arg_val) {
+					$url = str_replace("\${$arg_name}", $arg_val, $url);
+				}
+
 				return $url;
 			}
 		}

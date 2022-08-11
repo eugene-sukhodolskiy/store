@@ -10,9 +10,25 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
-		return $this -> new_template() -> make('site/create.uadpost', [
-			'page_title' => 'Новое объявление',
-			'page_alias' => 'page create-uadpost'
+		return $this -> new_template() -> make("site/create.uadpost", [
+			"page_title" => "Новое объявление",
+			"page_alias" => "page create-uadpost"
+		]);
+	}
+
+	public function view_page($alias) {
+		$alias = str_replace(".html", "", $alias);
+		$result = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
+		if(!$result) {
+			// Err, not found
+		}
+
+		$uadpost = $result[0];
+
+		return $this -> new_template() -> make("site/view.uadpost", [
+			"page_title" => $uadpost -> title,
+			"page_alias" => "page view-uadpost",
+			"uadpost" => $uadpost
 		]);
 	}
 
