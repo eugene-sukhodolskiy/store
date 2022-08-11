@@ -1,0 +1,37 @@
+.component.compact-user-card {
+	> .std-row {
+		gap: $std-mg-md;
+	}
+
+	.userpic {
+		width: 45px;
+		height: 45px;
+
+		a {
+			width: inherit;
+			height: inherit;
+		}
+
+		img {
+			width: inherit;
+			height: inherit;	
+			border-radius: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+	}
+
+	.user-info {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-xsm;
+	}
+
+	.user-name {
+		font-size: $fsize-sm;
+
+		a {
+			white-space: wrap;
+		}
+	}
+}

@@ -203,7 +203,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$data = [];
 		foreach($expected_fields as $field) {
 			if(isset($_POST[$field])){
-				$data[$field] = is_string($_POST[$field]) ? trim($_POST[$field]) : $_POST[$field];
+				$data[$field] = is_string($_POST[$field]) ? htmlspecialchars(trim($_POST[$field])) : $_POST[$field];
 			}
 		}
 

@@ -8,23 +8,23 @@ use \Store\Entities\User;
 class AuthController extends \Store\Middleware\Controller {
 	public function signup_page() {
 		if(app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("IndexController@index") );
+			return $this -> utils() -> redirect( app() -> routes -> urlto("SearchController@search_page") );
 		}
 		
-		return $this -> new_template() -> make('site/signup', [
-			'page_title' => 'Регистрация',
-			'page_alias' => 'page signup'
+		return $this -> new_template() -> make("site/signup", [
+			"page_title" => "Регистрация",
+			"page_alias" => "page signup"
 		]);
 	}
 
 	public function signin_page() {
 		if(app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("IndexController@index") );
+			return $this -> utils() -> redirect( app() -> routes -> urlto("SearchController@search_page") );
 		}
 
-		return $this -> new_template() -> make('site/signin', [
-			'page_title' => 'Войти в систему',
-			'page_alias' => 'page signin'
+		return $this -> new_template() -> make("site/signin", [
+			"page_title" => "Войти в систему",
+			"page_alias" => "page signin"
 		]);
 	}
 

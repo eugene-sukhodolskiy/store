@@ -24,8 +24,8 @@ class Routes {
 	 */
 	public function __construct(\Fury\Modules\Router\Router $router) {
 		$this -> router = $router;
-		$this -> cf = FCONF['controllers_folder'];
-		$this -> cn = "\\" . FCONF['app_name'] . "\\" . FCONF['controllers_folder'];
+		$this -> cf = FCONF["controllers_folder"];
+		$this -> cn = "\\" . FCONF["app_name"] . "\\" . FCONF["controllers_folder"];
 	}
 
 	public function routes_init() {
@@ -35,10 +35,10 @@ class Routes {
 	}
 
 	protected function uri_routes() {
-		$this -> router -> uri('/', "{$this -> cn}\\IndexController@index");
-		$this -> router -> uri('/auth/signup.html', "{$this -> cn}\\AuthController@signup_page");
-		$this -> router -> uri('/auth/signin.html', "{$this -> cn}\\AuthController@signin_page");
-		$this -> router -> uri('/uadpost/create.html', "{$this -> cn}\\UAdPostController@create_page");
+		$this -> router -> uri("/", "{$this -> cn}\\SearchController@search_page");
+		$this -> router -> uri("/auth/signup.html", "{$this -> cn}\\AuthController@signup_page");
+		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
+		$this -> router -> uri("/uadpost/create.html", "{$this -> cn}\\UAdPostController@create_page");
 	}
 
 	protected function get_routes() {

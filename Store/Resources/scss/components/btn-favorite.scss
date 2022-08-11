@@ -1,0 +1,35 @@
+.component.btn-favorite {
+	background-color: transparent;
+	border-color: $color-warning;
+
+	.mdi, 
+	.btn-label {
+		display: none;
+	}
+
+	.for-state-unactive {
+		display: initial;
+	}
+	
+	&:hover {
+		background-color: $color-warning;
+	}
+
+	&.active {
+		background-color: $color-warning;
+
+		.mdi, 
+		.btn-label {
+			display: none;
+		}
+		
+		.for-state-active {
+			display: initial;
+		}
+
+		&:hover {
+			background-color: transparent;
+		}
+	}
+
+}

@@ -9,3 +9,9 @@
   gap: $std-mg-lg;
   align-items: center;
 }
+
+a.no-decoration,
+a.no-decoration:hover {
+	border: 0;
+	color: $color-text;
+}
