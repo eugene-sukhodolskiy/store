@@ -1,7 +1,7 @@
 .component.uadpost-card {
 	background-color: $color-bg-card;
 	border-radius: $border-rad-lg;
-	padding: $std-mg-lg;
+	padding: $std-mg-md;
 	max-height: 240px;
 	margin-bottom: $std-mg-lg;
 
@@ -46,8 +46,14 @@
 		font-size: $fsize-lg;
 	}
 
-	.short-content {
+	.meta-info {
+		margin-left: -2px;
 		font-size: $fsize-sm;
+	}
+
+	.price {
+		font-size: $fsize-xl;
+		font-weight: bold;
 	}
 
 	.control-bar {

@@ -48,4 +48,8 @@ class UAdPost extends \Store\Middleware\Entity {
 	public function with_images() {
 		return $this -> images_number ? true : false;
 	}
+
+	public function get_formatted_timestamp() {
+		return date("d.m.Y", strtotime($this -> create_at));
+	}
 }

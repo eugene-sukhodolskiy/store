@@ -12,7 +12,7 @@ class SearchController extends \Store\Middleware\Controller {
 
 		return $this -> new_template() -> make("site/search", [
 			"page_title" => "Search page | Store",
-			"page_alias" => "Search page",
+			"page_alias" => "page search",
 			"uadposts" => $uadposts
 		]);
 	}
