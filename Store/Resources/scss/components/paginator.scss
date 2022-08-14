@@ -1,0 +1,29 @@
+.component.paginator {
+	display: flex;
+	flex-direction: row;
+	gap: $std-mg-lg;
+	justify-content: center;
+	align-items: center;
+	margin-top: $std-mg-xl;
+
+	.page-num-selector {
+		/* Firefox */
+	  -moz-appearance: textfield;
+	  max-width: 70px;
+	  width: max-content;
+	  background-color: transparent;
+	  border-color: transparent;
+	  font-size: $fsize-lg;
+	  font-weight: bold;
+	  text-align: center;
+	  padding-left: 0;
+	  padding-right: 0;
+		
+		/* Chrome, Safari, Edge, Opera */
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+	}
+}
