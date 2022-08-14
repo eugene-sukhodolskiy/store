@@ -10,7 +10,7 @@
 			<div class="picture">
 				<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
 					<img 
-						src="<?= $uadpost -> get_first_image() -> get_url() ?>" 
+						src="<?= $uadpost -> get_first_image() -> get_url("md") ?>" 
 						class="thumb" 
 						alt="<?= $uadpost -> title ?>"
 					>

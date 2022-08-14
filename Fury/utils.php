@@ -187,6 +187,8 @@ function dd($var, $die_flag = true){
 	// Print data forming
 	$dump = $style . '<div class="dd-container">' . $dump;
 	$dump .= '</div>' . $js;
+	$json_var = json_encode(["var" => $var]); 
+	$dump .= "<script>console.warn('Die and Dump'); console.log({$json_var})</script>";
 
 	echo $die_flag ? die($dump) : $dump;
 }
