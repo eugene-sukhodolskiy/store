@@ -4,12 +4,14 @@ namespace Store;
 
 use \Fury\Modules\Router\Router;
 use \Fury\Modules\ThinBuilder\ThinBuilder;
+use \Fury\Modules\ErrorHandler\ErrorHandler;
 use \Store\Factory\Factory;
 
 class App extends \Fury\Kernel\BaseApp{
 	public $routes;
 	public $router;
 	public $events_handlers;
+	public $error_handlers;
 	public $thin_builder;
 
 	// CUSTOM
@@ -24,6 +26,7 @@ class App extends \Fury\Kernel\BaseApp{
 	}
 
 	public function app_init(){
+		$this -> error_handlers = new ErrorHandler();
 		$this -> router = new Router();
 		$this -> routes = new Routes($this -> router);
 		$this -> thin_builder = new ThinBuilder(FCONF['db']);

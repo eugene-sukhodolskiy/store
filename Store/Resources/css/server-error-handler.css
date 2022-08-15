@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+.error-handler {
+	position: fixed;
+	z-index: 999999999999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #333;
+	color: #fee;
+	padding: 30px;
+	padding-top: 60px;
+	font-family: 'Roboto Mono', monospace;
+}
+
+.error-handler *{
+	color: #fee;
+}
+
+.eh-heading {
+
+}
+
+.eh-heading em {
+	font-style: normal;
+	color: #F28705;
+}
+
+.eh-code {
+	background-color: #222;
+	padding: 10px 0;
+	font-size: 1.05em;
+}
+
+.eh-code tr td{
+	padding: 5px 10px;
+}
+
+.eh-code .err-in-line {
+	background-color: #fee;
+}
+
+.eh-code .err-in-line .lcode {
+	color: #222;
+}
+
+.eh-code .lnum {
+	color: #a99;
+}
+
+[data-eh="keyword"] {
+	font-weight: bold;
+	color: #03A696;
+}
+
+[data-eh="dollar"] {
+	background-color: #555;
+}
