@@ -43,8 +43,16 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("title_too_short", [ "title" ]);
 		}
 
+		if(strlen($title) > 100) {
+			return $this -> utils() -> response_error("textfield_too_large", [ "title" ]);
+		}
+
 		if(!isset($content)) {
 			$content = "";
+		}
+
+		if(strlen($content) > 10000) {
+			return $this -> utils() -> response_error("textfield_too_large", [ "content" ]);
 		}
 
 		if(!isset($condition) or ($condition != "used" and $condition != "new")) {
@@ -80,8 +88,8 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		if(
-			!isset($lat) or $lat == "" or is_string($lat)
-			or !isset($lng) or $lng == "" or is_string($lng)
+			!isset($lat) or $lat == ""
+			or !isset($lng) or $lng == ""
 		) {
 			return $this -> utils() -> response_error("location_not_specified");
 		}

@@ -28,6 +28,23 @@ class App {
 		});
 
 		autosize(document.querySelectorAll("textarea"));
+
+		document.querySelectorAll(".input-counter[data-counter-for-input]").forEach(item => {
+			document.querySelector(`#${item.getAttribute("data-counter-for-input")}`).addEventListener("input", e => {
+				const len = e.currentTarget.value.length;
+				const maxLen = parseInt(e.currentTarget.getAttribute("maxlength"));
+
+				if(len > 0 && !item.classList.contains("show")) {
+					item.classList.add("show");
+				}
+
+				if(len == 0 && item.classList.contains("show")) {
+					item.classList.remove("show");
+				}
+
+				item.innerHTML = maxLen - len;
+			});
+		});
 	}
 }
 

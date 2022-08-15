@@ -1,7 +1,13 @@
 <div class="component select-location">
 	<div class="std-row">
 		<button class="std-btn btn-primary open-select-map" role="button">Выберите местоположение</button>
-		<div class="display-selected-location-outside">Выберите на карте место продажи товара</div>
+		<div class="display-selected-location-outside">
+			<? if(!isset($city_en)): ?>
+				Выберите на карте место продажи товара
+			<? else: ?>
+				<span class="mdi mdi-map-marker-outline"></span> <?= $city_en ?>, <?= $country_en ?>
+			<? endif ?>
+		</div>
 	</div>
 
 	<div class="select-location-wrap">
@@ -24,14 +30,14 @@
 			<span class="mdi mdi-close"></span>
 		</button>
 
-		<input type="hidden" name="lat" value="">
-		<input type="hidden" name="lng" value="">
-		<input type="hidden" name="country_ru" value="">
-		<input type="hidden" name="country_en" value="">
-		<input type="hidden" name="region_ru" value="">
-		<input type="hidden" name="region_en" value="">
-		<input type="hidden" name="city_ru" value="">
-		<input type="hidden" name="city_en" value="">
+		<input type="hidden" name="lat" value="<?= isset($lat) ? $lat : "" ?>">
+		<input type="hidden" name="lng" value="<?= isset($lng) ? $lng : "" ?>">
+		<input type="hidden" name="country_ru" value="<?= isset($country_ru) ? $country_ru : "" ?>">
+		<input type="hidden" name="country_en" value="<?= isset($country_en) ? $country_en : "" ?>">
+		<input type="hidden" name="region_ru" value="<?= isset($region_ru) ? $region_ru : "" ?>">
+		<input type="hidden" name="region_en" value="<?= isset($region_en) ? $region_en : "" ?>">
+		<input type="hidden" name="city_ru" value="<?= isset($city_ru) ? $city_ru : "" ?>">
+		<input type="hidden" name="city_en" value="<?= isset($city_en) ? $city_en : "" ?>">
 	</div>
 </div>
 

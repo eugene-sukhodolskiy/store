@@ -39,7 +39,7 @@ class Routes {
 		$this -> router -> uri("/auth/signup.html", "{$this -> cn}\\AuthController@signup_page");
 		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
 		$this -> router -> uri("/uadpost/create.html", "{$this -> cn}\\UAdPostController@create_page");
-		$this -> router -> uri('/uadpost/$alias', "{$this -> cn}\\UAdPostController@view_page");
+		$this -> router -> uri('/uadpost/$alias/p.html', "{$this -> cn}\\UAdPostController@view_page");
 	}
 
 	protected function get_routes() {

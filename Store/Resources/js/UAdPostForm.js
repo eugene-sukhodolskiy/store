@@ -23,7 +23,7 @@ class UAdPostForm {
 			this.form.setAttribute("action", this.form.getAttribute("data-action-submit-to-draft"));
 		});
 
-		this.form.querySelectorAll("input").forEach(
+		this.form.querySelectorAll("input, textarea").forEach(
 			input => input.addEventListener("input", e => {
 				e.currentTarget.classList.remove("error");
 				this.alert && this.alert.close();
@@ -47,7 +47,7 @@ class UAdPostForm {
 
 		this.form.classList.add("disable");
 		this.container.querySelectorAll(".submit-group button").forEach(btn => btn.classList.add("disable"));
-		this.container.querySelectorAll("input.error").forEach(input => input.classList.remove("error"));
+		this.container.querySelectorAll("input.error, textarea.error").forEach(input => input.classList.remove("error"));
 		this.alert && this.alert.close();
 
 		const xhr = new XMLHttpRequest();
@@ -69,7 +69,7 @@ class UAdPostForm {
 
 				if(!resp.status) {
 					for(let field of resp.failed_fields) {
-						this.container.querySelector(`input[name="${field}"]`).classList.add("error");
+						this.container.querySelector(`[name="${field}"]`).classList.add("error");
 					}
 
 					if(resp.msg) {

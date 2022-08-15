@@ -46,6 +46,7 @@ body {
 
 .form-group {
 	margin: $std-mg-md 0;
+	position: relative;
 
 	.form-label {
 		display: block;
@@ -62,6 +63,20 @@ body {
 		& + .form-label {
 			position: relative;
 			top: 2px;
+		}
+	}
+
+	.input-counter {
+		position: absolute;
+		right: 5px;
+		top: 0px;
+		font-size: $fsize-sm;
+		text-align: right;
+		width: 50px;
+		display: none;
+
+		&.show {
+			display: block;
 		}
 	}
 }

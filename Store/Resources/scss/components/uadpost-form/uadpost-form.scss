@@ -13,6 +13,11 @@
 		}
 
 		.input-fields-container {
+			[name="title"] {
+				height: 37px;
+				min-height: 37px;
+			}
+
 			.uadpost-row-fields-group {
 				display: grid;
 				grid-gap: $std-pd-xl;

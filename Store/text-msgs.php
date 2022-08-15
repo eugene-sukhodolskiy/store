@@ -26,6 +26,7 @@ return [
 	"empty_phone_number" => "Укажите телефон, иначе Вам не смогут позвонить",
 	"unlogged_user" => "Сначала нужно войти",
 	"fail_creating_uadpost" => "Ошибка создания объявления",
+	"textfield_too_large" => "Превышен лимит количества символов",
 
 	// Other
 ];

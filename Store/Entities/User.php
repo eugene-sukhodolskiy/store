@@ -22,6 +22,11 @@ class User extends \Store\Middleware\Entity {
 		return $this -> profile_instance;
 	}
 
+	public function get_last_uadpost() {
+		$posts = app() -> factory -> getter() -> get_uadposts_by("uid", $this -> id(), 1);
+		return $posts ? $posts[0] : false;
+	}
+
 	// Static methods
 
 	public static function is_exists_by(String $field_name, String $field_value) {

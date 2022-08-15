@@ -29,11 +29,15 @@
 			</div>
 
 			<div class="std-row meta-info">
-				<div class="location">
+				<div class="location" title="<?= $uadpost -> region_en ?>">
 					<span class="mdi mdi-map-marker-outline"></span>
-					<span class="country"><?= $uadpost -> country_en ?></span>
-					<span class="region"><?= $uadpost -> region_en ?></span>
-					<span class="city"><?= $uadpost -> city_en ?></span>
+					<? if($uadpost -> city_en): ?>
+						<span class="city"><?= $uadpost -> city_en ?></span>,
+					<? endif ?>
+					
+					<? if($uadpost -> country_en): ?>
+						<span class="country"><?= $uadpost -> country_en ?></span>
+					<? endif ?>
 				</div>
 				
 				<div class="timestamp">

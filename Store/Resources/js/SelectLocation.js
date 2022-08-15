@@ -97,7 +97,7 @@ class SelectLocation {
 				this.loadLocationLabels((resultEN, resultRU, lat, lng) => {
 					this.selectorLocContainer.querySelector(".apply-location").classList.remove("disable");
 					this.displayLocationContainerInside
-						.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`;
+						.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultEN.city} ${resultEN.country}`;
 				});
 
 				google.maps.event.addListener(this.marker, "click", function(e) {
@@ -140,7 +140,7 @@ class SelectLocation {
 				this.selectorLocContainer.querySelector(`[name="city_ru"]`).value = resultRU.city;
 				this.selectorLocContainer.querySelector(`[name="city_en"]`).value = resultEN.city;
 				this.displayLocationContainerOutside
-					.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultRU.city} ${resultRU.country}`;
+					.innerHTML = `<span class="mdi mdi-map-marker-outline"></span> ${resultEN.city} ${resultEN.country}`;
 				document.querySelector(".open-select-map").innerHTML = "Изменить местоположение";
 				this.closeLocationSelector();
 			});

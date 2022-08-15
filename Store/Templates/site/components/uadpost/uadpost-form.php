@@ -17,14 +17,15 @@
 				<label for="title" class="form-label">
 					Название
 				</label>
-				<input 
+				<textarea 
 					type="text" 
 					class="std-input"
 					id="title"
 					name="title"
 					maxlength="100"
 					placeholder="Название" 
-				>
+				></textarea>
+				<div class="input-counter" data-counter-for-input="title"></div>
 			</div>
 
 			<?= $this -> join("site/components/img-uploader", [
@@ -42,6 +43,7 @@
 					maxlength="10000"
 					placeholder="Опишите, что хотите продать"
 				></textarea>
+				<div class="input-counter" data-counter-for-input="content"></div>
 			</div>
 
 			<div class="form-group condition">
@@ -128,7 +130,7 @@
 						class="std-input"
 						id="first_name"
 						name="first_name"
-						maxlength="100"
+						maxlength="25"
 						placeholder="Ваше имя"
 						value="<?= $first_name ?>"
 					>
@@ -137,7 +139,7 @@
 						class="std-input"
 						id="second_name"
 						name="second_name"
-						maxlength="100"
+						maxlength="30"
 						placeholder="Ваша фамилия" 
 						value="<?= $second_name ?>"
 					>
@@ -160,7 +162,20 @@
 			</div>
 
 			<div class="form-group">
-				<?= $this -> join("site/components/uadpost/select-location") ?>
+				<? if($has_posts): ?>
+					<?= $this -> join("site/components/uadpost/select-location", [
+						"lat" => $lat,
+						"lng" => $lng,
+						"country_ru" => $country_ru,
+						"country_en" => $country_en,
+						"city_ru" => $city_ru,
+						"city_en" => $city_en,
+						"region_ru" => $region_ru,
+						"region_en" => $region_en,
+					]) ?>
+				<? else: ?>
+					<?= $this -> join("site/components/uadpost/select-location") ?>
+				<? endif ?>
 			</div>
 
 			<hr>
