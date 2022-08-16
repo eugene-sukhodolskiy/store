@@ -13,6 +13,7 @@ class App extends \Fury\Kernel\BaseApp{
 	public $events_handlers;
 	public $error_handlers;
 	public $thin_builder;
+	public $console_flag;
 
 	// CUSTOM
 	public $utils;
@@ -22,6 +23,8 @@ class App extends \Fury\Kernel\BaseApp{
 	public function __construct(){
 		parent::__construct();
 
+		global $argv;
+		$this -> console_flag = isset($argv) ? true : false;
 		$this -> app_init();
 	}
 

@@ -2,8 +2,6 @@
 
 namespace Fury\Modules\ErrorHandler;
 
-use \Fury\Modules\Template\Template;
-
 /**
  * Class: ErrorHandler
  * @author Eugene Sukhodolskiy <eugene.sukhodolskiy@gmail.com>
