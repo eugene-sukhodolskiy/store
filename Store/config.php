@@ -29,11 +29,7 @@ return [
 		"xs" => [150, 70] 
 	],
 
-	'error_handler' => [
-		/**
-		 * Список типов ошибок, которые будут отрабатывать. 
-		 * Остальные, за исключением фатальных, будут скриты.
-		 */
-		'important_errors' => ['E_WARNING', 'E_ERROR', 'E_CORE_ERROR', 'EXCEPTION']
+	"error_handler" => [
+		"important_errors" => ["E_WARNING", "E_ERROR", "E_CORE_ERROR", "EXCEPTION"]
 	],
 ]; 

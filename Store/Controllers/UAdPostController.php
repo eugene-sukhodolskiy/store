@@ -6,7 +6,6 @@ use \Store\Models\UAdPost;
 
 class UAdPostController extends \Store\Middleware\Controller {
 	public function create_page() {
-		;;;;l
 		if(!app() -> sessions -> is_auth()) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}

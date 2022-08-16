@@ -14,7 +14,7 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 			$this -> inside_data["second_name"] = app() -> sessions -> auth_user() -> profile() -> second_name;
 			$this -> inside_data["phone_number"] = app() -> sessions -> auth_user() -> profile() -> phone_number;
 			$last_uadpost = app() -> sessions -> auth_user() -> get_last_uadpost();
-			// dd($last_uadpost);
+
 			if($last_uadpost) {
 				$this -> inside_data["has_posts"] = true;
 				$this -> inside_data["lat"] = $last_uadpost -> location_lat;

@@ -8,7 +8,7 @@ const ehRenderCode = () => {
 		strong = (i == error.errline) ? `class="err-in-line"` : ``;
 		html += `<tr ${strong}>
 		<td class="lnum">${i}</td>
-		<td class="lcode">${ehStrongDollar(ehStrongKeywords(error.code[i]))}</td>
+		<td class="lcode">${ehStrongDollar(ehStrongKeywords(ehStrongQuotes(error.code[i])))}</td>
 		</tr>`;
 	}
 
@@ -22,7 +22,7 @@ const ehStrongKeywords = code => {
 		"var ", "function ", "class ", "return ", " extends ", "if", "for", 
 		"foreach", "interface ", "abstract ", "static ", "public ", 
 		"protected ", "private ", "use ", "namespace ", "else", "switch", "elseif",
-		"case", "default", " as "
+		"case", "default", " as ", "=&gt;", "-&gt;"
 	];
 
 	for(let key of keywords) {
@@ -34,6 +34,17 @@ const ehStrongKeywords = code => {
 
 const ehStrongDollar = code => {
 	return code.replaceAll("$", `<span data-eh="dollar">$</span>`);
+}
+
+const ehStrongQuotes = code => {
+	code = code.replaceAll("&quot;", `"`);
+	code = code.replaceAll("&apos;", `'`);
+	const words = [...code.matchAll(/".*?"/g), ...code.matchAll(/'.*?'/g)];
+	words.forEach(i => {
+		code = code.replace(i, `<span data-eh="q">${i}</span>`);
+	});
+	
+	return code;	
 }
 
 const ehGetFileName = () => {
@@ -51,6 +62,7 @@ const ehRender = () => {
 	html += `<h4 class="eh-heading">=&gt; ${error.errstr}</h4>`;
 	html += `<h4 class="eh-heading">${ehGetPathToFile()} [line <em>${error.errline}</em>]</h4>`;
 	html += ehRenderCode();
+	document.querySelector("title").innerHTML = `${error.err_type} => ${error.errstr}`;
 	document.querySelector(".error-handler").innerHTML = html;
 }
 
