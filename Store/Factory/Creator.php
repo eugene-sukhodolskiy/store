@@ -69,7 +69,8 @@ class Creator {
 			"city_ru" => $city_ru,
 			"factor" => 1,
 			"rating" => 0,
-			"images_number" => intval($images_number)
+			"images_number" => intval($images_number),
+			"update_at" => date("Y-m-d H:i:s")
 		]);
 
 		return $uadpost_id ? new UAdPost($uadpost_id) : null;
