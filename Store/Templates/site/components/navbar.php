@@ -16,7 +16,9 @@
 
 		<div class="userbar-wrapper">
 			<? if($is_auth): ?>
-				<?= $this -> join("site/components/userbar") ?>
+				<?= $this -> join("site/components/userbar", [
+					"user" => app() -> sessions -> auth_user()
+				]) ?>
 			<? else: ?>
 				<?= $this -> join("site/components/auth-btns-group") ?>
 			<? endif ?>

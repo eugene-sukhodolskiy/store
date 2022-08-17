@@ -32,7 +32,7 @@ class Router implements RouterInterface{
 			$this -> routes_map = $routes_map;
 		}
 
-		$this -> uri = $_SERVER['REQUEST_URI'];
+		$this -> uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
 		if(strpos($this -> uri, '?') !== false){
 			list($this -> uri) = explode('?', $this -> uri);
 		}

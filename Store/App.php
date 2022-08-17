@@ -29,7 +29,9 @@ class App extends \Fury\Kernel\BaseApp{
 	}
 
 	public function app_init(){
-		$this -> error_handlers = new ErrorHandler();
+		if(!$this -> console_flag) {
+			$this -> error_handlers = new ErrorHandler();
+		}
 		$this -> router = new Router();
 		$this -> routes = new Routes($this -> router);
 		$this -> thin_builder = new ThinBuilder(FCONF['db']);
