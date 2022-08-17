@@ -7,6 +7,7 @@ class Entity {
 	protected $entity_id;
 	protected $data;
 	protected $modified_fields = [];
+	protected $pet_instances = [];
 	protected $field_name_of_update_at = "update_at";
 
 	public function __construct(String $entity_tablename, Int $entity_id, Array $data = []) {
@@ -86,5 +87,17 @@ class Entity {
 
 	public static function get_fields() {
 		return static::$fields;
+	}
+
+	public function get_pet_instance(String $instance_name, $callback) {
+		if(!isset($this -> pet_instances[$instance_name])) {
+			$this -> pet_instances[$instance_name] = $callback();
+		}
+
+		return $this -> pet_instances[$instance_name];
+	}
+
+	public function forward_instance_init(String $instance_name, $instance) {
+		$this -> pet_instances[$instance_name] = $instance;
 	}
 }

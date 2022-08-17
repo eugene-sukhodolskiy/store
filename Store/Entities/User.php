@@ -8,18 +8,14 @@ class User extends \Store\Middleware\Entity {
 		"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
 	];
 	
-	protected $profile_instance;
-
 	public function __construct(Int $uid, Array $data = []) {
 		parent::__construct(self::$table_name, $uid, $data);
 	}	
 
 	public function profile() {
-		if(!$this -> profile_instance) {
-			$this -> profile_instance = app() -> factory -> getter() -> get_profile_by("uid", $this -> id());
-		}
-		
-		return $this -> profile_instance;
+		return $this -> get_pet_instance("Profile", function() {
+			return app() -> factory -> getter() -> get_profile_by("uid", $this -> id());
+		});
 	}
 
 	public function get_last_uadpost() {

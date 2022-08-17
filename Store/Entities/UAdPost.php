@@ -12,8 +12,6 @@ class UAdPost extends \Store\Middleware\Entity {
 		"city_ru", "city_en", "create_at", "update_at"
 	];
 
-	protected $user_instance;
-
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
 	}
@@ -32,11 +30,7 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function user() {
-		if(!$this -> user_instance) {
-			$this -> user_instance = new User($this -> uid);
-		}
-
-		return $this -> user_instance;
+		return $this -> get_pet_instance("User", fn() => new User($this -> uid));
 	}
 
 	public function get_url() {

@@ -38,8 +38,8 @@ class Routes {
 		$this -> router -> uri("/", "{$this -> cn}\\SearchController@search_page");
 		$this -> router -> uri("/auth/signup.html", "{$this -> cn}\\AuthController@signup_page");
 		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
-		$this -> router -> uri("/uadpost/create.html", "{$this -> cn}\\UAdPostController@create_page");
-		$this -> router -> uri('/uadpost/$alias/p.html', "{$this -> cn}\\UAdPostController@view_page");
+		$this -> router -> uri('/uadpost/$alias', "{$this -> cn}\\UAdPostController@view_page");
+		$this -> router -> uri("/uadpost/f/create.html", "{$this -> cn}\\UAdPostController@create_page");
 	}
 
 	protected function get_routes() {
@@ -62,19 +62,19 @@ class Routes {
 		$this -> router -> post(
 			[ "img" ], 
 			"{$this -> cn}\\ImgUploaderController@upload_img",
-			"/upload/img"
+			"/upload/f/img"
 		);
 		
 		$this -> router -> post(
 			[ "title" ], 
 			"{$this -> cn}\\UAdPostController@create",
-			"/uadpost/create"
+			"/uadpost/f/create"
 		);
 
 		$this -> router -> post(
 			[ "title" ],
 			"{$this -> cn}\\UAdPostController@create_draft",
-			"/uadpost/create-draft"
+			"/uadpost/f/create-draft"
 		);
 	}
 

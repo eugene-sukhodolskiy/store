@@ -22,7 +22,11 @@ class Getter {
 
 	public function get_profile_by(String $field_name, $field_value) {
 		$result = app() -> thin_builder -> select(
-			Profile::$table_name, Profile::get_fields(), [ [$field_name, "=", $field_value] ]
+			Profile::$table_name, 
+			Profile::get_fields(), 
+			[ [$field_name, "=", $field_value] ],
+			[], "",
+			[0, 1]
 		);
 
 		if(!$result) {

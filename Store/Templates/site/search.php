@@ -3,7 +3,7 @@
 <div class="page-content-wrap">
 	<div class="filters-container"></div>
 	<div class="search-result">
-		<? foreach ($uadposts as $uadpost): ?>
+		<? foreach ($uadposts as $i => $uadpost): ?>
 			<div class="search-item">
 				<?= $this -> join("site/components/uadpost/uadpost-card.php", [
 					"uadpost" => $uadpost,

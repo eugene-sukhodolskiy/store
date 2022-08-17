@@ -37,10 +37,11 @@ class ErrorHandler{
 	 */
 	public function set_err_handler(){
 		set_error_handler([$this, "error_handler"], E_ALL);
-		set_exception_handler([$this, "exception_handler"]);
 		register_shutdown_function([$this, "fatal_error_handler"]);
+		// set_exception_handler([$this, "exception_handler"]);
 	}
 
+	// FIXME
 	public function exception_handler(\Exception $e) {
 		$this -> error_handler(
 			$e -> getCode(),
