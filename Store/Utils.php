@@ -104,4 +104,35 @@ class Utils {
 		$from = ($current_page - 1) * $per_page;
 		return [$from, $per_page];
 	}
+
+	public function lang_mistake_flip($str) {
+		$str = str_replace(
+			["{", "}", "!", "@", "#", '$', "%", "^", "&", "*", "(", ")"],
+			["", "", "", "", "", '$', "", "", "", "", "", ""],
+			$str
+		);
+		$vocabluary_lat = "`qwertyuiop[]asdfghjkl;'zxcvbnm,. {}<>-+_1234567890";
+		$vocabluary_cyr = "ёйцукенгшщзхъфывапролджэячсмитьбю хъбю-+_1234567890";
+
+		$len = mb_strlen($str);
+		$new_str = "";
+		for($i = 0; $i < $len; $i++) {
+			$in_lat = mb_strpos($vocabluary_lat, mb_substr($str, $i, 1));
+			$in_cyr = mb_strpos($vocabluary_cyr, mb_substr($str, $i, 1));
+
+			if($in_lat !== false) {
+				$new_str .= mb_substr($vocabluary_cyr, $in_lat, 1);
+				continue;
+			}
+
+			if($in_cyr !== false) {
+				$new_str .= mb_substr($vocabluary_lat, $in_cyr, 1);
+				continue;
+			}
+
+			$new_str .= $str[$i];
+		}
+
+		return $new_str;
+	}
 }

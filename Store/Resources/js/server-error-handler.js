@@ -1,14 +1,14 @@
-const error = JSON.parse(err);
+const eh_error = JSON.parse(eh_err);
 
 const ehRenderCode = () => {
 	let html = `<table class="eh-code" border="0" cellpadding="0" cellspacing="0">`;
 
 	let linenum = 0;
-	for(let i in error.code) {
-		strong = (i == error.errline) ? `class="err-in-line"` : ``;
+	for(let i in eh_error.code) {
+		strong = (i == eh_error.errline) ? `class="err-in-line"` : ``;
 		html += `<tr ${strong}>
 		<td class="lnum">${i}</td>
-		<td class="lcode">${ehStrongDollar(ehStrongKeywords(ehStrongQuotes(error.code[i])))}</td>
+		<td class="lcode">${ehStrongDollar(ehStrongKeywords(ehStrongQuotes(eh_error.code[i])))}</td>
 		</tr>`;
 	}
 
@@ -48,21 +48,21 @@ const ehStrongQuotes = code => {
 }
 
 const ehGetFileName = () => {
-	let pathParticles = error.errfile.split("/");
+	let pathParticles = eh_error.errfile.split("/");
 	return pathParticles[pathParticles.length - 1];
 }
 
 const ehGetPathToFile = () => {
 	const filename = ehGetFileName();
-	return error.errfile.replace(filename, `<em>${filename}</em>`);
+	return eh_error.errfile.replace(filename, `<em>${filename}</em>`);
 }
 
 const ehRender = () => {
-	let html = `<h2 class="eh-heading">${error.err_type} #${error.errno}</h2>`;
-	html += `<h4 class="eh-heading">=&gt; ${error.errstr}</h4>`;
-	html += `<h4 class="eh-heading">${ehGetPathToFile()} [line <em>${error.errline}</em>]</h4>`;
+	let html = `<h2 class="eh-heading">${eh_error.err_type} #${eh_error.errno}</h2>`;
+	html += `<h4 class="eh-heading">=&gt; ${eh_error.errstr}</h4>`;
+	html += `<h4 class="eh-heading">${ehGetPathToFile()} [line <em>${eh_error.errline}</em>]</h4>`;
 	html += ehRenderCode();
-	document.querySelector("title").innerHTML = `${error.err_type} => ${error.errstr}`;
+	document.querySelector("title").innerHTML = `${eh_error.err_type} => ${eh_error.errstr}`;
 	document.querySelector(".error-handler").innerHTML = html;
 }
 
