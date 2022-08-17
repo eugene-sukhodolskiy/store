@@ -98,4 +98,10 @@ class Utils {
 			$this -> transliterate_cyr_lat(strtolower($str))
 		);
 	}
+
+	public function get_limits_for_select_query(Int $per_page) {
+		$current_page = max(1, intval($_GET["pn"]));
+		$from = ($current_page - 1) * $per_page;
+		return [$from, $per_page];
+	}
 }

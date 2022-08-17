@@ -32,4 +32,6 @@ return [
 	"error_handler" => [
 		"important_errors" => ["E_WARNING", "E_ERROR", "E_CORE_ERROR", "EXCEPTION"]
 	],
+
+	"uadposts_per_page" => 20
 ]; 

@@ -20,6 +20,6 @@
 	
 <?= $this -> join("\Store\Templates\Logic\Paginator:site/components/paginator", [
 	"id" => "search-result-paginator",
-	"per_page" => 15,
-	"total" => 100
+	"per_page" => $per_page,
+	"total" => $total_uadposts
 ]) ?>

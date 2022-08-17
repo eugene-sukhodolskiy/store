@@ -19,8 +19,8 @@ const ehRenderCode = () => {
 
 const ehStrongKeywords = code => {
 	const keywords = [
-		"var ", "function ", "class ", "return ", " extends ", "if", "for", 
-		"foreach", "interface ", "abstract ", "static ", "public ", 
+		"var ", "function ", "class ", "return ", " extends ", "if", "foreach", "for",
+		"interface ", "abstract ", "static ", "public ", 
 		"protected ", "private ", "use ", "namespace ", "else", "switch", "elseif",
 		"case", "default", " as ", "=&gt;", "-&gt;"
 	];

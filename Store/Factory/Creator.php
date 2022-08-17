@@ -51,7 +51,7 @@ class Creator {
 	) {
 		$uadpost_id = app() -> thin_builder -> insert(UAdPost::$table_name, [
 			"uid" => $uid,
-			"alias" => app() -> utils -> gen_from_text_alias($title),
+			"alias" => app() -> utils -> gen_from_text_alias(uniqid() . "-" . $title),
 			"title" => $title,
 			"content" => $content,
 			"condition_used" => $condition,

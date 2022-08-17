@@ -4,6 +4,7 @@
 			type="text" 
 			name="search" 
 			class="std-input search-field"
+			value="<?= isset($_GET["s"]) ? $_GET["s"] : "" ?>"
 			placeholder="Поиск"
 		>
 		<button class="submit">

@@ -8,6 +8,8 @@ class App {
 		) {
 			this.auth = new Auth();
 		}
+
+		this.search = new Search();
 		
 		this.initBaseEvents();
 	}

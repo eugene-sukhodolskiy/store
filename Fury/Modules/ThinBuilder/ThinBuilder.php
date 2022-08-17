@@ -47,7 +47,6 @@ class ThinBuilder implements ThinBuilderInterface{
 		}
 
 		$sql = "SELECT {$fields} FROM `{$tablename}` {$where} {$order_fields} {$limit}";
-
 		return $this -> query($sql, 'fetchAll', \PDO::FETCH_ASSOC);
 	}
 
