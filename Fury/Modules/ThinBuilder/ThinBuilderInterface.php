@@ -146,4 +146,10 @@ interface ThinBuilderInterface{
 	 * @return History object
 	 */
 	public function history();
+
+	/**
+	 * Turn off processing sql, function query() return just text of sql query
+	 * @return ThinBuilder
+	 */
+	public function sql_for();
 }

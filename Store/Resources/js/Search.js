@@ -21,7 +21,7 @@ class Search {
 
 	startSearch(searchString) {
 		if(searchString.length) {
-			document.location = `?s=${searchString}`;
+			document.location = `/?s=${searchString}`;
 		} else {
 			document.location = `/`;
 		}

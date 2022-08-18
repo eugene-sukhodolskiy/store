@@ -39,7 +39,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		]);
 	}
 
-	public function with_images() {
+	public function has_images() {
 		return $this -> images_number ? true : false;
 	}
 

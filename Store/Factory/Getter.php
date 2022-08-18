@@ -6,6 +6,7 @@ use \Store\Entities\User;
 use \Store\Entities\Profile;
 use \Store\Entities\Image;
 use \Store\Entities\UAdPost;
+use \Store\Entities\Session;
 
 class Getter {
 	public function get_user_by(String $field_name, $field_value) {
@@ -78,5 +79,22 @@ class Getter {
 		}
 
 		return $uadposts;
+	}
+
+	public function get_session_by(String $field_name, $field_value) {
+		$result = app() -> thin_builder -> select(
+			Session::$table_name,
+			Session::get_fields(),
+			[[$field_name, "=", $field_value]],
+			["last_using_at"],
+			"DESC",
+			[0, 1]
+		);
+
+		if(!$result) {
+			return null;
+		}
+
+		return new Session(intval($result[0]["id"]), $result[0]);
 	}
 }

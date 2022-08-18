@@ -91,8 +91,8 @@ class Sessions {
 
 	public function get_session_by_token(String $token) {
 		$result = app() -> thin_builder -> select(
-			$this -> table_name,
-			["id"],
+			Session::$table_name,
+			Session::get_fields(),
 			[ 
 				["token", "=", $token],
 				"AND",
@@ -104,6 +104,6 @@ class Sessions {
 			return null;
 		}
 
-		return new Session(intval($result[0]["id"]));
+		return new Session(intval($result[0]["id"]), $result[0]);
 	}
 }

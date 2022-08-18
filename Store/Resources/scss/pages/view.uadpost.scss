@@ -1,0 +1,46 @@
+.page.view-uadpost {
+	.markup {
+		display: grid;
+		grid-template-columns: 800px auto;
+		grid-gap: $std-mg-lg;
+	}
+
+	.uadpost {
+		width: 100%;
+		background-color: $color-bg-card;
+		padding: $std-mg-lg;
+		border-radius: $border-rad-lg;
+		box-sizing: border-box;
+
+		.header {
+			margin-top: $std-mg-xl;
+			margin-bottom: $std-mg-xl;
+			display: grid;
+			grid-template-columns: 1fr auto;
+			grid-gap: $std-mg-lg;
+		}
+
+		.price {
+			font-weight: bold;
+			font-size: $fsize-xl;
+			color: $color-primary;
+			margin-top: 2px;
+		}
+
+		.content {
+			line-height: $fsize-xl;
+			margin-bottom: $std-mg-xl;
+		}
+
+		.metadata {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.labels {
+
+		}
+	}
+}

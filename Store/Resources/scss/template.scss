@@ -4,6 +4,7 @@
 @import "components/signup-form.scss";
 @import "components/signin-form.scss";
 
+@import "components/preloader.scss";
 @import "components/userbar.scss";
 @import "components/search-bar.scss";
 @import "components/user-nav.scss";
@@ -16,11 +17,14 @@
 @import "components/uadpost-card.scss";
 @import "components/compact-user-card.scss";
 @import "components/paginator.scss";
+@import "components/uadpost/user-card.scss";
+@import "components/uadpost/carousel.scss";
 
 // PAGES
 @import "pages/signup.scss";
 @import "pages/signin.scss";
 @import "pages/search.scss";
+@import "pages/view.uadpost.scss";
 
 
 .footer {

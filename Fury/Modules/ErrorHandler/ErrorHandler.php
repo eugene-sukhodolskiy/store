@@ -136,10 +136,11 @@ class ErrorHandler{
 
 	protected function show_err_page(Array $data) {
 		$json_data = json_encode($data);
-		echo "<html><head><title></title>";
+		echo "<title></title>";
 		echo '<link rel="stylesheet" type="text/css" href="/Store/Resources/css/server-error-handler.css">';
 		echo "<script>const eh_err = `{$json_data}`;</script>";
 		echo '<script src="/Store/Resources/js/server-error-handler.js"></script>';
-		echo "</head><body class='error-handler'></body></html>";
+		echo "<div class='error-handler'></div>";
+		die();
 	}
 }

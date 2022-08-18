@@ -1,0 +1,37 @@
+.component.user-card {
+	padding: $std-pd-lg;
+	background-color: $color-bg-card;
+	border-radius: $border-rad-lg;
+	display: grid;
+	grid-template-columns: max-content auto;
+	grid-gap: $std-mg-lg;
+	align-items: center;
+
+	.userpic {
+		img {
+			border-radius: 100%;
+			width: 120px;
+			height: 120px;
+		}
+	}
+
+	.user-info {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-sm;
+	}
+
+	.statistics {
+
+	}
+
+	.last-activity {
+		.label {
+			font-size: $fsize-xsm;
+		}
+	}
+
+	.phone-number {
+		
+	}
+}

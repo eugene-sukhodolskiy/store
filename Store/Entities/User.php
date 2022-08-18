@@ -2,6 +2,8 @@
 
 namespace Store\Entities;
 
+use \Store\Entities\Session;
+
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
 	protected static $fields = [
@@ -21,6 +23,12 @@ class User extends \Store\Middleware\Entity {
 	public function get_last_uadpost() {
 		$posts = app() -> factory -> getter() -> get_uadposts_by("uid", $this -> id(), 1);
 		return $posts ? $posts[0] : false;
+	}
+
+	public function last_session() {
+		return $this -> get_pet_instance("Session", function() {
+			return app() -> factory -> getter() -> get_session_by("uid", $this -> id());
+		});
 	}
 
 	// Static methods

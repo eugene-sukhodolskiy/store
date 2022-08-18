@@ -1,0 +1,146 @@
+.component.carousel {
+	position: relative;
+	width: 100%;
+	height: auto;
+
+	.render-field {
+		border-radius: $border-rad-lg;
+		width: 100%;
+		height: 500px;
+		overflow: hidden;
+
+		.preloader-wrap {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			right: 20px;
+			bottom: 100px;
+		}
+	}
+
+	.imgs-container {
+		overflow-y: hidden;
+		height: inherit;
+		display: flex;
+		flex-direction: row;
+		transition-duration: $trans-du;
+		transition-property: margin-left;
+	}
+
+	.img-item {
+		width: 100%;
+		height: inherit;
+
+		img {
+			cursor: pointer;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: 50% 50%;
+		}
+	}
+
+	.carousel-control {
+		width: 100%;
+		height: 60px;		
+		display: grid;
+		grid-template-columns: auto auto;
+		grid-gap: $std-mg-lg;
+		justify-content: space-between;
+		align-items: center;
+		box-sizing: border-box;
+		margin-top: $std-mg-lg;
+
+		&.viewer-mode {
+			width: 760px;
+			position: fixed;
+			bottom: $std-mg-xl;
+			left: calc(50% - 380px);
+			z-index: 101;
+		}
+	}
+
+	.carousel-arrow {
+		padding: $std-pd-sm;
+		max-height: initial;
+		transition-property: opacity, background-color, color;
+
+		.mdi {
+			font-size: $fsize-xxl;
+		}
+
+		&:hover {
+			background-color: #fff;
+			color: $color-text;
+		}
+	}
+
+	.img-previews {
+		height: inherit;
+		display: flex;
+		flex-direction: row;
+		gap: $std-mg-xsm;
+	}
+
+	.img-preview-item {
+		height: inherit;
+		width: auto;
+		object-fit: cover;
+		max-width: 60px;
+		opacity: .7;
+		cursor: pointer;
+		box-sizing: border-box;
+		border-radius: $border-rad-sm;
+		transition-duration: $trans-du;
+		transition-property: opacity;
+
+		&.active,
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.carousel-img-view {
+		position: fixed;
+		visibility: hidden;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		opacity: 0;
+		z-index: 100;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #000;
+		transition-duration: $trans-du;
+		transition-property: opacity, visibility;
+
+		&.show {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.view {
+			max-height: 100%;
+			max-width: 100%;
+			width: auto;
+		}
+
+		.btn-popup-close {
+			position: absolute;
+			right: $std-mg-xl;
+			top: $std-mg-xl;
+			width: 50px;
+			height: 50px;
+		}
+
+		.preloader-wrap {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			left: calc(50% - 25px);
+			top: calc(50% - 25px);
+		}
+	}
+}

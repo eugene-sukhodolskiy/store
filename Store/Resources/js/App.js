@@ -47,6 +47,12 @@ class App {
 				item.innerHTML = maxLen - len;
 			});
 		});
+
+		document.querySelectorAll("[data-show-phone-number]").forEach(item => item.addEventListener("click", e => {
+				e.preventDefault();
+				e.currentTarget.parentNode.innerHTML = e.currentTarget.getAttribute("data-show-phone-number");
+			})
+		);
 	}
 }
 

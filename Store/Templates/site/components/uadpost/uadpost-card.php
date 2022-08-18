@@ -4,9 +4,9 @@
 	 */
 ?>
 <div class="component uadpost-card">
-	<div class="struct <?= $uadpost -> with_images() ? "with-img" : "" ?>">
+	<div class="struct <?= $uadpost -> has_images() ? "with-img" : "" ?>">
 		
-		<? if($uadpost -> with_images()): ?>
+		<? if($uadpost -> has_images()): ?>
 			<div class="picture">
 				<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
 					<img 
@@ -29,16 +29,11 @@
 			</div>
 
 			<div class="std-row meta-info">
-				<div class="location" title="<?= $uadpost -> region_en ?>">
-					<span class="mdi mdi-map-marker-outline"></span>
-					<? if($uadpost -> city_en): ?>
-						<span class="city"><?= $uadpost -> city_en ?></span>,
-					<? endif ?>
-					
-					<? if($uadpost -> country_en): ?>
-						<span class="country"><?= $uadpost -> country_en ?></span>
-					<? endif ?>
-				</div>
+				<?= $this -> join("site/components/location-view", [
+					"country" => $uadpost -> country_en,
+					"region" => $uadpost -> region_en,
+					"city" => $uadpost -> city_en
+				]) ?>
 				
 				<div class="timestamp">
 					<span class="mdi mdi-calendar"></span>

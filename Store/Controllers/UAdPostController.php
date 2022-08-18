@@ -17,18 +17,17 @@ class UAdPostController extends \Store\Middleware\Controller {
 	}
 
 	public function view_page($alias) {
-		$alias = str_replace(".html", "", $alias);
-		$result = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
-		if(!$result) {
-			// Err, not found
-		}
+		$alias = strstr($alias, ".html", true);
+		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
 
-		$uadpost = $result[0];
+		if(!$uadposts) {
+			return $this -> new_template() -> make("site/404.php");
+		}
 
 		return $this -> new_template() -> make("site/view.uadpost", [
 			"page_title" => $uadpost -> title,
 			"page_alias" => "page view-uadpost",
-			"uadpost" => $uadpost
+			"uadpost" => $uadposts[0]
 		]);
 	}
 
@@ -152,7 +151,10 @@ class UAdPostController extends \Store\Middleware\Controller {
 			}
 		}
 		
-		return $this -> utils() -> response_success();
+		return $this -> utils() -> response_success([
+			"redirect_url" => $uadpost -> get_url(),
+			"redirect_delay" => 300
+		]);
 	}
 
 	public function create_draft() {

@@ -4,9 +4,9 @@ namespace Fury\Modules\ThinBuilder;
 
 /**
  * trait ThinBuilderProcessing
- * @author  Eugene Sukhodolskiy <e.sukhodolskiy@outlook.com>
+ * @author  Eugene Sukhodolskiy <eugene.sukhodolskiy@gmail.com>
  * @version 0.1
- * Update at 26.01.2020
+ * Update at 18.08.2022
  */
 
 trait ThinBuilderProcessing{
@@ -15,6 +15,7 @@ trait ThinBuilderProcessing{
 	protected $history;
 	protected $history_enabled;
 	protected $driver;
+	protected $gen_sql_only = false;
 
 	public function __construct($db_config, $driver = null, $history_enabled = true){
 		$this -> db_config = $db_config;

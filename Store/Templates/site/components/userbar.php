@@ -6,8 +6,12 @@
 	</div>
 	<div class="user-name">
 		<a href="#" class="user-name-link">
-			<?= $user -> profile() -> first_name ?>
-			<?= $user -> profile() -> second_name ?>
+			<? if($user -> profile() -> first_name): ?>
+				<?= $user -> profile() -> first_name ?>
+				<?= $user -> profile() -> second_name ?>
+			<? else: ?>
+				<?= strstr($user -> email, "@", true) ?>
+			<? endif ?>
 		</a>
 	<span class="mdi mdi-chevron-down"></span>
 	</div>

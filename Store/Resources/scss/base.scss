@@ -209,6 +209,8 @@ textarea.std-input {
 		display: flex;
 		height: 40px;
 		width: 40px;
+		max-width: initial;
+		max-height: initial;
 		font-size: 20px;
 		border-radius: 100%;
 		border: 0;
@@ -227,13 +229,13 @@ textarea.std-input {
 	}
 
 	&.disable {
-		background-color: $color-disable;
-		border-color: $color-disable;
-		color: $color-text;
+		background-color: $color-disable !important;
+		border-color: $color-disable !important;
+		color: $color-text !important;
 
 		&:hover {
-			background-color: $color-disable;
-			color: $color-text;
+			background-color: $color-disable !important;
+			color: $color-text !important;
 		}
 	}
 }
@@ -270,4 +272,31 @@ hr {
 	border: 0;
 	background: $color-disable;
 	margin: $std-mg-xl 0;
+}
+
+.label {
+	display: inline-block;
+	font-size: $fsize-md;
+	padding: $std-pd-xsm $std-pd-sm $std-pd-xsm - 1 $std-pd-sm;
+	background-color: $color-addition;
+	color: $color-text;
+	border-radius: $border-rad-sm;
+
+	&.label-primary {
+		background-color: $color-primary;
+		color: $color-text-inverted;
+	}
+
+	&.label-success {
+		background-color: $color-success;
+	}
+
+	&.label-warning {
+		background-color: $color-warning;
+	}
+
+	&.label-danger {
+		background-color: $color-danger;
+		color: $color-text-inverted;
+	}
 }

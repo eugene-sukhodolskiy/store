@@ -2,10 +2,10 @@
 
 /**
  * Class: ThinBuilder
- * @author Eugene Sukhodolskiy <e.sukhodolskiy@outlook.com>
+ * @author Eugene Sukhodolskiy <eugene.sukhodolskiy@gmail.com>
  * @version 0.1
  * Date: 22.01.2020
- * Update At: 26.01.2020
+ * Update At: 18.08.2022
  */
 
 namespace Fury\Modules\ThinBuilder;
@@ -17,6 +17,11 @@ class ThinBuilder implements ThinBuilderInterface{
 	public function query(String $sql, String $fetch_func = '', Int $fetch_func_param = NULL){
 		if($this -> driver){
 			$this -> driver -> event_ready_sql($sql);
+		}
+
+		if($this -> gen_sql_only) {
+			$this -> gen_sql_only = false;
+			return $sql;
 		}
 
 		// TODO: if result of query() == false - we have error about trying call fetch func
@@ -183,5 +188,10 @@ class ThinBuilder implements ThinBuilderInterface{
 
 	public function history(){
 		return $this -> history;
+	}
+
+	public function sql_for() {
+		$this -> gen_sql_only = true;
+		return $this;
 	}
 }

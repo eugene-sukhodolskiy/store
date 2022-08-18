@@ -1,0 +1,54 @@
+<?php
+	/**
+	 * @var \Store\Entitties\User $user
+	 */
+?>
+<div class="component user-card">
+	<div class="userpic">
+		<a href="#" class="no-decoration">
+			<img src="https://randomuser.me/api/portraits/women/90.jpg" alt="<?= $user -> profile() -> first_name ?>">
+		</a>
+	</div>
+	<div class="user-info">
+		<div class="user-name">
+			<a href="#">
+				<? if($user -> profile() -> first_name): ?>
+					<?= $user -> profile() -> first_name ?> 
+					<?= $user -> profile() -> second_name ?>
+				<? else: ?>
+					<?= strstr($user -> email, "@", true) ?>
+				<? endif ?>
+			</a>
+		</div>
+
+		<div class="no-matter-text statistics">
+			34 продано / 3 в продаже
+		</div>
+
+		<div class="last-activity">
+			<? $last_activity = $user -> last_session() -> get_last_activity() ?>
+			<? if($last_activity < 3): ?>
+				<span class="label label-success">Сейчас на сайте</span>
+			<? elseif($last_activity < 15): ?>
+				<span class="label">Был недавно на сайте</span>
+			<? elseif($last_activity < 60): ?>
+				<span class="label">Заходил час назад</span>
+			<? elseif(date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) == date("d.m.Y")): ?>
+				<span class="label">Был сегодня на сайте</span>
+			<? else: ?>
+				<span class="label">Был на сайте 
+					<?= date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) ?>
+				</span>
+			<? endif ?>
+		</div>
+
+		<div class="phone-number">
+			<a 
+				href="#"
+				data-show-phone-number="<?= $user -> profile() -> phone_number ?>"
+			>
+				Показать номер
+			</a>
+		</div>
+	</div>
+</div>

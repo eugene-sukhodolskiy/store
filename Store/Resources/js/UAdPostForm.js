@@ -81,9 +81,9 @@ class UAdPostForm {
 				// TODO: use text of messages by alias 
 				const msg = "Успешно! Перенаправление...";
 				this.alert = createAlertComponent("success", msg, true, true).showIn(this.alertContainer);
-				// setTimeout(() => { 
-					// document.location = resp.data.redirect_url; 
-				// }, resp.data.redirect_delay);
+				setTimeout(() => { 
+					document.location = resp.data.redirect_url; 
+				}, resp.data.redirect_delay);
 			} else {
 				console.error("Undefined error on server")
 				// TODO: use text of messages by alias 
