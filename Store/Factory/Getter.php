@@ -7,6 +7,7 @@ use \Store\Entities\Profile;
 use \Store\Entities\Image;
 use \Store\Entities\UAdPost;
 use \Store\Entities\Session;
+use \Store\Entities\Meta;
 
 class Getter {
 	public function get_user_by(String $field_name, $field_value) {
@@ -96,5 +97,24 @@ class Getter {
 		}
 
 		return new Session(intval($result[0]["id"]), $result[0]);
+	}
+
+	public function get_meta(Int $ent_id, String $assignment): Array {
+		$result = app() -> thin_builder -> select(
+			Meta::$table_name,
+			Meta::get_fields(),
+			[ ["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] ]
+		);
+
+		if(!$result) {
+			return [];
+		}
+
+		$meta = [];
+		foreach($result as $item) {
+			$meta[] = new Meta($item["id"], $item);
+		}
+
+		return $meta;
 	}
 }

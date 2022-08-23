@@ -23,7 +23,8 @@
 			</div>
 
 			<div class="no-matter-text statistics">
-				34 продано / 3 в продаже
+				<?= $user -> statistics() -> total_saled ?> продано / 
+				<?= $user -> statistics() -> total_published_uadposts ?> в продаже
 			</div>
 
 			<div class="last-activity">

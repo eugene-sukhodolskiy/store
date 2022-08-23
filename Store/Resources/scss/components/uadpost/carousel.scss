@@ -53,10 +53,15 @@
 
 		&.viewer-mode {
 			width: 760px;
+			max-width: calc(100% - $std-mg-md * 2);
 			position: fixed;
 			bottom: $std-mg-xl;
 			left: calc(50% - 380px);
 			z-index: 101;
+
+			@include media("max", "md") {
+				left: $std-mg-md;
+			}
 		}
 	}
 
@@ -141,6 +146,11 @@
 			top: $std-mg-xl;
 			width: 50px;
 			height: 50px;
+
+			@include media("max", "md") {
+				right: $std-mg-md;
+				top: $std-mg-md;
+			}
 		}
 
 		.preloader-wrap {

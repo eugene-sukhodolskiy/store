@@ -135,4 +135,16 @@ class Utils {
 
 		return $new_str;
 	}
+
+	public function get_default_val_for_type(String $type) {
+		$default_val = null;
+		$types_default_vals = [
+			"Int" => 0,
+			"String" => "",
+			"JSON" => "{}",
+			"Float" => 0
+		];
+
+		return $types_default_vals[$type];
+	}
 }

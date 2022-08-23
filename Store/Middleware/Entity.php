@@ -3,10 +3,11 @@
 namespace Store\Middleware;
 
 class Entity {
+
+	use \Store\Helpers\GetSetImplementation;
+
 	protected $entity_tablename;
 	protected $entity_id;
-	protected $data;
-	protected $modified_fields = [];
 	protected $pet_instances = [];
 	protected $field_name_of_update_at = "update_at";
 
@@ -36,28 +37,8 @@ class Entity {
 		return app() -> thin_builder;
 	}
 
-	public function to_array() {
-		return $this -> data;
-	}
-
 	public function id() {
 		return $this -> entity_id;
-	}
-
-	public function get(String $field_name) {
-		// TODO: normalize displaying of error
-		return in_array($field_name, static::$fields) ? $this -> data[$field_name] : ddjson(["Error of GET, field `{$field_name}` not found", $this -> data, isset($this -> data[$field_name]) ]);
-	}
-
-	public function set(String $field_name, $field_val) {
-		if(!in_array($field_name, static::$fields)){
-			// TODO: normalize displaying of error
-			ddjson("Error of SET, field `{$field_name}` not found");
-		}
-	
-		$this -> data[$field_name] = $field_val;
-		$this -> modified_fields[$field_name] = $field_val;
-		return $this;
 	}
 
 	public function update() {
@@ -75,14 +56,6 @@ class Entity {
 		$result = $this -> modified_fields;
 		$this -> modified_fields = [];
 		return $result;
-	}
-
-	public function __get($field_name) {
-		return $this -> get($field_name);
-	}
-
-	public function __set($field_name, $field_val) {
-		return $this -> set($field_name, $field_val);
 	}
 
 	public static function get_fields() {

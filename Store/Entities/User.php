@@ -3,6 +3,7 @@
 namespace Store\Entities;
 
 use \Store\Entities\Session;
+use \Store\Wrappers\UserStatistics;
 
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
@@ -17,6 +18,12 @@ class User extends \Store\Middleware\Entity {
 	public function profile() {
 		return $this -> get_pet_instance("Profile", function() {
 			return app() -> factory -> getter() -> get_profile_by("uid", $this -> id());
+		});
+	}
+
+	public function statistics() {
+		return $this -> get_pet_instance("UserStatistics", function() {
+			return new UserStatistics($this -> id(), "User");
 		});
 	}
 

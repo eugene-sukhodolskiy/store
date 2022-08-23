@@ -6,6 +6,7 @@ use \Store\Entities\Profile;
 use \Store\Entities\User;
 use \Store\Entities\Image;
 use \Store\Entities\UAdPost;
+use \Store\Entities\Meta;
 
 class Creator {
 	public function create_user(String $alias, String $email, String $password) {
@@ -74,5 +75,25 @@ class Creator {
 		]);
 
 		return $uadpost_id ? new UAdPost($uadpost_id) : null;
+	}
+
+	public function create_meta(Int $ent_id, String $assignment, String $name, $value): Meta {
+		$data = [
+			"ent_id" => $ent_id,
+			"assignment" => $assignment,
+			"name" => $name,
+			"value" => $value,
+			"create_at" => date("Y-m-d H:i:s")
+		];
+
+		$meta_id = app() -> thin_builder -> insert(Meta::$table_name, $data);
+
+		return new Meta($meta_id, array_merge(
+			[
+				"id" => $meta_id, 
+				"update_at" => $data["create_at"]
+			],
+			$data
+		));
 	}
 }
