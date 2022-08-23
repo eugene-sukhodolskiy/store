@@ -24,8 +24,8 @@
 			</a>
 
 			<div class="price-container">
-				<span class="price"><?= $uadpost -> price ?></span> 
-				<span class="currency"><?= $uadpost -> currency ?></span>
+				<span class="price"><?= $uadpost -> get_formatted_price() ?></span> 
+				<span class="currency"><?= $uadpost -> get_formatted_currency() ?></span>
 			</div>
 
 			<div class="std-row meta-info">

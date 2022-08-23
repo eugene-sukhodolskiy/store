@@ -46,4 +46,19 @@ class UAdPost extends \Store\Middleware\Entity {
 	public function get_formatted_timestamp() {
 		return date("d.m.Y", strtotime($this -> create_at));
 	}
+
+	public function get_formatted_price() {
+		$price = number_format($this -> price, 0, ",", " ");
+		return $price;
+	}
+
+	public function get_formatted_currency() {
+		$t = [
+			"UAH" => "грн",
+			"EUR" => "€",
+			"USD" => "$"
+		];
+
+		return $t[ $this -> currency ];
+	}
 }

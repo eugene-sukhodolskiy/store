@@ -2,16 +2,25 @@
 	padding: $std-pd-lg;
 	background-color: $color-bg-card;
 	border-radius: $border-rad-lg;
-	display: grid;
-	grid-template-columns: max-content auto;
-	grid-gap: $std-mg-lg;
-	align-items: center;
+
+	.profile {
+		display: grid;
+		grid-template-columns: max-content auto;
+		grid-gap: $std-mg-lg;
+		align-items: center;
+	} 
 
 	.userpic {
 		img {
 			border-radius: 100%;
 			width: 120px;
 			height: 120px;
+			transition-duration: $trans-du;
+			transition-property: box-shadow;
+
+			&:hover {
+				box-shadow: $shadow-sm;
+			}
 		}
 	}
 
@@ -21,9 +30,7 @@
 		gap: $std-mg-sm;
 	}
 
-	.statistics {
-
-	}
+	.statistics {}
 
 	.last-activity {
 		.label {
@@ -31,7 +38,22 @@
 		}
 	}
 
+	.btns-group {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: $std-mg-md;
+		margin-top: $std-mg-md;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
 	.phone-number {
-		
+		.mdi {
+			font-size: 20px;
+			position: relative;
+			top: 3px;
+		}
 	}
 }

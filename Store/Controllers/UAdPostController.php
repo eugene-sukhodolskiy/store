@@ -25,7 +25,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		return $this -> new_template() -> make("site/view.uadpost", [
-			"page_title" => $uadpost -> title,
+			"page_title" => $uadposts[0] -> title,
 			"page_alias" => "page view-uadpost",
 			"uadpost" => $uadposts[0]
 		]);

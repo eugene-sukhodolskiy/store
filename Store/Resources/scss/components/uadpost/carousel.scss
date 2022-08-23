@@ -44,7 +44,7 @@
 		width: 100%;
 		height: 60px;		
 		display: grid;
-		grid-template-columns: auto auto;
+		grid-template-columns: auto 120px;
 		grid-gap: $std-mg-lg;
 		justify-content: space-between;
 		align-items: center;
@@ -80,6 +80,14 @@
 		display: flex;
 		flex-direction: row;
 		gap: $std-mg-xsm;
+		overflow-x: auto;
+		overflow-y: hidden;
+		-ms-overflow-style: none;  /* IE and Edge */
+		scrollbar-width: none;  /* Firefox */
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 
 	.img-preview-item {
@@ -142,5 +150,13 @@
 			left: calc(50% - 25px);
 			top: calc(50% - 25px);
 		}
+	}
+
+	.arrows-btns {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: no-wrap;
+		justify-content: flex-end;
+		gap: $std-mg-sm;
 	}
 }

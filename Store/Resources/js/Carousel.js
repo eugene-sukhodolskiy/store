@@ -6,7 +6,8 @@ class Carousel {
 		this.imgs = this.imgsContainer.querySelectorAll(".img-item");
 		this.prevBtns = this.container.querySelectorAll(`[data-carousel-control="prev"]`);
 		this.nextBtns = this.container.querySelectorAll(`[data-carousel-control="next"]`);
-		this.previews = this.container.querySelectorAll(".img-preview-item");
+		this.imgPreviewsContainer = this.container.querySelector(".img-previews");
+		this.previews = this.imgPreviewsContainer.querySelectorAll(".img-preview-item");
 		this.imgViewer = this.container.querySelector(".carousel-img-view");
 		this.imgViewerCloseBtn = this.imgViewer.querySelector(".btn-popup-close");
 		this.imgViewObject = this.imgViewer.querySelector(".view");
@@ -91,8 +92,7 @@ class Carousel {
 			this.nextBtns.forEach(item => item.classList.remove("disable"));
 		}
 
-		this.previews.forEach(item => item.classList.remove("active"));
-		this.previews[this.currentNum].classList.add("active");
+		this.updatePreviews();
 
 		this.lazyLoad(this.imgs[this.currentNum].querySelector("img"));
 
@@ -101,6 +101,19 @@ class Carousel {
 			this.imgViewObject.classList.add("hide");
 			this.imgViewObject.src = this.imgs[this.currentNum].querySelector("img").getAttribute("data-carousel-control-view");
 		}
+	}
+
+	updatePreviews() {
+		this.previews.forEach(item => item.classList.remove("active"));
+		this.previews[this.currentNum].classList.add("active");
+
+		const offsetLeft = this.previews[this.currentNum].offsetLeft;
+		const visibilitySilhoette = offsetLeft + this.previews[this.currentNum].clientWidth;
+		const previewsContainerWidth = this.imgPreviewsContainer.clientWidth;
+		this.imgPreviewsContainer.scrollTo({
+			"left": offsetLeft - 50,
+			"behavior": "smooth"
+		});
 	}
 
 	lazyLoad(img) {

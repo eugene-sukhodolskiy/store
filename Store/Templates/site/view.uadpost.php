@@ -16,9 +16,21 @@
 					<div class="title-wrap">
 						<h1 class="title"><?= $uadpost -> title ?></h1>
 					</div>
-					<div class="price">
-						<?= $uadpost -> price ?>
-						<span class="currency"><?= $uadpost -> currency ?></span>
+
+					<div class="uadpost-control">
+						<div class="btn-buy-wrap">
+							<?= $this -> join("site/components/uadpost/btn-buy.php", [
+								"uadpost_id" => $uadpost -> id(),
+								"price" => $uadpost -> get_formatted_price(),
+								"currency" => $uadpost -> get_formatted_currency()
+							]) ?>
+						</div>	
+						<div class="btn-favorite-wrap">
+							<?= $this -> join("site/components/btn-favorite.php", [
+								"uadpost_id" => $uadpost -> id(),
+								"state" => ""
+							]) ?>
+						</div>
 					</div>
 				</header>
 				<div class="content">

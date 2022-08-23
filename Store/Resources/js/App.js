@@ -50,7 +50,9 @@ class App {
 
 		document.querySelectorAll("[data-show-phone-number]").forEach(item => item.addEventListener("click", e => {
 				e.preventDefault();
-				e.currentTarget.parentNode.innerHTML = e.currentTarget.getAttribute("data-show-phone-number");
+				const number = e.currentTarget.getAttribute("data-show-phone-number");
+				e.currentTarget.innerHTML = number;
+				e.currentTarget.href = `tel:${number}`;
 			})
 		);
 	}

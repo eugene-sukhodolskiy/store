@@ -3,6 +3,10 @@
 		display: grid;
 		grid-template-columns: 800px auto;
 		grid-gap: $std-mg-lg;
+
+		@include media("max", "xl") {
+			grid-template-columns: auto;
+		}
 	}
 
 	.uadpost {
@@ -12,19 +16,31 @@
 		border-radius: $border-rad-lg;
 		box-sizing: border-box;
 
+		@include media("max", "lg") {
+			padding: $std-mg-md;
+		}
+
+		.component.carousel {
+			.render-field {
+				@include media("max", "sm") {
+					height: 300px;
+				}
+			}
+		}
+
 		.header {
 			margin-top: $std-mg-xl;
 			margin-bottom: $std-mg-xl;
-			display: grid;
-			grid-template-columns: 1fr auto;
-			grid-gap: $std-mg-lg;
+			display: flex;
+			flex-direction: column;
+			gap: $std-mg-md;
 		}
 
-		.price {
-			font-weight: bold;
-			font-size: $fsize-xl;
-			color: $color-primary;
-			margin-top: 2px;
+		.uadpost-control {
+			display: flex;
+			flex-direction: row;
+			gap: $std-mg-lg;
+			align-items: center;
 		}
 
 		.content {
@@ -39,8 +55,59 @@
 			align-items: center;
 		}
 
-		.labels {
+		.timestamp {
+	    min-width: max-content;
+		}
 
+		.labels {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: $std-mg-xsm;
+		}
+
+		@include media("max", "sm") {
+			.component.btn-buy {
+				flex-direction: column;
+				padding-right: 0;
+				padding-bottom: $std-pd-sm;
+
+				.btn-buy {
+					width: 100%;
+				}
+
+				.price {
+					padding: 0 $std-pd-sm;
+				}
+			}	
+
+			.metadata {
+				align-items: flex-start;
+			}
+		}
+	}
+
+	.component.user-card {
+		@include media("max", "xl") {
+			.btns-group {
+				justify-content: flex-start;
+				gap: $std-mg-lg;
+			}
+		}
+
+		@include media("max", "sm") {
+			.userpic img {
+				width: 60px;
+				height: 60px;
+			}
+
+			.user-name {
+				font-size: $fsize-sm;
+			}
+
+			.btns-group {
+				gap: $std-mg-md;
+			}
 		}
 	}
 }

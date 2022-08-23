@@ -228,6 +228,15 @@ textarea.std-input {
 		}
 	}
 
+	&.btn-buy {
+		font-size: $fsize-lg;
+
+		&:hover {
+			background-color: #fff;
+			color: $color-success;
+		}
+	}
+
 	&.disable {
 		background-color: $color-disable !important;
 		border-color: $color-disable !important;
