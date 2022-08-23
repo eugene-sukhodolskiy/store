@@ -2,9 +2,9 @@ class ImgUploader {
 	constructor(selector, maxNumberImgs, uploadAction) {
 		this.container = document.querySelector(selector);
 		this.initEvents();
-		this.counter = 0;
+		this.counter = this.container.querySelectorAll("[data-alias]").length;
 		this.maxNumberImgs = maxNumberImgs;
-		this.emptyTemplate = this.container.querySelector(".selected-img.empty").cloneNode(true);
+		this.emptyTemplate = this.container.querySelector(".reference-selected-img .selected-img.empty").cloneNode(true);
 		this.uploadAction = uploadAction;
 
 		this.container.parentNode.getInstance = () => this;
@@ -46,6 +46,12 @@ class ImgUploader {
 				if(item.kind == "file"){
 					this.setFile(item.getAsFile());
 				}
+			}
+		});
+
+		this.container.querySelectorAll(".selected-img").forEach(item => {
+			if(!item.classList.contains(".empty")) {
+				this.addEventsTo(item);
 			}
 		});
 	}

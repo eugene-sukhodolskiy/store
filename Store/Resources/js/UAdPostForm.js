@@ -19,7 +19,7 @@ class UAdPostForm {
 			this.form.setAttribute("action", this.form.getAttribute("data-action-submit"));
 		});
 
-		this.form.querySelector(".submit-to-draft").addEventListener("click", e => {
+		this.form.querySelector(".submit-to-draft")?.addEventListener("click", e => {
 			this.form.setAttribute("action", this.form.getAttribute("data-action-submit-to-draft"));
 		});
 
@@ -33,6 +33,7 @@ class UAdPostForm {
 
 	getFormData() {
 		const data = new FormData(this.form);
+		data.delete("imgs");
 		const imgs = this.container.querySelector(".component.img-uploader").getInstance().getPreparedData();
 		data.append(`imgs`, imgs.map(img => img.alias, imgs));
 		return data;

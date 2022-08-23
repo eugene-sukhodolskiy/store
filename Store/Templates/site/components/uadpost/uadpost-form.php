@@ -2,6 +2,7 @@
 /**
  * @var String $action
  * @var String $action_to_draft
+ * @var UAdPost $uadpost OR nothing
  */
 ?>
 
@@ -12,6 +13,10 @@
 		data-action-submit-to-draft="<?= $action_to_draft ?>"
 		class="form uadpost"
 	>
+		<? if($edit_mode): ?>
+			<input type="hidden" name="uadpost_id" value="<?= $uadpost_id ?>">
+		<? endif ?>
+
 		<div class="input-fields-container">
 			<div class="form-group">
 				<label for="title" class="form-label">
@@ -24,12 +29,13 @@
 					name="title"
 					maxlength="100"
 					placeholder="Название" 
-				></textarea>
+				><?= $title ?></textarea>
 				<div class="input-counter" data-counter-for-input="title"></div>
 			</div>
 
 			<?= $this -> join("site/components/img-uploader", [
-				"number_images" => 8
+				"number_images" => 8,
+				"images" => $images
 			]) ?>
 
 			<div class="form-group">
@@ -42,7 +48,7 @@
 					name="content"
 					maxlength="10000"
 					placeholder="Опишите, что хотите продать"
-				></textarea>
+				><?= $content ?></textarea>
 				<div class="input-counter" data-counter-for-input="content"></div>
 			</div>
 
@@ -58,7 +64,7 @@
 							id="condition_used"
 							value="used"
 							title="Б/У"
-							checked
+							<? if($condition_used == 2): ?>checked<? endif ?>
 						>
 						<label class="form-label" for="condition_used">Б/У</label>
 					</div>
@@ -71,6 +77,7 @@
 							id="condition_new"
 							value="new"
 							title="Новый"
+							<? if($condition_used == 1): ?>checked<? endif ?>
 						>
 						<label class="form-label" for="condition_new">Новый</label>
 					</div>
@@ -90,7 +97,7 @@
 						max="1000000000"
 						min="0"
 						step="1"
-						value="0"
+						value="<?= $price ?>"
 						placeholder="Укажите цену" 
 					>
 
@@ -99,9 +106,9 @@
 						name="currency" 
 						id="currency"
 					>
-						<option value="UAH">UAH</option>
-						<option value="USD">USD</option>
-						<option value="EUR">EUR</option>
+						<option value="UAH" <? if($currency == "UAH"): ?>selected<? endif ?>>UAH</option>
+						<option value="USD" <? if($currency == "USD"): ?>selected<? endif ?>>USD</option>
+						<option value="EUR" <? if($currency == "EUR"): ?>selected<? endif ?>>EUR</option>
 					</select>
 				</div>
 			</div>
@@ -112,6 +119,7 @@
 					class="std-input" 
 					name="exchange_flag"
 					id="exchange_flag"
+					<? if($exchange_flag): ?>checked<? endif ?>
 				>
 				<label for="exchange_flag" class="form-label">
 					Возможен обмен
@@ -197,11 +205,20 @@
 			<div class="form-group form-control-btns-container">
 				<div class="uadpost-row-fields-group form-control-btns">
 					<div class="submit-group">
-						<button class="std-btn btn-success submit">Опубликовать</button>
-						<button class="std-btn btn-primary submit-to-draft">В черновики</button>
+						<button class="std-btn btn-success submit">
+							<? if($edit_mode): ?>
+								Редактировать
+							<? else: ?>
+								Опубликовать
+							<? endif ?>
+						</button>
+
+						<? if(!$edit_mode): ?>
+							<button class="std-btn btn-primary submit-to-draft">В черновики</button>
+						<? endif ?>
 					</div>
 					<div class="cancel-group">
-						<a href="#" class="std-btn btn-default cancel">Отмена</a>
+						<a href="<?= $cancel_url ?>" class="std-btn btn-default cancel">Отмена</a>
 					</div>
 				</div>
 

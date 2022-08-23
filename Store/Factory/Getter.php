@@ -99,11 +99,14 @@ class Getter {
 		return new Session(intval($result[0]["id"]), $result[0]);
 	}
 
-	public function get_meta(Int $ent_id, String $assignment): Array {
+	public function get_meta(Int $ent_id, String $assignment, Int $amount = 10): Array {
 		$result = app() -> thin_builder -> select(
 			Meta::$table_name,
 			Meta::get_fields(),
-			[ ["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] ]
+			[ ["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] ],
+			[],
+			"",
+			[0, $amount]
 		);
 
 		if(!$result) {

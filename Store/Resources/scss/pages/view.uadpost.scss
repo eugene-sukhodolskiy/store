@@ -21,6 +21,8 @@
 		}
 
 		.component.carousel {
+			margin-bottom: $std-mg-xl;
+			
 			.render-field {
 				@include media("max", "sm") {
 					height: 300px;
@@ -29,7 +31,6 @@
 		}
 
 		.header {
-			margin-top: $std-mg-xl;
 			margin-bottom: $std-mg-xl;
 			display: flex;
 			flex-direction: column;

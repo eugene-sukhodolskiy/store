@@ -20,7 +20,11 @@ trait MetaContainer {
 	}
 
 	protected function fill_container() {
-		$meta_items = app() -> factory -> getter() -> get_meta($this -> ent_id, $this -> assignment);
+		$meta_items = app() -> factory -> getter() -> get_meta(
+			$this -> ent_id, 
+			$this -> assignment, 
+			count(static::$fields)
+		);
 		$this -> total_meta_items = count($meta_items);
 
 		foreach($meta_items as $item) {
