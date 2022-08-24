@@ -75,20 +75,9 @@
 		</div>
 
 		<? if($uadpost -> uid == app() -> sessions -> auth_user() -> id()): ?>
-			<div class="uadpost-control-panel">
-				<h3>Управление постом</h5>
-				<ul class="std-list">
-					<li>
-						<a href="<?= app() -> routes -> urlto("UAdPostController@edit_page", [ "alias" => $uadpost -> alias . ".html" ]) ?>" class="">Редактировать</a>
-					</li>
-					<li>
-						<a href="#" class="">Деактивировать</a>
-					</li>
-					<li>
-						<button class="std-btn btn-danger">Удалить</button>
-					</li>
-				</ul>
-			</div>
+			<?= $this -> join("site/components/uadpost/uadpost-control-panel", [
+				"uadpost" => $uadpost
+			]) ?>
 		<? endif ?>
 	</div>
 </div>

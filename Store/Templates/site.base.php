@@ -23,6 +23,8 @@
 	]) ?>
 </div>
 
+<?= $this -> join("site/components/confirm-popup") ?>
+
 <div class="container">
 	<div class="page-content">
 		<?= $this -> content() ?>
