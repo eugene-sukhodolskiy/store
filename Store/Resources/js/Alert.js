@@ -58,7 +58,7 @@ class Alert {
 }
 
 const closeAlertComponent = alertId => {
-	return alertsList[alertId].close();
+	return alertsList[alertId]?.close();
 }
 
 const createAlertComponent = (type, content, isSingleton, isClosable) => {

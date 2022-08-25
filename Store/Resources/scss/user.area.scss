@@ -1,0 +1,17 @@
+.user-area {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 300px auto;
+	grid-gap: $std-mg-xl;
+	margin-top: $std-mg-lg;
+
+	&-navigation {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-lg;
+	}
+
+	.form-group:first-of-type {
+		margin-top: 0;
+	}
+}

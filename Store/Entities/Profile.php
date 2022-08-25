@@ -12,4 +12,16 @@ class Profile extends \Store\Middleware\Entity {
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
 	}	
+
+	public function userpic() {
+		$imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "Profile", 1);
+		return $imgs ? $imgs[0] : false;
+	}
+
+	public function userpic_url(String $size) {
+		$userpic = $this -> userpic();
+		return $userpic 
+			? $userpic -> get_url($size) 
+			: "/Store/Resources/img/default-avatar-img.png";
+	}
 }

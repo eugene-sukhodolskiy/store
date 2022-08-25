@@ -43,6 +43,7 @@ class Routes {
 		$this -> router -> uri('/uadpost/f/remove/$uadpost_id', "{$this -> cn}\\UAdPostController@remove");
 		$this -> router -> uri('/uadpost/edit/$alias', "{$this -> cn}\\UAdPostController@edit_page");
 		$this -> router -> uri('/not-found.html', "{$this -> cn}\\InfoPagesController@not_found_page");
+		$this -> router -> uri('/profile/settings.html', "{$this -> cn}\\ProfileSettingsController@profile_settings_page");
 	}
 
 	protected function get_routes() {
@@ -84,6 +85,12 @@ class Routes {
 			[ "uadpost_id", "title" ], 
 			"{$this -> cn}\\UAdPostController@update",
 			"/uadpost/f/update"
+		);
+
+		$this -> router -> post(
+			[ "first_name", "second_name", "phone_number", "imgs" ], 
+			"{$this -> cn}\\ProfileSettingsController@update",
+			"/profile/f/update"
 		);
 	}
 

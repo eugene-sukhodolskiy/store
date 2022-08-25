@@ -7,7 +7,10 @@
 	<div class="profile">
 		<div class="userpic">
 			<a href="#" class="no-decoration">
-				<img src="https://randomuser.me/api/portraits/women/90.jpg" alt="<?= $user -> profile() -> first_name ?>">
+				<img 
+					src="<?= $user -> profile() -> userpic_url("sm") ?>" 
+					alt="<?= $user -> profile() -> first_name ?> <?= $user -> profile() -> second_name ?>"
+				>
 			</a>
 		</div>
 		<div class="user-info">

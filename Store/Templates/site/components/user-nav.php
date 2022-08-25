@@ -4,14 +4,21 @@
 			<a href="#" class="user-nav-link">Профиль</a>
 		</li>
 		<li class="user-nav-item">
-			<a href="#" class="user-nav-link">Тест 1</a>
-		</li>
-		<li class="user-nav-item">
-			<a href="#" class="user-nav-link">Двинное слово</a>
+			<a href="#" class="user-nav-link">Мои объявления</a>
 		</li>
 		<li class="user-nav-item">
 			<a 
-				href="<?= app() -> routes -> urlto("AuthController@signout_page", [ "redirect_to" => $_SERVER["REQUEST_URI"] ]) ?>" 
+				href="<?= app() -> routes -> urlto("ProfileSettingsController@profile_settings_page", [ 
+					"redirect_to" => $_SERVER["REQUEST_URI"] 
+				]) ?>" 
+				class="user-nav-link"
+			>Настройки профиля</a>
+		</li>
+		<li class="user-nav-item">
+			<a 
+				href="<?= app() -> routes -> urlto("AuthController@signout_page", [ 
+					"redirect_to" => $_SERVER["REQUEST_URI"] 
+				]) ?>" 
 				class="user-nav-link"
 			>Выйти</a>
 		</li>

@@ -172,6 +172,7 @@
 			<div class="form-group">
 				<? if($has_posts): ?>
 					<?= $this -> join("site/components/uadpost/select-location", [
+						"help_text" => "Выберите на карте место продажи товара",
 						"lat" => $lat,
 						"lng" => $lng,
 						"country_ru" => $country_ru,

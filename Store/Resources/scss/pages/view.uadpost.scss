@@ -88,6 +88,12 @@
 		}
 	}
 
+	.sidebar-container {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-lg;
+	}
+
 	.component.user-card {
 		@include media("max", "xl") {
 			.btns-group {

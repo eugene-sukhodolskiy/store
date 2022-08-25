@@ -1,0 +1,27 @@
+.page.profile-settings {
+	.notification-save-success {
+		max-width: 500px;
+
+		.component.alert {
+			margin-top: 0;
+		}
+	}
+
+	.profile-settings-container {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-lg;
+		max-width: 500px;
+	}
+
+	.component.img-uploader {
+		margin: 0;
+		width: 160px;
+		padding: $std-pd-sm;
+		background-color: $color-bg-card;
+
+		.selected-imgs-grid {
+			display: block;
+		}
+	}
+}

@@ -1,24 +1,33 @@
 <div class="component uadpost-control-panel">
-	<h3>Управление постом</h5>
-	<ul class="std-list">
-		<li>
+	<h3>Управление постом</h3>
+	<ul class="clickable-list">
+		<li class="list-item">
 			<a 
 				href="<?= app() -> routes -> urlto("UAdPostController@edit_page", [ 
 					"alias" => $uadpost -> alias . ".html" 
 				]) ?>" 
-				class=""
-			>Редактировать</a>
+			>
+				<span class="mdi mdi-pencil"></span>	
+				Редактировать
+			</a>
 		</li>
-		<li>
-			<a href="#" class="">Деактивировать</a>
+
+		<li class="list-item">
+			<a href="#">
+				<span class="mdi mdi-close-thick"></span>	
+				Деактивировать
+			</a>
 		</li>
-		<li>
+
+		<li class="list-item">
 			<button 
-				class="std-btn btn-danger" 
 				data-uadpost-remove-action="<?= app() -> routes -> urlto("UAdPostController@remove", [
 					"uadpost_id" => $uadpost -> id()
 				]) ?>"
-			>Удалить</button>
+			>
+				<span class="mdi mdi-delete-outline"></span>	
+				Удалить
+			</button>
 		</li>
 	</ul>
 </div>

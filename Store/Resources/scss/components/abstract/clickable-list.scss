@@ -1,0 +1,57 @@
+.clickable-list {
+	padding: 0;
+	width: 100%;
+	display: block;
+	background-color: $color-bg-card;
+	border-radius: $border-rad-lg;
+	padding: $std-pd-sm 0;
+
+	.list-item {
+		list-style: none;
+		padding: 0;
+		color: $color-text;
+
+		.mdi {
+			font-size: $fsize-lg;
+			display: inline-block;
+			margin-right: $std-mg-sm;
+		}
+
+		a {
+			display: block;
+			color: inherit;
+			padding: $std-pd-sm $std-pd-lg;
+			width: 100%;
+			box-sizing: border-box;
+			border: 0;
+			background-color: transparent;
+			transition-duration: $trans-du;
+			transition-property: color, background-color;
+
+			&:hover, 
+			&.active {
+				background-color: rgba(0,0,0,.05);
+				color: $color-primary;
+			}
+		}
+
+		button {
+			background-color: transparent;
+			color: inherit;
+			display: block;
+			width: 100%;
+			padding: $std-pd-sm $std-pd-lg;
+			border: 0;
+			font-size: $fsize-md;
+			text-align: left;
+			transition-duration: $trans-du;
+			transition-property: color, background-color;
+
+			&:hover,
+			&.active {
+				background-color: rgba(0,0,0,.05);
+				color: $color-primary;
+			}
+		}
+	}
+}

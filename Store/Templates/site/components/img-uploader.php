@@ -38,7 +38,7 @@
 		</div>
 		
 		<div class="selected-imgs-grid">
-			<div class="add-img <? if(count($images) >= $number_images): ?>dnone<? endif ?>">
+			<div class="add-img <? if(isset($images) and count($images) >= $number_images): ?>dnone<? endif ?>">
 				<span class="mdi mdi-plus"></span>
 				Добавить фото
 			</div>
