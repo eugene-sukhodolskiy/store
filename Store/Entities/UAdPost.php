@@ -61,4 +61,20 @@ class UAdPost extends \Store\Middleware\Entity {
 
 		return $t[ $this -> currency ];
 	}
+
+	public function remove() {
+		if($this -> has_images()) {
+			$imgs = $this -> get_images();
+			foreach($imgs as $img) {
+				$img -> remove();
+			}
+		}
+
+		if($this -> state == "published") {
+			$this -> user() -> statistics() -> total_published_uadposts -> value -= 1;
+			$this -> user() -> statistics() -> total_published_uadposts -> update();
+		}
+		
+		$this -> remove_entity();
+	}
 }

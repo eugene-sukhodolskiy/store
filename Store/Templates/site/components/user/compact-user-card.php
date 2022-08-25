@@ -9,7 +9,10 @@
 			<div class="user-name">
 				<a href="#"><?= $user -> profile() -> first_name ?> <?= $user -> profile() -> second_name ?></a>
 			</div>
-			<div class="no-matter-text">34 продано / 3 в продаже</div>
+			<div class="no-matter-text">
+				<?= $user -> statistics() -> total_saled ?> продано / 
+				<?= $user -> statistics() -> total_published_uadposts ?> в продаже
+			</div>
 		</div>
 	</div>
 </div>

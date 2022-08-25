@@ -40,7 +40,9 @@ class Routes {
 		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
 		$this -> router -> uri('/uadpost/$alias', "{$this -> cn}\\UAdPostController@view_page");
 		$this -> router -> uri("/uadpost/f/create.html", "{$this -> cn}\\UAdPostController@create_page");
+		$this -> router -> uri('/uadpost/f/remove/$uadpost_id', "{$this -> cn}\\UAdPostController@remove");
 		$this -> router -> uri('/uadpost/edit/$alias', "{$this -> cn}\\UAdPostController@edit_page");
+		$this -> router -> uri('/not-found.html', "{$this -> cn}\\InfoPagesController@not_found_page");
 	}
 
 	protected function get_routes() {

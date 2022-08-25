@@ -13,21 +13,28 @@
 			<a href="#" class="">Деактивировать</a>
 		</li>
 		<li>
-			<button class="std-btn btn-danger" data-uadpost-remove="<?= $uadpost -> id() ?>">Удалить</button>
+			<button 
+				class="std-btn btn-danger" 
+				data-uadpost-remove-action="<?= app() -> routes -> urlto("UAdPostController@remove", [
+					"uadpost_id" => $uadpost -> id()
+				]) ?>"
+			>Удалить</button>
 		</li>
 	</ul>
 </div>
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		document.querySelector("[data-uadpost-remove]").addEventListener("click", e => {
-			const uadpostId = e.currentTarget.getAttribute("data-uadpost-remove");
+		document.querySelector("[data-uadpost-remove-action]").addEventListener("click", e => {
+			const action = e.currentTarget.getAttribute("data-uadpost-remove-action");
 			confirmPopup.show({
 				heading: "Подтвердите удаление",
 				applyBtnText: "Удалить",
 				applyBtnType: "danger",
 				cancelBtnText: "Отмена",
-				applyCallback: () => { console.log(`Apply ${uadpostId}`) },
+				applyCallback: () => { 
+					document.location = action ;
+				},
 			})
 		});
 	});

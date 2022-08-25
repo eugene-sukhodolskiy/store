@@ -4,12 +4,13 @@
 		background-color: $color-bg-card;
 		border-radius: $border-rad-lg;
 		display: flex;
+		box-sizing: border-box;
 		flex-direction: column;
 		gap: $std-mg-md;
 		position: fixed;
 		width: 300px;
 		height: auto;
-		top: 130px;
+		top: calc(30% + 30px);
 		left: calc(50% - 150px);
 		z-index: 151;
 		opacity: 0;
@@ -19,7 +20,7 @@
 	}
 	
 	&.show > .popup-card {
-		top: 100px;
+		top: 30%;
 		opacity: 1;
 		visibility: visible; 
 	}

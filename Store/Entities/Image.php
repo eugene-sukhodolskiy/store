@@ -56,7 +56,7 @@ class Image extends \Store\Middleware\Entity {
 
 	public function remove() {
 		$this -> remove_files();
-		return app() -> thin_builder -> delete(self::$table_name, [ ["id", "=", $this -> id()] ]);
+		return $this -> remove_entity();
 	}
 
 	public function default_image() {

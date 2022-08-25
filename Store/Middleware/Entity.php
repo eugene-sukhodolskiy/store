@@ -73,4 +73,8 @@ class Entity {
 	public function forward_instance_init(String $instance_name, $instance) {
 		$this -> pet_instances[$instance_name] = $instance;
 	}
+
+	public function remove_entity() {
+		return app() -> thin_builder -> delete(static::$table_name, [ "id", "=", $this -> id() ]);
+	}
 }

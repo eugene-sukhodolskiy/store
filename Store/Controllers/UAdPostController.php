@@ -3,6 +3,7 @@
 namespace Store\Controllers;
 
 use \Store\Models\UAdPosts;
+use \Store\Entities\UAdPost;
 
 class UAdPostController extends \Store\Middleware\Controller {
 	public function create_page() {
@@ -411,5 +412,25 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		return $data;
+	}
+
+	public function remove($uadpost_id) {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		$uadpost = new UAdPost(intval($uadpost_id));
+		if(!$uadpost) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		if(app() -> sessions -> auth_user() -> id() != $uadpost -> uid) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		$uadpost -> remove();
+
+		// TODO: need redirect to active uadposts for current users
+		return $this -> utils() -> redirect( app() -> routes -> urlto("SearchController@search_page") );
 	}
 }
