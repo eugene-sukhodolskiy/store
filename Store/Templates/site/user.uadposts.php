@@ -11,6 +11,7 @@
 			]) ?>
 			
 			<div class="uadpost-control-panel-wrap">
+				<div class="visual-binder"></div>
 				<?= $this -> join("site/components/uadpost/uadpost-control-panel", [
 					"uadpost" => $uadpost
 				]) ?>

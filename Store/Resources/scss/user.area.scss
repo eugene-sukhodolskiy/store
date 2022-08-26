@@ -5,10 +5,22 @@
 	grid-gap: $std-mg-xl;
 	margin-top: $std-mg-lg;
 
+	@include media("max", "lg") {
+		grid-template-columns: auto;
+	}
+
 	&-navigation {
 		display: flex;
 		flex-direction: column;
 		gap: $std-mg-lg;
+		
+		@include media("max", "lg") {
+			flex-direction: row;
+		}
+
+		@include media("max", "md") {
+			flex-direction: column;
+		}
 	}
 
 	.form-group:first-of-type {

@@ -3,11 +3,57 @@
 		display: grid;
 		grid-template-columns: auto 250px;
 		grid-gap: $std-mg-lg;
+
+		@include media("max", "xl") {
+			grid-template-columns: auto;
+			margin-bottom: $std-mg-xl;
+		}
+	}
+
+	.component.uadpost-card {
+		@include media("max", "xl") {
+			margin-bottom: 0;
+		}
+
+		@include media("max", "sm") {
+			max-height: initial;
+
+			.struct {
+				grid-template-columns: auto;
+			}
+		}
+	}
+
+	.component.uadpost-control-panel {
+		@include media("max", "xl") {
+			h3 {
+				display: none;
+			}
+		}
 	}
 
 	.alert-container {
 		.component.alert {
 			margin-top: 0;
+		}
+	}
+
+	.uadpost-control-panel-wrap {
+		position: relative;
+
+		.visual-binder {
+			width: 0;
+			height: 0;
+			position: absolute;
+			border: $std-mg-lg solid transparent;
+			left: calc(50% - $std-mg-lg / 2);
+			top: -35px;
+			border-bottom-color: $color-bg-card;
+			display: none;
+
+			@include media("max", "xl") {
+				display: block;
+			}
 		}
 	}
 }
