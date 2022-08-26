@@ -5,7 +5,10 @@
 		</li>
 		<li class="user-nav-item">
 			<a 
-				href="<?= app() -> routes -> urlto("UAdPostController@published_uadposts_cur_user") ?>" 
+				href="<?= app() -> routes -> urlto(
+					"UAdPostController@ready_uadposts_cur_user", 
+					["state" => "published"]
+				) ?>" 
 				class="user-nav-link"
 			>Мои объявления</a>
 		</li>

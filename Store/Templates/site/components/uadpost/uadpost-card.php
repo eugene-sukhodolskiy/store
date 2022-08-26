@@ -2,15 +2,17 @@
 	/**
 	 * @var Boolean $displaying_saler
 	 */
+	
+	$first_img = $uadpost -> get_first_image();
 ?>
 <div class="component uadpost-card">
 	<div class="struct <?= $uadpost -> has_images() ? "with-img" : "" ?>">
 		
-		<? if($uadpost -> has_images()): ?>
+		<? if($first_img and $uadpost -> has_images()): ?>
 			<div class="picture">
 				<a href="<?= $uadpost -> get_url() ?>" class="no-decoration">
 					<img 
-						src="<?= $uadpost -> get_first_image() -> get_url("md") ?>" 
+						src="<?= $first_img -> get_url("md") ?>" 
 						class="thumb" 
 						alt="<?= $uadpost -> title ?>"
 					>

@@ -49,7 +49,7 @@ class Getter {
 		);
 
 		if(!$result) {
-			return null;
+			return [];
 		}
 
 		$images = [];

@@ -2,21 +2,10 @@
 
 namespace Store\Models;
 
-/**
- * Model for working with user images 
- */
+use \Store\Entities\UAdPost;
+
 class Images extends \Store\Middleware\Model {
-	public $table_name = "images";
 
-	public function __construct() {
-
-	}
-
-	/**
-	 * Saving img only on disk
-	 * @param  String $img [Image in base64 format. ONLY JPEG]
-	 * @return Mixed      
-	 */
 	public function upload(String $img) {
 		list(, $img) = explode(";base64", $img);
 		$img = base64_decode($img);
@@ -59,5 +48,25 @@ class Images extends \Store\Middleware\Model {
 	// TODO: this is copy of analog function in entity Image, FIXIT
 	public function get_url_by_alias(String $alias) {
 		return "/" . FCONF["users_folder"] . "/{$alias}.jpg";
+	}
+
+	public function create_from_aliases(Array $imgs_aliases, UAdPost $uadpost) {
+		$result = [];
+
+		foreach($imgs_aliases as $i => $alias) {
+			$res_img = app() -> factory -> creator() -> create_image(
+				app() -> sessions -> auth_user() -> id(),
+				$uadpost -> id(),
+				"UAdPost",
+				$alias,
+				$i
+			);
+
+			if($res_img) {
+				$result[] = $res_img;
+			}
+		}
+
+		return $result;
 	}
 }

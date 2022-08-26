@@ -62,7 +62,8 @@ const ehRender = () => {
 	html += `<h4 class="eh-heading">=&gt; ${eh_error.errstr}</h4>`;
 	html += `<h4 class="eh-heading">${ehGetPathToFile()} [line <em>${eh_error.errline}</em>]</h4>`;
 	html += ehRenderCode();
-	document.querySelector("title").innerHTML = `${eh_error.err_type} => ${eh_error.errstr}`;
+	const titleContainer = document.querySelector("title");
+	titleContainer && (titleContainer.innerHTML = `${eh_error.err_type} => ${eh_error.errstr}`);
 	document.querySelector(".error-handler").innerHTML = html;
 }
 

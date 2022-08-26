@@ -148,7 +148,7 @@ class Utils {
 		return $types_default_vals[$type];
 	}
 
-	public function link_is_active(String $action) {
-		return app() -> routes -> urlto($action) == app() -> router -> uri;
+	public function link_is_active(String $action, Array $params = []) {
+		return app() -> routes -> urlto($action, $params) == app() -> router -> uri;
 	}
 }

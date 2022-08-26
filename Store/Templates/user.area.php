@@ -8,8 +8,14 @@
 		<ul class="clickable-list">
 			<li class="list-item">
 				<a 
-					href="<?= app() -> routes -> urlto("UAdPostController@published_uadposts_cur_user") ?>"
-					<? if(app() -> utils -> link_is_active("UAdPostController@published_uadposts_cur_user")): ?>
+					href="<?= app() -> routes -> urlto(
+						"UAdPostController@ready_uadposts_cur_user", 
+						["state" => "published"]
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+							"UAdPostController@ready_uadposts_cur_user", 
+							["state" => "published"]
+					)): ?>
 						class="active"
 					<? endif ?>
 				>
@@ -20,8 +26,14 @@
 
 			<li class="list-item">
 				<a 
-					href="<?= app() -> routes -> urlto("UAdPostController@unpublished_uadposts_cur_user") ?>"
-					<? if(app() -> utils -> link_is_active("UAdPostController@unpublished_uadposts_cur_user")): ?>
+					href="<?= app() -> routes -> urlto(
+						"UAdPostController@ready_uadposts_cur_user", 
+						["state" => "unpublished"]
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+							"UAdPostController@ready_uadposts_cur_user", 
+							["state" => "unpublished"]
+					)): ?>
 						class="active"
 					<? endif ?>
 				>

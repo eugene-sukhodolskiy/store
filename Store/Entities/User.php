@@ -42,7 +42,8 @@ class User extends \Store\Middleware\Entity {
 			$this -> id(), 
 			$state, 
 			FCONF["profile_uadposts_per_page"], 
-			$page_num
+			$page_num,
+			"update_at"
 		);
 	}
 

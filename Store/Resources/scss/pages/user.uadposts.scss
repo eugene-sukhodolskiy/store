@@ -24,14 +24,6 @@
 		}
 	}
 
-	.component.uadpost-control-panel {
-		@include media("max", "xl") {
-			h3 {
-				display: none;
-			}
-		}
-	}
-
 	.alert-container {
 		.component.alert {
 			margin-top: 0;

@@ -48,26 +48,17 @@ class Routes {
 			"{$this -> cn}\\ProfileSettingsController@profile_settings_page"
 		);
 		$this -> router -> uri(
-			'/profile/uadposts/published.html', 
-			"{$this -> cn}\\UAdPostController@published_uadposts_cur_user"
-		);
-		$this -> router -> uri(
-			'/profile/uadposts/unpublished.html', 
-			"{$this -> cn}\\UAdPostController@unpublished_uadposts_cur_user"
+			'/profile/uadposts/$state', 
+			"{$this -> cn}\\UAdPostController@ready_uadposts_cur_user"
 		);
 	}
 
 	protected function get_routes() {
 		$this -> router -> get(["redirect_to"], "{$this -> cn}\\AuthController@signout_page", "/auth/signout.html");
 		$this -> router -> get(
-			[ "uadpost_id" ], 
-			"{$this -> cn}\\UAdPostController@deactivate_uadpost", 
-			"/profile/uadposts/deactivate.html"
-		);
-		$this -> router -> get(
-			[ "uadpost_id" ], 
-			"{$this -> cn}\\UAdPostController@activate_uadpost", 
-			"/profile/uadposts/activate.html"
+			[ "uadpost_id", "state" ], 
+			"{$this -> cn}\\UAdPostController@change_uadpost_state", 
+			"/profile/uadposts/change-state.html"
 		);
 	}
 

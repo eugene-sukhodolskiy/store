@@ -3,6 +3,8 @@
 namespace Store\Controllers;
 
 use \Store\Models\UAdPosts;
+use \Store\Models\Profiles;
+use \Store\Models\Images;
 use \Store\Entities\UAdPost;
 use \Store\Templates\Logic\UserUAdPosts;
 
@@ -61,91 +63,27 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("unlogged_user");
 		}
 
-		extract($this -> get_post_data());
+		$uadposts_model = new UAdPosts();
+		$result = $uadposts_model -> check_uadpost_data($_POST);
 
-		if(!isset($title) or strlen($title) < 10) {
-			return $this -> utils() -> response_error("title_too_short", [ "title" ]);
+		if(is_string($result)) {
+			return $result;
 		}
 
-		if(strlen($title) > 100) {
-			return $this -> utils() -> response_error("textfield_too_large", [ "title" ]);
-		}
+		extract($result);
 
-		if(!isset($content)) {
-			$content = "";
-		}
-
-		if(strlen($content) > 10000) {
-			return $this -> utils() -> response_error("textfield_too_large", [ "content" ]);
-		}
-
-		if(!isset($condition) or ($condition != "used" and $condition != "new")) {
-			$condition = 2;
-		}
-
-		if(!isset($exchange_flag)) {
-			$exchange_flag = 0;
-		}
-
-		if($exchange_flag === "on") {
-			$exchange_flag = 1;
-		}
-
-		if(!isset($price) or $price == "") {
-			return $this -> utils() -> response_error("price_not_specified", [ "price" ]);
-		}
-
-		if(!isset($currency) or !in_array($currency, ["UAH", "USD", "EUR"])) {
-			$currency = "UAH";
-		}
-
-		if(!isset($first_name) or $first_name == "") {
-			return $this -> utils() -> response_error("empty_first_name", [ "first_name" ]);
-		}
-
-		if(!isset($second_name) or $second_name == "") {
-			return $this -> utils() -> response_error("empty_second_name", [ "second_name" ]);
-		}
-
-		if(!isset($phone) or $phone == "") {
-			return $this -> utils() -> response_error("empty_phone_number", [ "phone" ]);
-		}
-
-		if(
-			!isset($lat) or $lat == ""
-			or !isset($lng) or $lng == ""
-		) {
-			return $this -> utils() -> response_error("location_not_specified");
-		}
-
-		$condition = $condition == "new" ? 1 : $condition;
-		$condition = $condition == "used" ? 2 : $condition;
-		$country_en = !isset($country_en) ? "" : $country_en;
-		$country_ru = !isset($country_ru) ? "" : $country_ru;
-		$region_en = !isset($region_en) ? "" : $region_en;
-		$region_ru = !isset($region_ru) ? "" : $region_ru;
-		$city_en = !isset($city_en) ? "" : $city_en;
-		$city_ru = !isset($city_ru) ? "" : $city_ru;
-
-		if(!isset($rules_agree) or $rules_agree != "on") {
-			return $this -> utils() -> response_error("disagree_with_rules", [ "rules_agree" ]);
-		}
-
-		// -----------
-
-		$images_number = (!isset($imgs) or $imgs == "") ? 0 : substr_count($imgs, ",") + 1;
+		$uadpost_id = intval($_POST["uadpost_id"]);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $uadpost_id, 1);
 		
 		if(!$uadposts) {
-			return $this -> utils() -> response_error("fail_creating_uadpost");
+			return $this -> utils() -> response_error("fail_publishing_uadpost");
 		}
 
 		$uadpost = $uadposts[0];
 
 		$prev_imgs = $uadpost -> get_images();
 
-		$uadpost_model = new UAdPosts();
-		$uadpost_model -> update(
+		$uadposts_model -> update(
 			$uadpost -> id(),
 			app() -> sessions -> auth_user() -> id(),
 			$title, $content, $condition, $exchange_flag, 
@@ -154,23 +92,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 			$city_ru, $images_number
 		);
 
-		$profile = app() -> sessions -> auth_user() -> profile();
-		if(
-			$profile -> first_name != $first_name 
-			or $profile -> second_name != $second_name
-			or $profile -> phone_number != $phone
-		) {
-			$profile -> first_name = $first_name;
-			$profile -> second_name = $second_name;
-			$profile -> phone_number = $phone;
-		}
-
-		if($profile -> location_lat != $lat or $profile -> location_lng != $lng) {
-			$profile -> location_lat = $lat;
-			$profile -> location_lng = $lng;
-		}
-
-		$profile -> update();
+		(new Profiles()) -> update_with_update_uadpost(
+			app() -> sessions -> auth_user() -> profile(), 
+			$first_name, 
+			$second_name, 
+			$phone,
+			$lat,
+			$lng
+		);
 
 		// IMGS
 
@@ -185,15 +114,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return !in_array($prev_img -> alias, $imgs_aliases) ? true : false;
 		});
 
-		foreach($new_imgs_aliases as $i => $alias) {
-			app() -> factory -> creator() -> create_image(
-				app() -> sessions -> auth_user() -> id(),
-				$uadpost -> id(),
-				"UAdPost",
-				$alias,
-				$i
-			);
-		}
+		(new Images()) -> create_from_aliases( $new_imgs_aliases, $uadpost );
 
 		foreach($legacy_imgs as $i => $legacy_img) {
 			$legacy_img -> remove();
@@ -207,80 +128,17 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 	public function create() {
 		if(!app() -> sessions -> is_auth()) {
-			return $this -> utils() -> response_error("unlogged_user");
+			return app() -> utils -> response_error("unlogged_user");
 		}
 
-		extract($this -> get_post_data());
+		$uadposts_model = new UAdPosts();
+		$result = $uadposts_model -> check_uadpost_data($_POST);
 
-		if(!isset($title) or strlen($title) < 10) {
-			return $this -> utils() -> response_error("title_too_short", [ "title" ]);
+		if(is_string($result)) {
+			return $result;
 		}
 
-		if(strlen($title) > 100) {
-			return $this -> utils() -> response_error("textfield_too_large", [ "title" ]);
-		}
-
-		if(!isset($content)) {
-			$content = "";
-		}
-
-		if(strlen($content) > 10000) {
-			return $this -> utils() -> response_error("textfield_too_large", [ "content" ]);
-		}
-
-		if(!isset($condition) or ($condition != "used" and $condition != "new")) {
-			$condition = 2;
-		}
-
-		if(!isset($exchange_flag)) {
-			$exchange_flag = 0;
-		}
-
-		if($exchange_flag === "on") {
-			$exchange_flag = 1;
-		}
-
-		if(!isset($price) or $price == "") {
-			return $this -> utils() -> response_error("price_not_specified", [ "price" ]);
-		}
-
-		if(!isset($currency) or !in_array($currency, ["UAH", "USD", "EUR"])) {
-			$currency = "UAH";
-		}
-
-		if(!isset($first_name) or $first_name == "") {
-			return $this -> utils() -> response_error("empty_first_name", [ "first_name" ]);
-		}
-
-		if(!isset($second_name) or $second_name == "") {
-			return $this -> utils() -> response_error("empty_second_name", [ "second_name" ]);
-		}
-
-		if(!isset($phone) or $phone == "") {
-			return $this -> utils() -> response_error("empty_phone_number", [ "phone" ]);
-		}
-
-		if(
-			!isset($lat) or $lat == ""
-			or !isset($lng) or $lng == ""
-		) {
-			return $this -> utils() -> response_error("location_not_specified");
-		}
-
-		$condition = $condition == "new" ? 1 : $condition;
-		$condition = $condition == "used" ? 2 : $condition;
-		$country_en = !isset($country_en) ? "" : $country_en;
-		$country_ru = !isset($country_ru) ? "" : $country_ru;
-		$region_en = !isset($region_en) ? "" : $region_en;
-		$region_ru = !isset($region_ru) ? "" : $region_ru;
-		$city_en = !isset($city_en) ? "" : $city_en;
-		$city_ru = !isset($city_ru) ? "" : $city_ru;
-
-		if(!isset($rules_agree) or $rules_agree != "on") {
-			return $this -> utils() -> response_error("disagree_with_rules", [ "rules_agree" ]);
-		}
-
-		$images_number = (!isset($imgs) or $imgs == "") ? 0 : substr_count($imgs, ",") + 1;
+		extract($result);
 
 		$uadpost = app() -> factory -> creator() -> create_uadpost(
 			app() -> sessions -> auth_user() -> id(),
@@ -294,35 +152,17 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> response_error("fail_creating_uadpost");
 		}
 
-		$profile = app() -> sessions -> auth_user() -> profile();
-		if(
-			$profile -> first_name != $first_name 
-			or $profile -> second_name != $second_name
-			or $profile -> phone_number != $phone
-		) {
-			$profile -> first_name = $first_name;
-			$profile -> second_name = $second_name;
-			$profile -> phone_number = $phone;
-		}
-
-		if($profile -> location_lat != $lat or $profile -> location_lng != $lng) {
-			$profile -> location_lat = $lat;
-			$profile -> location_lng = $lng;
-		}
-
-		$profile -> update();
+		(new Profiles()) -> update_with_update_uadpost(
+			app() -> sessions -> auth_user() -> profile(), 
+			$first_name, 
+			$second_name, 
+			$phone,
+			$lat,
+			$lng
+		);
 
 		if($images_number) {
-			$imgs_aliases = explode(",", $imgs);
-			foreach($imgs_aliases as $i => $alias) {
-				app() -> factory -> creator() -> create_image(
-					app() -> sessions -> auth_user() -> id(),
-					$uadpost -> id(),
-					"UAdPost",
-					$alias,
-					$i
-				);
-			}
+			(new Images()) -> create_from_aliases( explode(",", $imgs), $uadpost );
 		}
 
 		if($uadpost -> state == "published") {
@@ -337,37 +177,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 	}
 
 	public function create_draft() {
-		extract($this -> get_post_data());
+		$uadposts_model = new UAdPosts();
+		$result = $uadposts_model -> check_uadpost_data($_POST, false);
 
-		$title = isset($title) ? $title : "";
-		$content = isset($content) ? $content : "";
-		$condition = $condition == "new" ? 1 : $condition;
-		$condition = $condition == "used" ? 2 : $condition;
-		$country_en = !isset($country_en) ? "" : $country_en;
-		$country_ru = !isset($country_ru) ? "" : $country_ru;
-		$region_en = !isset($region_en) ? "" : $region_en;
-		$region_ru = !isset($region_ru) ? "" : $region_ru;
-		$city_en = !isset($city_en) ? "" : $city_en;
-		$city_ru = !isset($city_ru) ? "" : $city_ru;
-		$lat = isset($lat) ? floatval($lat) : 0;
-		$lng = isset($lng) ? floatval($lng) : 0;
-		$images_number = (!isset($imgs) or $imgs == "") ? 0 : substr_count($imgs, ",") + 1;
-
-		if(!isset($price) or $price == "") {
-			return $this -> utils() -> response_error("price_not_specified", [ "price" ]);
+		if(is_string($result)) {
+			return $result;
 		}
 
-		if(!isset($currency) or !in_array($currency, ["UAH", "USD", "EUR"])) {
-			$currency = "UAH";
-		}
-
-		if(!isset($exchange_flag)) {
-			$exchange_flag = 0;
-		}
-
-		if($exchange_flag === "on") {
-			$exchange_flag = 1;
-		}
+		extract($result);
 
 		$uadpost = app() -> factory -> creator() -> create_uadpost(
 			app() -> sessions -> auth_user() -> id(),
@@ -382,37 +199,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		if($images_number) {
-			$imgs_aliases = explode(",", $imgs);
-			foreach($imgs_aliases as $i => $alias) {
-				app() -> factory -> creator() -> create_image(
-					app() -> sessions -> auth_user() -> id(),
-					$uadpost -> id(),
-					"UAdPost",
-					$alias,
-					$i
-				);
-			}
+			(new Images()) -> create_from_aliases( explode(",", $imgs), $uadpost );
 		}
 
-		return $this -> utils() -> response_success();
-	}
-
-	protected function get_post_data() {
-		$expected_fields = [
-			"uadpost_id", "title", "content", "condition", "price", "currency",
-			"first_name", "second_name", "phone", "imgs", "lat", "lng", 
-			"country_ru", "country_en", "region_ru", "region_en",
-			"city_ru", "city_en", "rules_agree", "exchange_flag"
-		];
-
-		$data = [];
-		foreach($expected_fields as $field) {
-			if(isset($_POST[$field])){
-				$data[$field] = is_string($_POST[$field]) ? htmlspecialchars(trim($_POST[$field])) : $_POST[$field];
-			}
-		}
-
-		return $data;
+		// TODO: redirect to draft page
+		return $this -> utils() -> response_success([
+			"redirect_url" => $uadpost -> get_url(),
+			"redirect_delay" => 300
+		]);
 	}
 
 	public function remove($uadpost_id) {
@@ -431,11 +225,13 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		$uadpost -> remove();
 
-		// TODO: need redirect to active uadposts for current users
-		return $this -> utils() -> redirect( app() -> routes -> urlto("SearchController@search_page") );
+		return $this -> utils() -> redirect( app() -> routes -> urlto(
+			"UAdPostController@ready_uadposts_cur_user",
+			[ "state" => "published" ]
+		));
 	}
 
-	public function published_uadposts_cur_user() {
+	public function ready_uadposts_cur_user($state) {
 		if(!app() -> sessions -> is_auth()) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
@@ -443,11 +239,11 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$pnum = intval($_GET["pn"]);
 
 		$user = app() -> sessions -> auth_user();
-		$total = $user -> total_uadposts("published");
-		$uadposts = $total ? $user -> get_uadposts("published", $pnum ? $pnum : 1) : [];
+		$total = $user -> total_uadposts($state);
+		$uadposts = $total ? $user -> get_uadposts($state, $pnum ? $pnum : 1) : [];
 
 		return (new UserUAdPosts(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("site/user.uadposts", [
-			"page_title" => "Опубликованные объявления",
+			"page_title" => $state == "published" ? "Опубликованные объявления" : "Деактивированные объявления",
 			"page_alias" => "page user-uadposts",
 			"uadposts" => $uadposts,
 			"total_uadposts" => $total,
@@ -455,29 +251,15 @@ class UAdPostController extends \Store\Middleware\Controller {
 		]);
 	}
 
-	public function unpublished_uadposts_cur_user() {
+	public function change_uadpost_state($uadpost_id, $state) {
+		$exists_states = ["published", "unpublished"];
+
 		if(!app() -> sessions -> is_auth()) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
-		$pnum = intval($_GET["pn"]);
-
-		$user = app() -> sessions -> auth_user();
-		$total = $user -> total_uadposts("unpublished");
-		$uadposts = $total ? $user -> get_uadposts("unpublished", $pnum ? $pnum : 1) : [];
-
-		return (new UserUAdPosts(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("site/user.uadposts", [
-			"page_title" => "Деактивированные объявления",
-			"page_alias" => "page user-uadposts",
-			"uadposts" => $uadposts,
-			"total_uadposts" => $total,
-			"per_page" => FCONF["profile_uadposts_per_page"]
-		]);
-	}
-
-	public function deactivate_uadpost($uadpost_id) {
-		if(!app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		if(!in_array($state, $exists_states)) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
 		$uadpost = new UAdPost(intval($uadpost_id));
@@ -489,31 +271,22 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
-		$uadpost -> deactivate();
+		if($state == "unpublished") {
+			$redirect_url = app() -> routes -> urlto(
+				"UAdPostController@ready_uadposts_cur_user", 
+				["state" => "published"]
+			) . "#deactivate-success";
 
-		return app() -> utils -> redirect( 
-			app() -> routes -> urlto("UAdPostController@published_uadposts_cur_user") . "#deactivate-success"
-		);
-	}
+			$uadpost -> deactivate();
+		} elseif($state == "published") {
+			$redirect_url = app() -> routes -> urlto(
+				"UAdPostController@ready_uadposts_cur_user", 
+				["state" => "unpublished"]
+			) . "#activate-success";
 
-	public function activate_uadpost($uadpost_id) {
-		if(!app() -> sessions -> is_auth()) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+			$uadpost -> activate();
 		}
 
-		$uadpost = new UAdPost(intval($uadpost_id));
-		if(!$uadpost) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
-		}
-
-		if(app() -> sessions -> auth_user() -> id() != $uadpost -> uid) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
-		}
-
-		$uadpost -> activate();
-
-		return app() -> utils -> redirect( 
-			app() -> routes -> urlto("UAdPostController@unpublished_uadposts_cur_user") . "#activate-success"
-		);
+		return app() -> utils -> redirect($redirect_url);
 	}
 }

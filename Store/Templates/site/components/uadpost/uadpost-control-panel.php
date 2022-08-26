@@ -1,5 +1,4 @@
 <div class="component uadpost-control-panel">
-	<h3>Управление постом</h3>
 	<ul class="clickable-list">
 		<li class="list-item">
 			<a 
@@ -15,8 +14,9 @@
 		<? if($uadpost -> state == "published"): ?>
 			<li class="list-item">
 				<button 
-					data-uadpost-deactivate-action="<?= app() -> routes -> urlto("UAdPostController@deactivate_uadpost", [ 
-						"uadpost_id" => $uadpost -> id() 
+					data-uadpost-deactivate-action="<?= app() -> routes -> urlto("UAdPostController@change_uadpost_state", [ 
+						"uadpost_id" => $uadpost -> id(),
+						"state" => "unpublished"
 					]) ?>"
 				>
 					<span class="mdi mdi-close-thick"></span>	
@@ -26,8 +26,9 @@
 		<? elseif($uadpost -> state == "unpublished"): ?>
 			<li class="list-item">
 				<button 
-					data-uadpost-activate-action="<?= app() -> routes -> urlto("UAdPostController@activate_uadpost", [ 
-						"uadpost_id" => $uadpost -> id() 
+					data-uadpost-activate-action="<?= app() -> routes -> urlto("UAdPostController@change_uadpost_state", [ 
+						"uadpost_id" => $uadpost -> id(),
+						"state" => "published"
 					]) ?>"
 				>
 					<span class="mdi mdi-check-bold"></span>	
