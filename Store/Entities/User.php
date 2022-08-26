@@ -4,6 +4,7 @@ namespace Store\Entities;
 
 use \Store\Entities\Session;
 use \Store\Wrappers\UserStatistics;
+use \Store\Models\UAdPosts;
 
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
@@ -30,6 +31,19 @@ class User extends \Store\Middleware\Entity {
 	public function get_last_uadpost() {
 		$posts = app() -> factory -> getter() -> get_uadposts_by("uid", $this -> id(), 1);
 		return $posts ? $posts[0] : false;
+	}
+
+	public function total_uadposts(String $state = "published") {
+		return (new UAdPosts()) -> total_by_user($this -> id(), $state);
+	}
+
+	public function get_uadposts(String $state = "published", Int $page_num = 1) {
+		return (new UAdPosts()) -> get_by_user(
+			$this -> id(), 
+			$state, 
+			FCONF["profile_uadposts_per_page"], 
+			$page_num
+		);
 	}
 
 	public function last_session() {

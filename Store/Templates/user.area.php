@@ -7,14 +7,24 @@
 
 		<ul class="clickable-list">
 			<li class="list-item">
-				<a href="#">
+				<a 
+					href="<?= app() -> routes -> urlto("UAdPostController@published_uadposts_cur_user") ?>"
+					<? if(app() -> utils -> link_is_active("UAdPostController@published_uadposts_cur_user")): ?>
+						class="active"
+					<? endif ?>
+				>
 					<span class="mdi mdi-check-bold"></span>	
 					Мои активные объявления
 				</a>
 			</li>
 
 			<li class="list-item">
-				<a href="#">
+				<a 
+					href="<?= app() -> routes -> urlto("UAdPostController@unpublished_uadposts_cur_user") ?>"
+					<? if(app() -> utils -> link_is_active("UAdPostController@unpublished_uadposts_cur_user")): ?>
+						class="active"
+					<? endif ?>
+				>
 					<span class="mdi mdi-close-thick"></span>	
 					Мои неактивные объявления
 				</a>

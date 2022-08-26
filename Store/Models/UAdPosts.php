@@ -5,8 +5,6 @@ namespace Store\Models;
 use \Store\Entities\UAdPost;
 
 class UAdPosts extends \Store\Middleware\Model{
-	protected $table_name = "uadposts";
-
 	public function update(Int $uadpost_id, Int $uid, String $title, String $content, Int $condition, 
 		Int $exchange_flag, 
 		Float $price, String $currency, Float $lat, Float $lng, String $country_en, 
@@ -36,6 +34,36 @@ class UAdPosts extends \Store\Middleware\Model{
 		], [
 			["id", "=", $uadpost_id]
 		]);
+	}
+
+	public function get_by_user(Int $uid, String $state, Int $amount = 10, Int $page_num = 1): Array {
+		$uadposts = $this -> thin_builder() -> select(
+			UAdPost::$table_name,
+			UAdPost::get_fields(),
+			[
+				[ "uid", "=", $uid ],
+				"AND",
+				[ "state", "=", $state ]
+			],
+			[ "id" ],
+			"DESC",
+			[ ($page_num - 1) * $amount, $amount ]
+		);
+
+		$uadposts = array_map(fn($item) => new UAdPost($item["id"], $item), $uadposts);
+
+		return $uadposts ? $uadposts : [];
+	}
+
+	public function total_by_user(Int $uid, String $state): Int {
+		return $this -> thin_builder() -> count(
+			UAdPost::$table_name, 
+			[
+				[ "uid", "=", $uid ],
+				"AND",
+				[ "state", "=", $state ]
+			]
+		);
 	}
 }
 

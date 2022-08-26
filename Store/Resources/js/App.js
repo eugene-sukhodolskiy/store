@@ -12,6 +12,7 @@ class App {
 		this.search = new Search();
 		
 		this.initBaseEvents();
+		this.initControlPanelEvents();
 	}
 
 	initBaseEvents() {
@@ -53,6 +54,53 @@ class App {
 				const number = e.currentTarget.getAttribute("data-show-phone-number");
 				e.currentTarget.innerHTML = number;
 				e.currentTarget.href = `tel:${number}`;
+			})
+		);
+	}
+
+	initControlPanelEvents() {
+		document.querySelectorAll("[data-uadpost-remove-action]").forEach(
+			item => item.addEventListener("click", e => {
+				const action = e.currentTarget.getAttribute("data-uadpost-remove-action");
+				confirmPopup.show({
+					heading: "Подтвердите удаление",
+					applyBtnText: "Удалить",
+					applyBtnType: "danger",
+					cancelBtnText: "Отмена",
+					applyCallback: () => { 
+						document.location = action;
+					},
+				})
+			})
+		);
+
+		document.querySelectorAll("[data-uadpost-deactivate-action]").forEach(
+			item => item.addEventListener("click", e => {
+				const action = e.currentTarget.getAttribute("data-uadpost-deactivate-action");
+				confirmPopup.show({
+					heading: "Деактивировать выбранное объявление?",
+					applyBtnText: "Деактивировать",
+					applyBtnType: "warning",
+					cancelBtnText: "Отмена",
+					applyCallback: () => { 
+						document.location = action;
+					},
+				})
+			})
+		);
+
+		document.querySelectorAll("[data-uadpost-activate-action]").forEach(
+			item => item.addEventListener("click", e => {
+				const action = e.currentTarget.getAttribute("data-uadpost-activate-action");
+				confirmPopup.show({
+					heading: "Опубликовать выбранное объявление?",
+					applyBtnText: "Опубликовать",
+					applyBtnType: "success",
+					cancelBtnText: "Отмена",
+					applyCallback: () => { 
+						document.location = action;
+					},
+				})
 			})
 		);
 	}

@@ -77,4 +77,18 @@ class UAdPost extends \Store\Middleware\Entity {
 		
 		$this -> remove_entity();
 	}
+
+	public function deactivate() {
+		$this -> state = "unpublished";
+		$this -> update();
+		$this -> user() -> statistics() -> total_published_uadposts -> value -= 1;
+		$this -> user() -> statistics() -> total_published_uadposts -> update();
+	}
+
+	public function activate() {
+		$this -> state = "published";
+		$this -> update();
+		$this -> user() -> statistics() -> total_published_uadposts -> value += 1;
+		$this -> user() -> statistics() -> total_published_uadposts -> update();
+	}
 }

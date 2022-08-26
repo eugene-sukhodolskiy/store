@@ -33,5 +33,6 @@ return [
 		"important_errors" => ["E_WARNING", "E_ERROR", "E_CORE_ERROR", "EXCEPTION"]
 	],
 
-	"uadposts_per_page" => 20
+	"uadposts_per_page" => 20,
+	"profile_uadposts_per_page" => 10
 ]; 

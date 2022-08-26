@@ -1,0 +1,13 @@
+.page.user-uadposts {
+	.uadpost-item {
+		display: grid;
+		grid-template-columns: auto 250px;
+		grid-gap: $std-mg-lg;
+	}
+
+	.alert-container {
+		.component.alert {
+			margin-top: 0;
+		}
+	}
+}

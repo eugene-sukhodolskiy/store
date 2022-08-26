@@ -12,12 +12,29 @@
 			</a>
 		</li>
 
-		<li class="list-item">
-			<a href="#">
-				<span class="mdi mdi-close-thick"></span>	
-				Деактивировать
-			</a>
-		</li>
+		<? if($uadpost -> state == "published"): ?>
+			<li class="list-item">
+				<button 
+					data-uadpost-deactivate-action="<?= app() -> routes -> urlto("UAdPostController@deactivate_uadpost", [ 
+						"uadpost_id" => $uadpost -> id() 
+					]) ?>"
+				>
+					<span class="mdi mdi-close-thick"></span>	
+					Деактивировать
+				</button>
+			</li>
+		<? elseif($uadpost -> state == "unpublished"): ?>
+			<li class="list-item">
+				<button 
+					data-uadpost-activate-action="<?= app() -> routes -> urlto("UAdPostController@activate_uadpost", [ 
+						"uadpost_id" => $uadpost -> id() 
+					]) ?>"
+				>
+					<span class="mdi mdi-check-bold"></span>	
+					Активировать
+				</button>
+			</li>
+		<? endif ?>
 
 		<li class="list-item">
 			<button 
@@ -31,20 +48,3 @@
 		</li>
 	</ul>
 </div>
-
-<script>
-	document.addEventListener("DOMContentLoaded", e => {
-		document.querySelector("[data-uadpost-remove-action]").addEventListener("click", e => {
-			const action = e.currentTarget.getAttribute("data-uadpost-remove-action");
-			confirmPopup.show({
-				heading: "Подтвердите удаление",
-				applyBtnText: "Удалить",
-				applyBtnType: "danger",
-				cancelBtnText: "Отмена",
-				applyCallback: () => { 
-					document.location = action ;
-				},
-			})
-		});
-	});
-</script>

@@ -4,6 +4,7 @@ namespace Store\Controllers;
 
 use \Store\Models\UAdPosts;
 use \Store\Entities\UAdPost;
+use \Store\Templates\Logic\UserUAdPosts;
 
 class UAdPostController extends \Store\Middleware\Controller {
 	public function create_page() {
@@ -432,5 +433,87 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		// TODO: need redirect to active uadposts for current users
 		return $this -> utils() -> redirect( app() -> routes -> urlto("SearchController@search_page") );
+	}
+
+	public function published_uadposts_cur_user() {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		$pnum = intval($_GET["pn"]);
+
+		$user = app() -> sessions -> auth_user();
+		$total = $user -> total_uadposts("published");
+		$uadposts = $total ? $user -> get_uadposts("published", $pnum ? $pnum : 1) : [];
+
+		return (new UserUAdPosts(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("site/user.uadposts", [
+			"page_title" => "Опубликованные объявления",
+			"page_alias" => "page user-uadposts",
+			"uadposts" => $uadposts,
+			"total_uadposts" => $total,
+			"per_page" => FCONF["profile_uadposts_per_page"]
+		]);
+	}
+
+	public function unpublished_uadposts_cur_user() {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		$pnum = intval($_GET["pn"]);
+
+		$user = app() -> sessions -> auth_user();
+		$total = $user -> total_uadposts("unpublished");
+		$uadposts = $total ? $user -> get_uadposts("unpublished", $pnum ? $pnum : 1) : [];
+
+		return (new UserUAdPosts(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("site/user.uadposts", [
+			"page_title" => "Деактивированные объявления",
+			"page_alias" => "page user-uadposts",
+			"uadposts" => $uadposts,
+			"total_uadposts" => $total,
+			"per_page" => FCONF["profile_uadposts_per_page"]
+		]);
+	}
+
+	public function deactivate_uadpost($uadpost_id) {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		$uadpost = new UAdPost(intval($uadpost_id));
+		if(!$uadpost) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		if(app() -> sessions -> auth_user() -> id() != $uadpost -> uid) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		$uadpost -> deactivate();
+
+		return app() -> utils -> redirect( 
+			app() -> routes -> urlto("UAdPostController@published_uadposts_cur_user") . "#deactivate-success"
+		);
+	}
+
+	public function activate_uadpost($uadpost_id) {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		$uadpost = new UAdPost(intval($uadpost_id));
+		if(!$uadpost) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		if(app() -> sessions -> auth_user() -> id() != $uadpost -> uid) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		$uadpost -> activate();
+
+		return app() -> utils -> redirect( 
+			app() -> routes -> urlto("UAdPostController@unpublished_uadposts_cur_user") . "#activate-success"
+		);
 	}
 }
