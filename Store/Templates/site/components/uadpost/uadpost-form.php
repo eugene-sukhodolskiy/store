@@ -207,16 +207,11 @@
 				<div class="uadpost-row-fields-group form-control-btns">
 					<div class="submit-group">
 						<button class="std-btn btn-success submit">
-							<? if($edit_mode): ?>
-								Редактировать
-							<? else: ?>
-								Опубликовать
-							<? endif ?>
+							<span class="mdi mdi-content-save-outline"></span>
+							Опубликовать
 						</button>
 
-						<? if(!$edit_mode): ?>
-							<button class="std-btn btn-primary submit-to-draft">В черновики</button>
-						<? endif ?>
+						<button class="std-btn btn-primary submit-to-draft">В черновики</button>
 					</div>
 					<div class="cancel-group">
 						<a href="<?= $cancel_url ?>" class="std-btn btn-default cancel">Отмена</a>

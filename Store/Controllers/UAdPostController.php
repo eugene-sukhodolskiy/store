@@ -177,6 +177,10 @@ class UAdPostController extends \Store\Middleware\Controller {
 	}
 
 	public function create_draft() {
+		if(!app() -> sessions -> is_auth()) {
+			return app() -> utils -> response_error("unlogged_user");
+		}
+
 		$uadposts_model = new UAdPosts();
 		$result = $uadposts_model -> check_uadpost_data($_POST, false);
 
@@ -202,9 +206,71 @@ class UAdPostController extends \Store\Middleware\Controller {
 			(new Images()) -> create_from_aliases( explode(",", $imgs), $uadpost );
 		}
 
-		// TODO: redirect to draft page
 		return $this -> utils() -> response_success([
-			"redirect_url" => $uadpost -> get_url(),
+			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user", [
+				"state" => "draft"
+			]),
+			"redirect_delay" => 300
+		]);
+	}
+
+	public function update_draft () {
+		if(!app() -> sessions -> is_auth()) {
+			return app() -> utils -> response_error("unlogged_user");
+		}
+
+		$uadposts_model = new UAdPosts();
+		$result = $uadposts_model -> check_uadpost_data($_POST, false);
+
+		if(is_string($result)) {
+			return $result;
+		}
+
+		extract($result);
+
+		$uadpost_id = intval($_POST["uadpost_id"]);
+		$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $uadpost_id, 1);
+		
+		if(!$uadposts) {
+			return $this -> utils() -> response_error("fail_publishing_uadpost");
+		}
+
+		$uadpost = $uadposts[0];
+
+		$prev_imgs = $uadpost -> get_images();
+
+		$uadposts_model -> update(
+			$uadpost -> id(),
+			app() -> sessions -> auth_user() -> id(),
+			$title, $content, $condition, $exchange_flag, 
+			$price, $currency, $lat, $lng, $country_en, 
+			$country_ru, $region_en, $region_ru, $city_en, 
+			$city_ru, $images_number, "draft"
+		);
+
+		// IMGS
+
+		$imgs_aliases = explode(",", $imgs);
+		$prev_imgs_aliases = array_map(fn($item) => $item -> alias, $prev_imgs);
+		
+		$new_imgs_aliases = array_filter($imgs_aliases, function($img_alias) use($prev_imgs_aliases) {
+			return !in_array($img_alias, $prev_imgs_aliases);
+		});
+
+		$legacy_imgs = array_filter($prev_imgs, function($prev_img) use($imgs_aliases) {
+			return !in_array($prev_img -> alias, $imgs_aliases) ? true : false;
+		});
+
+		(new Images()) -> create_from_aliases( $new_imgs_aliases, $uadpost );
+
+		foreach($legacy_imgs as $i => $legacy_img) {
+			$legacy_img -> remove();
+		}
+
+		return $this -> utils() -> response_success([
+			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user", [
+				"state" => "draft"
+			]),
 			"redirect_delay" => 300
 		]);
 	}
@@ -236,14 +302,30 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
+		if(!in_array($state, ["published", "unpublished", "draft"])) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
 		$pnum = intval($_GET["pn"]);
 
 		$user = app() -> sessions -> auth_user();
 		$total = $user -> total_uadposts($state);
 		$uadposts = $total ? $user -> get_uadposts($state, $pnum ? $pnum : 1) : [];
+		
+		switch($state) {
+			case "published": 
+				$page_title = "Опубликованные объявления";
+			break;
+			case "unpublished": 
+				$page_title = "Деактивированные объявления";
+			break;
+			case "draft":
+				$page_title = "Черновики";
+			break;
+		}
 
 		return (new UserUAdPosts(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("site/user.uadposts", [
-			"page_title" => $state == "published" ? "Опубликованные объявления" : "Деактивированные объявления",
+			"page_title" => $page_title,
 			"page_alias" => "page user-uadposts",
 			"uadposts" => $uadposts,
 			"total_uadposts" => $total,

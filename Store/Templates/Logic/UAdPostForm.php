@@ -16,7 +16,6 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 			$this -> inside_data["edit_mode"] = false;
 		}
 
-
 		if(app() -> sessions -> is_auth()) {
 			$this -> inside_data["first_name"] = app() -> sessions -> auth_user() -> profile() -> first_name;
 			$this -> inside_data["second_name"] = app() -> sessions -> auth_user() -> profile() -> second_name;
@@ -24,6 +23,10 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 			$uadpost = (isset($this -> inside_data["uadpost"]) and $this -> inside_data["uadpost"])
 				? $this -> inside_data["uadpost"]
 				: app() -> sessions -> auth_user() -> get_last_uadpost();
+
+			if(isset($this -> inside_data["uadpost"]) and $this -> inside_data["uadpost"]) {
+				$this -> inside_data["action_to_draft"] = app() -> routes -> urlto("UAdPostController@update_draft");
+			}
 
 			if($uadpost) {
 				$this -> inside_data["has_posts"] = true;

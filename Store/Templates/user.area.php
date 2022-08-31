@@ -43,7 +43,18 @@
 			</li>
 
 			<li class="list-item">
-				<a href="#">
+				<a 
+					href="<?= app() -> routes -> urlto(
+						"UAdPostController@ready_uadposts_cur_user", 
+						["state" => "draft"]
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+							"UAdPostController@ready_uadposts_cur_user", 
+							["state" => "draft"]
+					)): ?>
+						class="active"
+					<? endif ?>
+				>
 					<span class="mdi mdi-file-document-edit-outline"></span>	
 					Мои черновики
 				</a>

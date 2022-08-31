@@ -100,6 +100,12 @@ class Routes {
 		);
 
 		$this -> router -> post(
+			[ "uadpost_id", "title" ], 
+			"{$this -> cn}\\UAdPostController@update_draft",
+			"/uadpost/f/update-draft"
+		);
+
+		$this -> router -> post(
 			[ "first_name", "second_name", "phone_number", "imgs" ], 
 			"{$this -> cn}\\ProfileSettingsController@update",
 			"/profile/f/update"
