@@ -5,17 +5,10 @@
 <? if($total_uadposts): ?>
 	<? foreach ($uadposts as $i => $uadpost): ?>
 		<div class="uadpost-item">
-			<?= $this -> join("site/components/uadpost/uadpost-card.php", [
+			<?= $this -> join("\Store\Templates\Logic\UAdPostCard:site/components/uadpost/uadpost-card.php", [
 				"uadpost" => $uadpost,
-				"displaying_saler" => false
+				"displaying_saler" => true
 			]) ?>
-			
-			<div class="uadpost-control-panel-wrap">
-				<div class="visual-binder"></div>
-				<?= $this -> join("site/components/uadpost/uadpost-control-panel", [
-					"uadpost" => $uadpost
-				]) ?>
-			</div>
 		</div>
 	<? endforeach ?>
 

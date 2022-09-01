@@ -76,7 +76,7 @@ class SearchController extends \Store\Middleware\Controller {
 			$where, 
 			["id"], 
 			"DESC",
-			app() -> utils -> get_limits_for_select_query($per_page)
+			app() -> utils -> get_limits_for_select_query( $per_page )
 		);
 
 		$uadposts = [];
@@ -84,11 +84,12 @@ class SearchController extends \Store\Middleware\Controller {
 			$uadposts[] = new UAdPost($row["id"], $row);
 		}
 
-		app() -> factory -> initer() -> init_group_users($uadposts);
-		$authors = array_map(fn($uadp) => $uadp -> user(), $uadposts);
-		app() -> factory -> initer() -> init_group_profiles_for_users($authors);
+		app() -> factory -> initer() -> init_group_users( $uadposts );
+		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
+		$authors = array_map( fn($uadp) => $uadp -> user(), $uadposts );
+		app() -> factory -> initer() -> init_group_profiles_for_users( $authors );
 
-		$total_uadposts = app() -> thin_builder -> count(UAdPost::$table_name, $where);
+		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 
 		return $this -> new_template() -> make("site/search", [
 			"page_title" => "Search page | Store",

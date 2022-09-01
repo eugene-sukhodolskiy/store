@@ -5,6 +5,7 @@ namespace Store\Entities;
 use \Store\Entities\Session;
 use \Store\Wrappers\UserStatistics;
 use \Store\Models\UAdPosts;
+use \Store\Models\Favourites;
 
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
@@ -38,19 +39,27 @@ class User extends \Store\Middleware\Entity {
 	}
 
 	public function get_uadposts(String $state = "published", Int $page_num = 1) {
-		return (new UAdPosts()) -> get_by_user(
+		$uadposts = (new UAdPosts()) -> get_by_user(
 			$this -> id(), 
 			$state, 
 			FCONF["profile_uadposts_per_page"], 
 			$page_num,
 			"update_at"
 		);
+
+		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
+
+		return $uadposts;
 	}
 
 	public function last_session() {
 		return $this -> get_pet_instance("Session", function() {
 			return app() -> factory -> getter() -> get_session_by("uid", $this -> id());
 		});
+	}
+
+	public function total_favourites_uadposts() {
+		return (new Favourites()) -> total_by_user( $this -> id(), "UAdPost" );
 	}
 
 	// Static methods

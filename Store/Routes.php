@@ -49,7 +49,12 @@ class Routes {
 		);
 		$this -> router -> uri(
 			'/profile/uadposts/$state', 
-			"{$this -> cn}\\UAdPostController@ready_uadposts_cur_user"
+			"{$this -> cn}\\UAdPostController@ready_uadposts_cur_user_page"
+		);
+
+		$this -> router -> uri(
+			'/favoutites.html', 
+			"{$this -> cn}\\FavouritesController@favourites_page"
 		);
 	}
 
@@ -109,6 +114,12 @@ class Routes {
 			[ "first_name", "second_name", "phone_number", "imgs" ], 
 			"{$this -> cn}\\ProfileSettingsController@update",
 			"/profile/f/update"
+		);
+
+		$this -> router -> post(
+			[ "uadpost_id" ],
+			"{$this -> cn}\\FavouritesController@make",
+			"/favourites/f/make"
 		);
 	}
 

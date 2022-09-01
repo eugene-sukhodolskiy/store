@@ -4,7 +4,10 @@
 			<a href="/" class="nav-link">Главная</a>
 		</li>
 		<li class="nav-list-item">
-			<a href="#" class="nav-link">Избранное</a>
+			<a 
+				href="<?= app() -> routes -> urlto("FavouritesController@favourites_page") ?>" 
+				class="nav-link"
+			>Избранное</a>
 		</li>
 		<li class="nav-list-item">
 			<a href="#" class="nav-link">Сообщения</a>

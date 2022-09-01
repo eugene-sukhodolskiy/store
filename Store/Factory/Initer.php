@@ -4,6 +4,7 @@ namespace Store\Factory;
 
 use \Store\Entities\Profile;
 use \Store\Entities\User;
+use \Store\Models\Favourites;
 
 class Initer {
 	public function init_group_profiles_for_users(Array $users) {
@@ -62,5 +63,11 @@ class Initer {
 		}
 
 		return $entities;
+	}
+
+	public function init_uadposts_group_favorite_state(Array $uadposts): void {
+		if(count($uadposts)) {
+			(new Favourites()) -> assignment_group_is_favorite("UAdPost", $uadposts);
+		}
 	}
 }

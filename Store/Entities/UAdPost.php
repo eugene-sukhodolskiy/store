@@ -2,6 +2,8 @@
 
 namespace Store\Entities;
 
+use \Store\Models\Favourites;
+
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
 	protected static $fields = [
@@ -11,6 +13,8 @@ class UAdPost extends \Store\Middleware\Entity {
 		"country_ru", "country_en", "region_ru", "region_en",
 		"city_ru", "city_en", "create_at", "update_at"
 	];
+
+	protected $favorite_state_for_current_user = null;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
@@ -71,10 +75,9 @@ class UAdPost extends \Store\Middleware\Entity {
 		}
 
 		if($this -> state == "published") {
-			$this -> user() -> statistics() -> total_published_uadposts -> value -= 1;
-			$this -> user() -> statistics() -> total_published_uadposts -> update();
+			$this -> deactivate();
 		}
-		
+
 		$this -> remove_entity();
 	}
 
@@ -83,6 +86,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts -> value -= 1;
 		$this -> user() -> statistics() -> total_published_uadposts -> update();
+		(new Favourites()) -> remove_for_assignment_unit($this -> id(), "UAdPost");
 	}
 
 	public function activate() {
@@ -90,5 +94,17 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts -> value += 1;
 		$this -> user() -> statistics() -> total_published_uadposts -> update();
+	}
+
+	public function is_favorite_for_current_user(): Bool {
+		if(is_null($this -> favorite_state_for_current_user)) {
+			throw new \Exception("Favorite state is not inited");
+		}
+
+		return $this -> favorite_state_for_current_user;
+	}
+
+	public function set_favorite_state_for_current_user(Bool $state): void {
+		$this -> favorite_state_for_current_user = $state;
 	}
 }

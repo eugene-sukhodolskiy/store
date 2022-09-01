@@ -28,10 +28,13 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> new_template() -> make("site/404.php");
 		}
 
+		app() -> factory -> initer() -> init_group_profiles_for_users( $uadposts );
+
 		return $this -> new_template() -> make("site/view.uadpost", [
 			"page_title" => $uadposts[0] -> title,
 			"page_alias" => "page view-uadpost",
-			"uadpost" => $uadposts[0]
+			"uadpost" => $uadposts[0],
+			"displaying_btn_favorite" => $uadposts[0] -> state == "published"
 		]);
 	}
 
@@ -80,6 +83,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		$uadpost = $uadposts[0];
+		$uadpost -> activate();
 
 		$prev_imgs = $uadpost -> get_images();
 
@@ -207,7 +211,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		return $this -> utils() -> response_success([
-			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user", [
+			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user_page", [
 				"state" => "draft"
 			]),
 			"redirect_delay" => 300
@@ -236,6 +240,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		$uadpost = $uadposts[0];
+		$uadpost -> deactivate();
 
 		$prev_imgs = $uadpost -> get_images();
 
@@ -268,7 +273,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		return $this -> utils() -> response_success([
-			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user", [
+			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user_page", [
 				"state" => "draft"
 			]),
 			"redirect_delay" => 300
@@ -292,12 +297,12 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$uadpost -> remove();
 
 		return $this -> utils() -> redirect( app() -> routes -> urlto(
-			"UAdPostController@ready_uadposts_cur_user",
+			"UAdPostController@ready_uadposts_cur_user_page",
 			[ "state" => "published" ]
 		));
 	}
 
-	public function ready_uadposts_cur_user($state) {
+	public function ready_uadposts_cur_user_page($state) {
 		if(!app() -> sessions -> is_auth()) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
@@ -355,14 +360,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		if($state == "unpublished") {
 			$redirect_url = app() -> routes -> urlto(
-				"UAdPostController@ready_uadposts_cur_user", 
+				"UAdPostController@ready_uadposts_cur_user_page", 
 				["state" => "published"]
 			) . "#deactivate-success";
 
 			$uadpost -> deactivate();
 		} elseif($state == "published") {
 			$redirect_url = app() -> routes -> urlto(
-				"UAdPostController@ready_uadposts_cur_user", 
+				"UAdPostController@ready_uadposts_cur_user_page", 
 				["state" => "unpublished"]
 			) . "#activate-success";
 

@@ -63,7 +63,7 @@ class Getter {
 	public function get_uadposts_by(String $field_name, $field_value, Int $amount = 10) {
 		$result = app() -> thin_builder -> select(
 			UAdPost::$table_name, UAdPost::get_fields(), [ 
-				[$field_name, "=", $field_value]
+				[ $field_name, is_array($field_value) ? "IN" : "=", $field_value ]
 			],
 			[ "id" ],
 			"DESC",
@@ -78,6 +78,8 @@ class Getter {
 		foreach($result as $item) {
 			$uadposts[] = new UAdPost($item["id"], $item);
 		}
+
+		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
 
 		return $uadposts;
 	}

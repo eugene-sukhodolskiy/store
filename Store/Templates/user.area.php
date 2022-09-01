@@ -9,11 +9,11 @@
 			<li class="list-item">
 				<a 
 					href="<?= app() -> routes -> urlto(
-						"UAdPostController@ready_uadposts_cur_user", 
+						"UAdPostController@ready_uadposts_cur_user_page", 
 						["state" => "published"]
 					) ?>"
 					<? if(app() -> utils -> link_is_active(
-							"UAdPostController@ready_uadposts_cur_user", 
+							"UAdPostController@ready_uadposts_cur_user_page", 
 							["state" => "published"]
 					)): ?>
 						class="active"
@@ -27,11 +27,11 @@
 			<li class="list-item">
 				<a 
 					href="<?= app() -> routes -> urlto(
-						"UAdPostController@ready_uadposts_cur_user", 
+						"UAdPostController@ready_uadposts_cur_user_page", 
 						["state" => "unpublished"]
 					) ?>"
 					<? if(app() -> utils -> link_is_active(
-							"UAdPostController@ready_uadposts_cur_user", 
+							"UAdPostController@ready_uadposts_cur_user_page", 
 							["state" => "unpublished"]
 					)): ?>
 						class="active"
@@ -45,11 +45,11 @@
 			<li class="list-item">
 				<a 
 					href="<?= app() -> routes -> urlto(
-						"UAdPostController@ready_uadposts_cur_user", 
+						"UAdPostController@ready_uadposts_cur_user_page", 
 						["state" => "draft"]
 					) ?>"
 					<? if(app() -> utils -> link_is_active(
-							"UAdPostController@ready_uadposts_cur_user", 
+							"UAdPostController@ready_uadposts_cur_user_page", 
 							["state" => "draft"]
 					)): ?>
 						class="active"
@@ -66,6 +66,22 @@
 				<a href="#">
 					<span class="mdi mdi-account"></span>	
 					Моя страница
+				</a>
+			</li>
+
+			<li class="list-item">
+				<a 
+					href="<?= app() -> routes -> urlto(
+						"FavouritesController@favourites_page"
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+						"FavouritesController@favourites_page"
+					)): ?>
+						class="active"
+					<? endif ?>
+				>
+					<span class="mdi mdi-star-outline"></span>	
+					Избранные
 				</a>
 			</li>
 

@@ -6,7 +6,7 @@
 		<li class="user-nav-item">
 			<a 
 				href="<?= app() -> routes -> urlto(
-					"UAdPostController@ready_uadposts_cur_user", 
+					"UAdPostController@ready_uadposts_cur_user_page", 
 					["state" => "published"]
 				) ?>" 
 				class="user-nav-link"

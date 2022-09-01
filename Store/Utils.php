@@ -19,8 +19,8 @@ class Utils {
 	public function response_error(String $error_alias, Array $failed_fields = [], Array $extra = []) {
 		return json_encode(array_merge([		
 			"status" => false,
-			"failed_fields" => $failed_fields,
 			"error_alias" => $error_alias,
+			"failed_fields" => $failed_fields,
 			"msg" => $this -> get_msg_by_alias($error_alias)
 		], $extra));
 	}

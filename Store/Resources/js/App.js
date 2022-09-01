@@ -10,6 +10,7 @@ class App {
 		}
 
 		this.search = new Search();
+		this.favorite = new Favorite("[data-make-favorite]");
 		
 		this.initBaseEvents();
 		this.initControlPanelEvents();

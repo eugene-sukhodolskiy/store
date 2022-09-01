@@ -5,7 +5,7 @@
 <? if($total_uadposts): ?>
 	<? foreach ($uadposts as $i => $uadpost): ?>
 		<div class="uadpost-item">
-			<?= $this -> join("site/components/uadpost/uadpost-card.php", [
+			<?= $this -> join("\Store\Templates\Logic\UAdPostCard:site/components/uadpost/uadpost-card.php", [
 				"uadpost" => $uadpost,
 				"displaying_saler" => false
 			]) ?>

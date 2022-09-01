@@ -54,10 +54,12 @@
 			<? endif ?>
 
 			<div class="control-bar">
-				<?= $this -> join("site/components/btn-favorite", [ 
-					"state" => "",
-					"uadpost_id" => $uadpost -> id()
-				]) ?>
+				<? if($displaying_btn_favorite): ?>
+					<?= $this -> join("site/components/btn-favorite", [ 
+						"state" => $uadpost -> is_favorite_for_current_user() ? "active" : "",
+						"uadpost_id" => $uadpost -> id()
+					]) ?>
+				<? endif ?>
 				<a href="<?= $uadpost -> get_url() ?>" class="std-btn btn-primary">Открыть</a>
 			</div>
 		</div>

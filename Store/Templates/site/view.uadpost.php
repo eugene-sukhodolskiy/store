@@ -24,13 +24,16 @@
 								"price" => $uadpost -> get_formatted_price(),
 								"currency" => $uadpost -> get_formatted_currency()
 							]) ?>
-						</div>	
-						<div class="btn-favorite-wrap">
-							<?= $this -> join("site/components/btn-favorite.php", [
-								"uadpost_id" => $uadpost -> id(),
-								"state" => ""
-							]) ?>
 						</div>
+
+						<? if($displaying_btn_favorite): ?>
+							<div class="btn-favorite-wrap">
+								<?= $this -> join("site/components/btn-favorite.php", [
+									"uadpost_id" => $uadpost -> id(),
+									"state" => $uadpost -> is_favorite_for_current_user() ? "active" : ""
+								]) ?>
+							</div>
+						<? endif ?>
 					</div>
 				</header>
 				<div class="content">

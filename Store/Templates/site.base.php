@@ -6,6 +6,8 @@
 	"is_auth" => $is_auth
 ]) ?>
 
+<?= $this -> join("site/components/transport-routes-to-js.php") ?>
+
 <script>
 	const ISAUTH = <?= $is_auth ? "true" : "false" ?>
 </script>
@@ -39,6 +41,7 @@
 <script type="text/javascript" src="/Store/Resources/js/Alert.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Auth.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/Search.js"></script>
+<script type="text/javascript" src="/Store/Resources/js/Favorite.js"></script>
 <script type="text/javascript" src="/Store/Resources/js/App.js"></script>
 
 </body>
