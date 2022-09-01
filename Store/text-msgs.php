@@ -28,6 +28,7 @@ return [
 	"fail_creating_uadpost" => "Ошибка создания объявления",
 	"textfield_too_large" => "Превышен лимит количества символов",
 	"fail_publishing_uadpost" => "Ошибка публикации объявления",
+	"uadpost_not_exist" => "Такое объявление не существует",
 
 	// Other
 ];

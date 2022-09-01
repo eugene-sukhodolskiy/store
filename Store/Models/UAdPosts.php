@@ -165,5 +165,12 @@ class UAdPosts extends \Store\Middleware\Model{
 
 		return $data;
 	}
+
+	public function is_exists(Int $uadpost_id): Bool {
+		return $this -> thin_builder() -> count(
+			UAdPost::$table_name, 
+			[ "id", "=", $uadpost_id ]
+		) ? true : false;
+	}
 }
 

@@ -27,27 +27,3 @@
 <? else: ?>
 	<h3>Здесь ничего нету</h3>
 <? endif ?>
-
-<script>
-	document.addEventListener("DOMContentLoaded", e => {
-		if(document.location.hash.indexOf("deactivate-success") != -1) {
-			document.location.hash = "#";
-			createAlertComponent(
-				"success", 
-				"Ваше объявлние успешно деактивировано", 
-				true, 
-				true
-			).showIn(document.querySelector(".alert-container"));
-		}
-
-		if(document.location.hash.indexOf("activate-success") != -1) {
-			document.location.hash = "#";
-			createAlertComponent(
-				"success", 
-				"Ваше объявлние успешно активировано", 
-				true, 
-				true
-			).showIn(document.querySelector(".alert-container"));
-		}
-	});
-</script>
