@@ -118,11 +118,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return !in_array($prev_img -> alias, $imgs_aliases) ? true : false;
 		});
 
-		(new Images()) -> create_from_aliases( $new_imgs_aliases, $uadpost );
+		$images_model = new Images();
+		$images_model -> create_from_aliases( $new_imgs_aliases, $uadpost );
 
 		foreach($legacy_imgs as $i => $legacy_img) {
 			$legacy_img -> remove();
 		}
+
+		$images_model -> update_sequence_by_aliases($imgs_aliases, $uadpost);
 		
 		return $this -> utils() -> response_success([
 			"redirect_url" => $uadpost -> get_url(),
@@ -266,11 +269,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return !in_array($prev_img -> alias, $imgs_aliases) ? true : false;
 		});
 
-		(new Images()) -> create_from_aliases( $new_imgs_aliases, $uadpost );
+		$images_model = new Images();
+		$images_model -> create_from_aliases( $new_imgs_aliases, $uadpost );
 
 		foreach($legacy_imgs as $i => $legacy_img) {
 			$legacy_img -> remove();
 		}
+
+		$images_model -> update_sequence_by_aliases($imgs_aliases, $uadpost);
 
 		return $this -> utils() -> response_success([
 			"redirect_url" => app() -> routes -> urlto("UAdPostController@ready_uadposts_cur_user_page", [

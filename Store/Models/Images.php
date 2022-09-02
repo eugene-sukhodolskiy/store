@@ -69,4 +69,13 @@ class Images extends \Store\Middleware\Model {
 
 		return $result;
 	}
+
+	public function update_sequence_by_aliases(Array $imgs_aliases, UAdPost $uadpost): void {
+		$imgs = $uadpost -> get_images();
+		foreach($imgs as $i => $img) {
+			$inx = array_search($img -> alias, $imgs_aliases);
+			$img -> sequence = $inx;
+			$img -> update();
+		}
+	}
 }
