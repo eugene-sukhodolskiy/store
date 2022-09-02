@@ -96,7 +96,10 @@ class Template implements TemplateInterface{
 	private function heir_manipulation_run(){
 		$methname = 'heir_manipulation';
 		if(method_exists($this, $methname)){
-			$this -> $methname();
+			$returned_data = $this -> $methname($this -> inside_data);
+			if(is_array($returned_data)) {
+				$this -> inside_data = $returned_data;
+			}
 		}
 	}
 

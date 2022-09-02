@@ -3,22 +3,25 @@
 namespace Store\Templates\Logic;
 
 class SignupForm extends \Fury\Modules\Template\Template {
-	public function heir_manipulation() {
-		$this -> check_required_arguments();
-		$this -> prepare_argument_addition_classes();
+	public function heir_manipulation(Array $data): Array {
+		$data = $this -> check_required_arguments($data);
+		$data = $this -> prepare_argument_addition_classes($data);
+		return $data;
 	}
 
-	protected function check_required_arguments(){
-		if(!isset($this -> inside_data["action"])) {
-			return dd("Required argument `action` not found");
+	protected function check_required_arguments(Array $data): Array {
+		if(!isset($data["action"])) {
+			throw new \Exception("Required argument `action` not found");
 		}
+
+		return $data;
 	}
 
-	protected function prepare_argument_addition_classes(){
-		if(isset($this -> inside_data["addition_classes"]) and is_array($this -> inside_data["addition_classes"])){
-			$this -> inside_data["addition_classes"] = implode(" ", $this -> inside_data["addition_classes"]);
+	protected function prepare_argument_addition_classes(Array $data): Array{
+		if(isset($data["addition_classes"]) and is_array($data["addition_classes"])){
+			$data["addition_classes"] = implode(" ", $data["addition_classes"]);
 		}
 
-		return true;
+		return $data;
 	}
 }
