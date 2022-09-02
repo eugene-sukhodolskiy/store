@@ -11,7 +11,7 @@
 	}
 
 	.filters-container {
-		width: 300px;
+		width: 100%;
 		min-height: 1px;
 
 		@include media("max", "lg") {

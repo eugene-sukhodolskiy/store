@@ -1,6 +1,6 @@
 <? extract($this -> parent() -> get_inside_data()); ?>
 
-<?= $this -> join("site/layouts/head", [
+<?= $this -> join("site/components/head", [
 	"title" => $page_title,
 	"page_alias" => $page_alias,
 	"is_auth" => $is_auth
@@ -33,7 +33,7 @@
 		<?= $this -> content() ?>
 	</div>
 	
-	<?= $this -> join("site/layouts/footer", [
+	<?= $this -> join("site/components/footer", [
 		"is_auth" => $is_auth
 	]) ?>
 </div>

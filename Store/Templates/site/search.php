@@ -1,7 +1,9 @@
 <? $this -> extends_from("\Store\Templates\Logic\SiteBase:site.base") ?>
 
 <div class="page-content-wrap">
-	<div class="filters-container"></div>
+	<div class="filters-container">
+		<?= $this -> join("site/components/search-filters") ?>
+	</div>
 	<div class="search-result">
 		<? if($total_uadposts): ?>
 			<? if(strlen($search_query)): ?>

@@ -1,0 +1,38 @@
+.component.search-filters {
+	.form {	
+		padding: $std-mg-md;
+	}
+
+	.price-range {
+		.struct {
+			display: grid;
+			grid-template-columns: 1fr max-content 1fr;
+			grid-gap: $std-mg-md;
+			align-items: center;
+		}
+
+		.sep {
+			font-size: $fsize-lg;
+		}
+	}
+
+	.btns {
+		margin-top: $std-mg-xl;
+	}
+
+	.condition {
+		.std-row {
+			gap: $std-mg-sm;
+		}
+
+		> .std-row {
+			gap: $std-mg-lg;
+			flex-wrap: initial;
+			height: 20px;
+		}
+	}
+
+	.radius-slider {
+		position: static;
+	}
+}

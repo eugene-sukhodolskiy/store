@@ -1,0 +1,59 @@
+.component.slider {
+	.struct {
+		width: 100%;
+		display: grid;
+		grid-template-columns: auto 65px;
+		grid-column-gap: $std-mg-md;
+		align-items: center;
+		height: 28px;
+	}
+
+	.track,
+	.bar {
+		width: 100%;
+		height: 7px;
+	}
+
+	.track {
+		background-color: #cecece;
+		overflow: visible;
+		position: relative;
+	}
+
+	.bar {
+		background-color: $color-primary;
+		width: 50%;
+	}
+
+	.manipulator {
+		width: 36px;
+		height: 36px;
+		cursor: pointer;
+		position: absolute;
+		top: -14px;
+		left: 50%;
+		margin-left: -18px;
+		border-radius: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+		transition-duration: $trans-du;
+		transition-property: background;
+
+		&:hover {
+			background-color: #227c9d26;
+		}
+
+		.visualization {
+			width: 24px;
+			height: 24px;
+			background-color: $color-primary;
+			border-radius: 100%;
+		}
+	}
+
+	.current-slider-val-container {
+		text-align: right;
+	}
+}
