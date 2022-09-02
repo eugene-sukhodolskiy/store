@@ -64,10 +64,10 @@ class App {
 			item => item.addEventListener("click", e => {
 				const action = e.currentTarget.getAttribute("data-uadpost-remove-action");
 				confirmPopup.show({
-					heading: "Подтвердите удаление",
-					applyBtnText: "Удалить",
+					heading: _atxt("accept_removing"),
+					applyBtnText: _atxt("remove"),
 					applyBtnType: "danger",
-					cancelBtnText: "Отмена",
+					cancelBtnText: _atxt("cancel"),
 					applyCallback: () => { 
 						document.location = action;
 					},
@@ -79,10 +79,10 @@ class App {
 			item => item.addEventListener("click", e => {
 				const action = e.currentTarget.getAttribute("data-uadpost-deactivate-action");
 				confirmPopup.show({
-					heading: "Деактивировать выбранное объявление?",
-					applyBtnText: "Деактивировать",
+					heading: _atxt("deactivate_selected_uadpost"),
+					applyBtnText: _atxt("deactivate"),
 					applyBtnType: "warning",
-					cancelBtnText: "Отмена",
+					cancelBtnText: _atxt("cancel"),
 					applyCallback: () => { 
 						document.location = action;
 					},
@@ -94,10 +94,10 @@ class App {
 			item => item.addEventListener("click", e => {
 				const action = e.currentTarget.getAttribute("data-uadpost-activate-action");
 				confirmPopup.show({
-					heading: "Опубликовать выбранное объявление?",
-					applyBtnText: "Опубликовать",
+					heading: _atxt("publishing_selected_uadpost"),
+					applyBtnText: _atxt("publishing"),
 					applyBtnType: "success",
-					cancelBtnText: "Отмена",
+					cancelBtnText: _atxt("cancel"),
 					applyCallback: () => { 
 						document.location = action;
 					},

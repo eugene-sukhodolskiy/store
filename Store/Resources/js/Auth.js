@@ -40,8 +40,7 @@ class Auth {
 
 	submitSignupForm() {
 		if(!this.form.querySelector("#terms_of_use").checked){
-			// TODO: use text of messages by alias 
-			this.alert = createAlertComponent("danger", "Пользовательское соглашение не выбрано", true, true).showIn(this.alertContainer);
+			this.alert = createAlertComponent("danger", _atxt("terms_of_use_not_selected"), true, true).showIn(this.alertContainer);
 			this.submitBtn.classList.remove("disable");
 			return false;
 		}
@@ -79,8 +78,7 @@ class Auth {
 
 				if(resp.status){
 					this.submitBtn.classList.add("disable");
-					// TODO: use text of messages by alias 
-					this.alert = createAlertComponent("success", "Успешно! Перенаправление...", true).showIn(this.alertContainer);
+					this.alert = createAlertComponent("success", _atxt("success_and_redirecting"), true).showIn(this.alertContainer);
 					setTimeout(() => { 
 						document.location = resp.data.redirect_url; 
 					}, resp.data.redirect_delay);
@@ -94,15 +92,13 @@ class Auth {
 				}
 			} else {
 				console.error("Undefined error on server");
-				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
+				this.alert = createAlertComponent("danger", _atxt("undefined_error"), true, true).showIn(this.alertContainer);
 			}
 		};
 
 		xhr.onerror = function() {
 		  console.error("Error of request to server");
-			// TODO: use text of messages by alias 
-			this.alert = createAlertComponent("danger", "Сервер не доступен", true, true).showIn(this.alertContainer);
+			this.alert = createAlertComponent("danger", _atxt("server_not_available"), true, true).showIn(this.alertContainer);
 		};
 		
 		xhr.send(data);

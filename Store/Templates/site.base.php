@@ -7,6 +7,7 @@
 ]) ?>
 
 <?= $this -> join("site/components/transport-routes-to-js.php") ?>
+<?= $this -> join("site/components/alias-text.php") ?>
 
 <script>
 	const ISAUTH = <?= $is_auth ? "true" : "false" ?>

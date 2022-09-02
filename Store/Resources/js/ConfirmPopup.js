@@ -37,7 +37,7 @@ class ConfirmPopup {
 	}
 
 	resetTexts() {
-		this.setTexts("", "", "Принять", "Отмена");
+		this.setTexts("", "", _atxt("accept"), _atxt("cancel"));
 	}
 
 	resetBtnsTypes() {

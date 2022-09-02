@@ -61,7 +61,7 @@ class UAdPostForm {
 				try {
 					JSON.parse(xhr.response);
 				} catch(e) {
-					this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
+					this.alert = createAlertComponent("danger", _atxt("undefined_error"), true, true).showIn(this.alertContainer);
 					console.error("JSON unvalid, maybe server error");
 				}
 				
@@ -79,24 +79,20 @@ class UAdPostForm {
 					return;
 				}
 
-				// TODO: use text of messages by alias 
-				const msg = "Успешно! Перенаправление...";
-				this.alert = createAlertComponent("success", msg, true, true).showIn(this.alertContainer);
+				this.alert = createAlertComponent("success", _atxt("success_and_redirecting"), true, true).showIn(this.alertContainer);
 				setTimeout(() => { 
 					document.location = resp.data.redirect_url; 
 				}, resp.data.redirect_delay);
 			} else {
 				console.error("Undefined error on server")
-				// TODO: use text of messages by alias 
-				this.alert = createAlertComponent("danger", "Ой... Что-то пошло не так", true, true).showIn(this.alertContainer);
+				this.alert = createAlertComponent("danger", _atxt("undefined_error"), true, true).showIn(this.alertContainer);
 			}
 		}
 
 		xhr.onerror = () => {
 			// TODO: displaying error
 			console.error("Error of request to server");
-			// TODO: use text of messages by alias 
-			this.alert = createAlertComponent("danger", "Сервер не доступен", true, true).showIn(this.alertContainer);
+			this.alert = createAlertComponent("danger", _atxt("server_not_available"), true, true).showIn(this.alertContainer);
 		}
 
 		xhr.send(data);

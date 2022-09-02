@@ -115,7 +115,6 @@ class ImgUploader {
 			const imgContainer = this.container.querySelector(".selected-imgs-grid .selected-img.empty");
 			imgContainer.classList.remove("empty");
 			imgContainer.appendChild(img);
-			// this.addEventsTo(imgContainer);
 			this.uploadImg(imgContainer, reader.result);
 
 			this.counter++;

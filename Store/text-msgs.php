@@ -29,6 +29,17 @@ return [
 	"textfield_too_large" => "Превышен лимит количества символов",
 	"fail_publishing_uadpost" => "Ошибка публикации объявления",
 	"uadpost_not_exist" => "Такое объявление не существует",
+	"server_not_available" => "Сервер не доступен",
 
 	// Other
+	"accept_removing" => "Подтвердите удаление",
+	"remove" => "Удалить",
+	"cancel" => "Отмена",
+	"deactivate_selected_uadpost" => "Деактивировать выбранное объявление?",
+	"deactivate" => "Деактивировать",
+	"publishing_selected_uadpost" => "Опубликовать выбранное объявление?",
+	"publishing" => "Опубликовать",
+	"terms_of_use_not_selected" => "Пользовательское соглашение не выбрано",
+	"success_and_redirecting" => "Успешно! Перенаправление...",
+	"accept" => "Принять",
 ];
