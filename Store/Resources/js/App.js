@@ -2,13 +2,6 @@ class App {
 	constructor() {
 		console.log("App Start");
 
-		if(
-			document.location.href.indexOf("signin.html") != -1 
-			|| document.location.href.indexOf("signup.html") != -1 
-		) {
-			this.auth = new Auth();
-		}
-
 		this.search = new Search();
 		this.favorite = new Favorite("[data-make-favorite]");
 		
