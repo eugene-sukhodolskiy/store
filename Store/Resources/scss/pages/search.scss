@@ -15,7 +15,6 @@
 		min-height: 1px;
 
 		@include media("max", "lg") {
-			width: 0;
 			overflow: visible;
 		}
 	}
