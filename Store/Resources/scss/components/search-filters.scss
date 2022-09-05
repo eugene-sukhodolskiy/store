@@ -1,6 +1,13 @@
 .component.search-filters {
+	.wrap.collapse {
+		@include media("min", "lg") {
+			display: block;
+		}
+	}
+
 	.form {	
 		padding: $std-mg-md;
+		margin-top: 0;
 	}
 
 	.price-range {
@@ -34,5 +41,14 @@
 
 	.radius-slider {
 		position: static;
+	}
+
+	.btn-toggle-filters {
+		display: none;
+		margin-bottom: $std-mg-md;
+
+		@include media("max", "lg") {
+			display: block;
+		}
 	}
 }

@@ -38,11 +38,12 @@
 	]) ?>
 </div>
 
-<script type="text/javascript" src="/Store/Resources/libs/autosize.min.js"></script>
-<script type="text/javascript" src="/Store/Resources/js/Alert.js"></script>
-<script type="text/javascript" src="/Store/Resources/js/Search.js"></script>
-<script type="text/javascript" src="/Store/Resources/js/Favorite.js"></script>
-<script type="text/javascript" src="/Store/Resources/js/App.js"></script>
+<script src="/Store/Resources/libs/autosize.min.js"></script>
+<script src="/Store/Resources/js/Lib.js"></script>
+<script src="/Store/Resources/js/Alert.js"></script>
+<script src="/Store/Resources/js/Search.js"></script>
+<script src="/Store/Resources/js/Favorite.js"></script>
+<script src="/Store/Resources/js/App.js"></script>
 
 </body>
 </html>

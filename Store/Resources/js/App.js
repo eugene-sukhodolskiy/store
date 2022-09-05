@@ -50,6 +50,8 @@ class App {
 				e.currentTarget.href = `tel:${number}`;
 			})
 		);
+
+		lib.collapse().init();
 	}
 
 	initControlPanelEvents() {
