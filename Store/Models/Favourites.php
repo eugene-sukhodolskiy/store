@@ -110,17 +110,22 @@ class Favourites extends \Store\Middleware\Model {
 			$group
 		);
 
-		$result = $this -> thin_builder() -> select(
-			Favorite::$table_name,
-			Favorite::get_fields(),
-			[
-				["uid", "=", app() -> sessions -> auth_user() -> id()],
-				"AND",
-				[ "assignment", "=", $assignment],
-				"AND",
-				[ "ent_id", "IN", $ids ]
-			]
-		);
+		if(app() -> sessions -> is_auth()) {
+			$result = $this -> thin_builder() -> select(
+				Favorite::$table_name,
+				Favorite::get_fields(),
+				[
+					["uid", "=", app() -> sessions -> auth_user() -> id()],
+					"AND",
+					[ "assignment", "=", $assignment],
+					"AND",
+					[ "ent_id", "IN", $ids ]
+				]
+			);
+		} else {
+			$result = [];
+		}
+
 
 		foreach($group as $item) {
 			$item -> set_favorite_state_for_current_user( false );

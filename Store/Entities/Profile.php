@@ -5,7 +5,7 @@ namespace Store\Entities;
 class Profile extends \Store\Middleware\Entity {
 	public static $table_name = "profiles"; 
 	protected static $fields = [
-		"id", "uid", "first_name", "second_name", "phone_number", "userpic", 
+		"id", "uid", "first_name", "second_name", "phone_number",
 		"location_lat", "location_lng", "update_at", "create_at"
 	];
 
