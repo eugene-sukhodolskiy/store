@@ -83,7 +83,9 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		$uadpost = $uadposts[0];
-		$uadpost -> activate();
+		if($uadpost -> state != "published") {
+			$uadpost -> activate();
+		}
 
 		$prev_imgs = $uadpost -> get_images();
 
@@ -173,8 +175,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		if($uadpost -> state == "published") {
-			$uadpost -> user() -> statistics() -> total_published_uadposts -> value += 1;
-			$uadpost -> user() -> statistics() -> total_published_uadposts -> update();
+			$uadpost -> user() -> statistics() -> total_published_uadposts_increase();
 		}
 		
 		return $this -> utils() -> response_success([

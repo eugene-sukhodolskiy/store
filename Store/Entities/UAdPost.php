@@ -84,16 +84,14 @@ class UAdPost extends \Store\Middleware\Entity {
 	public function deactivate() {
 		$this -> state = "unpublished";
 		$this -> update();
-		$this -> user() -> statistics() -> total_published_uadposts -> value -= 1;
-		$this -> user() -> statistics() -> total_published_uadposts -> update();
+		$this -> user() -> statistics() -> total_published_uadposts_decrease();
 		(new Favourites()) -> remove_for_assignment_unit($this -> id(), "UAdPost");
 	}
 
 	public function activate() {
 		$this -> state = "published";
 		$this -> update();
-		$this -> user() -> statistics() -> total_published_uadposts -> value += 1;
-		$this -> user() -> statistics() -> total_published_uadposts -> update();
+		$this -> user() -> statistics() -> total_published_uadposts_increase();
 	}
 
 	public function is_favorite_for_current_user(): Bool {
