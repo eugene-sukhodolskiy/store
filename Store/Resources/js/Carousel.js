@@ -58,6 +58,22 @@ class Carousel {
 			e.currentTarget.classList.remove("hide");
 			this.imgViewerPreloader.classList.add("hide");
 		});
+
+		this.keyboardEvents();
+	}
+
+	keyboardEvents() {
+		window.addEventListener("keyup", e => {
+			if(this.isFullScreenView()) {
+				if(e.keyCode == 39) {
+					this.nextImg();
+				}else if(e.keyCode == 37) {
+					this.prevImg();
+				}else if(e.keyCode == 27) {
+					this.closeView();
+				}
+			}
+		});
 	}
 
 	prevImg() {
@@ -152,5 +168,9 @@ class Carousel {
 		this.imgViewerPreloader.classList.add("hide");
 		this.imgViewer.classList.remove("show");
 		this.controlPanel.classList.remove("viewer-mode");
+	}
+
+	isFullScreenView() {
+		return this.viewerMode;
 	}
 }
