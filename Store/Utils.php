@@ -51,7 +51,7 @@ class Utils {
 		return $destination;
 	}
 
-	public function image_resize(String $file_name, String $output, $quality = 100, Int $width, $height = 0) {
+	public function image_resize(String $file_name, String $output, Int $quality, Int $width, $height = 0) {
 		list($wid, $ht) = \getimagesize($file_name);
 		$r = $wid / $ht;
 		$height = $height ? $height : $width / $r;
@@ -100,7 +100,7 @@ class Utils {
 	}
 
 	public function get_limits_for_select_query(Int $per_page) {
-		$current_page = max(1, intval($_GET["pn"]));
+		$current_page = max(1, intval(isset($_GET["pn"]) ? $_GET["pn"] : 0));
 		$from = ($current_page - 1) * $per_page;
 		return [$from, $per_page];
 	}

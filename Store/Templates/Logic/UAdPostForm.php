@@ -19,6 +19,7 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 		if(app() -> sessions -> is_auth()) {
 			$data["first_name"] = app() -> sessions -> auth_user() -> profile() -> first_name;
 			$data["second_name"] = app() -> sessions -> auth_user() -> profile() -> second_name;
+			$data["patronymic"] = app() -> sessions -> auth_user() -> profile() -> patronymic;
 			$data["phone_number"] = app() -> sessions -> auth_user() -> profile() -> phone_number;
 			$uadpost = (isset($data["uadpost"]) and $data["uadpost"])
 				? $data["uadpost"]

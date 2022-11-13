@@ -102,6 +102,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 			app() -> sessions -> auth_user() -> profile(), 
 			$first_name, 
 			$second_name, 
+			$patronymic,
 			$phone,
 			$lat,
 			$lng
@@ -165,6 +166,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 			app() -> sessions -> auth_user() -> profile(), 
 			$first_name, 
 			$second_name, 
+			$patronymic,
 			$phone,
 			$lat,
 			$lng
@@ -318,7 +320,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
-		$pnum = intval($_GET["pn"]);
+		$pnum = isset($_GET["np"]) ? intval($_GET["pn"]) : 1;
 
 		$user = app() -> sessions -> auth_user();
 		$total = $user -> total_uadposts($state);

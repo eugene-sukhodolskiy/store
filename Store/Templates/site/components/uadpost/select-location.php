@@ -3,7 +3,7 @@
 		<button class="std-btn btn-primary open-select-map" role="button">Выберите местоположение</button>
 		<div class="display-selected-location-outside">
 			<? if(!isset($city_en)): ?>
-				<?= $help_text ?>
+				<?= isset($help_text) ? $help_text : "" ?>
 			<? else: ?>
 				<span class="mdi mdi-map-marker-outline"></span> <?= $city_en ?>, <?= $country_en ?>
 			<? endif ?>

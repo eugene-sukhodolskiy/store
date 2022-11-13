@@ -10,6 +10,7 @@ class Profiles extends \Store\Middleware\Model {
 		Profile $profile, 
 		String $first_name, 
 		String $second_name, 
+		String $patronymic, 
 		String $phone,
 		Float $lat,
 		Float $lng
@@ -17,10 +18,12 @@ class Profiles extends \Store\Middleware\Model {
 		if(
 			$profile -> first_name != $first_name 
 			or $profile -> second_name != $second_name
+			or $profile -> patronymic != $patronymic
 			or $profile -> phone_number != $phone
 		) {
 			$profile -> first_name = $first_name;
 			$profile -> second_name = $second_name;
+			$profile -> patronymic = $patronymic;
 			$profile -> phone_number = $phone;
 		}
 

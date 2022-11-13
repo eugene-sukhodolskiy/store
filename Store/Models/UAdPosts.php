@@ -94,6 +94,10 @@ class UAdPosts extends \Store\Middleware\Model{
 				return app() -> utils -> response_error("empty_second_name", [ "second_name" ]);
 			}
 
+			if(!isset($patronymic) or $patronymic == "") {
+				return app() -> utils -> response_error("empty_patronymic", [ "patronymic" ]);
+			}
+
 			if(!isset($phone) or $phone == "") {
 				return app() -> utils -> response_error("empty_phone_number", [ "phone" ]);
 			}
@@ -144,14 +148,14 @@ class UAdPosts extends \Store\Middleware\Model{
 		return compact(
 			"title", "content", "condition", "country_en", "country_ru", "images_number",
 			"region_en", "region_ru", "city_en", "city_ru", "lat", "lng", "imgs",
-			"phone", "first_name", "second_name", "price", "currency", "exchange_flag"
+			"phone", "first_name", "second_name", "patronymic", "price", "currency", "exchange_flag"
 		);
 	}
 
 	protected function extract_post_data(Array $post) {
 		$expected_fields = [
 			"uadpost_id", "title", "content", "condition", "price", "currency",
-			"first_name", "second_name", "phone", "imgs", "lat", "lng", 
+			"first_name", "second_name", "patronymic", "phone", "imgs", "lat", "lng", 
 			"country_ru", "country_en", "region_ru", "region_en",
 			"city_ru", "city_en", "rules_agree", "exchange_flag"
 		];

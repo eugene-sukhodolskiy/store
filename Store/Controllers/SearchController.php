@@ -6,7 +6,7 @@ use \Store\Entities\UAdPost;
 
 class SearchController extends \Store\Middleware\Controller {
 	public function search_page() {
-		$s = mb_strtolower(trim($_GET["s"]));
+		$s = mb_strtolower(trim( isset($_GET["s"]) ? $_GET["s"] : "" ));
 		$per_page = FCONF["uadposts_per_page"];
 
 		$flipped_s = app() -> utils -> lang_mistake_flip($s);

@@ -29,13 +29,13 @@
 					name="title"
 					maxlength="100"
 					placeholder="Название" 
-				><?= $title ?></textarea>
+				><?= isset($title) ? $title : "" ?></textarea>
 				<div class="input-counter" data-counter-for-input="title"></div>
 			</div>
 
 			<?= $this -> join("site/components/img-uploader", [
 				"number_images" => 8,
-				"images" => $images
+				"images" => isset($images) ? $images : []
 			]) ?>
 
 			<div class="form-group">
@@ -48,7 +48,7 @@
 					name="content"
 					maxlength="10000"
 					placeholder="Опишите, что хотите продать"
-				><?= $content ?></textarea>
+				><?= isset($content) ? $content : "" ?></textarea>
 				<div class="input-counter" data-counter-for-input="content"></div>
 			</div>
 
@@ -64,7 +64,7 @@
 							id="condition_used"
 							value="used"
 							title="Б/У"
-							<? if($condition_used == 2): ?>checked<? endif ?>
+							<? if(isset($condition_used) and $condition_used == 2): ?>checked<? endif ?>
 						>
 						<label class="form-label" for="condition_used">Б/У</label>
 					</div>
@@ -77,7 +77,7 @@
 							id="condition_new"
 							value="new"
 							title="Новый"
-							<? if($condition_used == 1): ?>checked<? endif ?>
+							<? if(isset($condition_used) and $condition_used == 1): ?>checked<? endif ?>
 						>
 						<label class="form-label" for="condition_new">Новый</label>
 					</div>
@@ -97,7 +97,7 @@
 						max="1000000000"
 						min="0"
 						step="1"
-						value="<?= $price ?>"
+						value="<?= isset($price) ? $price : 0 ?>"
 						placeholder="Укажите цену" 
 					>
 
@@ -106,9 +106,9 @@
 						name="currency" 
 						id="currency"
 					>
-						<option value="UAH" <? if($currency == "UAH"): ?>selected<? endif ?>>UAH</option>
-						<option value="USD" <? if($currency == "USD"): ?>selected<? endif ?>>USD</option>
-						<option value="EUR" <? if($currency == "EUR"): ?>selected<? endif ?>>EUR</option>
+						<option value="UAH" <? if(isset($currency) and $currency == "UAH"): ?>selected<? endif ?>>UAH</option>
+						<option value="USD" <? if(isset($currency) and $currency == "USD"): ?>selected<? endif ?>>USD</option>
+						<option value="EUR" <? if(isset($currency) and $currency == "EUR"): ?>selected<? endif ?>>EUR</option>
 					</select>
 				</div>
 			</div>
@@ -119,7 +119,7 @@
 					class="std-input" 
 					name="exchange_flag"
 					id="exchange_flag"
-					<? if($exchange_flag): ?>checked<? endif ?>
+					<? if(isset($exchange_flag) and $exchange_flag): ?>checked<? endif ?>
 				>
 				<label for="exchange_flag" class="form-label">
 					Возможен обмен
@@ -140,7 +140,7 @@
 						name="first_name"
 						maxlength="25"
 						placeholder="Ваше имя"
-						value="<?= $first_name ?>"
+						value="<?= isset($first_name) ? $first_name : "" ?>"
 					>
 					<input 
 						type="text" 
@@ -149,9 +149,24 @@
 						name="second_name"
 						maxlength="30"
 						placeholder="Ваша фамилия" 
-						value="<?= $second_name ?>"
+						value="<?= isset($second_name) ? $second_name : "" ?>"
 					>
 				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="patronymic" class="form-label">
+					Отчество
+				</label>
+				<input 
+					type="text" 
+					class="std-input"
+					id="patronymic"
+					name="patronymic"
+					maxlength="25"
+					placeholder="Отчество"
+					value="<?= isset($patronymic) ? $patronymic : "" ?>"
+				>
 			</div>
 
 			<div class="form-group">
@@ -165,12 +180,12 @@
 					name="phone"
 					maxlength="100"
 					placeholder="Ваш номер телефона" 
-					value="<?= $phone_number ?>"
+					value="<?= isset($phone_number) ? $phone_number : "" ?>"
 				>
 			</div>
 
 			<div class="form-group">
-				<? if($has_posts): ?>
+				<? if(isset($has_posts) and $has_posts): ?>
 					<?= $this -> join("site/components/uadpost/select-location", [
 						"help_text" => "Выберите на карте место продажи товара",
 						"lat" => $lat,

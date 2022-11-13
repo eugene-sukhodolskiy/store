@@ -10,7 +10,7 @@
 				<h3>По запросу "<?= $search_query ?>" найдено <?= $total_uadposts ?> результатов</h3>
 			<? endif ?>
 
-			<? foreach ($uadposts as $i => $uadpost): ?>
+			<? foreach ($uadposts as $uadpost): ?>
 				<div class="search-item">
 					<?= $this -> join("\Store\Templates\Logic\UAdPostCard:site/components/uadpost/uadpost-card.php", [
 						"uadpost" => $uadpost,
