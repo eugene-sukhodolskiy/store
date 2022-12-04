@@ -4,6 +4,7 @@ class App {
 
 		this.search = new Search();
 		this.favorite = new Favorite("[data-make-favorite]");
+		this.order = new Order();
 		
 		this.initBaseEvents();
 		this.initControlPanelEvents();

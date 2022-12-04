@@ -1,0 +1,7 @@
+.page.new-order {
+	.component.order-form {
+		margin-top: $std-mg-lg;
+	}
+
+	@include uadpost-card-std-adaptive();
+}

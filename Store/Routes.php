@@ -56,6 +56,16 @@ class Routes {
 			'/favoutites.html', 
 			"{$this -> cn}\\FavouritesController@favourites_page"
 		);
+
+		$this -> router -> uri(
+			'/new-order/$uadpost_alias', 
+			"{$this -> cn}\\OrderController@new_order_page"
+		);
+
+		$this -> router -> uri(
+			'/order/success/$order_id', 
+			"{$this -> cn}\\OrderController@order_success_page"
+		);
 	}
 
 	protected function get_routes() {
@@ -120,6 +130,12 @@ class Routes {
 			[ "uadpost_id" ],
 			"{$this -> cn}\\FavouritesController@make",
 			"/favourites/f/make"
+		);
+
+		$this -> router -> post(
+			[ "uap_id", "price", "currency", "comment", "delivery_method" ],
+			"{$this -> cn}\\OrderController@create",
+			"/order/f/create"
 		);
 	}
 

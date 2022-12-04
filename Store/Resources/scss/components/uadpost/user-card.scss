@@ -15,6 +15,7 @@
 			border-radius: 100%;
 			width: 120px;
 			height: 120px;
+			object-fit: cover;
 			transition-duration: $trans-du;
 			transition-property: box-shadow;
 
@@ -56,4 +57,18 @@
 			top: 3px;
 		}
 	}
+}
+
+@mixin uadpost-card-std-adaptive() {
+	.component.uadpost-card {
+		margin: 0;
+
+		@include media("max", "sm") {
+			max-height: initial;
+
+			.struct.with-img {
+				grid-template-columns: auto;
+			}
+		}
+	}	
 }

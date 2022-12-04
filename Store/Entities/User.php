@@ -31,7 +31,7 @@ class User extends \Store\Middleware\Entity {
 
 	public function get_last_uadpost() {
 		$posts = app() -> factory -> getter() -> get_uadposts_by("uid", $this -> id(), 1);
-		return $posts ? $posts[0] : false;
+		return count($posts) ? $posts[0] : false;
 	}
 
 	public function total_uadposts(String $state = "published") {

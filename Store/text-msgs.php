@@ -31,6 +31,9 @@ return [
 	"fail_publishing_uadpost" => "Ошибка публикации объявления",
 	"uadpost_not_exist" => "Такое объявление не существует",
 	"server_not_available" => "Сервер не доступен",
+	"uadpost_no_available" => "Объявление больше не доступно",
+	"price_was_changed" => "Цена была изменена",
+	"fail_creating_order" => "Создание заказа не удалось",
 
 	// Other
 	"accept_removing" => "Подтвердите удаление",

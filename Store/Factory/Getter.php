@@ -8,6 +8,7 @@ use \Store\Entities\Image;
 use \Store\Entities\UAdPost;
 use \Store\Entities\Session;
 use \Store\Entities\Meta;
+use \Store\Entities\Order;
 
 class Getter {
 	public function get_user_by(String $field_name, $field_value) {
@@ -60,7 +61,7 @@ class Getter {
 		return $images;
 	}
 
-	public function get_uadposts_by(String $field_name, $field_value, Int $amount = 10) {
+	public function get_uadposts_by(String $field_name, $field_value, Int $amount = 10): Array {
 		$result = app() -> thin_builder -> select(
 			UAdPost::$table_name, UAdPost::get_fields(), [ 
 				[ $field_name, is_array($field_value) ? "IN" : "=", $field_value ]
@@ -71,7 +72,7 @@ class Getter {
 		);
 
 		if(!$result) {
-			return null;
+			return [];
 		}
 
 		$uadposts = [];
@@ -121,5 +122,29 @@ class Getter {
 		}
 
 		return $meta;
+	}
+
+	public function get_orders_by(String $field_name, $field_value, Int $amount = 10) : Array {
+		$result = app() -> thin_builder -> select(
+			Order::$table_name, 
+			Order::get_fields(), 
+			[ 
+				[ $field_name, is_array($field_value) ? "IN" : "=", $field_value ]
+			],
+			[ "id" ],
+			"DESC",
+			[0, $amount]
+		);
+
+		if(!$result) {
+			return [];
+		}
+
+		$orders = [];
+		foreach($result as $item) {
+			$orders[] = new Order($item["id"], $item);
+		}
+
+		return $orders;
 	}
 }

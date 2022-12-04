@@ -65,13 +65,15 @@ class Carousel {
 	keyboardEvents() {
 		window.addEventListener("keyup", e => {
 			if(this.isFullScreenView()) {
-				if(e.keyCode == 39) {
-					this.nextImg();
-				}else if(e.keyCode == 37) {
-					this.prevImg();
-				}else if(e.keyCode == 27) {
+				if(e.keyCode == 27) {
 					this.closeView();
 				}
+			}
+
+			if(e.keyCode == 37) {
+				this.prevImg();
+			}else if(e.keyCode == 39) {
+				this.nextImg();
 			}
 		});
 	}

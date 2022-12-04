@@ -18,13 +18,15 @@
 					</div>
 
 					<div class="uadpost-control">
-						<div class="btn-buy-wrap">
-							<?= $this -> join("site/components/uadpost/btn-buy.php", [
-								"uadpost_id" => $uadpost -> id(),
-								"price" => $uadpost -> get_formatted_price(),
-								"currency" => $uadpost -> get_formatted_currency()
-							]) ?>
-						</div>
+						<? if($uadpost -> uid != app() -> sessions -> auth_user() -> id()): ?>
+							<div class="btn-buy-wrap">
+								<?= $this -> join("site/components/uadpost/btn-buy.php", [
+									"uadpost_alias" => $uadpost -> alias,
+									"price" => $uadpost -> get_formatted_price(),
+									"currency" => $uadpost -> get_formatted_currency()
+								]) ?>
+							</div>
+						<? endif ?>
 
 						<? if($displaying_btn_favorite): ?>
 							<div class="btn-favorite-wrap">

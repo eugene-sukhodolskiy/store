@@ -38,17 +38,7 @@
 			}
 		}
 
-		.component.uadpost-card {
-			margin: 0;
-
-			@include media("max", "sm") {
-				max-height: initial;
-
-				.struct.with-img {
-					grid-template-columns: auto;
-				}
-			}
-		}
+		@include uadpost-card-std-adaptive();
 
 		> .component.compact-user-card {
 			display: flex;

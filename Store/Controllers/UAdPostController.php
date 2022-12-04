@@ -24,7 +24,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$alias = strstr($alias, ".html", true);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
 
-		if(!$uadposts) {
+		if(!count($uadposts)) {
 			return $this -> new_template() -> make("site/404.php");
 		}
 
@@ -46,7 +46,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$alias = strstr($alias, ".html", true);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
 
-		if(!$uadposts) {
+		if(!count($uadposts)) {
 			return $this -> new_template() -> make("site/404.php");
 		}
 
@@ -78,7 +78,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$uadpost_id = intval($_POST["uadpost_id"]);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $uadpost_id, 1);
 		
-		if(!$uadposts) {
+		if(!count($uadposts)) {
 			return $this -> utils() -> response_error("fail_publishing_uadpost");
 		}
 
@@ -241,7 +241,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$uadpost_id = intval($_POST["uadpost_id"]);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $uadpost_id, 1);
 		
-		if(!$uadposts) {
+		if(!count($uadposts)) {
 			return $this -> utils() -> response_error("fail_publishing_uadpost");
 		}
 
