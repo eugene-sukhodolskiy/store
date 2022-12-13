@@ -17,7 +17,7 @@ class Orders extends \Store\Middleware\Model {
 			"comment" => $comment,
 			"delivery_method" => $delivery_method,
 			"delivery_id" => 0,
-			"update_at" => date("Y-m-d H:i:s")
+			"create_at" => date("Y-m-d H:i:s")
 		];
 
 		$order_id = $this -> thin_builder() -> insert(Order::$table_name, $data);

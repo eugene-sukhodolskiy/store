@@ -10,11 +10,22 @@ class Order extends \Store\Middleware\Entity {
 		"delivery_id", "create_at", "update_at"
 	];
 
+	protected $uadpost;
+
 	public function __construct(Int $id, Array $data = []){
 		parent::__construct(
 			self::$table_name,
 			$id,
 			$data
 		);
+	}
+
+	public function uadpost() {
+		if(!$this -> uadpost) {
+			$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $this -> uap_id, 1);
+			$this -> uadpost = count($uadposts) ? $uadposts[0] : null;
+		}
+
+		return $this -> uadpost;
 	}
 }

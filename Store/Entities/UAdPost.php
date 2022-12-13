@@ -81,6 +81,15 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> remove_entity();
 	}
 
+	public function make_removed(){
+		if($this -> state == "published") {
+			$this -> deactivate();
+		}
+
+		$this -> state = "removed";
+		$this -> update();
+	}
+
 	public function deactivate() {
 		$this -> state = "unpublished";
 		$this -> update();

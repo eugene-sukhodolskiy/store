@@ -303,7 +303,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
-		$uadpost -> remove();
+		$uadpost -> make_removed();
 
 		return $this -> utils() -> redirect( app() -> routes -> urlto(
 			"UAdPostController@ready_uadposts_cur_user_page",

@@ -26,6 +26,7 @@
 @import "components/uadpost/uadpost-control-panel.scss";
 @import "components/slider.scss";
 @import "components/search-filters.scss";
+@import "components/abstract/info-card.scss";
 
 // PAGES
 @import "pages/signup.scss";
@@ -36,6 +37,7 @@
 @import "pages/user.uadposts.scss";
 @import "pages/favourites.scss";
 @import "pages/new.order.scss";
+@import "pages/order.success.scss";
 
 
 .footer {

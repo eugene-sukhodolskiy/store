@@ -1,0 +1,22 @@
+.info-card {
+	display: flex;
+	flex-direction: column;
+	gap: $std-mg-lg;
+	padding: $std-pd-lg;
+	border-radius: $border-rad-lg;
+	background-color: $color-bg-card;
+
+	&-heading {
+		font-size: $fsize-xl;
+	}
+
+	&-body {
+
+	}
+
+	&-footer {
+		width: 100%;
+		padding-top: $std-pd-lg;
+		border-top: $border-2;
+	}
+}

@@ -1,6 +1,8 @@
 <?php
 	/**
 	 * @var Boolean $displaying_saler
+	 * @var Boolean $displaying_btn_favorite
+	 * @var UAdPost $uadpost
 	 */
 	
 	$first_img = $uadpost -> get_first_image();
@@ -54,7 +56,7 @@
 			<? endif ?>
 
 			<div class="control-bar">
-				<? if($displaying_btn_favorite): ?>
+				<? if(isset($displaying_btn_favorite) and $displaying_btn_favorite): ?>
 					<?= $this -> join("site/components/btn-favorite", [ 
 						"state" => $uadpost -> is_favorite_for_current_user() ? "active" : "",
 						"uadpost_id" => $uadpost -> id()

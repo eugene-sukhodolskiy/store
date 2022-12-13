@@ -88,6 +88,9 @@ class OrderController extends \Store\Middleware\Controller {
 		}
 
 		$order = $orders[0];
+		if(time() - strtotime($order -> create_at) > 60 * 30 || !$order -> uadpost()) {
+			return app() -> utils -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
 
 		return $this -> new_template() -> make("site/order.success", [
 			"page_title" => "Заказ оформлен",
