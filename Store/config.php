@@ -36,4 +36,5 @@ return [
 	"uadposts_per_page" => 20,
 	"profile_uadposts_per_page" => 10,
 	"favourites_uadposts_per_page" => 10,
+	"user_orders_per_page" => 20
 ]; 

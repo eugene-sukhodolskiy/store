@@ -66,6 +66,11 @@ class Routes {
 			'/order/success/$order_id', 
 			"{$this -> cn}\\OrderController@order_success_page"
 		);
+
+		$this -> router -> uri(
+			'/profile/orders/$utype', 
+			"{$this -> cn}\\OrderController@orders_cur_user_page"
+		);
 	}
 
 	protected function get_routes() {

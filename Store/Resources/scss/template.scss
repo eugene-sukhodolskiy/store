@@ -27,6 +27,8 @@
 @import "components/slider.scss";
 @import "components/search-filters.scss";
 @import "components/abstract/info-card.scss";
+@import "components/order/order-card.scss";
+@import "components/uadpost/uadpost-card-micro.scss";
 
 // PAGES
 @import "pages/signup.scss";
@@ -38,6 +40,7 @@
 @import "pages/favourites.scss";
 @import "pages/new.order.scss";
 @import "pages/order.success.scss";
+@import "pages/user.orders.scss";
 
 
 .footer {

@@ -18,7 +18,7 @@
 					</div>
 
 					<div class="uadpost-control">
-						<? if($uadpost -> uid != app() -> sessions -> auth_user() -> id()): ?>
+						<? if(app() -> sessions -> is_auth() and $uadpost -> uid != app() -> sessions -> auth_user() -> id()): ?>
 							<div class="btn-buy-wrap">
 								<?= $this -> join("site/components/uadpost/btn-buy.php", [
 									"uadpost_alias" => $uadpost -> alias,
@@ -79,7 +79,7 @@
 			]) ?>
 		</div>
 
-		<? if($uadpost -> uid == app() -> sessions -> auth_user() -> id()): ?>
+		<? if(app() -> sessions -> is_auth() and $uadpost -> uid == app() -> sessions -> auth_user() -> id()): ?>
 			<?= $this -> join("site/components/uadpost/uadpost-control-panel", [
 				"uadpost" => $uadpost
 			]) ?>

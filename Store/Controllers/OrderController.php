@@ -98,4 +98,37 @@ class OrderController extends \Store\Middleware\Controller {
 			"order" => $order
 		]);
 	}
+
+	public function orders_cur_user_page($utype) {
+		if(!app() -> sessions -> is_auth()) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
+		}
+
+		if(!in_array($utype, ["saller", "customer"])) {
+			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+		}
+
+		$pnum = isset($_GET["np"]) ? intval($_GET["pn"]) : 1;
+
+		$user = app() -> sessions -> auth_user();
+		$total = $user -> total_orders($utype);
+		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1) : [];
+		
+		switch($utype) {
+			case "saller": 
+				$page_title = "Проданые";
+			break;
+			case "customer": 
+				$page_title = "Купленые";
+			break;
+		}
+
+		return $this -> new_template() -> make("site/user.orders", [
+			"page_title" => $page_title,
+			"page_alias" => "page user-orders",
+			"orders" => $orders,
+			"total_orders" => $total,
+			"per_page" => FCONF["user_orders_per_page"]
+		]);
+	}
 }

@@ -24,6 +24,8 @@ class Order extends \Store\Middleware\Entity {
 		if(!$this -> uadpost) {
 			$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $this -> uap_id, 1);
 			$this -> uadpost = count($uadposts) ? $uadposts[0] : null;
+			$this -> uadpost -> currency = $this -> currency;
+			$this -> uadpost -> price = $this -> price;
 		}
 
 		return $this -> uadpost;

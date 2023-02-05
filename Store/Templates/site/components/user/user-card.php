@@ -30,22 +30,24 @@
 				<?= $user -> statistics() -> total_published_uadposts ?> в продаже
 			</div>
 
-			<div class="last-activity">
-				<? $last_activity = $user -> last_session() -> get_last_activity() ?>
-				<? if($last_activity < 3): ?>
-					<span class="label label-success">Сейчас на сайте</span>
-				<? elseif($last_activity < 15): ?>
-					<span class="label">Был недавно на сайте</span>
-				<? elseif($last_activity < 60): ?>
-					<span class="label">Заходил час назад</span>
-				<? elseif(date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) == date("d.m.Y")): ?>
-					<span class="label">Был сегодня на сайте</span>
-				<? else: ?>
-					<span class="label">Был на сайте 
-						<?= date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) ?>
-					</span>
-				<? endif ?>
-			</div>
+			<? $last_activity = $user -> last_session() ? $user -> last_session() -> get_last_activity() : false; ?>
+			<? if($last_activity !== false): ?>
+				<div class="last-activity">
+					<? if($last_activity < 3): ?>
+						<span class="label label-success">Сейчас на сайте</span>
+					<? elseif($last_activity < 15): ?>
+						<span class="label">Был недавно на сайте</span>
+					<? elseif($last_activity < 60): ?>
+						<span class="label">Заходил час назад</span>
+					<? elseif(date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) == date("d.m.Y")): ?>
+						<span class="label">Был сегодня на сайте</span>
+					<? else: ?>
+						<span class="label">Был на сайте 
+							<?= date("d.m.Y", strtotime($user -> last_session() -> last_using_at)) ?>
+						</span>
+					<? endif ?>
+				</div>
+			<? endif ?>
 		</div>
 	</div>
 

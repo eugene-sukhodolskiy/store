@@ -61,7 +61,7 @@ trait ThinBuilderProcessing{
 		// ORDER PREPROCESSING
 		if(count($order_fields)){
 			$order_fields = $this -> escape_string_in_arr($order_fields);
-			$order_fields = 'ORDER BY `' . implode('`,`', $order_fields) . '`';
+			$order_fields = 'ORDER BY `' . implode("`,`", $order_fields) . '`';
 		}else{
 			$order_fields = '';
 		}

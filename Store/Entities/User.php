@@ -6,6 +6,7 @@ use \Store\Entities\Session;
 use \Store\Wrappers\UserStatistics;
 use \Store\Models\UAdPosts;
 use \Store\Models\Favourites;
+use \Store\Models\Orders;
 
 class User extends \Store\Middleware\Entity {
 	public static $table_name = "users";
@@ -60,6 +61,21 @@ class User extends \Store\Middleware\Entity {
 
 	public function total_favourites_uadposts() {
 		return (new Favourites()) -> total_by_user( $this -> id(), "UAdPost" );
+	}
+
+	public function get_orders(String $utype, Int $page_num = 1): Array {
+		$orders_model = new Orders();
+		$orders = $orders_model -> get_by_user(
+			$utype, 
+			$this -> id, FCONF["user_orders_per_page"], 
+			$page_num, 
+			[ "create_at", "state" ]
+		);
+		return $orders;
+	}
+
+	public function total_orders(String $utype) {
+		return (new Orders()) -> total_by_user($utype, $this -> id);
 	}
 
 	// Static methods
