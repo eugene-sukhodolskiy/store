@@ -38,7 +38,6 @@
 		<? endif ?>
 	</div>
 
-	<script src="/Store/Resources/js/Paginator.js"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", e => {
 			new Paginator("<?= $id ?>");

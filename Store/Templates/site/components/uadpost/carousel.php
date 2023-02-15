@@ -61,7 +61,6 @@
 	</div>
 </div>
 
-<script src="/Store/Resources/js/Carousel.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		new Carousel("#<?= $id ?>")

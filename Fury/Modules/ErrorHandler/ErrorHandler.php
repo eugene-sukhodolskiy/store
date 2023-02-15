@@ -139,7 +139,7 @@ class ErrorHandler{
 		echo "<title></title>";
 		echo '<link rel="stylesheet" type="text/css" href="/Store/Resources/css/server-error-handler.css">';
 		echo "<script>const eh_err = `{$json_data}`;</script>";
-		echo '<script src="/Store/Resources/js/server-error-handler.js"></script>';
+		echo '<script src="/Store/Resources/js/dist/server-error-handler.js"></script>';
 		echo "<div class='error-handler'></div>";
 		die();
 	}

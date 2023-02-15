@@ -104,7 +104,7 @@ class OrderController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
-		if(!in_array($utype, ["saller", "customer"])) {
+		if(!in_array($utype, ["seller", "customer"])) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
@@ -115,7 +115,7 @@ class OrderController extends \Store\Middleware\Controller {
 		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1) : [];
 		
 		switch($utype) {
-			case "saller": 
+			case "seller": 
 				$page_title = "Проданые";
 			break;
 			case "customer": 

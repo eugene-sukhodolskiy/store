@@ -16,7 +16,6 @@
 	<div class="popup-back-blur"></div>
 </div>
 
-<script src="/Store/Resources/js/ConfirmPopup.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		window.confirmPopup = new ConfirmPopup(".confirm-popup");

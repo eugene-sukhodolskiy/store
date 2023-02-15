@@ -1,3 +1,47 @@
 .component.uadpost-card-micro {
+	background-color: $color-bg-card;
+	padding: $std-pd-md;
+	border-radius: $border-rad-lg;
 
+	.struct {
+		display: grid;
+		grid-template-columns: auto auto 1fr;
+		grid-gap: $std-mg-md;
+
+		&.with-img {
+			.picture {
+				font-size: 0;
+				
+				.thumb {
+					width: 100px;
+					height: 70px;
+					border-radius: $border-rad-md;
+				}
+			}
+		}
+
+		.description {
+			display: flex;
+			flex-direction: column;
+			gap: $std-mg-sm;
+
+			.title {
+				border: 0;
+				text-decoration: none;
+				font-size: $fsize-lg;
+			}
+
+			.price-container {
+
+			}
+
+			.meta-info {
+				font-size: $fsize-xsm;
+			}
+		}
+
+		.seller {
+
+		}
+	}
 }

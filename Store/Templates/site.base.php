@@ -39,12 +39,7 @@
 </div>
 
 <script src="/Store/Resources/libs/autosize.min.js"></script>
-<script src="/Store/Resources/js/Lib.js"></script>
-<script src="/Store/Resources/js/Alert.js"></script>
-<script src="/Store/Resources/js/Search.js"></script>
-<script src="/Store/Resources/js/Favorite.js"></script>
-<script src="/Store/Resources/js/Order.js"></script>
-<script src="/Store/Resources/js/App.js"></script>
+<script src="/Store/Resources/js/dist/all.min.js"></script>
 
 </body>
 </html>

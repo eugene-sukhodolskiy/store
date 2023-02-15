@@ -14,6 +14,24 @@
 		</li>
 		<li class="user-nav-item">
 			<a 
+				href="<?= app() -> routes -> urlto(
+					"OrderController@orders_cur_user_page", 
+					["utype" => "customer"]
+				) ?>" 
+				class="user-nav-link"
+			>Мои покупки</a>
+		</li>
+		<li class="user-nav-item">
+			<a 
+				href="<?= app() -> routes -> urlto(
+					"OrderController@orders_cur_user_page", 
+					["utype" => "seller"]
+				) ?>" 
+				class="user-nav-link"
+			>Мои продажи</a>
+		</li>
+		<li class="user-nav-item">
+			<a 
 				href="<?= app() -> routes -> urlto("ProfileSettingsController@profile_settings_page") ?>" 
 				class="user-nav-link"
 			>Настройки профиля</a>

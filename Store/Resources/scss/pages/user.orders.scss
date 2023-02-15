@@ -1,0 +1,8 @@
+.page.user-orders {
+	.uadpost-item {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-md;
+		margin-bottom: $std-mg-lg;
+	}
+}

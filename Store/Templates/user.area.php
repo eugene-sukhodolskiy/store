@@ -59,6 +59,42 @@
 					Мои черновики
 				</a>
 			</li>
+
+			<li class="list-item">
+				<a 
+					href="<?= app() -> routes -> urlto(
+						"OrderController@orders_cur_user_page", 
+						["utype" => "customer"]
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+							"OrderController@orders_cur_user_page", 
+							["utype" => "customer"]
+					)): ?>
+						class="active"
+					<? endif ?>
+				>
+					<span class="mdi mdi-package-variant-closed"></span>	
+					Мои покупки
+				</a>
+			</li>
+
+			<li class="list-item">
+				<a 
+					href="<?= app() -> routes -> urlto(
+						"OrderController@orders_cur_user_page", 
+						["utype" => "seller"]
+					) ?>"
+					<? if(app() -> utils -> link_is_active(
+							"OrderController@orders_cur_user_page", 
+							["utype" => "seller"]
+					)): ?>
+						class="active"
+					<? endif ?>
+				>
+					<span class="mdi mdi-truck-fast-outline"></span>	
+					Мои продажи
+				</a>
+			</li>
 		</ul>
 
 		<ul class="clickable-list">

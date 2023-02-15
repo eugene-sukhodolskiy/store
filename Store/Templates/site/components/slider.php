@@ -35,7 +35,6 @@
 	</div>
 </div>
 
-<script src="/Store/Resources/js/Slider.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		new Slider(document.querySelector(".component.slider"))

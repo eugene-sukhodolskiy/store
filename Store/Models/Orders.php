@@ -31,7 +31,7 @@ class Orders extends \Store\Middleware\Model {
 	 * @return [type]            [description]
 	 */
 	public function get_by_user(String $utype, Int $uid, Int $amount = 10, Int $page_num = 1, Array $order_by = [ "id" ]): Array {
-		$utype_fieldname_map = [ "saller" => "uid", "customer" => "customer_id" ];
+		$utype_fieldname_map = [ "seller" => "uap_id", "customer" => "customer_id" ];
 		$orders = $this -> thin_builder() -> select(
 			Order::$table_name,
 			Order::get_fields(),
@@ -49,7 +49,7 @@ class Orders extends \Store\Middleware\Model {
 	}
 
 	public function total_by_user(String $utype, Int $uid): Int {
-		$utype_fieldname_map = [ "saller" => "uid", "customer" => "customer_id" ];
+		$utype_fieldname_map = [ "seller" => "uap_id", "customer" => "customer_id" ];
 		$total = $this -> thin_builder() -> count(
 			Order::$table_name, 
 			[ $utype_fieldname_map[$utype], "=", $uid ]
