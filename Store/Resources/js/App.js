@@ -51,6 +51,19 @@ class App {
 				e.currentTarget.href = `tel:${number}`;
 			})
 		);
+		
+		document.addEventListener("click", e => {
+			document.querySelectorAll(".component.local-menu.active").forEach(item => item.classList.remove("active"));
+		});
+
+		document.querySelectorAll(".component.local-menu .local-menu-active-btn").forEach(
+			item => item.addEventListener("click", e => {
+				const localMenu = e.currentTarget.parentNode;
+				setTimeout(() => {
+					localMenu.classList.add("active");
+				}, 0);
+			})
+		);
 
 		lib.collapse().init();
 	}

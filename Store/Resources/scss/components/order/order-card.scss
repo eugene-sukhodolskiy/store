@@ -1,3 +1,9 @@
 .component.order-card {
-	
+	position: relative;
+
+	.component.local-menu {
+		position: absolute;
+		right: $std-pd-md;
+		top: $std-pd-md;
+	}
 }
