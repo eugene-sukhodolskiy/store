@@ -34,7 +34,17 @@
 	</div>
 
 	<div class="order-details">
-		
+		<div class="order-state">
+			<? if($order -> state == "confirmed"): ?>
+				<span class="label order-state-label label-success">Подтверждено продавцом</span>
+			<? elseif($order -> state == "unconfirmed"): ?>
+				<span class="label order-state-label label-primary">Ожидает подтверждения продавцом</span>
+			<? elseif($order -> state == "canceled"): ?>
+				<span class="label order-state-label label-danger">Отклонено продавцом</span>
+			<? else: ?>
+				<span class="label label-warning">Статус заказа неизвестний</span>
+			<? endif ?>
+		</div>
 	</div>
 	<div class="order-meta"></div>
 </div>

@@ -4,7 +4,7 @@
 
 <? if($total_orders): ?>
 	<? foreach ($orders as $i => $order): ?>
-		<div class="uadpost-item">
+		<div class="order-item">
 			<?= $this -> join("site/components/order/order-card.php", [
 				"order" => $order
 			]) ?>

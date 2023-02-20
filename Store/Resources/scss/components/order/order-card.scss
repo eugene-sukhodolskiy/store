@@ -1,9 +1,21 @@
 .component.order-card {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: $std-mg-md;
 
 	.component.local-menu {
 		position: absolute;
 		right: $std-pd-md;
 		top: $std-pd-md;
+	}
+
+	.uadpost-info {
+		display: flex;
+		flex-direction: column;
+		gap: $std-mg-md;
+	}
+
+	.order-details {
 	}
 }

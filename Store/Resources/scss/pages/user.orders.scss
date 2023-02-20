@@ -1,8 +1,6 @@
 .page.user-orders {
-	.uadpost-item {
-		display: flex;
-		flex-direction: column;
-		gap: $std-mg-md;
+
+	.order-item {
 		margin-bottom: $std-mg-lg;
 	}
 }

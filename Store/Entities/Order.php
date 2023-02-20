@@ -5,7 +5,7 @@ namespace Store\Entities;
 class Order extends \Store\Middleware\Entity {
 	public static $table_name = "orders";
 	protected static $fields = [
-		"id", "customer_id", "uap_id", "price",
+		"id", "customer_id", "uap_id", "price", "state",
 		"currency", "comment", "delivery_method", 
 		"delivery_id", "create_at", "update_at"
 	];

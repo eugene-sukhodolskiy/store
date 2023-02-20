@@ -283,6 +283,39 @@ hr {
 	margin: $std-mg-xl 0;
 }
 
+.heading {
+	font-weight: normal;
+	margin: $std-mg-md 0;
+	padding: 0;
+}
+
+h1.heading {
+	font-size: $fsize-xxl;
+}
+
+h2.heading {
+	font-size: $fsize-xl;
+}
+
+h3.heading {
+	font-size: $fsize-lg;
+}
+
+h4.heading {
+	font-weight: bold;
+	font-size: $fsize-md;
+}
+
+h5.heading {
+	font-weight: bold;
+	font-size: $fsize-sm;
+}
+
+h6.heading {
+	font-weight: bold;
+	font-size: $fsize-xsm;
+}
+
 .label {
 	display: inline-block;
 	font-size: $fsize-md;
