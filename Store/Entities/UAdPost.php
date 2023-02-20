@@ -48,7 +48,7 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function get_formatted_timestamp() {
-		return date("d.m.Y", strtotime($this -> create_at));
+		return app() -> utils -> formatted_timestamp($this -> create_at);
 	}
 
 	public function get_formatted_price() {

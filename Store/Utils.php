@@ -91,7 +91,7 @@ class Utils {
 		return str_replace($cyr, $lat, $str);
 	}
 
-	public function gen_from_text_alias($str) {
+	public function gen_from_text_alias(String $str) {
 		return str_replace(
 			[" ", ".", ",", "@", "!", "#", '$', "%", "^", "&", "?", "*", "(", ")", "+", "[", "]", "{", "}", ":", ";", "/", "<", ">", "\\"], 
 			["-", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""], 
@@ -105,7 +105,7 @@ class Utils {
 		return [$from, $per_page];
 	}
 
-	public function lang_mistake_flip($str) {
+	public function lang_mistake_flip(String $str) {
 		$str = str_replace(
 			["{", "}", "!", "@", "#", '$', "%", "^", "&", "*", "(", ")"],
 			["", "", "", "", "", '$', "", "", "", "", "", ""],
@@ -150,5 +150,22 @@ class Utils {
 
 	public function link_is_active(String $action, Array $params = []) {
 		return app() -> routes -> urlto($action, $params) == app() -> router -> uri;
+	}
+
+	public function formatted_timestamp(String $timestamp, $with_clock = false) {
+		if($with_clock) {
+			return date("d.m.Y H:i", strtotime($timestamp));
+		}
+
+		return date("d.m.Y", strtotime($timestamp));
+	}
+
+	public function get_delivery_method_map() {
+		return [
+			1 => "Новая почта",
+			2 => "Укр почта",
+			3 => "Самовивоз",
+			4 => "Другое",
+		];
 	}
 }

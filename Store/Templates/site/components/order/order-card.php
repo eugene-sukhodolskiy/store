@@ -1,24 +1,39 @@
+<?php
+	/**
+	 * @var /Store/Entities/Order $order
+	 */
+	
+	$local_menu = [];
+
+	if($order -> state == "unconfirmed" and app() -> sessions -> auth_user() -> id != $order -> customer_id) {
+		$local_menu[] = [ 
+			"type" => "btn",
+			"attribute" => "data-order-id=\"{$order -> id}\"",
+			"class" => "order-cancel-btn",
+			"content" => "<span class=\"mdi mdi-check-bold\"></span> Принять"
+		];
+	}
+	
+	if($order -> state == "unconfirmed") {
+		$local_menu[] = [ 
+			"type" => "btn",
+			"attribute" => "data-order-id=\"{$order -> id}\"",
+			"class" => "order-cancel-btn",
+			"content" => "<span class=\"mdi mdi-cancel\"></span> Отменить"
+		];
+	} 
+
+	$local_menu[] = [
+		"type" => "btn",
+		"class" => "order-remove-btn",
+		"attribute" => "data-order-id=\"{$order -> id}\"",
+		"content" => "<span class=\"mdi mdi-delete-outline\"></span> Удалить"
+	]
+?>
+
 <div class="component order-card">
 	<?= $this -> join("site/components/local-menu.php", [ 
-		"menu" => [
-			[ 
-				"href" => "#",
-				"class" => "test",
-				"content" => "<span class=\"mdi mdi-plus\"></span> Item 1"
-			],
-			[ 
-				"type" => "btn",
-				"attribute" => "data-attr='true'",
-				"class" => "test2",
-				"content" => "<span class=\"mdi mdi-filter-menu\"></span> Item 2"
-			],
-			[ 
-				"type" => "btn",
-				"attribute" => "data-attr='true'",
-				"class" => "test2",
-				"content" => "<span class=\"mdi mdi-menu\"></span> Item 3"
-			]
-		]
+		"menu" => $local_menu
 	]) ?>
 
 	<div class="uadpost-info">
@@ -45,6 +60,27 @@
 				<span class="label label-warning">Статус заказа неизвестний</span>
 			<? endif ?>
 		</div>
-	</div>
-	<div class="order-meta"></div>
+		
+		<div class="order-timestamp">
+			<span class="mdi mdi-calendar"></span>
+			<?= $order -> get_formatted_create_at() ?>
+		</div>
+
+		<div class="order-comment">
+			<? if(strlen($order -> comment)): ?>
+				<span class="mdi mdi-comment-outline"></span>
+				<?= $order -> comment ?>
+			<? endif ?>
+		</div>
+
+		<div class="order-delivery">
+			<span class="mdi mdi-comment-outline"></span>
+			<?= $order -> get_delivery_method_text_name() ?>
+		</div>
+
+		<div class="order-phone-number">
+			<span class="mdi mdi-phone"></span>
+			<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>
+		</div>
+	</div>	
 </div>

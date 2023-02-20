@@ -2,6 +2,8 @@
 	/**
 	 * @var UAdPost $uadpost
 	 */
+	
+	$delivery_method_map = app() -> utils -> get_delivery_method_map();
 ?>
 
 <div class="component order-form">
@@ -22,10 +24,9 @@
 		<div class="form-group">
 			<label for="delivery_method" class="form-label">Метод доставки</label>
 			<select name="delivery_method" id="delivery_method" class="std-input">
-				<option value="1">Новая почта</option>
-				<option value="2">Укр почта</option>
-				<option value="3">Самовивоз</option>
-				<option value="4">Другое</option>
+				<? foreach ($delivery_method_map as $i => $name): ?>
+					<option value="<?= $i ?>"><?= $name ?></option>
+				<? endforeach ?>
 			</select>
 		</div>
 		<div class="form-group">
