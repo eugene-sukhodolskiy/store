@@ -3,6 +3,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: $std-mg-md;
+	padding: $std-pd-md;
+	border-radius: $border-rad-lg;
+	background-color: $color-bg-card;
+
+	.component.uadpost-card-micro {
+		padding: 0;
+	}
 
 	.component.local-menu {
 		position: absolute;
@@ -17,5 +24,15 @@
 	}
 
 	.order-details {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: $std-mg-md;
+		align-items: center;
+		justify-content: space-between;
+
+		.order-comment {
+			width: 100%;
+		}
 	}
 }

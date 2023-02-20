@@ -115,11 +115,11 @@ class OrderController extends \Store\Middleware\Controller {
 		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1) : [];
 		
 		switch($utype) {
-			case "seller": 
-				$page_title = "Проданые";
+			case "seller":
+				$page_title = "Мои покупки";
 			break;
 			case "customer": 
-				$page_title = "Купленые";
+				$page_title = "Мои покупки";
 			break;
 		}
 

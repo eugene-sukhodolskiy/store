@@ -28,7 +28,7 @@
 		"class" => "order-remove-btn",
 		"attribute" => "data-order-id=\"{$order -> id}\"",
 		"content" => "<span class=\"mdi mdi-delete-outline\"></span> Удалить"
-	]
+	];
 ?>
 
 <div class="component order-card">
@@ -61,26 +61,28 @@
 			<? endif ?>
 		</div>
 		
-		<div class="order-timestamp">
-			<span class="mdi mdi-calendar"></span>
-			<?= $order -> get_formatted_create_at() ?>
+		<div class="order-phone-number">
+			<span class="mdi mdi-phone"></span>
+			<a href="tel:<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>">
+				<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>
+			</a>
 		</div>
 
-		<div class="order-comment">
-			<? if(strlen($order -> comment)): ?>
+		<? if(strlen($order -> comment)): ?>
+			<div class="order-comment">
 				<span class="mdi mdi-comment-outline"></span>
 				<?= $order -> comment ?>
-			<? endif ?>
-		</div>
+			</div>
+		<? endif ?>
 
 		<div class="order-delivery">
-			<span class="mdi mdi-comment-outline"></span>
+			<span class="mdi mdi-truck-fast-outline"></span>
 			<?= $order -> get_delivery_method_text_name() ?>
 		</div>
 
-		<div class="order-phone-number">
-			<span class="mdi mdi-phone"></span>
-			<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>
+		<div class="order-timestamp">
+			<span class="mdi mdi-calendar"></span>
+			<?= $order -> get_formatted_create_at() ?>
 		</div>
 	</div>	
 </div>
