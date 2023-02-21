@@ -2,33 +2,6 @@
 	/**
 	 * @var /Store/Entities/Order $order
 	 */
-	
-	$local_menu = [];
-
-	if($order -> state == "unconfirmed" and app() -> sessions -> auth_user() -> id != $order -> customer_id) {
-		$local_menu[] = [ 
-			"type" => "btn",
-			"attribute" => "data-order-id=\"{$order -> id}\"",
-			"class" => "order-cancel-btn",
-			"content" => "<span class=\"mdi mdi-check-bold\"></span> Принять"
-		];
-	}
-	
-	if($order -> state == "unconfirmed") {
-		$local_menu[] = [ 
-			"type" => "btn",
-			"attribute" => "data-order-id=\"{$order -> id}\"",
-			"class" => "order-cancel-btn",
-			"content" => "<span class=\"mdi mdi-cancel\"></span> Отменить"
-		];
-	} 
-
-	$local_menu[] = [
-		"type" => "btn",
-		"class" => "order-remove-btn",
-		"attribute" => "data-order-id=\"{$order -> id}\"",
-		"content" => "<span class=\"mdi mdi-delete-outline\"></span> Удалить"
-	];
 ?>
 
 <div class="component order-card">
@@ -51,11 +24,19 @@
 	<div class="order-details">
 		<div class="order-state">
 			<? if($order -> state == "confirmed"): ?>
-				<span class="label order-state-label label-success">Подтверждено продавцом</span>
+				<span class="label order-state-label label-success">
+					<span class="mdi mdi-check-bold"></span>
+					Подтверждено продавцом
+				</span>
 			<? elseif($order -> state == "unconfirmed"): ?>
-				<span class="label order-state-label label-primary">Ожидает подтверждения продавцом</span>
+				<span class="label order-state-label label-primary">
+					Ожидает подтверждения продавцом
+				</span>
 			<? elseif($order -> state == "canceled"): ?>
-				<span class="label order-state-label label-danger">Отклонено продавцом</span>
+				<span class="label order-state-label label-danger">
+					<span class="mdi mdi-close-thick"></span>
+					Отклонено продавцом
+				</span>
 			<? else: ?>
 				<span class="label label-warning">Статус заказа неизвестний</span>
 			<? endif ?>
@@ -68,12 +49,14 @@
 			</a>
 		</div>
 
-		<? if(strlen($order -> comment)): ?>
-			<div class="order-comment">
-				<span class="mdi mdi-comment-outline"></span>
+		<div class="order-comment">
+			<span class="mdi mdi-comment-outline"></span>
+			<? if(strlen($order -> comment)): ?>
 				<?= $order -> comment ?>
-			</div>
-		<? endif ?>
+			<? else: ?>
+				<span class="no-matter-text">Коментарий отсутствует</span>
+			<? endif ?>
+		</div>
 
 		<div class="order-delivery">
 			<span class="mdi mdi-truck-fast-outline"></span>

@@ -5,7 +5,7 @@
 <? if($total_orders): ?>
 	<? foreach ($orders as $i => $order): ?>
 		<div class="order-item">
-			<?= $this -> join("site/components/order/order-card.php", [
+			<?= $this -> join("\Store\Templates\Logic\OrderCard:site/components/order/order-card.php", [
 				"order" => $order
 			]) ?>
 		</div>
@@ -21,25 +21,25 @@
 <? endif ?>
 
 <script>
-	document.addEventListener("DOMContentLoaded", e => {
-		if(document.location.hash.indexOf("deactivate-success") != -1) {
-			document.location.hash = "#";
-			createAlertComponent(
-				"success", 
-				"Ваше объявлние успешно деактивировано", 
-				true, 
-				true
-			).showIn(document.querySelector(".alert-container"));
-		}
+	// document.addEventListener("DOMContentLoaded", e => {
+	// 	if(document.location.hash.indexOf("deactivate-success") != -1) {
+	// 		document.location.hash = "#";
+	// 		createAlertComponent(
+	// 			"success", 
+	// 			"Ваше объявлние успешно деактивировано", 
+	// 			true, 
+	// 			true
+	// 		).showIn(document.querySelector(".alert-container"));
+	// 	}
 
-		if(document.location.hash.indexOf("activate-success") != -1) {
-			document.location.hash = "#";
-			createAlertComponent(
-				"success", 
-				"Ваше объявлние успешно активировано", 
-				true, 
-				true
-			).showIn(document.querySelector(".alert-container"));
-		}
-	});
+	// 	if(document.location.hash.indexOf("activate-success") != -1) {
+	// 		document.location.hash = "#";
+	// 		createAlertComponent(
+	// 			"success", 
+	// 			"Ваше объявлние успешно активировано", 
+	// 			true, 
+	// 			true
+	// 		).showIn(document.querySelector(".alert-container"));
+	// 	}
+	// });
 </script>

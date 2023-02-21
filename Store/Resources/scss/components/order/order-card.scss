@@ -33,6 +33,19 @@
 
 		.order-comment {
 			width: 100%;
+			height: min-content;
+
+			.no-matter-text {
+				font-size: inherit;
+			}
+		}
+
+		.order-state-label {
+			font-size: $fsize-sm;
+		}
+
+		.order-timestamp {
+			color: $color-text-lite;
 		}
 	}
 }
