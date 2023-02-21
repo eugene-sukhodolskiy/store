@@ -104,7 +104,8 @@ class OrderController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
-		if(!in_array($utype, ["seller", "customer"])) {
+		$utype_fieldname_map = [ "seller" => "seller_id", "customer" => "customer_id" ];
+		if(!isset($utype_fieldname_map[$utype])) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 
@@ -116,7 +117,7 @@ class OrderController extends \Store\Middleware\Controller {
 		
 		switch($utype) {
 			case "seller":
-				$page_title = "Мои покупки";
+				$page_title = "Мои продажи";
 			break;
 			case "customer": 
 				$page_title = "Мои покупки";
@@ -128,7 +129,8 @@ class OrderController extends \Store\Middleware\Controller {
 			"page_alias" => "page user-orders",
 			"orders" => $orders,
 			"total_orders" => $total,
-			"per_page" => FCONF["user_orders_per_page"]
+			"per_page" => FCONF["user_orders_per_page"],
+			"utype" => $utype
 		]);
 	}
 }

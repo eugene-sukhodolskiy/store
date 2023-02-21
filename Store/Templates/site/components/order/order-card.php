@@ -1,6 +1,7 @@
 <?php
 	/**
 	 * @var /Store/Entities/Order $order
+	 * @var String $mode [ customer or seller ]
 	 */
 ?>
 
@@ -14,9 +15,9 @@
 			"uadpost" => $order -> uadpost()
 		]) ?>
 
-		<div class="seller">
+		<div class="user">
 			<?= $this -> join("site/components/user/compact-user-card", [
-				"user" => $order -> uadpost() -> user()
+				"user" => $mode == "seller" ? $order -> customer() : $order -> seller()
 			]) ?>
 		</div>
 	</div>
@@ -44,12 +45,21 @@
 		
 		<div class="order-phone-number">
 			<span class="mdi mdi-phone"></span>
-			<a href="tel:<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>">
-				<?= $order -> uadpost() -> user() -> profile() -> phone_number ?>
-			</a>
+			<? if($phone_number): ?>
+				<a href="tel:<?= $phone_number ?>">
+					<?= $phone_number ?>
+				</a>
+			<? else: ?>
+				Телефон не указан
+			<? endif ?>
 		</div>
 
 		<div class="order-comment">
+			<img 
+				class="customer-userpic"
+				src="<?= $customer_userpic_url ?>" 
+				alt="<?= $customer_username ?>"
+			>
 			<span class="mdi mdi-comment-outline"></span>
 			<? if(strlen($order -> comment)): ?>
 				<?= $order -> comment ?>

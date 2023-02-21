@@ -16,7 +16,7 @@ class OrderCard extends \Fury\Modules\Template\Template {
 				"type" => "btn",
 				"attribute" => "data-order-id=\"{$order -> id}\"",
 				"class" => "order-cancel-btn",
-				"content" => "<span class=\"mdi mdi-check-bold\"></span> Принять"
+				"content" => "<span class=\"mdi mdi-check-bold\"></span> Подтвердить"
 			];
 		}
 		
@@ -35,6 +35,12 @@ class OrderCard extends \Fury\Modules\Template\Template {
 			"attribute" => "data-order-id=\"{$order -> id}\"",
 			"content" => "<span class=\"mdi mdi-delete-outline\"></span> Удалить"
 		];		
+
+		$data["customer_userpic_url"] = $order -> customer() -> profile() -> userpic_url("xs");
+		$data["customer_username"] = $order -> customer() -> profile() -> first_name; 
+		$data["phone_number"] = $data["mode"] == "seller" 
+			? $order -> customer() -> profile() -> phone_number
+			: $order -> seller() -> profile() -> phone_number;
 
 		return $data;
 	}

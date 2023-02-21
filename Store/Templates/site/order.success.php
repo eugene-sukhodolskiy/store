@@ -21,7 +21,13 @@
 
 	<div class="info-card-footer">
 		<div class="links">
-			<a href="#">Мои заказы</a>
+			<a href="<?= app() -> routes -> urlto(
+					"OrderController@orders_cur_user_page", 
+					["utype" => "customer"]
+				) ?>"
+			>
+				Мои покупки
+			</a>
 			<a href="<?= $order -> uadpost() -> get_url() ?>">Страница товара</a>
 			<a href="/">К поиску</a>
 		</div>

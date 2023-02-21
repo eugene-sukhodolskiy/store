@@ -11,7 +11,7 @@ use \Store\Entities\Meta;
 use \Store\Entities\Order;
 
 class Getter {
-	public function get_user_by(String $field_name, $field_value) {
+	public function get_user_by(String $field_name, $field_value): ?User {
 		$result = app() -> thin_builder -> select(
 			User::$table_name, User::get_fields(), [ [$field_name, "=", $field_value] ]
 		);

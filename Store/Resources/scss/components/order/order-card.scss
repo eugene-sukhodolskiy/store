@@ -35,6 +35,16 @@
 			width: 100%;
 			height: min-content;
 
+			.customer-userpic {
+			  position: relative;
+			  top: 2px;
+				width: 18px;
+			  height: 18px;
+				border-radius: 100%;
+				display: inline-block;
+				background-size: cover;
+			}
+
 			.no-matter-text {
 				font-size: inherit;
 			}

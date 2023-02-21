@@ -6,6 +6,7 @@
 	<? foreach ($orders as $i => $order): ?>
 		<div class="order-item">
 			<?= $this -> join("\Store\Templates\Logic\OrderCard:site/components/order/order-card.php", [
+				"mode" => $utype,
 				"order" => $order
 			]) ?>
 		</div>

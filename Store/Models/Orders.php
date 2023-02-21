@@ -9,7 +9,10 @@ class Orders extends \Store\Middleware\Model {
 
 	// TODO: Maybe moving this to Factory/Creator
 	public function create(Int $customer_id, Int $uap_id, Float $price, String $currency, String $comment, Int $delivery_method): ?Order {
+		list($uadpost) = app() -> factory -> getter() -> get_uadposts_by("id", $uap_id, 1);
+
 		$data = [
+			"seller_id" => $uadpost -> uid,
 			"customer_id" => $customer_id,
 			"uap_id" => $uap_id,
 			"price" => $price,
@@ -31,7 +34,7 @@ class Orders extends \Store\Middleware\Model {
 	 * @return [type]            [description]
 	 */
 	public function get_by_user(String $utype, Int $uid, Int $amount = 10, Int $page_num = 1, Array $order_by = [ "id" ]): Array {
-		$utype_fieldname_map = [ "seller" => "uap_id", "customer" => "customer_id" ];
+		$utype_fieldname_map = [ "seller" => "seller_id", "customer" => "customer_id" ];
 		$orders = $this -> thin_builder() -> select(
 			Order::$table_name,
 			Order::get_fields(),
@@ -49,7 +52,7 @@ class Orders extends \Store\Middleware\Model {
 	}
 
 	public function total_by_user(String $utype, Int $uid): Int {
-		$utype_fieldname_map = [ "seller" => "uap_id", "customer" => "customer_id" ];
+		$utype_fieldname_map = [ "seller" => "seller_id", "customer" => "customer_id" ];
 		$total = $this -> thin_builder() -> count(
 			Order::$table_name, 
 			[ $utype_fieldname_map[$utype], "=", $uid ]
