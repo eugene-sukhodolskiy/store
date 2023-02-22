@@ -21,7 +21,9 @@
 				>
 					<span class="mdi mdi-check-bold"></span>	
 					Активные объявления
-					<div class="counter"><?= $total_published_uadposts ?></div>
+					<? if($total_published_uadposts > 0): ?>
+						<div class="counter" title="Количество активных объявлений"><?= $total_published_uadposts ?></div>
+					<? endif ?>
 				</a>
 			</li>
 
@@ -76,6 +78,9 @@
 				>
 					<span class="mdi mdi-package-variant-closed"></span>	
 					Мои покупки
+					<? if($total_confirmed_orders > 0): ?>
+						<div class="counter" title="Количество подтверждённых заказов"><?= $total_confirmed_orders ?></div>
+					<? endif ?>
 				</a>
 			</li>
 
@@ -94,7 +99,9 @@
 				>
 					<span class="mdi mdi-truck-fast-outline"></span>	
 					Мои продажи
-					<div class="counter"><?= $total_unconfirm_sales ?></div>
+					<? if($total_unconfirmed_sales > 0): ?>
+						<div class="counter" title="Количество не подтверждённых продаж"><?= $total_unconfirmed_sales ?></div>
+					<? endif ?>
 				</a>
 			</li>
 		</ul>
@@ -120,7 +127,9 @@
 				>
 					<span class="mdi mdi-star-outline"></span>	
 					Избранные
-					<div class="counter"><?= $total_favourites ?></div>
+					<? if($total_favourites > 0): ?>
+						<div class="counter" title="Количество избранных объявлений"><?= $total_favourites ?></div>
+					<? endif ?>
 				</a>
 			</li>
 

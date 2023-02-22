@@ -7,7 +7,7 @@ class UserArea extends \Fury\Modules\Template\Template {
 		$data = array_merge($data, $this -> parent() -> get_inside_data());
 		$user = app() -> sessions -> auth_user();
 
-		$data["total_published_uadposts"] = $user -> statistics() -> total_published_uadposts;
+		$data["total_published_uadposts"] = $user -> statistics() -> total_published_uadposts -> value;
 		if($data["total_published_uadposts"] > 99) {
 			$data["total_published_uadposts"] = "99+";
 		}
@@ -17,7 +17,8 @@ class UserArea extends \Fury\Modules\Template\Template {
 			$data["total_favourites"] = "99+";
 		}
 
-		$data["total_unconfirm_sales"] = $user -> total_orders("seller", "unconfirmed");
+		$data["total_unconfirmed_sales"] = $user -> total_orders("seller", "unconfirmed");
+		$data["total_confirmed_orders"] = $user -> total_orders("customer", "confirmed");
 		return $data;
 	}
 }
