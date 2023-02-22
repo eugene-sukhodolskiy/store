@@ -69,7 +69,7 @@ class User extends \Store\Middleware\Entity {
 			$utype, 
 			$this -> id, FCONF["user_orders_per_page"], 
 			$page_num, 
-			[ "create_at", "state" ]
+			[ "state", "create_at" ]
 		);
 		return $orders;
 	}

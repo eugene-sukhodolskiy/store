@@ -104,8 +104,7 @@ class OrderController extends \Store\Middleware\Controller {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
-		$utype_fieldname_map = [ "seller" => "seller_id", "customer" => "customer_id" ];
-		if(!isset($utype_fieldname_map[$utype])) {
+		if(!isset(FCONF["utype_map"][$utype])) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
 		}
 

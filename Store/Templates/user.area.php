@@ -1,6 +1,6 @@
 <?= $this -> extends_from("\Store\Templates\Logic\SiteBase:site.base") ?>
 
-<h2><?= $page_title ?></h2>
+<h2 class="heading"><?= $page_title ?></h2>
 
 <div class="user-area">
 	<div class="user-area-navigation">
@@ -20,7 +20,8 @@
 					<? endif ?>
 				>
 					<span class="mdi mdi-check-bold"></span>	
-					Мои активные объявления
+					Активные объявления
+					<div class="counter"><?= $total_published_uadposts ?></div>
 				</a>
 			</li>
 
@@ -38,7 +39,7 @@
 					<? endif ?>
 				>
 					<span class="mdi mdi-close-thick"></span>	
-					Мои неактивные объявления
+					Неактивные объявления
 				</a>
 			</li>
 
@@ -56,7 +57,7 @@
 					<? endif ?>
 				>
 					<span class="mdi mdi-file-document-edit-outline"></span>	
-					Мои черновики
+					Черновики
 				</a>
 			</li>
 

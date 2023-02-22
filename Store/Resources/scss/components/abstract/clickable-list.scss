@@ -18,12 +18,14 @@
 		}
 
 		a {
-			display: block;
+			display: flex;
+			align-items: center;
 			color: inherit;
 			padding: $std-pd-sm $std-pd-lg;
 			width: 100%;
 			box-sizing: border-box;
 			border: 0;
+			position: relative;
 			background-color: transparent;
 			transition-duration: $trans-du;
 			transition-property: color, background-color;
@@ -32,6 +34,16 @@
 			&.active {
 				background-color: rgba(0,0,0,.05);
 				color: $color-primary;
+			}
+
+			.counter {
+				position: absolute;
+				right: $std-mg-sm;
+				background-color: $color-bg;
+				color: $color-primary;
+				padding: $std-pd-xsm;
+				border-radius: $border-rad-md;
+				font-size: $fsize-sm;
 			}
 		}
 
