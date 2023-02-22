@@ -38,10 +38,10 @@ class OrderStateLabel extends \Fury\Modules\Template\Template {
 				$label["icon"] = "dots-horizontal";
 				$label["text"] = "Ожидает подтверждения" . ($utype == "customer" ? " продавцом" : "");
 				break;
-			case "unconfirmed":
-				$label["type"] = "darnger";
+			case "canceled":
+				$label["type"] = "danger";
 				$label["icon"] = "close-thick";
-				$label["text"] = "Отклонено" . ($utype == "customer" ? " продавцом" : "");
+				$label["text"] = "Отменено";
 				break;
 		}
 

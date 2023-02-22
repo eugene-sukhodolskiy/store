@@ -98,16 +98,32 @@ class Order {
 	}
 
 	initOrdersControl() {
-		document.querySelectorAll(".order-confirm-btn[data-order-confirm-action]").forEach(
+		document.querySelectorAll("[data-order-action]").forEach(
 			item => item.addEventListener("click", e => {
-				const action = e.currentTarget.getAttribute("data-order-confirm-action");
-				const orderId = e.currentTarget.getAttribute("data-order-id");
+				const action = e.currentTarget.getAttribute("data-order-action");
+				const btnType = e.currentTarget.getAttribute("data-order-btn-type");
+				const heading = {
+					"confirm": _atxt("confirm"),
+					"cancel": _atxt("cancel_order")
+				};
+				const applyBtnText = {
+					"confirm": _atxt("confirm"),
+					"cancel": _atxt("confirm")
+				};
+				const applyBtnType = {
+					"confirm": "success",
+					"cancel": "danger"
+				};
+				const cancelBtnText = {
+					"confirm": _atxt("cancel"),
+					"cancel": _atxt("cancel")
+				};
 
 				confirmPopup.show({
-					heading: _atxt("confirm"),
-					applyBtnText: _atxt("confirm"),
-					applyBtnType: "success",
-					cancelBtnText: _atxt("cancel"),
+					heading: heading[btnType],
+					applyBtnText: applyBtnText[btnType],
+					applyBtnType: applyBtnType[btnType],
+					cancelBtnText: cancelBtnText[btnType],
 					applyCallback: () => { 
 						lib.simpleAJAXRequest(
 							action,

@@ -37,34 +37,31 @@ class OrderCard extends \Fury\Modules\Template\Template {
 		$confirm_action = app() -> routes -> urlto("OrderController@confirm_order", [
 			"order_id" => $order -> id
 		]);
+
+		$cancel_action = app() -> routes -> urlto("OrderController@cancel_order", [
+			"order_id" => $order -> id
+		]);
 		
 		$local_menu = [];
 
 		if($order -> state == "unconfirmed" and app() -> sessions -> auth_user() -> id != $order -> customer_id) {
 			$local_menu[] = [ 
 				"type" => "btn",
-				"attribute" => "data-order-confirm-action=\"{$confirm_action}\"",
+				"attribute" => "data-order-action=\"{$confirm_action}\" data-order-btn-type=\"confirm\"",
 				"class" => "order-confirm-btn",
 				"content" => "<span class=\"mdi mdi-check-bold\"></span> Подтвердить"
 			];
 		}
 		
-		if($order -> state == "unconfirmed") {
+		if($order -> state == "unconfirmed" or ($order -> state == "confirmed" and $utype == "seller")) {
 			$local_menu[] = [ 
 				"type" => "btn",
-				"attribute" => "data-order-id=\"{$order -> id}\"",
+				"attribute" => "data-order-action=\"{$cancel_action}\" data-order-btn-type=\"cancel\"",
 				"class" => "order-cancel-btn",
 				"content" => "<span class=\"mdi mdi-cancel\"></span> " 
-					. ($utype == "seller" ? "Отклонить" : "Отменить") 
+					. ($utype == "seller" && $order -> state == "unconfirmed" ? "Отклонить" : "Отменить") 
 			];
-		} 
-
-		$local_menu[] = [
-			"type" => "btn",
-			"class" => "order-remove-btn",
-			"attribute" => "data-order-id=\"{$order -> id}\"",
-			"content" => "<span class=\"mdi mdi-delete-outline\"></span> Удалить"
-		];
+		}
 
 		$data["local_menu"] = $local_menu;
 

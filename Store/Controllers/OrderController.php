@@ -152,8 +152,14 @@ class OrderController extends \Store\Middleware\Controller {
 			return app() -> utils -> response_error("fail_access_to_order");
 		}
 
-		if(!$order -> confirm()) {
-			return app() -> utils -> response_error("undefined_error");
+		if($order -> state == "canceled") {
+			return app() -> utils -> response_error("fail_access_to_order");
+		}
+
+		if($order -> state == "unconfirmed") {
+			if(!$order -> confirm()) {
+				return app() -> utils -> response_error("undefined_error");
+			}
 		}
 
 		return app() -> utils -> response_success([
@@ -169,10 +175,40 @@ class OrderController extends \Store\Middleware\Controller {
 	}
 
 	public function cancel_order($order_id) {
+		$order_id = intval($order_id);
 
-	}
+		if(!app() -> sessions -> is_auth()) {
+			return app() -> utils -> response_error("not_found_any_sessions");
+		}
 
-	public function remove_order($order_id) {
+		$orders = app() -> factory -> getter() -> get_orders_by("id", $order_id, 1);
+		$order = count($orders) ? $orders[0] : null;
 
+		if(!$order) {
+			return app() -> utils -> response_error("uadpost_not_exist");
+		}
+
+		$utype = app() -> sessions -> auth_user() -> id == $order -> customer_id ? "customer" : "seller";
+
+		if($order -> state == "confirmed" and $utype == "customer") {
+			return app() -> utils -> response_error("fail_access_to_order");
+		}
+
+		if($order -> state != "canceled") {
+			if(!$order -> cancel()) {
+				return app() -> utils -> response_error("undefined_error");
+			}
+		}
+
+		return app() -> utils -> response_success([
+			"order_id" => $order -> id,
+			"msg" => app() -> utils -> get_msg_by_alias("canceled"),
+			"order_state_label" => 
+				(new \Store\Templates\Logic\OrderStateLabel(PROJECT_FOLDER, FCONF['templates_folder'])) 
+					-> make("site/components/order/order-state-label.php", [
+						"order" => $order,
+						"utype" => $utype
+					])
+		]);	
 	}
 }
