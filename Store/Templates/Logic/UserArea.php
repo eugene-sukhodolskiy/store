@@ -11,6 +11,11 @@ class UserArea extends \Fury\Modules\Template\Template {
 		if($data["total_published_uadposts"] > 99) {
 			$data["total_published_uadposts"] = "99+";
 		}
+
+		$data["total_favourites"] = $user -> total_favourites_uadposts();
+		if($data["total_favourites"] > 99) {
+			$data["total_favourites"] = "99+";
+		}
 		return $data;
 	}
 }

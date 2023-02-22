@@ -119,6 +119,7 @@
 				>
 					<span class="mdi mdi-star-outline"></span>	
 					Избранные
+					<div class="counter"><?= $total_favourites ?></div>
 				</a>
 			</li>
 
