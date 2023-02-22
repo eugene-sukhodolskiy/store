@@ -94,6 +94,7 @@
 				>
 					<span class="mdi mdi-truck-fast-outline"></span>	
 					Мои продажи
+					<div class="counter"><?= $total_unconfirm_sales ?></div>
 				</a>
 			</li>
 		</ul>

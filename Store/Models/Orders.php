@@ -50,10 +50,15 @@ class Orders extends \Store\Middleware\Model {
 		return $orders ? $orders : [];
 	}
 
-	public function total_by_user(String $utype, Int $uid): Int {
+	public function total_by_user(String $utype, Int $uid, String $state = "*"): Int {
+		$where = [ FCONF["utype_map"][$utype], "=", $uid ];
+		$state_where = $state != "*" ? [ "state", "=", $state ] : [];
+		
 		$total = $this -> thin_builder() -> count(
 			Order::$table_name, 
-			[ FCONF["utype_map"][$utype], "=", $uid ]
+			!count($state_where) 
+				? $where
+				: [ $where, "AND", $state_where ]
 		);
 
 		return $total;

@@ -12,7 +12,7 @@ class UserStatistics {
 	
 	protected static Array $fields_types = [
 		"total_published_uadposts" => "Int",
-		"total_saled" => "Int",
+		"total_saled" => "Int"
 	];
 
 	public function total_published_uadposts_increase() {

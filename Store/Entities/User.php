@@ -74,8 +74,8 @@ class User extends \Store\Middleware\Entity {
 		return $orders;
 	}
 
-	public function total_orders(String $utype) {
-		return (new Orders()) -> total_by_user($utype, $this -> id);
+	public function total_orders(String $utype, String $state = "*"): Int {
+		return (new Orders()) -> total_by_user($utype, $this -> id, $state);
 	}
 
 	// Static methods

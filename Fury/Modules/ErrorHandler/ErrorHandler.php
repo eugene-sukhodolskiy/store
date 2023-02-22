@@ -103,9 +103,10 @@ class ErrorHandler{
 	 * Get lines with errors from file
 	 */
 	public function get_prog_code(String $errfile, Int $errline) {
-		$file = file($errfile);
+		$file = explode("\n", file_get_contents($errfile));
 		$code = [];
 		for($i = $errline - 8; $i < $errline + 6; $i++){
+			if(!isset($file[$i])) continue;
 			if(trim($file[$i]) == "") continue;
 			$code[$i + 1] = str_replace("\t", "&nbsp;&nbsp;", htmlspecialchars($file[$i]));
 		}

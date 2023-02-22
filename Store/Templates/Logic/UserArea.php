@@ -16,6 +16,8 @@ class UserArea extends \Fury\Modules\Template\Template {
 		if($data["total_favourites"] > 99) {
 			$data["total_favourites"] = "99+";
 		}
+
+		$data["total_unconfirm_sales"] = $user -> total_orders("seller", "unconfirmed");
 		return $data;
 	}
 }
