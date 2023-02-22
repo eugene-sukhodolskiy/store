@@ -1,11 +1,11 @@
 <?php
 	/**
 	 * @var /Store/Entities/Order $order
-	 * @var String $mode [ customer or seller ]
+	 * @var String $utype [ customer or seller ]
 	 */
 ?>
 
-<div class="component order-card">
+<div class="component order-card" data-order-id="<?= $order -> id ?>">
 	<?= $this -> join("site/components/local-menu.php", [ 
 		"menu" => $local_menu
 	]) ?>
@@ -17,30 +17,17 @@
 
 		<div class="user">
 			<?= $this -> join("site/components/user/compact-user-card", [
-				"user" => $mode == "seller" ? $order -> customer() : $order -> seller()
+				"user" => $utype == "seller" ? $order -> customer() : $order -> seller()
 			]) ?>
 		</div>
 	</div>
 
 	<div class="order-details">
 		<div class="order-state">
-			<? if($order -> state == "confirmed"): ?>
-				<span class="label order-state-label label-success">
-					<span class="mdi mdi-check-bold"></span>
-					Подтверждено продавцом
-				</span>
-			<? elseif($order -> state == "unconfirmed"): ?>
-				<span class="label order-state-label label-primary">
-					Ожидает подтверждения продавцом
-				</span>
-			<? elseif($order -> state == "canceled"): ?>
-				<span class="label order-state-label label-danger">
-					<span class="mdi mdi-close-thick"></span>
-					Отклонено продавцом
-				</span>
-			<? else: ?>
-				<span class="label label-warning">Статус заказа неизвестний</span>
-			<? endif ?>
+			<?= $this -> join("\Store\Templates\Logic\OrderStateLabel:site/components/order/order-state-label.php", [
+				"order" => $order,
+				"utype" => $utype 
+			]) ?>
 		</div>
 		
 		<div class="order-phone-number">

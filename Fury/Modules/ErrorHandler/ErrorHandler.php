@@ -129,7 +129,7 @@ class ErrorHandler{
 		if(!FCONF["debug"]) return false;
 		$err_type = $this -> get_err_type($errno);
 		$code = $this -> get_prog_code($errfile, $errline);
-		$errstr = str_replace(["\\", "\n", "\r", "\t"], ["&#92", "", "", ""], str_replace("`", "'", $errstr));
+		$errstr = str_replace(["\\", "\n", "\r", "\t", "\""], ["&#92", "", "", "", "'"], str_replace("`", "'", $errstr));
 		$code = str_replace(["\\", "\n"], ["&#92", ""], str_replace("`", "'", $code));
 		$this -> show_err_page(compact("errno", "err_type", "errstr", "errfile", "errline", "code"));
 	}

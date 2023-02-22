@@ -6,7 +6,7 @@
 	<? foreach ($orders as $i => $order): ?>
 		<div class="order-item">
 			<?= $this -> join("\Store\Templates\Logic\OrderCard:site/components/order/order-card.php", [
-				"mode" => $utype,
+				"utype" => $utype,
 				"order" => $order
 			]) ?>
 		</div>
@@ -20,27 +20,3 @@
 <? else: ?>
 	<h3>Здесь ничего нету</h3>
 <? endif ?>
-
-<script>
-	// document.addEventListener("DOMContentLoaded", e => {
-	// 	if(document.location.hash.indexOf("deactivate-success") != -1) {
-	// 		document.location.hash = "#";
-	// 		createAlertComponent(
-	// 			"success", 
-	// 			"Ваше объявлние успешно деактивировано", 
-	// 			true, 
-	// 			true
-	// 		).showIn(document.querySelector(".alert-container"));
-	// 	}
-
-	// 	if(document.location.hash.indexOf("activate-success") != -1) {
-	// 		document.location.hash = "#";
-	// 		createAlertComponent(
-	// 			"success", 
-	// 			"Ваше объявлние успешно активировано", 
-	// 			true, 
-	// 			true
-	// 		).showIn(document.querySelector(".alert-container"));
-	// 	}
-	// });
-</script>

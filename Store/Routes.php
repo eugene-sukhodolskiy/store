@@ -71,6 +71,11 @@ class Routes {
 			'/profile/orders/$utype', 
 			"{$this -> cn}\\OrderController@orders_cur_user_page"
 		);
+
+		$this -> router -> uri(
+			'/profile/orders/confirm/$order_id', 
+			"{$this -> cn}\\OrderController@confirm_order"
+		);
 	}
 
 	protected function get_routes() {

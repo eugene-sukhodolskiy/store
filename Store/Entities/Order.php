@@ -48,4 +48,14 @@ class Order extends \Store\Middleware\Entity {
 			return app() -> factory -> getter() -> get_user_by("id", $this -> customer_id, 1);
 		});
 	}
+
+	public function confirm() {
+		$this -> state = "confirmed";
+		return $this -> update();
+	}
+
+	public function cancel() {
+		$this -> state = "canceled";
+		return $this -> update();	
+	}
 }

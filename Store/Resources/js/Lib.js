@@ -76,6 +76,45 @@ class Lib {
 
 			return this;
 		}
+
+		this.simpleAJAXRequest = (actionUrl, successCallback, alertContainer) => {
+			const closeAlertByTime = alert => setTimeout(() => alert.close(), 4000);
+
+			const xhr = new XMLHttpRequest();
+			xhr.open(
+				"GET",
+				actionUrl
+			);
+
+			xhr.onload = () => {
+				if (xhr.status == 200) {
+					const resp = JSON.parse(xhr.response);
+					if(resp.status) {
+						successCallback(resp, alertContainer);
+					} else {
+						closeAlertByTime(
+							createAlertComponent("danger", resp.msg, true, true).showIn(alertContainer)
+						);
+					}
+				} else {
+					closeAlertByTime(
+						createAlertComponent("danger", _atxt("undefined_error"), true, true).showIn(alertContainer)
+					);
+
+					console.error("Request error. Undefined server error");
+				}
+			}
+
+			xhr.onerror = () => {
+				closeAlertByTime(
+					createAlertComponent("danger", _atxt("server_not_available"), true, true).showIn(alertContainer)
+				);
+				
+				console.error("Request error. Server not available");
+			};
+
+			xhr.send(); 
+		}
 	}
 }
 

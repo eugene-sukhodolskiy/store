@@ -33,7 +33,8 @@ return [
 	"server_not_available" => "Сервер не доступен",
 	"uadpost_no_available" => "Объявление больше не доступно",
 	"price_was_changed" => "Цена была изменена",
-	"fail_creating_order" => "Создание заказа не удалось",
+	"fail_creating_order" => "Не удалось создать запрос покупки",
+	"fail_access_to_order" => "Не удалось получить доступ к заказу",
 
 	// Other
 	"accept_removing" => "Подтвердите удаление",
@@ -46,4 +47,6 @@ return [
 	"terms_of_use_not_selected" => "Пользовательское соглашение не выбрано",
 	"success_and_redirecting" => "Успешно! Перенаправление...",
 	"accept" => "Принять",
+	"confirm" => "Подтвердить",
+	"confirmed" => "Успешно подтверждено",
 ];

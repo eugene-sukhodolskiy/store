@@ -133,4 +133,46 @@ class OrderController extends \Store\Middleware\Controller {
 			"utype" => $utype
 		]);
 	}
+
+	public function confirm_order($order_id) {
+		$order_id = intval($order_id);
+
+		if(!app() -> sessions -> is_auth()) {
+			return app() -> utils -> response_error("not_found_any_sessions");
+		}
+
+		$orders = app() -> factory -> getter() -> get_orders_by("id", $order_id, 1);
+		$order = count($orders) ? $orders[0] : null;
+
+		if(!$order) {
+			return app() -> utils -> response_error("uadpost_not_exist");
+		}
+
+		if(app() -> sessions -> auth_user() -> id != $order -> seller_id) {
+			return app() -> utils -> response_error("fail_access_to_order");
+		}
+
+		if(!$order -> confirm()) {
+			return app() -> utils -> response_error("undefined_error");
+		}
+
+		return app() -> utils -> response_success([
+			"order_id" => $order -> id,
+			"msg" => app() -> utils -> get_msg_by_alias("confirmed"),
+			"order_state_label" => 
+				(new \Store\Templates\Logic\OrderStateLabel(PROJECT_FOLDER, FCONF['templates_folder'])) 
+					-> make("site/components/order/order-state-label.php", [
+						"order" => $order,
+						"utype" => "seller"
+					])
+		]);
+	}
+
+	public function cancel_order($order_id) {
+
+	}
+
+	public function remove_order($order_id) {
+
+	}
 }

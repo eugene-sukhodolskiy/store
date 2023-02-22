@@ -8,6 +8,7 @@ class Order {
 
 		this.form && (this.form.getInstance = () => this);
 		this.initEvents();
+		this.initOrdersControl();
 	}
 
 	initEvents() {
@@ -94,5 +95,34 @@ class Order {
 	enableFormControlBtns() {
 		this.submitBtn.classList.remove("disable");
 		this.cancelBtn.classList.remove("disable");	
+	}
+
+	initOrdersControl() {
+		document.querySelectorAll(".order-confirm-btn[data-order-confirm-action]").forEach(
+			item => item.addEventListener("click", e => {
+				const action = e.currentTarget.getAttribute("data-order-confirm-action");
+				const orderId = e.currentTarget.getAttribute("data-order-id");
+
+				confirmPopup.show({
+					heading: _atxt("confirm"),
+					applyBtnText: _atxt("confirm"),
+					applyBtnType: "success",
+					cancelBtnText: _atxt("cancel"),
+					applyCallback: () => { 
+						lib.simpleAJAXRequest(
+							action,
+							(resp, alertContainer) => {
+								this.alert = createAlertComponent("success", resp.data.msg, true, true).showIn(alertContainer);
+								setTimeout(() => this.alert.close(), 4000);
+
+								document.querySelector(`.order-card[data-order-id="${resp.data.order_id}"] .order-state`)
+									.innerHTML = resp.data.order_state_label;
+							},
+							document.querySelector(".user-area-page .alert-container")
+						);
+					},
+				})
+			})
+		);
 	}
 }
