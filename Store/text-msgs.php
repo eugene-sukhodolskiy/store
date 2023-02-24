@@ -35,6 +35,7 @@ return [
 	"price_was_changed" => "Цена была изменена",
 	"fail_creating_order" => "Не удалось создать запрос покупки",
 	"fail_access_to_order" => "Не удалось получить доступ к заказу",
+	"selected_state_not_exists" => "Выбраного состояния не существует",
 
 	// Other
 	"accept_removing" => "Подтвердите удаление",
@@ -50,5 +51,7 @@ return [
 	"confirm" => "Подтвердить",
 	"confirmed" => "Успешно подтверждено",
 	"canceled" => "Успешно отменено",
-	"cancel_order" => "Отменить заказ"
+	"cancel_order" => "Отменить заказ",
+	"completed" => "Успешно завершено",
+	"complete_order" => "Заказ выполнен",
 ];

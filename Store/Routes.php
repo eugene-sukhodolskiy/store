@@ -73,13 +73,8 @@ class Routes {
 		);
 
 		$this -> router -> uri(
-			'/profile/orders/confirm/$order_id', 
-			"{$this -> cn}\\OrderController@confirm_order"
-		);
-
-		$this -> router -> uri(
-			'/profile/orders/cancel/$order_id', 
-			"{$this -> cn}\\OrderController@cancel_order"
+			'/profile/orders/change-state/$state/$order_id', 
+			"{$this -> cn}\\OrderController@change_order_state"
 		);
 	}
 

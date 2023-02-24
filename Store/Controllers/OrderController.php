@@ -210,4 +210,90 @@ class OrderController extends \Store\Middleware\Controller {
 					])
 		]);	
 	}
+
+	public function change_order_state($order_id, $state) {
+		$order_id = intval($order_id);
+		$data_map = [
+			"cancel" => ["msg" => app() -> utils -> get_msg_by_alias("canceled")],
+			"confirm" => ["msg" => app() -> utils -> get_msg_by_alias("confirmed")],
+			"complete" => ["msg" => app() -> utils -> get_msg_by_alias("completed")],
+		];
+
+		$states = array_keys($data_map);
+
+		if(!app() -> sessions -> is_auth()) {
+			return app() -> utils -> response_error("not_found_any_sessions");
+		}
+
+		if(!in_array($state, $states)) {
+			return app() -> utils -> response_error("selected_state_not_exists");
+		}
+
+		$orders = app() -> factory -> getter() -> get_orders_by("id", $order_id, 1);
+		$order = count($orders) ? $orders[0] : null;
+
+		if(!$order) {
+			return app() -> utils -> response_error("uadpost_not_exist");
+		}
+
+		$utype = app() -> sessions -> auth_user() -> id == $order -> customer_id ? "customer" : "seller";
+
+		// for canceling
+		if($state == "cancel") {
+			if($order -> state == "canceled" or $order -> state == "completed") {
+				return app() -> utils -> response_error("undefined_error");
+			}
+
+			if($order -> state == "confirmed" and $utype == "customer") {
+				return app() -> utils -> response_error("fail_access_to_order");
+			}
+
+			if(!$order -> cancel()) {
+				return app() -> utils -> response_error("undefined_error");
+			}
+		}
+
+		// for confirming
+		if($state == "confirm") {
+			if($utype != "seller") {
+				return app() -> utils -> response_error("fail_access_to_order");
+			}
+
+			if($order -> state == "canceled" or $order -> state == "completed") {
+				return app() -> utils -> response_error("fail_access_to_order");
+			}
+
+			if($state == "confirm" and $order -> state == "unconfirmed") {
+				if(!$order -> confirm()) {
+					return app() -> utils -> response_error("undefined_error");
+				}
+			}
+		}
+
+		// for complete
+		if($state == "complete") {
+			if($order -> state != "confirmed") {
+				return app() -> utils -> response_error("undefined_error");
+			}
+
+			if(time() - strtotime($order -> create_at) < FCONF["orders"]["timeout_of_state_complete"]) {
+				return app() -> utils -> response_error("undefined_error");
+			}		
+
+			if(!$order -> complete()) {
+				return app() -> utils -> response_error("undefined_error");
+			}
+		}
+
+		return app() -> utils -> response_success([
+			"order_id" => $order -> id,
+			"msg" => $data_map[$state]["msg"],
+			"order_state_label" => 
+				(new \Store\Templates\Logic\OrderStateLabel(PROJECT_FOLDER, FCONF['templates_folder'])) 
+					-> make("site/components/order/order-state-label.php", [
+						"order" => $order,
+						"utype" => $utype
+					])
+		]);
+	}
 }

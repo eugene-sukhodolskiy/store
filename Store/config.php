@@ -42,5 +42,9 @@ return [
 	"utype_map" => [ 
 		"seller" => "seller_id", 
 		"customer" => "customer_id" 
+	],
+
+	"orders" => [
+		"timeout_of_state_complete" => 60 * 60 * 24 // 24 hours
 	]
 ]; 

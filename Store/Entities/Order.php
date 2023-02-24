@@ -58,4 +58,9 @@ class Order extends \Store\Middleware\Entity {
 		$this -> state = "canceled";
 		return $this -> update();	
 	}
+
+	public function complete() {
+		$this -> state = "completed";
+		return $this -> update();	
+	}
 }

@@ -43,6 +43,11 @@ class OrderStateLabel extends \Fury\Modules\Template\Template {
 				$label["icon"] = "close-thick";
 				$label["text"] = "Отменено";
 				break;
+			case "completed":
+				$label["type"] = "default";
+				$label["icon"] = "check-decagram";
+				$label["text"] = "Завершено";
+				break;
 		}
 
 		$data["order_state_label"] = $label;

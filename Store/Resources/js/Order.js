@@ -100,23 +100,28 @@ class Order {
 	initOrdersControl() {
 		document.querySelectorAll("[data-order-action]").forEach(
 			item => item.addEventListener("click", e => {
-				const action = e.currentTarget.getAttribute("data-order-action");
-				const btnType = e.currentTarget.getAttribute("data-order-btn-type");
+				const btn = e.currentTarget;
+				const action = btn.getAttribute("data-order-action");
+				const btnType = btn.getAttribute("data-order-btn-type");
 				const heading = {
 					"confirm": _atxt("confirm"),
-					"cancel": _atxt("cancel_order")
+					"cancel": _atxt("cancel_order"),
+					"complete": _atxt("complete_order"),
 				};
 				const applyBtnText = {
 					"confirm": _atxt("confirm"),
-					"cancel": _atxt("confirm")
+					"cancel": _atxt("confirm"),
+					"complete": _atxt("confirm"),
 				};
 				const applyBtnType = {
 					"confirm": "success",
-					"cancel": "danger"
+					"cancel": "danger",
+					"complete": "success",
 				};
 				const cancelBtnText = {
 					"confirm": _atxt("cancel"),
-					"cancel": _atxt("cancel")
+					"cancel": _atxt("cancel"),
+					"complete": _atxt("cancel"),
 				};
 
 				confirmPopup.show({
@@ -131,8 +136,16 @@ class Order {
 								this.alert = createAlertComponent("success", resp.data.msg, true, true).showIn(alertContainer);
 								setTimeout(() => this.alert.close(), 4000);
 
-								document.querySelector(`.order-card[data-order-id="${resp.data.order_id}"] .order-state`)
-									.innerHTML = resp.data.order_state_label;
+								const orderCard = document.querySelector(`.order-card[data-order-id="${resp.data.order_id}"]`);
+								orderCard.querySelector(`.order-state`).innerHTML = resp.data.order_state_label;
+
+								if(resp.status) {
+									btn.parentNode.remove();
+									const localMenu = orderCard.querySelector(`.component.local-menu`);
+									if(!localMenu.querySelectorAll("li").length) {
+										localMenu.classList.add("dnone");
+									}
+								}
 							},
 							document.querySelector(".user-area-page .alert-container")
 						);

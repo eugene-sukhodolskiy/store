@@ -34,12 +34,19 @@ class OrderCard extends \Fury\Modules\Template\Template {
 		$order = $data["order"];
 		$utype = $data["utype"];
 
-		$confirm_action = app() -> routes -> urlto("OrderController@confirm_order", [
-			"order_id" => $order -> id
+		$confirm_action = app() -> routes -> urlto("OrderController@change_order_state", [
+			"order_id" => $order -> id,
+			"state" => "confirm"
 		]);
 
-		$cancel_action = app() -> routes -> urlto("OrderController@cancel_order", [
-			"order_id" => $order -> id
+		$cancel_action = app() -> routes -> urlto("OrderController@change_order_state", [
+			"order_id" => $order -> id,
+			"state" => "cancel"
+		]);
+
+		$complete_action = app() -> routes -> urlto("OrderController@change_order_state", [
+			"order_id" => $order -> id,
+			"state" => "complete"
 		]);
 		
 		$local_menu = [];
@@ -53,6 +60,15 @@ class OrderCard extends \Fury\Modules\Template\Template {
 			];
 		}
 		
+		if($order -> state == "confirmed" and (time() - strtotime($order -> create_at)) > FCONF["orders"]["timeout_of_state_complete"]) {
+			$local_menu[] = [ 
+				"type" => "btn",
+				"attribute" => "data-order-action=\"{$complete_action}\" data-order-btn-type=\"complete\"",
+				"class" => "order-complete-btn",
+				"content" => "<span class=\"mdi mdi-check-decagram\"></span> Заказ выполнен"
+			];	
+		}
+
 		if($order -> state == "unconfirmed" or ($order -> state == "confirmed" and $utype == "seller")) {
 			$local_menu[] = [ 
 				"type" => "btn",
@@ -62,6 +78,7 @@ class OrderCard extends \Fury\Modules\Template\Template {
 					. ($utype == "seller" && $order -> state == "unconfirmed" ? "Отклонить" : "Отменить") 
 			];
 		}
+
 
 		$data["local_menu"] = $local_menu;
 
