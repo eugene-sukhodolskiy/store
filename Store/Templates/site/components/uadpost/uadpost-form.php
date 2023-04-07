@@ -252,8 +252,6 @@
 	</form>
 </div>
 
-<script type="text/javascript" src="/Store/Resources/js/UAdPostForm.js"></script>
-
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		new UAdPostForm(".component.uadpost-form");

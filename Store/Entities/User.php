@@ -64,12 +64,26 @@ class User extends \Store\Middleware\Entity {
 	}
 
 	public function get_orders(String $utype, Int $page_num = 1): Array {
+		$sorting_cases = [
+			"unconfirmed",
+			"confirmed",
+			"canceled",
+			"completed",
+		];
+		$order_by = "CASE ";
+		foreach($sorting_cases as $i => $case) {
+			$then = $i + 1;
+			$order_by .= "WHEN `state`='{$case}' THEN {$then} ";
+		}
+		$order_by .= " ELSE " . (count($sorting_cases) + 1) . " END";
+		$order_by .= ", `create_at`";
+
 		$orders_model = new Orders();
 		$orders = $orders_model -> get_by_user(
 			$utype, 
 			$this -> id, FCONF["user_orders_per_page"], 
 			$page_num, 
-			[ "state", "create_at" ]
+			$order_by
 		);
 		return $orders;
 	}

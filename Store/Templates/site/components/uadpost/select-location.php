@@ -44,8 +44,6 @@
 <script async="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYKb4TgK3Ym5oiPzsTDtEf1jFMnWap3oo&amp;libraries=geometry">
 </script>
 
-<script type="text/javascript" src="/Store/Resources/js/SelectLocation.js"></script>
-
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
 		window.selectLocation = new SelectLocation(".select-location .display-selected-location-outside");

@@ -33,17 +33,26 @@ class Orders extends \Store\Middleware\Model {
 	 * @param  Int    $q         [description]
 	 * @return [type]            [description]
 	 */
-	public function get_by_user(String $utype, Int $uid, Int $amount = 10, Int $page_num = 1, Array $order_by = [ "id" ]): Array {
-		$orders = $this -> thin_builder() -> select(
-			Order::$table_name,
-			Order::get_fields(),
-			[
-				[ FCONF["utype_map"][$utype], "=", $uid ]
-			],
-			$order_by,
-			"DESC",
-			[ ($page_num - 1) * $amount, $amount ]
-		);
+	public function get_by_user(String $utype, Int $uid, Int $amount = 10, Int $page_num = 1, String $order_by = "id", String $order_by_type = "DESC"): Array {
+		$fields = implode("`,`", Order::get_fields());
+		$tablename = Order::$table_name;
+		$limit_from = ($page_num - 1) * $amount;
+		$limit_amount = $amount;
+
+		$utype = FCONF["utype_map"][$utype];
+		$q = "SELECT `{$fields}` FROM `{$tablename}` WHERE `{$utype}`='{$uid}' ORDER BY {$order_by} {$order_by_type} LIMIT {$limit_from},{$limit_amount}";
+
+		$orders = $this -> thin_builder() -> query($q, 'fetchAll', \PDO::FETCH_ASSOC);
+		// $orders = $this -> thin_builder() -> select(
+		// 	Order::$table_name,
+		// 	Order::get_fields(),
+		// 	[
+		// 		[ FCONF["utype_map"][$utype], "=", $uid ]
+		// 	],
+		// 	$order_by,
+		// 	"DESC",
+		// 	[ ($page_num - 1) * $amount, $amount ]
+		// );
 
 		$orders = array_map(fn($item) => new Order($item["id"], $item), $orders);
 
