@@ -323,23 +323,70 @@ h6.heading {
 	background-color: $color-addition;
 	color: $color-text;
 	border-radius: $border-rad-sm;
+	border: 1px solid $color-addition;
+	transition-duration: $trans-du;
+	transition-property: border, border-color, background-color, color;
 
 	&.label-primary {
 		background-color: $color-primary;
+		border: 1px solid $color-primary;
 		color: $color-text-inverted;
+		
+		&.outline {
+			color: $color-primary;
+			
+			&.hoverable:hover {
+				background-color: $color-primary;
+				color: $color-text-inverted;
+			}
+		}
 	}
 
 	&.label-success {
+		border: 1px solid $color-success;
 		background-color: $color-success;
+
+		&.outline {
+			color: $color-success;
+
+			&.hoverable:hover {
+				background-color: $color-success;
+				color: $color-text;
+			}
+		}
 	}
 
 	&.label-warning {
+		border: 1px solid $color-warning;
 		background-color: $color-warning;
+
+		&.outline {
+			color: $color-warning;
+
+			&.hoverable:hover {
+				background-color: $color-warning;
+				color: $color-text;
+			}
+		}
 	}
 
 	&.label-danger {
+		border: 1px solid $color-danger;
 		background-color: $color-danger;
 		color: $color-text-inverted;
+		
+		&.outline {
+			color: $color-danger;
+
+			&.hoverable:hover {
+				background-color: $color-danger;
+				color: $color-text-inverted;
+			}
+		}
+	}
+
+	&.outline {
+		background-color: transparent;
 	}
 }
 

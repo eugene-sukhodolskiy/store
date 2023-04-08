@@ -17,8 +17,8 @@ class UserArea extends \Fury\Modules\Template\Template {
 			$data["total_favourites"] = "99+";
 		}
 
-		$data["total_unconfirmed_sales"] = $user -> total_orders("seller", "unconfirmed");
-		$data["total_confirmed_orders"] = $user -> total_orders("customer", "confirmed");
+		$data["total_unconfirmed_sales"] = $user -> total_orders("seller", ["unconfirmed"]);
+		$data["total_confirmed_orders"] = $user -> total_orders("customer", ["confirmed"]);
 		return $data;
 	}
 }

@@ -45,6 +45,9 @@ return [
 	],
 
 	"orders" => [
-		"timeout_of_state_complete" => 60 * 60 * 24 // 24 hours
-	]
+		"timeout_of_state_complete" => 60 * 60 * 24, // 24 hours
+		"existing_states" => [
+			"confirmed", "canceled", "completed", "unconfirmed"
+		] 
+	],
 ]; 

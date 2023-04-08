@@ -2,6 +2,10 @@
 
 <div class="alert-container"></div>
 
+<?= $this -> join("site/components/order/order-state-filters.php", [
+	"states" => array_combine($excluding_states, array_fill(0, count($excluding_states), "disable"))
+]) ?>
+
 <? if($total_orders): ?>
 	<? foreach ($orders as $i => $order): ?>
 		<div class="order-item">

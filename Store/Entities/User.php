@@ -63,7 +63,7 @@ class User extends \Store\Middleware\Entity {
 		return (new Favourites()) -> total_by_user( $this -> id(), "UAdPost" );
 	}
 
-	public function get_orders(String $utype, Int $page_num = 1): Array {
+	public function get_orders(String $utype, Int $page_num = 1, Array $including_states = []): Array {
 		$sorting_cases = [
 			"unconfirmed",
 			"confirmed",
@@ -83,13 +83,15 @@ class User extends \Store\Middleware\Entity {
 			$utype, 
 			$this -> id, FCONF["user_orders_per_page"], 
 			$page_num, 
-			$order_by
+			$order_by,
+			"DESC",
+			$including_states
 		);
 		return $orders;
 	}
 
-	public function total_orders(String $utype, String $state = "*"): Int {
-		return (new Orders()) -> total_by_user($utype, $this -> id, $state);
+	public function total_orders(String $utype, Array $including_states = []): Int {
+		return (new Orders()) -> total_by_user($utype, $this -> id, $including_states);
 	}
 
 	// Static methods

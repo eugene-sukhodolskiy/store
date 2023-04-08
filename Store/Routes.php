@@ -66,11 +66,26 @@ class Routes {
 			'/order/success/$order_id', 
 			"{$this -> cn}\\OrderController@order_success_page"
 		);
-
+		
+		$this -> router -> uri(
+			'/profile/orders/$utype/exclude-states', 
+			function($args) {
+				return app() -> utils -> redirect(
+					app() -> routes -> urlto("OrderController@orders_cur_user_page", ["utype" => $args["utype"]])
+				);
+			}
+		);
+		
 		$this -> router -> uri(
 			'/profile/orders/$utype', 
 			"{$this -> cn}\\OrderController@orders_cur_user_page"
 		);
+
+		$this -> router -> uri(
+			'/profile/orders/$utype/exclude-states/$excluding', 
+			"{$this -> cn}\\OrderController@orders_cur_user_page"
+		);
+
 
 		$this -> router -> uri(
 			'/profile/orders/change-state/$state/$order_id', 

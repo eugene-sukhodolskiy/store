@@ -1,0 +1,42 @@
+.orders-filters {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $std-mg-sm;
+  justify-content: flex-end;
+
+	.filter-toggle {
+
+		&[data-filter-state="enable"] {
+			.for-state-disable {
+				display: none;
+			}
+		}
+
+		&[data-filter-state="disable"] {
+			.for-state-enable {
+				display: none;
+			}
+		}
+
+		.mdi {
+			font-size: $fsize-lg;
+		}
+
+		&.label-default {
+			background-color: $color-bg-card;
+			border: 1px solid $color-bg-card;
+
+			&.outline {
+				background-color: transparent;
+				border: 1px solid $color-text;
+
+				&.hoverable:hover {
+					background-color: $color-bg-card;
+					color: $color-text;
+					border: 1px solid $color-bg-card;
+				}
+			}
+		}
+	}
+}

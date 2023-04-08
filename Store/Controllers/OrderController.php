@@ -99,7 +99,7 @@ class OrderController extends \Store\Middleware\Controller {
 		]);
 	}
 
-	public function orders_cur_user_page($utype) {
+	public function orders_cur_user_page($utype, $excluding = "") {
 		if(!app() -> sessions -> is_auth()) {
 			return $this -> utils() -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
@@ -109,10 +109,15 @@ class OrderController extends \Store\Middleware\Controller {
 		}
 
 		$pnum = isset($_GET["np"]) ? intval($_GET["pn"]) : 1;
+		$states = FCONF["orders"]["existing_states"];
+		$excluding = explode("+", $excluding);
+		$including_states = array_filter($states, function($item) use($excluding) {
+			return !in_array($item, $excluding);
+		});
 
 		$user = app() -> sessions -> auth_user();
-		$total = $user -> total_orders($utype);
-		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1) : [];
+		$total = $user -> total_orders($utype, $including_states);
+		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1, $including_states) : [];
 		
 		switch($utype) {
 			case "seller":
@@ -129,7 +134,8 @@ class OrderController extends \Store\Middleware\Controller {
 			"orders" => $orders,
 			"total_orders" => $total,
 			"per_page" => FCONF["user_orders_per_page"],
-			"utype" => $utype
+			"utype" => $utype,
+			"excluding_states" => $excluding
 		]);
 	}
 
