@@ -1,6 +1,9 @@
 <div class="component userbar">
 	<div class="userpic-wrapper">
-		<a href="#" class="userpic-link">
+		<a 
+			href="<?= app() -> routes -> urlto("ProfileController@profile_page", ["user_alias" => $user -> alias]) ?>"
+			class="userpic-link"
+		>
 			<img 
 				src="<?= $user -> profile() -> userpic_url("xs") ?>" 
 				alt="<?= $user -> profile() -> first_name ?> <?= $user -> profile() -> second_name ?>" 
@@ -9,7 +12,10 @@
 		</a>
 	</div>
 	<div class="user-name">
-		<a href="#" class="user-name-link">
+		<a 
+			href="<?= app() -> routes -> urlto("ProfileController@profile_page", ["user_alias" => $user -> alias]) ?>" 
+			class="user-name-link"
+		>
 			<? if($user -> profile() -> first_name): ?>
 				<?= $user -> profile() -> first_name ?>
 				<?= $user -> profile() -> second_name ?>

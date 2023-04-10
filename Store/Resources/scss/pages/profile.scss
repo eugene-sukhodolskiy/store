@@ -1,0 +1,12 @@
+.page.profile {
+	.markup {
+		display: grid;
+    gap: $std-mg-lg;
+		align-items: start;
+    grid-template-columns: 350px 1fr;
+
+    @include media("max", "lg") {
+    	grid-template-columns: 1fr;
+    }
+	}
+}

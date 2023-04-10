@@ -91,6 +91,16 @@ class Routes {
 			'/profile/orders/change-state/$state/$order_id', 
 			"{$this -> cn}\\OrderController@change_order_state"
 		);
+
+		$this -> router -> uri(
+			'/profile/$user_alias', 
+			"{$this -> cn}\\ProfileController@profile_page"
+		);
+
+		$this -> router -> uri(
+			'/profile', 
+			"{$this -> cn}\\ProfileController@goto_self_profile"
+		);
 	}
 
 	protected function get_routes() {

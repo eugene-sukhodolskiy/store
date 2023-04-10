@@ -1,7 +1,10 @@
 <nav class="component user-nav">
 	<ul class="user-nav-list">
 		<li class="user-nav-item">
-			<a href="#" class="user-nav-link">Профиль</a>
+			<a 
+				href="<?= app() -> routes -> urlto("ProfileController@goto_self_profile") ?>" 
+				class="user-nav-link"
+			>Профиль</a>
 		</li>
 		<li class="user-nav-item">
 			<a 

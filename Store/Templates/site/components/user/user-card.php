@@ -6,7 +6,10 @@
 <div class="component user-card">
 	<div class="profile">
 		<div class="userpic">
-			<a href="#" class="no-decoration">
+			<a 
+				href="<?= app() -> routes -> urlto("ProfileController@profile_page", ["user_alias" => $user -> alias]) ?>" 
+				class="no-decoration"
+			>
 				<img 
 					src="<?= $user -> profile() -> userpic_url("sm") ?>" 
 					alt="<?= $user -> profile() -> first_name ?> <?= $user -> profile() -> second_name ?>"
@@ -15,7 +18,7 @@
 		</div>
 		<div class="user-info">
 			<div class="user-name">
-				<a href="#">
+				<a href="<?= app() -> routes -> urlto("ProfileController@profile_page", ["user_alias" => $user -> alias]) ?>">
 					<? if($user -> profile() -> first_name): ?>
 						<?= $user -> profile() -> first_name ?> 
 						<?= $user -> profile() -> second_name ?>
