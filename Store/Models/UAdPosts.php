@@ -18,6 +18,7 @@ class UAdPosts extends \Store\Middleware\Model{
 			"exchange_flag" => $exchange_flag,
 			"state" => $state,
 			"price" => $price,
+			"single_price" => app() -> utils -> convert_price_to_uah_from($currency, $price),
 			"currency" => $currency,
 			"location_lat" => $lat,
 			"location_lng" => $lng,

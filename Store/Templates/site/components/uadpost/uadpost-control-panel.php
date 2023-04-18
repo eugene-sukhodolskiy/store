@@ -6,7 +6,7 @@
 					"alias" => $uadpost -> alias . ".html" 
 				]) ?>" 
 			>
-				<span class="mdi mdi-pencil"></span>	
+				<span class="mdi mdi-pencil"></span> 
 				Редактировать
 			</a>
 		</li>

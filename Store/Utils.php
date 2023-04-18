@@ -168,4 +168,20 @@ class Utils {
 			4 => "Другое",
 		];
 	}
+
+	public function convert_price_to_uah_from(String $currency, Float $price): Float {
+		if($currency == "UAH") {
+			return $price;
+		}
+
+		$timestamp = date("Ymd");
+		$api_request = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode={$currency}&date={$timestamp}&json";
+		$api_resp = file_get_contents($api_request);
+		if(!$api_resp) {
+			return 0;
+		}
+
+		$resp = json_decode($api_resp, true);
+		return $resp[0]["rate"] * $price;
+	}
 }
