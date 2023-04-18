@@ -96,7 +96,7 @@
 						name="price"
 						max="1000000000"
 						min="0"
-						step="1"
+						step="any"
 						value="<?= isset($price) ? $price : 0 ?>"
 						placeholder="Укажите цену" 
 					>
