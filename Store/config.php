@@ -50,4 +50,8 @@ return [
 			"confirmed", "canceled", "completed", "unconfirmed"
 		] 
 	],
+
+	"uadposts" => [
+		"max_keywords_number" => 10
+	]
 ]; 

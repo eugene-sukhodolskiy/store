@@ -7,6 +7,7 @@ use \Store\Entities\User;
 use \Store\Entities\Image;
 use \Store\Entities\UAdPost;
 use \Store\Entities\Meta;
+use \Store\Models\Keywords;
 
 class Creator {
 	public function create_user(String $alias, String $email, String $password) {
@@ -75,7 +76,11 @@ class Creator {
 			"update_at" => date("Y-m-d H:i:s")
 		]);
 
-		return $uadpost_id ? new UAdPost($uadpost_id) : null;
+		$uadpost = $uadpost_id ? new UAdPost($uadpost_id) : null;
+		if($uadpost) {
+			$uadpost -> generate_keywords();
+		}
+		return $uadpost;
 	}
 
 	public function create_meta(Int $ent_id, String $assignment, String $name, $value): Meta {

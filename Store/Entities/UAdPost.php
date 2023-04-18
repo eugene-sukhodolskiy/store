@@ -3,6 +3,7 @@
 namespace Store\Entities;
 
 use \Store\Models\Favourites;
+use \Store\Models\Keywords;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -113,5 +114,14 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	public function set_favorite_state_for_current_user(Bool $state): void {
 		$this -> favorite_state_for_current_user = $state;
+	}
+
+	public function generate_keywords(): Array {
+		$keywords = (new Keywords) -> create_keywords_by_content(
+			"{$this -> title} {$this -> content}",
+			$this -> id
+		);
+
+		return $keywords;
 	}
 }

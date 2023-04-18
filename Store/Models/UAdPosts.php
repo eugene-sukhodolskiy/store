@@ -176,6 +176,6 @@ class UAdPosts extends \Store\Middleware\Model{
 			UAdPost::$table_name, 
 			[ "id", "=", $uadpost_id ]
 		) ? true : false;
-	}
+	}	
 }
 
