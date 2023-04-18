@@ -92,10 +92,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: $std-mg-lg;
-
-		.clickable-list .list-item a {
-			display: inline-block;
-		}
 	}
 
 	.component.user-card {

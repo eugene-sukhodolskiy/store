@@ -110,7 +110,9 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		// IMGS
 
-		$imgs_aliases = explode(",", $imgs);
+		$imgs_aliases = array_filter(explode(",", $imgs), function($img_alias){ 
+			return strlen($img_alias); 
+		});
 		$prev_imgs_aliases = array_map(fn($item) => $item -> alias, $prev_imgs);
 		
 		$new_imgs_aliases = array_filter($imgs_aliases, function($img_alias) use($prev_imgs_aliases) {
