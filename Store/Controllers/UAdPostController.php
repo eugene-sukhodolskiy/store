@@ -83,12 +83,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		$uadpost = $uadposts[0];
-		if($uadpost -> state != "published") {
-			$uadpost -> activate();
-		}
-
-		$prev_imgs = $uadpost -> get_images();
-
+		
 		$uadposts_model -> update(
 			$uadpost -> id(),
 			app() -> sessions -> auth_user() -> id(),
@@ -97,6 +92,15 @@ class UAdPostController extends \Store\Middleware\Controller {
 			$country_ru, $region_en, $region_ru, $city_en, 
 			$city_ru, $images_number
 		);
+
+		if($uadpost -> state != "published") {
+			$uadpost -> activate();
+		} else {
+			(new UAdPost($uadpost -> id)) -> refresh_keywords();
+		} 
+
+		$prev_imgs = $uadpost -> get_images();
+
 
 		(new Profiles()) -> update_with_update_uadpost(
 			app() -> sessions -> auth_user() -> profile(), 

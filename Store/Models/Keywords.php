@@ -3,6 +3,7 @@
 namespace Store\Models;
 
 use \Store\Entities\UAdPost;
+use \Store\Containers\KeywordsContainer;
 
 class Keywords extends \Store\Middleware\Model {
 	public function create_keywords_by_content(String $content, Int $uap_id): Array {
@@ -23,7 +24,7 @@ class Keywords extends \Store\Middleware\Model {
 
 	public function generate_keywords_by_content(String $content): Array {
 		$content = str_replace(
-			[",", ".", ";", "-", "[", "]", "!", "?", "*", "~", "(", ")", "=", "&", "^", "$", "#", "@", "_"],
+			[",", ".", ";", "-", "[", "]", "!", "?", "*", "~", "(", ")", "=", "&", "^", "$", "#", "@", "_", '”', "'", '"', "`"],
 			"",
 			$content
 		);
@@ -36,5 +37,21 @@ class Keywords extends \Store\Middleware\Model {
 		}
 
 		return $result;
+	}
+
+	public function remove_keywords_by_uap_id(Int $uap_id) {
+		return $this -> thin_builder() -> delete(
+			"uadposts_keywords",
+			["uap_id", "=", $uap_id]
+		);
+	}
+
+	public function get_keywords_by_uap_id(Int $uap_id): KeywordsContainer {
+		$keywords = $this -> thin_builder() -> select(
+			"uadposts_keywords",
+			["uap_id", "=", $uap_id]
+		);
+
+		return new KeywordsContainer($keywords);
 	}
 }

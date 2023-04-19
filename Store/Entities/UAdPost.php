@@ -4,6 +4,7 @@ namespace Store\Entities;
 
 use \Store\Models\Favourites;
 use \Store\Models\Keywords;
+use \Store\Containers\KeywordsContainer;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -95,6 +96,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> state = "unpublished";
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts_decrease();
+		$this -> remove_keywords();
 		(new Favourites()) -> remove_for_assignment_unit($this -> id(), "UAdPost");
 	}
 
@@ -102,6 +104,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> state = "published";
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts_increase();
+		$this -> refresh_keywords();
 	}
 
 	public function is_favorite_for_current_user(): Bool {
@@ -123,5 +126,24 @@ class UAdPost extends \Store\Middleware\Entity {
 		);
 
 		return $keywords;
+	}
+
+	public function remove_keywords() {
+		return (new Keywords) -> remove_keywords_by_uap_id($this -> id);
+	}
+
+	public function refresh_keywords(): Array {
+		if(!$this -> remove_keywords()) {
+			return [];
+		}
+
+		return $this -> generate_keywords();
+	}
+
+	public function keywords(): KeywordsContainer {
+		return $this -> get_pet_instance(
+			"KeywordsContainer", 
+			fn() => (new Keywords) -> get_keywords_by_uap_id($this -> id)
+		);
 	}
 }
