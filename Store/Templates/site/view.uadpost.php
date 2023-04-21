@@ -26,6 +26,10 @@
 									"currency" => $uadpost -> get_formatted_currency()
 								]) ?>
 							</div>
+						<? else: ?>
+							<?= $this -> join("site/components/uadpost/price-container", [
+								"uadpost" => $uadpost
+							]) ?>
 						<? endif ?>
 
 						<? if($displaying_btn_favorite): ?>

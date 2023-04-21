@@ -54,8 +54,13 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function get_formatted_price() {
-		$price = number_format($this -> price, 0, ",", " ");
+		$price = number_format($this -> price, 2, ",", " ");
 		return $price;
+	}
+
+	public function get_price_particles() {
+		list($banknotes, $coins) = explode(",", $this -> get_formatted_price()) ;
+		return compact("banknotes", "coins");
 	}
 
 	public function get_formatted_currency() {

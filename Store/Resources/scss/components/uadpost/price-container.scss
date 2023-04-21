@@ -1,0 +1,11 @@
+.component.price-container {
+	.price {
+		font-size: $fsize-xl;
+		font-weight: bold;
+
+		.coins {
+			font-weight: normal;
+			font-size: .7em;
+		}
+	}
+}
