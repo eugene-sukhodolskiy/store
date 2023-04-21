@@ -1,4 +1,10 @@
 .component.price-container {
+	width: max-content;
+	cursor: default;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-gap: $std-mg-md;
+
 	.price {
 		font-size: $fsize-xl;
 		font-weight: bold;
@@ -6,6 +12,37 @@
 		.coins {
 			font-weight: normal;
 			font-size: .7em;
+		}
+	}
+
+	.single-price {
+		display: none;
+	}
+
+	&.alt-price {
+		.single-price {
+			display: block;
+		}
+
+		.original-price {
+			display: none;
+		}
+	}
+
+	.swap-icon {
+		font-size: $fsize-xl;
+		display: flex;
+		align-items: center;
+		visibility: hidden;
+		opacity: 0;
+		transition-duration: $trans-du;
+		transition-property: opacity;
+	}
+
+	&:hover {
+		.swap-icon {
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 }

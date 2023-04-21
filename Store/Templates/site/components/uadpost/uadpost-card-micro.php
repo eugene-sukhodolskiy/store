@@ -25,10 +25,9 @@
 				<?= $uadpost -> title ?>
 			</a>
 
-			<div class="price-container">
-				<span class="price"><?= $uadpost -> get_formatted_price() ?></span> 
-				<span class="currency"><?= $uadpost -> get_formatted_currency() ?></span>
-			</div>
+			<?= $this -> join("site/components/uadpost/price-container", [
+				"uadpost" => $uadpost
+			]) ?>
 
 			<div class="std-row meta-info">
 				<?= $this -> join("site/components/location-view", [

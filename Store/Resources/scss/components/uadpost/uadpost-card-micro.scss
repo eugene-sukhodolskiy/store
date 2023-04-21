@@ -32,7 +32,24 @@
 			}
 
 			.price-container {
+				grid-gap: $std-mg-sm;
 
+				.price {
+					font-weight: normal;
+					font-size: $fsize-lg;
+
+					.coins {
+						font-size: 1em;
+					}
+				}
+
+				.currency {
+					font-size: 1em;
+				}
+
+				.swap-icon {
+					font-size: $fsize-lg;
+				}
 			}
 
 			.meta-info {

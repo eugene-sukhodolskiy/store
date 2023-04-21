@@ -35,11 +35,11 @@ class UAdPost extends \Store\Middleware\Entity {
 		return $imgs[0];
 	}
 
-	public function user() {
+	public function user(): User {
 		return $this -> get_pet_instance("User", fn() => new User($this -> uid));
 	}
 
-	public function get_url() {
+	public function get_url(): String {
 		return app() -> routes -> urlto("UAdPostController@view_page", [
 			"alias" => "{$this -> alias}.html"
 		]);
@@ -53,24 +53,29 @@ class UAdPost extends \Store\Middleware\Entity {
 		return app() -> utils -> formatted_timestamp($this -> create_at);
 	}
 
-	public function get_formatted_price() {
+	public function get_formatted_price(): String {
 		$price = number_format($this -> price, 2, ",", " ");
 		return $price;
 	}
 
-	public function get_price_particles() {
+	public function get_price_particles(): Array {
 		list($banknotes, $coins) = explode(",", $this -> get_formatted_price()) ;
 		return compact("banknotes", "coins");
 	}
 
-	public function get_formatted_currency() {
+	public function get_single_price_particles(): Array {
+		list($banknotes, $coins) = explode(",", number_format($this -> single_price, 2, ",", " "));
+		return compact("banknotes", "coins");	
+	}
+
+	public function get_formatted_currency(String $currency = ""): String {
 		$t = [
 			"UAH" => "грн",
 			"EUR" => "€",
 			"USD" => "$"
 		];
 
-		return $t[ $this -> currency ];
+		return $t[ strlen($currency) ? $currency : $this -> currency ];
 	}
 
 	public function remove() {

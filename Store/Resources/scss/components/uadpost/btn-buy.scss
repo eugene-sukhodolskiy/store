@@ -8,13 +8,36 @@
 	background-color: $color-primary;
 	padding-right: $std-mg-md;
 	border-radius: $border-rad-md;
+	color: $color-text-inverted;
 	
-	.price {
-		color: $color-text-inverted;
-		font-weight: bold;
+	.price-container {
+		display: block;
+		position: relative;
+
+		.swap-icon {
+			position: absolute;
+			right: -7px;
+			top: 3px;
+		}
+
+		.price {
+			font-weight: bold;
+		}
 
 		.currency {
 			font-weight: normal;
+			transition-duration: $trans-du;
+			transition-property: opacity;
+		}
+
+		&[data-alt-price-flag="1"] {
+			&:hover {
+				.currency {
+					opacity: 0;
+					visibility: hidden;
+				}
+			}
 		}
 	}
+
 }

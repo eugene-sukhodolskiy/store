@@ -21,9 +21,7 @@
 						<? if(app() -> sessions -> is_auth() and $uadpost -> uid != app() -> sessions -> auth_user() -> id()): ?>
 							<div class="btn-buy-wrap">
 								<?= $this -> join("site/components/uadpost/btn-buy.php", [
-									"uadpost_alias" => $uadpost -> alias,
-									"price" => $uadpost -> get_formatted_price(),
-									"currency" => $uadpost -> get_formatted_currency()
+									"uadpost" => $uadpost
 								]) ?>
 							</div>
 						<? else: ?>

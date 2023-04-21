@@ -96,7 +96,19 @@ class App {
 					document.location += "/exclude-states/" + excludingStates.join("+");
 				}
 			})
-		})
+		});
+
+		document.querySelectorAll(".component.price-container").forEach(item => {
+			if(item.dataset.altPriceFlag == "1") {
+				item.addEventListener("click", e => {
+					if(e.currentTarget.classList.contains("alt-price")) {
+						e.currentTarget.classList.remove("alt-price");
+					} else {
+						e.currentTarget.classList.add("alt-price");
+					}
+				});
+			}
+		});
 	}
 
 	initControlPanelEvents() {
