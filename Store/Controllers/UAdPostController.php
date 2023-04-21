@@ -323,7 +323,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		if(!in_array($state, ["published", "unpublished", "draft"])) {
-			return $this -> utils() -> redirect( app() -> routes -> urlto("InfoPagesController@not_found_page") );
+			$state = "published";
 		}
 
 		$pnum = isset($_GET["np"]) ? intval($_GET["pn"]) : 1;
