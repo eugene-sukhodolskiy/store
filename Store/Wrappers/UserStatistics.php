@@ -21,7 +21,7 @@ class UserStatistics {
 	}
 
 	public function total_published_uadposts_decrease() {
-		$this -> total_published_uadposts -> value += 1;
+		$this -> total_published_uadposts -> value -= 1;
 		$this -> total_published_uadposts -> update();
 	}
 }
