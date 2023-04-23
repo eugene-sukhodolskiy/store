@@ -28,7 +28,7 @@ class Search {
 		});
 
 		document.addEventListener("keydown", e => {
-			if (e.ctrlKey && e.key === '/') {
+			if (e.ctrlKey && (e.key === '/' || e.key === '.')) {
 				this.searchInput.focus();
 			}
 		});
