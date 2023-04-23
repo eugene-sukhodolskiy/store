@@ -1,6 +1,7 @@
 class Search {
 	constructor() {
 		this.container = document.querySelector(".component.search-bar");
+		this.searchFieldContainer = this.container.querySelector(".search-field-container");
 		this.searchInput = this.container.querySelector(".search-field");
 		this.btnSubmit = this.container.querySelector(".submit");
 
@@ -16,6 +17,20 @@ class Search {
 
 		this.btnSubmit.addEventListener("click", e => {
 			this.startSearch(this.searchInput.value);
+		});
+
+		this.searchInput.addEventListener("focus", e => {
+			this.searchFieldContainer.classList.add("infocus");
+		});
+
+		this.searchInput.addEventListener("blur", e => {
+			this.searchFieldContainer.classList.remove("infocus");
+		});
+
+		document.addEventListener("keydown", e => {
+			if (e.ctrlKey && e.key === '/') {
+				this.searchInput.focus();
+			}
 		});
 	}
 

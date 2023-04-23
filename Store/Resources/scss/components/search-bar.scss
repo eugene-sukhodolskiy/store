@@ -5,9 +5,9 @@
 		position: relative;
 		padding: 0;
 		margin: 0;
-		
-		.search-field {
 
+		.search-field {
+			padding-right: 58px;
 		}
 
 		.submit {
@@ -19,10 +19,47 @@
 			height: 30px;
 			background: transparent;
 			border: 0;
-			color: $color-primary;
+			color: $color-text-lite;
 			font-size: 20px;
 			text-align: center;
 			line-height: 30px;
+			visibility: hidden;
+			opacity: 0;
+			z-index: 0;
+			transition-duration: $trans-du;
+			transition-property: opacity, visibility;
+
+			&:hover {
+				color: $color-primary;
+			}
+		}
+
+		.search-key-slash-box {
+			padding: $std-pd-xsm;
+			border-radius: $border-rad-sm;
+			border: $border-1;
+			font-size: $fsize-xsm;
+			color: $color-text-lite;
+			position: absolute;
+	    right: 4px;
+    	top: 4px;
+    	z-index: 1;
+    	transition-duration: $trans-du;
+    	transition-property: opacity, visibility;
+		}
+
+		&.infocus {
+			.submit {
+				opacity: 1;
+				visibility: visible;
+				z-index: 1;
+			}
+
+			.search-key-slash-box {
+				opacity: 0;
+				visibility: hidden;
+				z-index: 0;
+			}
 		}
 	}
 }

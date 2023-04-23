@@ -7,8 +7,13 @@
 			value="<?= isset($_GET["s"]) ? $_GET["s"] : "" ?>"
 			placeholder="Поиск"
 		>
+		
 		<button class="submit">
 			<span class="mdi mdi-magnify"></span>
 		</button>
+
+		<div class="search-key-slash-box">
+			Ctrl + /
+		</div>
 	</div>
 </div>
