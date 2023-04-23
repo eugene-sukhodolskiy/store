@@ -22,6 +22,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 	public function view_page($alias) {
 		$alias = strstr($alias, ".html", true);
+		$alias = urldecode($alias);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $alias, 1);
 
 		if(!count($uadposts)) {

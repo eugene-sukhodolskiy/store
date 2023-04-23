@@ -184,4 +184,21 @@ class Utils {
 		$resp = json_decode($api_resp, true);
 		return $resp[0]["rate"] * $price;
 	}
+
+	public function convert_png_to_jpg($png_data) {
+		$png_image = imagecreatefromstring($png_data);
+		$jpg_image = imagecreatetruecolor(imagesx($png_image), imagesy($png_image));
+
+		imagecopy($jpg_image, $png_image, 0, 0, 0, 0, imagesx($png_image), imagesy($png_image));
+
+		ob_start();
+		imagejpeg($jpg_image, NULL, 100);
+		$jpg_data = ob_get_contents();
+		ob_end_clean();
+
+		imagedestroy($png_image);
+		imagedestroy($jpg_image);
+
+		return $jpg_data;
+	}
 }

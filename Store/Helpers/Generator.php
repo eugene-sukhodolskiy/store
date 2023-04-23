@@ -4,6 +4,8 @@ namespace Store\Helpers;
 
 use \Store\Models\Auth;
 use \Fury\Libs\LoremIpsum;
+use \Store\Models\Images;
+use \Store\Utils;
 
 class Generator {
 	protected $lorem_ipsum;
@@ -57,5 +59,52 @@ class Generator {
 		}
 
 		echo "\nDone";
+	}
+
+	public function generate_uadpost_from_json($json_data) {
+		$uadpost_data = json_decode($json_data);
+		
+		$rand_user = app() -> factory -> getter() -> get_user_by("id", rand(1, 9999));
+		
+		$images = new Images();
+		if($uadpost_data -> image and strlen($uadpost_data -> image)) {
+			echo "Upload image " . $uadpost_data -> image . "\n";
+			$img = @file_get_contents($uadpost_data -> image);
+			if($img) {
+				$img = (new Utils()) -> convert_png_to_jpg($img);
+				$img = "data:image/jpeg;base64," . base64_encode($img);
+				$img_upload_result = $images -> upload($img);
+			}
+		}
+
+		echo "Creating UAdPost\n";
+		$uadpost = app() -> factory -> creator() -> create_uadpost(
+			$rand_user -> id(), 
+			$uadpost_data -> title, 
+			$uadpost_data -> description, 
+			rand(1, 2), 
+			rand(0, 1), 
+			$uadpost_data -> price, 
+			$uadpost_data -> currency, 
+			rand(400000, 600000) / 10000, 
+			rand(220000, 300000) / 10000, 
+			"Ukraine", 
+			"Украина", 
+			"TestRegion", 
+			"ТестРегион", 
+			"TestCity", 
+			"ТестГород", 
+			$img_upload_result ? 1 : 0
+		);
+
+		if($uadpost and $img_upload_result) {
+			$images -> create_from_aliases(
+				[ $img_upload_result["alias"] ],
+				$uadpost,
+				$rand_user -> id()
+			);
+		}
+
+		echo "Was created \n";
 	}
 }

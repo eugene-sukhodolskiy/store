@@ -15,6 +15,9 @@ function console() {
 		case "generator.uadposts": 
 			(new Generator()) -> generate_random_uadpost($argv[2]);
 		break;
+		case "create.uadpost":
+			(new Generator()) -> generate_uadpost_from_json($argv[2]);
+		break;
 		default: echo "\nNo command";
 	}
 

@@ -50,12 +50,12 @@ class Images extends \Store\Middleware\Model {
 		return "/" . FCONF["users_folder"] . "/{$alias}.jpg";
 	}
 
-	public function create_from_aliases(Array $imgs_aliases, UAdPost $uadpost) {
+	public function create_from_aliases(Array $imgs_aliases, UAdPost $uadpost, Int $uid = 0) {
 		$result = [];
 
 		foreach($imgs_aliases as $i => $alias) {
 			$res_img = app() -> factory -> creator() -> create_image(
-				app() -> sessions -> auth_user() -> id(),
+				$uid ? $uid : app() -> sessions -> auth_user() -> id(),
 				$uadpost -> id(),
 				"UAdPost",
 				$alias,
