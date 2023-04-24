@@ -135,11 +135,12 @@ class UAdPost extends \Store\Middleware\Entity {
 			$this -> id
 		);
 
+		@file_get_contents("http://localhost:5001/keywords-reload");
 		return $keywords;
 	}
 
 	public function remove_keywords() {
-		return (new Keywords) -> remove_keywords_by_uap_id($this -> id);
+		return (new Keywords) -> remove_keywords_by_uap_id($this -> id) and @file_get_contents("http://localhost:5001/keywords-reload");
 	}
 
 	public function refresh_keywords(): Array {

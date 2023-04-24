@@ -12,6 +12,7 @@ class OrderController extends \Store\Middleware\Controller {
 			return app() -> utils -> redirect( app() -> routes -> urlto("AuthController@signin_page") );
 		}
 
+		$uadpost_alias = urldecode($uadpost_alias);
 		$uadpost_alias = addslashes($uadpost_alias);
 		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $uadpost_alias, 1);
 		if(!count($uadposts)) {

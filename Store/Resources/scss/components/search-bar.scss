@@ -43,6 +43,8 @@
 			position: absolute;
 	    right: 4px;
     	top: 4px;
+	    height: 27px;
+    	box-sizing: border-box;
     	z-index: 1;
     	transition-duration: $trans-du;
     	transition-property: opacity, visibility;
