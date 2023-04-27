@@ -27,7 +27,6 @@ def get_keywords_from_search_query(sq, lang):
 	stop_words = set(stopwords.words(lang))
 	filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
 	lemmatized_tokens = [morph.parse(word)[0].normal_form for word in filtered_tokens]
-	# lemmatized_tokens = [morph.parse(word)[0].normal_form for word in tokens]
 	return lemmatized_tokens
 
 def group_by_uap(sresult):

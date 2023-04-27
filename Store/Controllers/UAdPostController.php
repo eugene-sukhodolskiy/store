@@ -392,4 +392,15 @@ class UAdPostController extends \Store\Middleware\Controller {
 
 		return app() -> utils -> redirect($redirect_url);
 	}
+
+	public function regenerate_keywords($uadpost_alias) {
+		$uadpost_alias = urldecode($uadpost_alias);
+		$uadposts = app() -> factory -> getter() -> get_uadposts_by("alias", $uadpost_alias);
+		if(!count($uadposts)) {
+			return $this -> utils() -> response_error("uadpost_not_exist");
+		}
+
+		$keywords = $uadposts[0] -> refresh_keywords();
+		return $this -> utils() -> response_success([ "keywords" => $keywords ]);
+	}
 }

@@ -24,13 +24,20 @@ class Keywords extends \Store\Middleware\Model {
 
 	public function generate_keywords_by_content(String $content): Array {
 		$content = str_replace(
-			[",", ".", ";", "-", "[", "]", "!", "?", "*", "~", "(", ")", "=", "&", "^", "$", "#", "@", "_", '”', "'", '"', "`"],
+			mb_str_split("!~@#%^&*()-_+[]{}:;'\"\\/<>,.?=|”"),
 			"",
 			$content
 		);
 		$number = FCONF["uadposts"]["max_keywords_number"];
 		$encoded_content = urlencode($content);
-		$resp = file_get_contents("http://127.0.0.1:5000/?text={$encoded_content}&number={$number}");
+
+		$service_url = str_replace(
+			[ "{{text}}", "{{number}}" ],
+			[ $encoded_content, $number ], 
+			FCONF["services"]["keywords"]["gen_keywords"]
+		);
+
+		$resp = file_get_contents($service_url);
 
 		if($resp) {
 			$result = json_decode($resp, true);

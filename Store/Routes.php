@@ -35,14 +35,29 @@ class Routes {
 	}
 
 	protected function uri_routes() {
+		// pages
 		$this -> router -> uri("/", "{$this -> cn}\\SearchController@search_page");
+		$this -> router -> uri('/not-found.html', "{$this -> cn}\\InfoPagesController@not_found_page");
+		$this -> router -> uri(
+			'/favoutites.html', 
+			"{$this -> cn}\\FavouritesController@favourites_page"
+		);
+		
+		// auth
 		$this -> router -> uri("/auth/signup.html", "{$this -> cn}\\AuthController@signup_page");
 		$this -> router -> uri("/auth/signin.html", "{$this -> cn}\\AuthController@signin_page");
+		
+		// uadpost
 		$this -> router -> uri('/uadpost/$alias', "{$this -> cn}\\UAdPostController@view_page");
 		$this -> router -> uri("/uadpost/f/create.html", "{$this -> cn}\\UAdPostController@create_page");
 		$this -> router -> uri('/uadpost/f/remove/$uadpost_id', "{$this -> cn}\\UAdPostController@remove");
 		$this -> router -> uri('/uadpost/edit/$alias', "{$this -> cn}\\UAdPostController@edit_page");
-		$this -> router -> uri('/not-found.html', "{$this -> cn}\\InfoPagesController@not_found_page");
+		$this -> router -> uri(
+			'/uadpost/f/regenerate-keywords/$uadpost_alias',
+			"{$this -> cn}\\UAdPostController@regenerate_keywords"
+		);
+		
+		// profile
 		$this -> router -> uri(
 			'/profile/settings.html', 
 			"{$this -> cn}\\ProfileSettingsController@profile_settings_page"
@@ -50,21 +65,6 @@ class Routes {
 		$this -> router -> uri(
 			'/profile/uadposts/$state', 
 			"{$this -> cn}\\UAdPostController@ready_uadposts_cur_user_page"
-		);
-
-		$this -> router -> uri(
-			'/favoutites.html', 
-			"{$this -> cn}\\FavouritesController@favourites_page"
-		);
-
-		$this -> router -> uri(
-			'/new-order/$uadpost_alias', 
-			"{$this -> cn}\\OrderController@new_order_page"
-		);
-
-		$this -> router -> uri(
-			'/order/success/$order_id', 
-			"{$this -> cn}\\OrderController@order_success_page"
 		);
 		
 		$this -> router -> uri(
@@ -86,7 +86,6 @@ class Routes {
 			"{$this -> cn}\\OrderController@orders_cur_user_page"
 		);
 
-
 		$this -> router -> uri(
 			'/profile/orders/change-state/$state/$order_id', 
 			"{$this -> cn}\\OrderController@change_order_state"
@@ -102,6 +101,16 @@ class Routes {
 			"{$this -> cn}\\ProfileController@goto_self_profile"
 		);
 
+		// orders
+		$this -> router -> uri(
+			'/new-order/$uadpost_alias', 
+			"{$this -> cn}\\OrderController@new_order_page"
+		);
+
+		$this -> router -> uri(
+			'/order/success/$order_id', 
+			"{$this -> cn}\\OrderController@order_success_page"
+		);
 	}
 
 	protected function get_routes() {
