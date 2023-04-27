@@ -29,9 +29,19 @@ class Image extends \Store\Middleware\Entity {
 
 		$postfix = $size == "original" ? "" : "_{$size}";
 
-		return $this -> image_exists($size) 
-			? "/" . FCONF["users_folder"] . "/{$this -> alias}{$postfix}.jpg" 
-			: $this -> default_image();
+		if(!$this -> image_exists($size)) {
+			if($size == "original") {
+				return $this -> default_image();
+			} else {
+				return $this -> get_url("original");
+			}
+		}
+
+		$img_name = "{$this -> alias}{$postfix}.jpg";
+
+		return app() -> routes -> urlto("ImgUploaderController@show_img", [
+			"img_name" => $img_name
+		]);
 	}
 
 	public function get_path_to_image(String $size = "original") {
@@ -60,8 +70,6 @@ class Image extends \Store\Middleware\Entity {
 	}
 
 	public function default_image() {
-		return $this -> image_exists("original") 
-			? $this -> get_path_to_image("original") 
-			: "/" . FCONF["users_folder"] . "/default-product-img.png";
+		return "/Store/Resources/img/default-product-img.png";
 	}
 }

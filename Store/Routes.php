@@ -101,6 +101,7 @@ class Routes {
 			'/profile', 
 			"{$this -> cn}\\ProfileController@goto_self_profile"
 		);
+
 	}
 
 	protected function get_routes() {
@@ -109,6 +110,12 @@ class Routes {
 			[ "uadpost_id", "state" ], 
 			"{$this -> cn}\\UAdPostController@change_uadpost_state", 
 			"/profile/uadposts/change-state.html"
+		);
+
+		$this -> router -> get(
+			[ "img_name" ],
+			"{$this -> cn}\\ImgUploaderController@show_img",
+			'/user/image.html',
 		);
 	}
 
