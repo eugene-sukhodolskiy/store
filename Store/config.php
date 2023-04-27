@@ -52,6 +52,6 @@ return [
 	],
 
 	"uadposts" => [
-		"max_keywords_number" => 30
+		"max_keywords_number" => 40
 	]
 ]; 

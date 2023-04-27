@@ -1,9 +1,8 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
 import pymorphy2
-from langid.langid import LanguageIdentifier, model
+from langdetect import detect
 
 nltk.download('wordnet')
 nltk.download('punkt')
@@ -13,12 +12,11 @@ morph = pymorphy2.MorphAnalyzer()
 def generate(text, count_keywords):
 	tokens = word_tokenize(text)
 
-	identifier = LanguageIdentifier.from_modelstring(model, norm_probs=True)
-	detected_lang = identifier.classify(text)
+	detected_lang = detect(text)
 
-	if detected_lang[0] == "ru":
+	if detected_lang == "ru" or detected_lang == "mk":
 		lang = "russian"
-	elif detected_lang[0] == "uk":
+	elif detected_lang == "uk":
 		lang = "ukrainian"
 	else: 
 		lang = "english";
