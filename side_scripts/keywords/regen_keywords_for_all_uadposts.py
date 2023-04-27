@@ -1,16 +1,14 @@
 import mysql.connector
 import json
 import requests
+import sys
+sys.path.append("../")
+import app
 
 # CONFIG
 regen_req_url = "http://store.local/uadpost/f/regenerate-keywords/$uadpost_alias"
 size_of_pack = 10
-db_conf = {
-	"host": "localhost",
-	"user": "eugene",
-	"password": "root",
-	"database": "store"
-}
+app_config = app.config()
 # END OF CONFIG
 
 db = None
@@ -22,7 +20,7 @@ def get_cursor(db_conf):
 		host = db_conf["host"],
 		user = db_conf["user"],
 		password = db_conf["password"],
-		database = db_conf["database"]
+		database = db_conf["dbname"]
 	)
 
 	if db.is_connected():
@@ -78,7 +76,7 @@ def regen_uadposts_pack(cursor, size_of_pack, last_id):
 
 
 # SCRIPT
-cursor = get_cursor(db_conf)
+cursor = get_cursor(app_config["db"])
 last_id = get_absolute_last_uadpost_id(cursor)
 total = get_total_uadposts(cursor)
 

@@ -3,3 +3,5 @@
 Store/Logs/
 node_modules/
 users_files/
+side_scripts/__pycache__
+side_scripts/*/__pycache__

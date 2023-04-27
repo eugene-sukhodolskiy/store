@@ -5,6 +5,9 @@ from nltk.corpus import stopwords
 import pymorphy2
 import math
 from langdetect import detect
+import sys
+sys.path.append("../")
+import app
 
 nltk.download('wordnet')
 nltk.download('punkt')
@@ -13,11 +16,12 @@ morph = pymorphy2.MorphAnalyzer()
 
 keywords = []
 
+app_config = app.config()
 db = mysql.connector.connect(
-	host="localhost",
-	user="eugene",
-	password="root",
-	database="store"
+	host = app_config["db"]["host"],
+	user = app_config["db"]["user"],
+	password = app_config["db"]["password"],
+	database = app_config["db"]["dbname"]
 )
 
 cursor = db.cursor(dictionary=True)

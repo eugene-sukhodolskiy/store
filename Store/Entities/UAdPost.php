@@ -135,7 +135,10 @@ class UAdPost extends \Store\Middleware\Entity {
 			$this -> id
 		);
 
-		@file_get_contents(FCONF["services"]["keywords"]["keywords_reload"]);
+		$keywords_reload_url = FCONF["services"]["keywords"]["keywords_reload"];
+		if($keywords_reload_url) {
+			@file_get_contents($keywords_reload_url);
+		}
 		return $keywords;
 	}
 

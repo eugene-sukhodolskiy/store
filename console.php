@@ -18,6 +18,9 @@ function console() {
 		case "create.uadpost":
 			(new Generator()) -> generate_uadpost_from_json($argv[2]);
 		break;
+		case "get.config":
+			echo json_encode(FCONF);
+		break;
 		default: echo "\nNo command";
 	}
 
