@@ -12,13 +12,21 @@ class SearchController extends \Store\Middleware\Controller {
 		if($filter_price_to == 0) {
 			$filter_price_to = PHP_INT_MAX;
 		}
+		$condition_map = [
+			"any" => 0,
+			"new" => 1,
+			"used" => 2,
+		];
+		$condition = (!isset($_GET["condition"]) or !isset($condition_map[$_GET["condition"]])) ? "any" : $_GET["condition"];
+		$condition = $condition_map[$condition];
 
 		$per_page = FCONF["uadposts_per_page"];
 		$filters = json_encode([ 
 			"price" => [
 				"from" => $filter_price_from, 
 				"to" => $filter_price_to
-			]
+			],
+			"condition" => $condition
 		]);
 
 		try {

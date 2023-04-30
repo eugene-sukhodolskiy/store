@@ -49,10 +49,22 @@
 							type="radio" 
 							class="std-input"
 							name="condition"
+							id="condition_any"
+							value="any"
+							title="Любой"
+							checked
+						>
+						<label class="form-label" for="condition_any">Любой</label>
+					</div>
+
+					<div class="std-row form-group">
+						<input 
+							type="radio" 
+							class="std-input"
+							name="condition"
 							id="condition_used"
 							value="used"
 							title="Б/У"
-							checked
 						>
 						<label class="form-label" for="condition_used">Б/У</label>
 					</div>

@@ -99,8 +99,12 @@ class Utils {
 		);
 	}
 
-	public function get_limits_for_select_query(Int $per_page) {
-		$current_page = max(1, intval(isset($_GET["pn"]) ? $_GET["pn"] : 0));
+	public function get_current_page_num(): Int {
+		return max(1, intval(isset($_GET["pn"]) ? $_GET["pn"] : 0));
+	}
+
+	public function get_limits_for_select_query(Int $per_page): Array {
+		$current_page = $this -> get_current_page_num();
 		$from = ($current_page - 1) * $per_page;
 		return [$from, $per_page];
 	}

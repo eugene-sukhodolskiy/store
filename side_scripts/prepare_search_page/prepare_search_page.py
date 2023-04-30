@@ -96,6 +96,15 @@ def filter_by_price(items, from_val, to_val):
 	return result
 	pass
 
+def filter_by_condition(items, condition):
+	print("CONDITION: " + str(condition))
+	result = {}
+	for uap_id in items.keys():
+		if items[uap_id]["condition_used"] == condition:
+			result[uap_id] = items[uap_id]
+	return result
+	pass
+
 def query(sq, filters):
 	global keywords
 
@@ -126,9 +135,11 @@ def query(sq, filters):
 	if "price" in filters:
 		items = filter_by_price(items, filters["price"]["from"], filters["price"]["to"])
 
+	if "condition" in filters and filters["condition"] in [1, 2]:
+		items = filter_by_condition(items, filters["condition"])
+
 	return {
 		"uaps": list(items.keys()),
-		"groups": groups,
 		"lang": lang
 	}
 
@@ -139,6 +150,6 @@ def load_keywords():
 	keywords = cursor.fetchall()
 
 	print("Init uadposts data")
-	cursor.execute("SELECT `id`, `single_price` FROM `uadposts`")
+	cursor.execute("SELECT `id`, `single_price`, `condition_used` FROM `uadposts`")
 	addition_data = { item["id"]: item for item in cursor.fetchall() }
 	return len(keywords)
