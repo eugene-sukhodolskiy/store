@@ -19,6 +19,8 @@ class SearchController extends \Store\Middleware\Controller {
 		];
 		$condition = (!isset($_GET["condition"]) or !isset($condition_map[$_GET["condition"]])) ? "any" : $_GET["condition"];
 		$condition = $condition_map[$condition];
+		$exchange_flag = !isset($_GET["exchange_flag"]) ? "off" : $_GET["exchange_flag"];
+		$exchange_flag = $exchange_flag == "on" ? 1 : 0;
 
 		$per_page = FCONF["uadposts_per_page"];
 		$filters = json_encode([ 
@@ -26,7 +28,8 @@ class SearchController extends \Store\Middleware\Controller {
 				"from" => $filter_price_from, 
 				"to" => $filter_price_to
 			],
-			"condition" => $condition
+			"condition" => $condition,
+			"exchange_flag" => $exchange_flag
 		]);
 
 		try {
