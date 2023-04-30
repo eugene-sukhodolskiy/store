@@ -5,15 +5,16 @@
 	</button>
 
 	<div class="wrap collapse">
-		<form action="" class="form">
+		<form action="." class="form">
 			<div class="form-group price-range">
-				<label for="price_from" class="form-label">Цена</label>
+				<label for="price_from" class="form-label">Цена (UAH)</label>
 				<div class="struct">
 					<input 
 						type="number" 
 						name="price_from"
 						id="price_from"
-						class="std-input" 
+						class="std-input"
+						min="0" 
 						placeholder="От"
 					>
 					<span class="sep">-</span>
@@ -22,6 +23,7 @@
 						name="price_to"
 						id="price_to"
 						class="std-input" 
+						min="1"
 						placeholder="До"
 					>
 				</div>
@@ -34,7 +36,7 @@
 					"unit" => "км",
 					"min" => 10,
 					"max" => 500,
-					"start_val" => 200
+					"default_val" => 400
 				]) ?>
 			</div>
 
@@ -83,10 +85,10 @@
 			</div>
 
 			<div class="form-group std-row space-between btns">
-				<button class="std-btn btn-primary">
+				<button class="std-btn btn-primary apply-filters">
 					Применить
 				</button>
-				<button class="std-btn btn-default">
+				<button class="std-btn btn-default clear-filters">
 					<span class="mdi mdi-close"></span>
 					Очистить
 				</button>

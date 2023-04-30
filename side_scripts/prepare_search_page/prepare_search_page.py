@@ -15,6 +15,7 @@ nltk.download('stopwords')
 morph = pymorphy2.MorphAnalyzer()
 
 keywords = []
+addition_data = []
 
 app_config = app.config()
 db = mysql.connector.connect(
@@ -52,8 +53,8 @@ def sort_by_relevant(groups):
 			points[i] = points[i] + item["freq"]
 		points[i] = points[i] * len(groups[i])
 
-	points = {k: v for k, v in sorted(points.items(), key=lambda item: item[1], reverse=True)}
-	results = [groups[uap_id] for uap_id in points]
+	points = { k: v for k, v in sorted(points.items(), key = lambda item: item[1], reverse = True) }
+	results = [ groups[uap_id] for uap_id in points ]
 
 	return results
 	pass
@@ -73,10 +74,35 @@ def get_items_from_groups(groups):
 	return [ g[0]["uap_id"] for g in groups ]
 	pass
 
-def query(sq):
+def data_enrichment(items):
+	global addition_data
+
+	results = {}
+	addition_data_keys = addition_data.keys()
+	for uap_id in items:
+		if uap_id in addition_data_keys:
+			results[uap_id] = addition_data[uap_id]
+		else:
+			results[uap_id] = addition_data[uap_id]
+		
+	return results
+	pass
+
+def filter_by_price(items, from_val, to_val):
+	result = {}
+	for uap_id in items.keys():
+		if items[uap_id]["single_price"] >= from_val and items[uap_id]["single_price"] <= to_val:
+			result[uap_id] = items[uap_id]
+	return result
+	pass
+
+def query(sq, filters):
 	global keywords
 
-	detected_lang = detect(sq)
+	if len(sq):
+		detected_lang = detect(sq)
+	else:
+		detected_lang = "english"
 
 	if detected_lang == "ru" or detected_lang == "mk":
 		lang = "russian"
@@ -95,14 +121,24 @@ def query(sq):
 	groups = group_by_uap(sresult)
 	groups = sort_by_relevant(groups)
 	items = get_items_from_groups(groups)
+	items = data_enrichment(items)
+
+	if "price" in filters:
+		items = filter_by_price(items, filters["price"]["from"], filters["price"]["to"])
 
 	return {
-		"uaps": items,
+		"uaps": list(items.keys()),
+		"groups": groups,
 		"lang": lang
 	}
 
 def load_keywords():
-	global keywords
+	global keywords, addition_data
+	print("Init keywords")
 	cursor.execute("SELECT * FROM `uadposts_keywords`")
 	keywords = cursor.fetchall()
+
+	print("Init uadposts data")
+	cursor.execute("SELECT `id`, `single_price` FROM `uadposts`")
+	addition_data = { item["id"]: item for item in cursor.fetchall() }
 	return len(keywords)

@@ -116,6 +116,12 @@ class Lib {
 			xhr.send(); 
 		}
 	}
+
+	triggerEvent(element, eventName) {
+		let event = document.createEvent("HTMLEvents");
+		event.initEvent(eventName, false, true);
+		element.dispatchEvent(event);
+	}
 }
 
 window.lib = new Lib();

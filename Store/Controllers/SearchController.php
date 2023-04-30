@@ -7,8 +7,37 @@ use \Store\Entities\UAdPost;
 class SearchController extends \Store\Middleware\Controller {
 	public function search_page() {
 		$s = mb_strtolower(trim( isset($_GET["s"]) ? $_GET["s"] : "" ));
+		$filter_price_from = abs(intval(isset($_GET["price_from"]) ? $_GET["price_from"] : 0));
+		$filter_price_to = abs(intval(isset($_GET["price_to"]) ? $_GET["price_to"] : PHP_INT_MAX));
+		if($filter_price_to == 0) {
+			$filter_price_to = PHP_INT_MAX;
+		}
+
 		$per_page = FCONF["uadposts_per_page"];
-		$raw_results = json_decode(file_get_contents("http://localhost:5001/search?sq=" . urlencode($s)), true);
+		$filters = json_encode([ 
+			"price" => [
+				"from" => $filter_price_from, 
+				"to" => $filter_price_to
+			]
+		]);
+
+		try {
+			$resp = @file_get_contents(
+				str_replace(
+					[ "{{search_query}}", "{{filters}}" ], 
+					[ urlencode($s), $filters ], 
+					FCONF["services"]["keywords"]["search"]
+				)
+			);
+
+			if(!$resp) {
+				throw new \Exception("Error of search service");
+			}
+			$raw_results = json_decode($resp, true);
+		} catch(\Exception $e) {
+			// TODO: Make normal displaying of error
+			echo $e -> getMessage();
+		}
 
 		$raw_results = $raw_results["result"]["uaps"];
 		$where = [

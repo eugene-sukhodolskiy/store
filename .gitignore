@@ -5,3 +5,5 @@ node_modules/
 users_files/
 side_scripts/__pycache__
 side_scripts/*/__pycache__
+side_scripts/iziua_data_lendlease/used_urls.json
+*.pyc
