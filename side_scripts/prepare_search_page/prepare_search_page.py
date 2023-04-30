@@ -123,6 +123,9 @@ def query(sq, filters):
 	keys = get_keywords_from_search_query(sq, lang)
 
 	sresult = []
+	if not len(keys):
+		sresult = keywords
+
 	for keyword in keywords:
 		if keyword["keyword"] in keys:
 			sresult.append(keyword)
