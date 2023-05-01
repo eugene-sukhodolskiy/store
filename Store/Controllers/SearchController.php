@@ -21,16 +21,28 @@ class SearchController extends \Store\Middleware\Controller {
 		$condition = $condition_map[$condition];
 		$exchange_flag = !isset($_GET["exchange_flag"]) ? "off" : $_GET["exchange_flag"];
 		$exchange_flag = $exchange_flag == "on" ? 1 : 0;
+		$radius = !isset($_GET["radius"]) ? 400 : abs(intval($_GET["radius"]));
 
 		$per_page = FCONF["uadposts_per_page"];
-		$filters = json_encode([ 
+
+		$filters = [ 
 			"price" => [
 				"from" => $filter_price_from, 
 				"to" => $filter_price_to
 			],
 			"condition" => $condition,
-			"exchange_flag" => $exchange_flag
-		]);
+			"exchange_flag" => $exchange_flag,
+		];
+
+		if(app() -> sessions -> is_auth()) {
+			$uprofile = app() -> sessions -> auth_user() -> profile();
+			$filters["location_params"] = [ 
+				"rad" => $radius,
+				"lat" => $uprofile -> location_lat,
+				"lng" => $uprofile -> location_lng,
+			];
+		}
+		$filters = json_encode($filters);
 
 		try {
 			$resp = @file_get_contents(

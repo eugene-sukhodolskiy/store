@@ -29,16 +29,18 @@
 				</div>
 			</div>
 
-			<div class="form-group radius-slider">
-				<span class="form-label">Радиус поиска</span>
-				<?= $this -> join("site/components/slider", [
-					"form_name" => "radius",
-					"unit" => "км",
-					"min" => 10,
-					"max" => 500,
-					"default_val" => 400
-				]) ?>
-			</div>
+			<? if(app() -> sessions -> is_auth()): ?>
+				<div class="form-group radius-slider">
+					<span class="form-label">Радиус поиска</span>
+					<?= $this -> join("site/components/slider", [
+						"form_name" => "radius",
+						"unit" => "км",
+						"min" => 10,
+						"max" => 500,
+						"default_val" => 400
+					]) ?>
+				</div>
+			<? endif ?>
 
 			<div class="form-group condition">
 				<div class="form-label">Состояние товара</div>

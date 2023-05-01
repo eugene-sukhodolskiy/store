@@ -6,6 +6,7 @@ import pymorphy2
 import math
 from langdetect import detect
 import sys
+from location import coords
 sys.path.append("../")
 import app
 
@@ -26,6 +27,8 @@ db = mysql.connector.connect(
 )
 
 cursor = db.cursor(dictionary=True)
+
+coords.coords_lng_km_table = coords.init_coords_lng_km_table("location/coords-lng-km-table.json")
 
 def get_keywords_from_search_query(sq, lang):
 	tokens = word_tokenize(sq)
@@ -112,6 +115,14 @@ def filter_by_exchange_flag(items, exchange_flag):
 	return result
 	pass
 
+def filter_by_location(items, location_params):
+	result = {}
+	location_pos = coords.get_coords_square(location_params["lat"], location_params["lng"], location_params["rad"])
+	for uap_id in items.keys():
+		if items[uap_id]["location_lat"] >= location_pos[0]["lat"] and items[uap_id]["location_lat"] <= location_pos[1]["lat"] and items[uap_id]["location_lng"] >= location_pos[0]["lng"] and items[uap_id]["location_lng"] <= location_pos[1]["lng"]:
+			result[uap_id] = items[uap_id]
+	return result
+	pass
 
 def query(sq, filters):
 	global keywords
@@ -152,6 +163,9 @@ def query(sq, filters):
 	if "exchange_flag" in filters:
 		items = filter_by_exchange_flag(items, filters["exchange_flag"])
 
+	if "location_params" in filters:
+		items = filter_by_location(items, filters["location_params"])
+
 	return {
 		"uaps": list(items.keys()),
 		"lang": lang
@@ -164,6 +178,7 @@ def load_keywords():
 	keywords = cursor.fetchall()
 
 	print("Init uadposts data")
-	cursor.execute("SELECT `id`, `single_price`, `condition_used`, `exchange_flag` FROM `uadposts`")
+	sql = "SELECT `id`, `single_price`, `condition_used`, `exchange_flag`, `location_lat`, `location_lng` FROM `uadposts`"
+	cursor.execute(sql)
 	addition_data = { item["id"]: item for item in cursor.fetchall() }
 	return len(keywords)
