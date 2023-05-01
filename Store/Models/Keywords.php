@@ -13,8 +13,7 @@ class Keywords extends \Store\Middleware\Model {
 				"uadposts_keywords",
 				[
 					"uap_id" => $uap_id, 
-					"keyword" => $keyword[0], 
-					"freq" => $keyword[1]
+					"keyword" => $keyword
 				]
 			);
 		}

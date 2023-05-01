@@ -22,12 +22,11 @@ def generate(text, count_keywords):
 		lang = "english";
 
 	stop_words = set(stopwords.words(lang))
-	filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
-	lemmatized_tokens = [morph.parse(word)[0].normal_form for word in filtered_tokens]
-	freq_dist = nltk.FreqDist(lemmatized_tokens)
-	keys = freq_dist.most_common(count_keywords)
+	filtered_tokens = [ word for word in tokens if word.lower() not in stop_words ]
+	keys = [ morph.parse(word)[0].normal_form for word in filtered_tokens ]
 
 	return { 
 		"keys": keys,
 		"lang": lang
 	}
+	pass

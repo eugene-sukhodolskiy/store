@@ -131,7 +131,7 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	public function generate_keywords(): Array {
 		$keywords = (new Keywords) -> create_keywords_by_content(
-			"{$this -> title} {$this -> content}",
+			"{$this -> title}",
 			$this -> id
 		);
 
@@ -143,7 +143,13 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function remove_keywords() {
-		return (new Keywords) -> remove_keywords_by_uap_id($this -> id) and @file_get_contents("http://localhost:5001/keywords-reload");
+		$res = (new Keywords) -> remove_keywords_by_uap_id($this -> id);
+		$keywords_reload_url = FCONF["services"]["keywords"]["keywords_reload"];
+		if($keywords_reload_url) {
+			@file_get_contents($keywords_reload_url);
+		}
+
+		return $res;
 	}
 
 	public function refresh_keywords(): Array {

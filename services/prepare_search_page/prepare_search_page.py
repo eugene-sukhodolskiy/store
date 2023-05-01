@@ -45,22 +45,9 @@ def group_by_uap(sresult):
 		else:
 			groups[item["uap_id"]].append(item)
 
-	return groups
+	return [ groups[uap_id] for uap_id in groups ]
 	pass
 
-def sort_by_relevant(groups):
-	points = {}
-	for i in groups:
-		points[i] = 0;
-		for item in groups[i]:
-			points[i] = points[i] + item["freq"]
-		points[i] = points[i] * len(groups[i])
-
-	points = { k: v for k, v in sorted(points.items(), key = lambda item: item[1], reverse = True) }
-	results = [ groups[uap_id] for uap_id in points ]
-
-	return results
-	pass
 
 def groups_to_pages(groups, per_page):
 	pages = [[]]
@@ -124,6 +111,7 @@ def filter_by_location(items, location_params):
 	return result
 	pass
 
+
 def query(sq, filters):
 	global keywords
 
@@ -150,7 +138,6 @@ def query(sq, filters):
 			sresult.append(keyword)
 
 	groups = group_by_uap(sresult)
-	groups = sort_by_relevant(groups)
 	items = get_items_from_groups(groups)
 	items = data_enrichment(items)
 

@@ -2,6 +2,7 @@ import mysql.connector
 import json
 import requests
 import sys
+import time
 sys.path.append("services")
 import app
 
@@ -61,6 +62,7 @@ def regen_uadposts_pack(cursor, size_of_pack, last_id):
 	uadposts = cursor.fetchall()
 	
 	for uadpost in uadposts:
+		start_time = time.perf_counter()
 		response = requests.get(regen_req_url.replace("$uadpost_alias", uadpost["alias"]))
 		if not response:
 			show_err_msg(uadpost)
@@ -70,6 +72,9 @@ def regen_uadposts_pack(cursor, size_of_pack, last_id):
 				show_err_msg(uadpost)
 			else:
 				show_success_msg(uadpost, response["data"])
+		end_time = time.perf_counter()
+		execution_time = end_time - start_time
+		print("Executed {:.2f}s".format(execution_time))
 	
 	return uadposts[-1]["id"]
 	pass

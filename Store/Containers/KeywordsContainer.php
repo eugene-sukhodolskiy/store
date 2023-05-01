@@ -29,17 +29,6 @@ class KeywordsContainer {
 		return $this -> keywords[0]["uap_id"];
 	}
 
-	public function calc_freq(Array $queried_keywords = []): Int {
-		$total = 0;
-		foreach($this -> keywords as $keyword_row) {
-			if(is_array($keyword_row["keyword"], $queried_keywords)) {
-				$total += $keyword_row["freq"];
-			}
-		}
-
-		return $total;
-	}
-
 	public function get_keywords_rows(): Array {
 		return $this -> keywords;
 	}
