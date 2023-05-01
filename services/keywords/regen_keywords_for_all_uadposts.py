@@ -2,7 +2,7 @@ import mysql.connector
 import json
 import requests
 import sys
-sys.path.append("../")
+sys.path.append("services")
 import app
 
 # CONFIG

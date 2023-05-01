@@ -7,7 +7,7 @@ import math
 from langdetect import detect
 import sys
 from location import coords
-sys.path.append("../")
+sys.path.append("services")
 import app
 
 nltk.download('wordnet')
@@ -28,7 +28,7 @@ db = mysql.connector.connect(
 
 cursor = db.cursor(dictionary=True)
 
-coords.coords_lng_km_table = coords.init_coords_lng_km_table("location/coords-lng-km-table.json")
+coords.coords_lng_km_table = coords.init_coords_lng_km_table("services/prepare_search_page/location/coords-lng-km-table.json")
 
 def get_keywords_from_search_query(sq, lang):
 	tokens = word_tokenize(sq)
