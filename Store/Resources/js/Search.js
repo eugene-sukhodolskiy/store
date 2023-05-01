@@ -5,18 +5,22 @@ class Search {
 		this.searchInput = this.container.querySelector(".search-field");
 		this.btnSubmit = this.container.querySelector(".submit");
 		this.filtersContainer = document.querySelector(".component.search-filters");
-		this.filtersForm = this.filtersContainer.querySelector("form.form");
-		this.filtersPriceRange = this.filtersContainer.querySelector(".price-range");
-		this.filtersPriceFrom = this.filtersPriceRange.querySelector("#price_from");
-		this.filtersPriceTo = this.filtersPriceRange.querySelector("#price_to");
-		this.filtersApplyBtn = this.filtersContainer.querySelector(".apply-filters");
-		this.filtersClearBtn = this.filtersContainer.querySelector(".clear-filters");
-		this.timeoutOfAutoClearSearchFilters = 1000 * 60 * 30;
+		if(this.filtersContainer) {
+			this.filtersForm = this.filtersContainer.querySelector("form.form");
+			this.filtersPriceRange = this.filtersContainer.querySelector(".price-range");
+			this.filtersPriceFrom = this.filtersPriceRange.querySelector("#price_from");
+			this.filtersPriceTo = this.filtersPriceRange.querySelector("#price_to");
+			this.filtersApplyBtn = this.filtersContainer.querySelector(".apply-filters");
+			this.filtersClearBtn = this.filtersContainer.querySelector(".clear-filters");
+			this.timeoutOfAutoClearSearchFilters = 1000 * 60 * 30;
+		}
 
-		this.autoClearSearchFilters();
-		this.restoreSearch();
 		this.initEvents();
-		this.initFilters();
+		if(this.filtersContainer) {
+			this.autoClearSearchFilters();
+			this.restoreSearch();
+			this.initFilters();
+		}
 	}
 
 	initEvents() {
