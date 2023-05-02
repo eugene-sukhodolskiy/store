@@ -44,6 +44,22 @@
 
 		<div class="form-block">
 			<div class="form-group">
+				<?= $this -> join("site/components/uadpost/select-location", [
+					"help_text" => "Выберите ваше местоположение",
+					"lat" => $user -> profile() -> location_lat,
+					"lng" => $user -> profile() -> location_lng,
+					"country_en" => $user -> profile() -> country_en,
+					"country_ru" => $user -> profile() -> country_ru,
+					"city_en" => $user -> profile() -> city_en,
+					"city_ru" => $user -> profile() -> city_ru,
+					"region_en" => $user -> profile() -> region_en,
+					"region_ru" => $user -> profile() -> region_ru,
+				]) ?>
+			</div>
+		</div>
+
+		<div class="form-block">
+			<div class="form-group">
 				<label class="form-label">Загрузите аватар</label>
 				<?= $this -> join("site/components/img-uploader", [
 					"number_images" => 1,

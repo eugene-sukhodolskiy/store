@@ -185,7 +185,7 @@
 			</div>
 
 			<div class="form-group">
-				<? if(isset($has_posts) and $has_posts): ?>
+			<? if(isset($has_posts) and $has_posts): ?>
 					<?= $this -> join("site/components/uadpost/select-location", [
 						"help_text" => "Выберите на карте место продажи товара",
 						"lat" => $lat,

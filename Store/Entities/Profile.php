@@ -6,7 +6,8 @@ class Profile extends \Store\Middleware\Entity {
 	public static $table_name = "profiles"; 
 	protected static $fields = [
 		"id", "uid", "first_name", "second_name", "phone_number", "patronymic",
-		"location_lat", "location_lng", "update_at", "create_at"
+		"location_lat", "location_lng", "country_en", "country_ru", "region_en", 
+		"region_ru", "city_ru", "city_en", "update_at", "create_at"
 	];
 
 	public function __construct(Int $id, Array $data = []) {

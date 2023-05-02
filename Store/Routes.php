@@ -172,7 +172,9 @@ class Routes {
 		);
 
 		$this -> router -> post(
-			[ "first_name", "second_name", "phone_number", "imgs" ], 
+			[ "first_name", "second_name", "phone_number", "imgs", 
+				"lat", "lng", "country_ru", "country_en", "region_ru", 
+				"region_en", "city_ru", "city_en" ], 
 			"{$this -> cn}\\ProfileSettingsController@update",
 			"/profile/f/update"
 		);

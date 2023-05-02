@@ -29,6 +29,8 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 				$data["action_to_draft"] = app() -> routes -> urlto("UAdPostController@update_draft");
 			}
 
+			$profile = app() -> sessions -> auth_user() -> profile();
+
 			if($uadpost) {
 				$data["has_posts"] = true;
 				$data["lat"] = $uadpost -> location_lat;
@@ -39,6 +41,15 @@ class UAdPostForm extends \Fury\Modules\Template\Template {
 				$data["city_en"] = $uadpost -> city_en;
 				$data["region_ru"] = $uadpost -> region_ru;
 				$data["region_en"] = $uadpost -> region_en;
+			} else if($profile -> location_lat and $profile -> location_lng) {
+				$data["lat"] = $profile -> location_lat;
+				$data["lng"] = $profile -> location_lng;
+				$data["country_ru"] = $profile -> country_ru;
+				$data["country_en"] = $profile -> country_en;
+				$data["city_ru"] = $profile -> city_ru;
+				$data["city_en"] = $profile -> city_en;
+				$data["region_ru"] = $profile -> region_ru;
+				$data["region_en"] = $profile -> region_en;
 			}
 
 			if(isset($data["uadpost"]) and $data["uadpost"]) {

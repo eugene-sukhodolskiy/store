@@ -19,7 +19,7 @@ return [
 
 	"controllers_folder" => "Controllers",
 	"text_msgs" => require_once("Store/text-msgs.php"),
-	"users_folder" => "/media/eugene/wd200/users_files",
+	"users_folder" => "users_files",
 
 	"image_resize_map" => [
 		"original" => [3840, 80],
