@@ -67,25 +67,31 @@ class SearchController extends \Store\Middleware\Controller {
 		$where = [
 			["id", "IN", $raw_results],			
 		];
-		$sorting_fields_name = [
-			"by_date" => "create_at",
-			"by_price_up" => "single_price",
-			"by_price_down" => "single_price"
+
+		$sorting_params_map = [
+			"by_date" => [
+				"field" => "create_at",
+				"type" => "DESC",
+				"name" => "По дате добавления"
+			],
+			"by_price_up" => [
+				"field" => "single_price",
+				"type" => "ASC",
+				"name" => "По возрастанию цены"
+			],
+			"by_price_down" => [
+				"field" => "single_price",
+				"type" => "DESC",
+				"name" => "По спаданию цены"
+			],
 		];
-		$sorting_up_down = [
-			"by_date" => "DESC",
-			"by_price_up" => "ASC",
-			"by_price_down" => "DESC",
-		];
-		$sorting_field = [$sorting_fields_name[$sorting] ?? "id"];
-		$sorting_type = $sorting_up_down[$sorting] ?? "DESC";
 
 		$uadposts_rows = app() -> thin_builder -> select(
 			UAdPost::$table_name, 
 			UAdPost::get_fields(), 
 			$where, 
-			$sorting_field,
-			$sorting_type,
+			[$sorting_params_map[$sorting]["field"] ?? "id"],
+			$sorting_params_map[$sorting]["type"] ?? "DESC",
 			app() -> utils -> get_limits_for_select_query( $per_page )
 		);
 
@@ -108,8 +114,14 @@ class SearchController extends \Store\Middleware\Controller {
 			"per_page" => $per_page,
 			"total_uadposts" => $total_uadposts,
 			"search_query" => $s,
-			"location_country" => app() -> sessions -> is_auth() ? app() -> sessions -> auth_user() -> profile() -> country_en : null,
-			"location_city" => app() -> sessions -> is_auth() ? app() -> sessions -> auth_user() -> profile() -> city_en : null,
+			"sorting" => $sorting,
+			"sorting_params_map" => $sorting_params_map,
+			"location_country" => app() -> sessions -> is_auth() 
+				? app() -> sessions -> auth_user() -> profile() -> country_en 
+				: null,
+			"location_city" => app() -> sessions -> is_auth() 
+				? app() -> sessions -> auth_user() -> profile() -> city_en 
+				: null,
 		]);
 	}
 

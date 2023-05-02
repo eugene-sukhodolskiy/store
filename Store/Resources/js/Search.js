@@ -86,7 +86,11 @@ class Search {
 	}
 
 	initSortingForm() {
-		this.sortingComponent = new Sorting(this.sortingForm);
+		this.sortingComponent = new Sorting(this.sortingForm, this);
+	}
+
+	applySearchParamsAndSearching() {
+		this.startSearch(this.searchInput.value, new FormData(this.filtersForm));
 	}
 
 	startSearch(searchString, searchFilters) {
@@ -101,7 +105,8 @@ class Search {
 
 		const params = {
 			s: searchString,
-			...filters
+			...filters,
+			sorting: this.sortingComponent.getValue()
 		};
 
 		let query = new URLSearchParams(params);

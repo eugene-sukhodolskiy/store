@@ -13,13 +13,13 @@
 				<div class="search-header">
 					<h3>По запросу "<?= $search_query ?>" найдено <?= $total_uadposts ?> результатов</h3>
 					<?= $this -> join("site/components/uadpost/sorting", [
-						"value" => "example1",
-						"variants" => [
-							"example1" => "Example sorting 1",
-							"example2" => "Example sorting 2",
-							"example3" => "Example sorting 3",
-						]
-					]) ?>
+						"value" => $sorting,
+						"variants" => array_combine(
+								array_keys($sorting_params_map), 
+								array_map(fn($item) => $item["name"], $sorting_params_map)
+							)
+						]);
+					?>
 				</div>
 			<? endif ?>
 

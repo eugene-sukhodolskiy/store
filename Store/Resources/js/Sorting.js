@@ -1,6 +1,7 @@
 class Sorting {
-	constructor(container) {
+	constructor(container, searchInstance) {
 		this.container = container;
+		this.searchInstance = searchInstance; 
 		this.container.getInstance = () => this;
 		this.viewContainer = this.container.querySelector(".current-selected");
 		this.resultValueInput = this.container.querySelector("[data-name='result-value']");
@@ -16,6 +17,7 @@ class Sorting {
 				const name = e.currentTarget.innerHTML;
 				this.viewContainer.innerHTML = name;
 				this.resultValueInput.value = value;
+				this.searchInstance.applySearchParamsAndSearching();
 			});
 		});
 
@@ -28,5 +30,9 @@ class Sorting {
 				this.container.classList.remove("show");
 			}
 		})
+	}
+
+	getValue() {
+		return this.resultValueInput.value
 	}
 }
