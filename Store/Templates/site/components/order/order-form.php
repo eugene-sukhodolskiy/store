@@ -20,6 +20,7 @@
 		<input type="hidden" name="uap_id" value="<?= $uadpost -> id() ?>">
 		<input type="hidden" name="price" value="<?= $uadpost -> price ?>">
 		<input type="hidden" name="currency" value="<?= $uadpost -> currency ?>">
+		<input type="hidden" name="single_price" value="<?= $uadpost -> single_price ?>">
 
 		<div class="form-group">
 			<label for="delivery_method" class="form-label">Метод доставки</label>

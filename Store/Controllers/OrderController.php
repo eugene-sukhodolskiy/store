@@ -30,7 +30,14 @@ class OrderController extends \Store\Middleware\Controller {
 		]);
 	}
 
-	public function create($uap_id, $price, $currency, $comment, $delivery_method) {
+	public function create(
+		Int $uap_id, 
+		Float $price, 
+		String $currency, 
+		Float $single_price, 
+		String $comment, 
+		Int $delivery_method
+	) {
 		if(!app() -> sessions -> is_auth()) {
 			return app() -> utils -> response_error("not_found_any_sessions");
 		}
@@ -55,7 +62,7 @@ class OrderController extends \Store\Middleware\Controller {
 			return app() -> utils -> response_error("undefined_error");	
 		}
 
-		if($uadpost -> price != $price or $uadpost -> currency != $currency) {
+		if($uadpost -> price != $price or $uadpost -> currency != $currency or $uadpost -> single_price != $single_price) {
 			return app() -> utils -> response_error("price_was_changed");
 		}
 
@@ -64,7 +71,7 @@ class OrderController extends \Store\Middleware\Controller {
 		// Handling delivery method data
 
 		$orders = new Orders();
-		$result = $orders -> create($auth_user -> id, $uap_id, $price, $currency, $comment, $delivery_method);
+		$result = $orders -> create($auth_user -> id, $uap_id, $price, $currency, $single_price, $comment, $delivery_method);
 
 		if(!$result) {
 			return app() -> utils -> response_error("fail_creating_order");

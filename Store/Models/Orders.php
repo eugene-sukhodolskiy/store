@@ -8,7 +8,15 @@ use \Store\Entities\Order;
 class Orders extends \Store\Middleware\Model {
 
 	// TODO: Maybe moving this to Factory/Creator
-	public function create(Int $customer_id, Int $uap_id, Float $price, String $currency, String $comment, Int $delivery_method): ?Order {
+	public function create(
+		Int $customer_id, 
+		Int $uap_id, 
+		Float $price, 
+		String $currency, 
+		Float $single_price, 
+		String $comment, 
+		Int $delivery_method
+	): ?Order {
 		list($uadpost) = app() -> factory -> getter() -> get_uadposts_by("id", $uap_id, 1);
 
 		$data = [
@@ -17,6 +25,7 @@ class Orders extends \Store\Middleware\Model {
 			"uap_id" => $uap_id,
 			"price" => $price,
 			"currency" => $currency,
+			"single_price" => $single_price,
 			"comment" => $comment,
 			"delivery_method" => $delivery_method,
 			"delivery_id" => 0,
