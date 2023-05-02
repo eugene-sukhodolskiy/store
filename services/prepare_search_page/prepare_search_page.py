@@ -111,7 +111,6 @@ def filter_by_location(items, location_params):
 	return result
 	pass
 
-
 def query(sq, filters):
 	global keywords
 
@@ -165,7 +164,7 @@ def load_keywords():
 	keywords = cursor.fetchall()
 
 	print("Init uadposts data")
-	sql = "SELECT `id`, `single_price`, `condition_used`, `exchange_flag`, `location_lat`, `location_lng` FROM `uadposts`"
+	sql = "SELECT `id`, `single_price`, `condition_used`, `exchange_flag`, `location_lat`, `location_lng`, `create_at` FROM `uadposts`"
 	cursor.execute(sql)
 	addition_data = { item["id"]: item for item in cursor.fetchall() }
 	return len(keywords)

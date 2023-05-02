@@ -57,9 +57,9 @@ return [
 
 	"services" => [
 		"keywords" => [
-			"keywords_reload" => "http://localhost:5001/keywords-reload",
+			"keywords_reload" => false,//"http://localhost:5001/keywords-reload",
 			"gen_keywords" => "http://localhost:5000/?text={{text}}&number={{number}}",
-			"search" => "http://localhost:5001/search?sq={{search_query}}&filters={{filters}}"
+			"search" => "http://localhost:5001/search?sq={{search_query}}&filters={{filters}}&sorting={{sorting}}"
 		]
 	]
 ]; 

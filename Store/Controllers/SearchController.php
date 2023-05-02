@@ -22,6 +22,7 @@ class SearchController extends \Store\Middleware\Controller {
 		$exchange_flag = !isset($_GET["exchange_flag"]) ? "off" : $_GET["exchange_flag"];
 		$exchange_flag = $exchange_flag == "on" ? 1 : 0;
 		$radius = !isset($_GET["radius"]) ? 400 : abs(intval($_GET["radius"]));
+		$sorting = $_GET["sorting"] ?? "by_date"; 
 
 		$per_page = FCONF["uadposts_per_page"];
 
@@ -47,8 +48,8 @@ class SearchController extends \Store\Middleware\Controller {
 		try {
 			$resp = @file_get_contents(
 				str_replace(
-					[ "{{search_query}}", "{{filters}}" ], 
-					[ urlencode($s), $filters ], 
+					[ "{{search_query}}", "{{filters}}", "{{sorting}}" ], 
+					[ urlencode($s), $filters, $sorting ], 
 					FCONF["services"]["keywords"]["search"]
 				)
 			);
@@ -66,13 +67,25 @@ class SearchController extends \Store\Middleware\Controller {
 		$where = [
 			["id", "IN", $raw_results],			
 		];
+		$sorting_fields_name = [
+			"by_date" => "create_at",
+			"by_price_up" => "single_price",
+			"by_price_down" => "single_price"
+		];
+		$sorting_up_down = [
+			"by_date" => "DESC",
+			"by_price_up" => "ASC",
+			"by_price_down" => "DESC",
+		];
+		$sorting_field = [$sorting_fields_name[$sorting] ?? "id"];
+		$sorting_type = $sorting_up_down[$sorting] ?? "DESC";
 
 		$uadposts_rows = app() -> thin_builder -> select(
 			UAdPost::$table_name, 
 			UAdPost::get_fields(), 
 			$where, 
-			["id"], 
-			"DESC",
+			$sorting_field,
+			$sorting_type,
 			app() -> utils -> get_limits_for_select_query( $per_page )
 		);
 
