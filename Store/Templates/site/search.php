@@ -10,7 +10,17 @@
 	<div class="search-result">
 		<? if($total_uadposts): ?>
 			<? if(strlen($search_query)): ?>
-				<h3>По запросу "<?= $search_query ?>" найдено <?= $total_uadposts ?> результатов</h3>
+				<div class="search-header">
+					<h3>По запросу "<?= $search_query ?>" найдено <?= $total_uadposts ?> результатов</h3>
+					<?= $this -> join("site/components/uadpost/sorting", [
+						"value" => "example1",
+						"variants" => [
+							"example1" => "Example sorting 1",
+							"example2" => "Example sorting 2",
+							"example3" => "Example sorting 3",
+						]
+					]) ?>
+				</div>
 			<? endif ?>
 
 			<? foreach ($uadposts as $uadpost): ?>

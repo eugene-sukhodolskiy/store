@@ -24,6 +24,18 @@
 		display: flex;
 		flex-direction: column;
 		gap: $std-mg-lg;
+
+		.search-header {
+			display: flex;
+			flex-direction: row;
+			gap: $std-mg-lg;
+			align-items: center;
+			justify-content: space-between;
+
+			.component.sorting {
+				top: 3px;
+			}
+		}
 	}
 
 	.search-item {

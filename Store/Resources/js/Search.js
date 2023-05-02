@@ -14,12 +14,18 @@ class Search {
 			this.filtersClearBtn = this.filtersContainer.querySelector(".clear-filters");
 			this.timeoutOfAutoClearSearchFilters = 1000 * 60 * 30;
 		}
+		this.sortingForm = document.querySelector(".component.sorting");
+		this.sortingComponent;
 
 		this.initEvents();
 		if(this.filtersContainer) {
 			this.autoClearSearchFilters();
 			this.restoreSearch();
 			this.initFilters();
+		}
+
+		if(this.sortingForm){
+			this.initSortingForm();
 		}
 	}
 
@@ -77,6 +83,10 @@ class Search {
 			this.clearSearchFilters();
 			this.startSearch(e.currentTarget.value, new FormData(this.filtersForm));
 		});
+	}
+
+	initSortingForm() {
+		this.sortingComponent = new Sorting(this.sortingForm);
 	}
 
 	startSearch(searchString, searchFilters) {
