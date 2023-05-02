@@ -1,3 +1,9 @@
+<?php
+	/**
+	 * @var String $country
+	 * @var String $city
+	 */
+?>
 <div class="component search-filters">
 	<button class="std-btn btn-default btn-toggle-filters" data-collapse-toggle=".search-filters .wrap">
 		<span class="mdi mdi-filter-variant"></span>
@@ -31,7 +37,11 @@
 
 			<? if(app() -> sessions -> is_auth()): ?>
 				<div class="form-group radius-slider">
-					<span class="form-label">Радиус поиска</span>
+					<span class="form-label">Радиус поиска
+						<? if(isset($city) and isset($country)): ?>
+							от <?= $city ?>, <?= $country ?>
+						<? endif ?>
+					</span>
 					<?= $this -> join("site/components/slider", [
 						"form_name" => "radius",
 						"unit" => "км",

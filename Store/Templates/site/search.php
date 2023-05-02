@@ -2,7 +2,10 @@
 
 <div class="page-content-wrap">
 	<div class="filters-container">
-		<?= $this -> join("site/components/search-filters") ?>
+		<?= $this -> join("site/components/search-filters", [
+			"country" => $location_country,
+			"city" => $location_city
+		]) ?>
 	</div>
 	<div class="search-result">
 		<? if($total_uadposts): ?>

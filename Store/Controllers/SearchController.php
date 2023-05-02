@@ -89,12 +89,14 @@ class SearchController extends \Store\Middleware\Controller {
 		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 
 		return $this -> new_template() -> make("site/search", [
-			"page_title" => "Search page | Store",
+			"page_title" => $s ? "Поиск: {$s}" : "Поиск | Store",
 			"page_alias" => "page search",
 			"uadposts" => $uadposts,
 			"per_page" => $per_page,
 			"total_uadposts" => $total_uadposts,
-			"search_query" => $s
+			"search_query" => $s,
+			"location_country" => app() -> sessions -> is_auth() ? app() -> sessions -> auth_user() -> profile() -> country_en : null,
+			"location_city" => app() -> sessions -> is_auth() ? app() -> sessions -> auth_user() -> profile() -> city_en : null,
 		]);
 	}
 
