@@ -1,0 +1,50 @@
+.component.nova-poshta-addr-selector {
+	opacity: 0;
+	visibility: hidden;
+	height: 0;
+	transition-duration: $trans-du;
+	transition-property: visibility, opacity, height;
+	position: relative;
+
+	&.show {
+		opacity: 1;
+		visibility: visible;
+		height: max-content;
+	}
+
+	.variants-addrs {
+		overflow-y: auto;
+    max-height: 200px;
+    position: absolute;
+		left: 0;
+		top: auto;
+		margin-top: $std-mg-md;
+		z-index: 1;
+		width: 100%;
+		box-shadow: $shadow-sm;
+		border-radius: $border-rad-lg;
+		opacity: 0;
+		visibility: hidden;
+		transition-duration: $trans-du;
+		transition-property: visibility, opacity;
+
+		&.show {
+			opacity: 1;
+			visibility: visible;
+		}
+
+    &::-webkit-scrollbar {
+			width: 7px;
+		}
+
+		.addr-item {}
+
+		.msg-container {
+			background-color: $color-bg-card;	
+			border-radius: $border-rad-lg;
+			width: 100%;
+			text-align: center;
+			padding: $std-pd-md 0;
+		}
+	}
+}

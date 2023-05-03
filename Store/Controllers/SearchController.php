@@ -6,23 +6,44 @@ use \Store\Entities\UAdPost;
 
 class SearchController extends \Store\Middleware\Controller {
 	public function search_page() {
+		$condition_map = [
+			"any" => 0,
+			"new" => 1,
+			"used" => 2,
+		];
+
+		$sorting_params_map = [
+			"by_date" => [
+				"field" => "create_at",
+				"type" => "DESC",
+				"name" => "По дате добавления"
+			],
+			"by_price_up" => [
+				"field" => "single_price",
+				"type" => "ASC",
+				"name" => "По возрастанию цены"
+			],
+			"by_price_down" => [
+				"field" => "single_price",
+				"type" => "DESC",
+				"name" => "По спаданию цены"
+			],
+		];
+
 		$s = mb_strtolower(trim( isset($_GET["s"]) ? $_GET["s"] : "" ));
 		$filter_price_from = abs(intval(isset($_GET["price_from"]) ? $_GET["price_from"] : 0));
 		$filter_price_to = abs(intval(isset($_GET["price_to"]) ? $_GET["price_to"] : PHP_INT_MAX));
 		if($filter_price_to == 0) {
 			$filter_price_to = PHP_INT_MAX;
 		}
-		$condition_map = [
-			"any" => 0,
-			"new" => 1,
-			"used" => 2,
-		];
 		$condition = (!isset($_GET["condition"]) or !isset($condition_map[$_GET["condition"]])) ? "any" : $_GET["condition"];
 		$condition = $condition_map[$condition];
 		$exchange_flag = !isset($_GET["exchange_flag"]) ? "off" : $_GET["exchange_flag"];
 		$exchange_flag = $exchange_flag == "on" ? 1 : 0;
 		$radius = !isset($_GET["radius"]) ? 400 : abs(intval($_GET["radius"]));
-		$sorting = $_GET["sorting"] ?? "by_date"; 
+		$sorting = (!isset($_GET["sorting"]) or !in_array($_GET["sorting"], array_keys($sorting_params_map)))
+			? "by_date" 
+			: $_GET["sorting"]; 
 
 		$per_page = FCONF["uadposts_per_page"];
 
@@ -66,24 +87,6 @@ class SearchController extends \Store\Middleware\Controller {
 		$raw_results = $raw_results["result"]["uaps"];
 		$where = [
 			["id", "IN", $raw_results],			
-		];
-
-		$sorting_params_map = [
-			"by_date" => [
-				"field" => "create_at",
-				"type" => "DESC",
-				"name" => "По дате добавления"
-			],
-			"by_price_up" => [
-				"field" => "single_price",
-				"type" => "ASC",
-				"name" => "По возрастанию цены"
-			],
-			"by_price_down" => [
-				"field" => "single_price",
-				"type" => "DESC",
-				"name" => "По спаданию цены"
-			],
 		];
 
 		$uadposts_rows = app() -> thin_builder -> select(

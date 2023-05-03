@@ -106,7 +106,7 @@ class Search {
 		const params = {
 			s: searchString,
 			...filters,
-			sorting: this.sortingComponent.getValue()
+			sorting: this.sortingComponent ? this.sortingComponent.getValue() : null
 		};
 
 		let query = new URLSearchParams(params);

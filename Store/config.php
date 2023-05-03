@@ -61,5 +61,9 @@ return [
 			"gen_keywords" => "http://localhost:5000/?text={{text}}&number={{number}}",
 			"search" => "http://localhost:5001/search?sq={{search_query}}&filters={{filters}}&sorting={{sorting}}"
 		]
+	],
+
+	"nova_poshta" => [
+		"api_key" => "3eaf0e159afe550bbdbde3611898e395"
 	]
 ]; 

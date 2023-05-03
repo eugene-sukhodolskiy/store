@@ -30,6 +30,11 @@
 				<? endforeach ?>
 			</select>
 		</div>
+		<div class="form-group nova-poshta-group">
+			<?= $this -> join("site/components/order/nova-poshta-addr-selector", [
+				"default_displaying_state" => true
+			]) ?>
+		</div>
 		<div class="form-group">
 			<label for="comment" class="form-label">Коментарий к заказу</label>
 			<textarea 

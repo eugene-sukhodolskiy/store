@@ -5,6 +5,12 @@ class Order {
 		this.alertContainer = this.form?.querySelector(".alert-container");
 		this.submitBtn = this.form?.querySelector("button.submit");
 		this.cancelBtn = this.form?.querySelector("button.cancel");
+		this.novaPoshtaGroup = this.form?.querySelector(".nova-poshta-group");
+		this.deliveryMethodSelector = this.form?.querySelector("#delivery_method");
+
+		if(this.form) {
+			this.novaPoshtaComponent = new NovaPoshta(this.form.querySelector(".component.nova-poshta-addr-selector"), this);
+		}
 
 		this.form && (this.form.getInstance = () => this);
 		this.initEvents();
@@ -29,6 +35,14 @@ class Order {
 		this.cancelBtn?.addEventListener("click", e => {
 			e.preventDefault();
 			document.location = e.currentTarget.getAttribute("data-cancel-url");
+		});
+
+		this.deliveryMethodSelector?.addEventListener("change", e => {
+			if(e.currentTarget.value == "1") {
+				this.novaPoshtaComponent?.show();
+			} else {
+				this.novaPoshtaComponent?.hide();
+			}
 		});
 	}
 

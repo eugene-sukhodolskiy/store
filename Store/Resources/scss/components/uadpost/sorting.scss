@@ -14,7 +14,7 @@
 	.select {
 		position: absolute;
 		width: max-content;
-		top: 20px;
+		top: 25px;
 		right: 0;
 		padding-top: $std-pd-sm;
 		visibility: hidden;
@@ -30,6 +30,7 @@
 	&:hover, 
 	&.show {
 		.select {
+			top: 20px;
 			opacity: 1;
 			visibility: visible;
 		}

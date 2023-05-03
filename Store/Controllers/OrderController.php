@@ -310,4 +310,28 @@ class OrderController extends \Store\Middleware\Controller {
 					])
 		]);
 	}
+
+	public function nova_poshta_api($nova_poshta_api_request) {
+		$url = 'https://api.novaposhta.ua/v2.0/json/';
+		$data = json_decode($nova_poshta_api_request, true);
+		$data["apiKey"] = FCONF["nova_poshta"]["api_key"];
+		$data["methodProperties"]["Language"] = "RU";
+
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json;charset=UTF-8'));
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+
+		if (!$response) {
+			return $this -> utils() -> response_error("server_not_available");
+		}
+		
+		return $this -> utils() -> response_success(json_decode($response, true));
+	}
 }

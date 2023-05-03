@@ -5,6 +5,7 @@
 	 * @var Array $variants
 	 */
 ?>
+<!-- TODO: Create and use component of custom select -->
 <div class="component sorting">
 	<div class="displaying-current-selected">
 		<span class="mdi mdi-sort"></span>
