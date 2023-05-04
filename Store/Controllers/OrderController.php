@@ -36,7 +36,11 @@ class OrderController extends \Store\Middleware\Controller {
 		String $currency, 
 		Float $single_price, 
 		String $comment, 
-		Int $delivery_method
+		Int $delivery_method,
+		String $nova_poshta_addr,
+		String $np_city_ref,
+		String $np_city_name,
+		String $np_department
 	) {
 		if(!app() -> sessions -> is_auth()) {
 			return app() -> utils -> response_error("not_found_any_sessions");

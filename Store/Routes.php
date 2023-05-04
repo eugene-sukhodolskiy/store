@@ -186,7 +186,9 @@ class Routes {
 		);
 
 		$this -> router -> post(
-			[ "uap_id", "price", "currency", "single_price", "comment", "delivery_method" ],
+			[ "uap_id", "price", "currency", "single_price", 
+			"comment", "delivery_method", "nova_poshta_addr", 
+			"np_city_ref", "np_city_name", "np_department" ],
 			"{$this -> cn}\\OrderController@create",
 			"/order/f/create"
 		);

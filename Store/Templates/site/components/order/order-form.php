@@ -24,15 +24,28 @@
 
 		<div class="form-group">
 			<label for="delivery_method" class="form-label">Метод доставки</label>
-			<select name="delivery_method" id="delivery_method" class="std-input">
-				<? foreach ($delivery_method_map as $i => $name): ?>
-					<option value="<?= $i ?>"><?= $name ?></option>
-				<? endforeach ?>
-			</select>
+			<? 
+				$delivery_data = [];
+				$default_val = "";
+				foreach($delivery_method_map as $value => $text) {
+					if(!$default_val) {
+						$default_val = $value;
+					}
+					$delivery_data[] = ["text" => $text, "value" => $value];
+				}
+			?>
+			<?= $this -> join("site/components/select", [
+					"component_id" => "delivery_method",
+					"input_name" => "delivery_method",
+					"default_text" => "Выберите метод доставки", 
+					"value" => "",
+					"variants" => $delivery_data
+				]);
+			?>
 		</div>
 		<div class="form-group nova-poshta-group">
 			<?= $this -> join("site/components/order/nova-poshta-addr-selector", [
-				"default_displaying_state" => true
+				"default_displaying_state" => false
 			]) ?>
 		</div>
 		<div class="form-group">

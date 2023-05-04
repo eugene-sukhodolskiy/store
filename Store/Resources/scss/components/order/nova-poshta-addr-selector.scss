@@ -47,4 +47,25 @@
 			padding: $std-pd-md 0;
 		}
 	}
+
+	.nova-poshta-department-number-selector-wrap {
+		opacity: 0;
+		visibility: hidden;
+		display: none;
+		transition-duration: $trans-du;
+		transition-property: opacity, visibility;
+
+		&.show {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.component.select {
+		.selector {
+			.clickable-list {
+				max-height: 200px;
+			}
+		}
+	}
 }

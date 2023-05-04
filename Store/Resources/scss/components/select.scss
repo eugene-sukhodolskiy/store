@@ -1,0 +1,49 @@
+.component.select {
+	position: relative;
+
+	.displaying-current-selected {
+		display: flex;
+		flex-direction: row;
+		gap: $std-mg-sm;
+		cursor: default;
+		width: 100%;
+		position: relative;
+
+		.select-icon {
+			position: absolute;
+			right: 10px;
+		}
+	}
+
+	.selector {
+		position: absolute;
+		z-index: 1;
+		width: 100%;
+		top: 25px;
+		left: 0;
+		padding-top: 20px;
+		visibility: hidden;
+		opacity: 0;
+		transition-duration: $trans-du;
+		transition-property: visibility, opacity, top;
+
+		.clickable-list {
+			box-shadow: $shadow-sm;
+			width: 100%;
+			overflow-y: auto;
+			max-height: 250px;
+
+			&::-webkit-scrollbar {
+				width: 7px;
+			}
+		}
+	}
+
+	&.show {
+		.selector {
+			top: 20px;
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

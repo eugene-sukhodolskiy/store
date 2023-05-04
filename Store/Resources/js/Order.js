@@ -10,6 +10,7 @@ class Order {
 
 		if(this.form) {
 			this.novaPoshtaComponent = new NovaPoshta(this.form.querySelector(".component.nova-poshta-addr-selector"), this);
+			this.deliveryMethodSelectorComponent = new Select(this.deliveryMethodSelector);
 		}
 
 		this.form && (this.form.getInstance = () => this);
@@ -37,8 +38,8 @@ class Order {
 			document.location = e.currentTarget.getAttribute("data-cancel-url");
 		});
 
-		this.deliveryMethodSelector?.addEventListener("change", e => {
-			if(e.currentTarget.value == "1") {
+		this.deliveryMethodSelectorComponent?.addEventOnChange((select, value) => {
+			if(value == "1") {
 				this.novaPoshtaComponent?.show();
 			} else {
 				this.novaPoshtaComponent?.hide();

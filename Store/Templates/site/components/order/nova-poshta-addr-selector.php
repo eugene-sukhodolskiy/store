@@ -8,23 +8,24 @@
 			name="nova_poshta_addr"
 			maxlength="200"
 			placeholder="Введите адрес отделения"
+			autocomplete="off"
 		>
 
-		<input type="hidden" name="city_ref" value="">
+		<input type="hidden" name="np_city_ref" value="">
+		<input type="hidden" name="np_city_name" value="">
 
 		<div class="variants-addrs"></div>
 	</div>
 
-	<div class="form-group">
-		<!-- TODO: Create and use component of custom select -->
-		<label for="nova_poshta_addr" class="form-label">Номер отделения или поштомата</label>
-		<input 
-			type="text" 
-			class="std-input"
-			id="nova_poshta_department_number"
-			name="nova_poshta_department_number"
-			maxlength="200"
-			placeholder="выберите нужное отделение"
-		>
+	<div class="form-group nova-poshta-department-number-selector-wrap">
+		<label class="form-label">Номер отделения или поштомата</label>
+		<?= $this -> join("site/components/select", [
+				"component_id" => "np_department",
+				"input_name" => "np_department",
+				"default_text" => "Выберите отделение или поштомат", 
+				"value" => "",
+				"variants" => []
+			]);
+		?>
 	</div>
 </div>
