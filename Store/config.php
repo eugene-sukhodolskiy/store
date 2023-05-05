@@ -64,6 +64,7 @@ return [
 	],
 
 	"nova_poshta" => [
+		"api_url" => "https://api.novaposhta.ua/v2.0/json/",
 		"api_key" => "3eaf0e159afe550bbdbde3611898e395"
 	]
 ]; 

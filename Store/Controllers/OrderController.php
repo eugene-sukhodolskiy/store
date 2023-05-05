@@ -5,6 +5,7 @@ namespace Store\Controllers;
 use \Store\Entities\UAdPost;
 use \Store\Models\UAdPosts;
 use \Store\Models\Orders;
+use \Store\Models\NovaPoshta;
 
 class OrderController extends \Store\Middleware\Controller {
 	public function new_order_page($uadpost_alias) {
@@ -75,15 +76,66 @@ class OrderController extends \Store\Middleware\Controller {
 		// Handling delivery method data
 
 		$orders = new Orders();
-		$result = $orders -> create($auth_user -> id, $uap_id, $price, $currency, $single_price, $comment, $delivery_method);
+		$order = $orders -> create(
+			$auth_user -> id, 
+			$uap_id, 
+			$price, 
+			$currency, 
+			$single_price, 
+			$comment, 
+			$delivery_method
+		);
 
-		if(!$result) {
+		if(!$order) {
 			return app() -> utils -> response_error("fail_creating_order");
+		}
+
+		// If delivery method is nova poshta
+		if($order -> delivery_method == 1) {
+			$np_delivery_model = new NovaPoshta();
+
+			// TODO: Make place for data validation
+			if(
+				strlen($nova_poshta_addr) < 5
+				or strlen($np_city_ref) < 20
+				or strlen($np_city_name) == 0
+				or strlen($np_department) < 2
+			) {
+				// Error
+				return app() -> utils -> response_error("fail_creating_order");
+			}
+
+			$np_department_data = json_decode($np_department, true);
+			// TODO: Make better validation
+			// TODO: Fitering for json data (np_department_data)
+			if(
+				!$np_department_data
+				or !strlen($np_department_data["Description"])
+				or !isset($np_department_data["Latitude"]) or !floatval($np_department_data["Latitude"])
+				or !isset($np_department_data["Longitude"]) or !floatval($np_department_data["Longitude"])
+				or !intval($np_department_data["Number"])
+				or !isset($np_department_data["PlaceMaxWeightAllowed"])
+			) {
+				return app() -> utils -> response_error("fail_creating_order");
+			}
+
+			$np_delivery_item = $np_delivery_model -> create(
+				$order -> id, 
+				$nova_poshta_addr, 
+				$np_city_ref, 
+				$np_city_name, 
+				$np_department
+			);
+
+			if(!$np_delivery_item) {
+				$order -> remove();
+				return app() -> utils -> response_error("fail_creating_order");
+			}
 		}
 
 		return app() -> utils -> response_success([
 			"details" => [
-				"order_id" => $result -> id,
+				"order_id" => $order -> id,
 				"uap_id" => $uap_id, 
 				"price" => $price, 
 				"currency" => $currency, 
@@ -313,29 +365,5 @@ class OrderController extends \Store\Middleware\Controller {
 						"utype" => $utype
 					])
 		]);
-	}
-
-	public function nova_poshta_api($nova_poshta_api_request) {
-		$url = 'https://api.novaposhta.ua/v2.0/json/';
-		$data = json_decode($nova_poshta_api_request, true);
-		$data["apiKey"] = FCONF["nova_poshta"]["api_key"];
-		$data["methodProperties"]["Language"] = "RU";
-
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json;charset=UTF-8'));
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		if (!$response) {
-			return $this -> utils() -> response_error("server_not_available");
-		}
-		
-		return $this -> utils() -> response_success(json_decode($response, true));
 	}
 }

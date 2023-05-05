@@ -1,6 +1,10 @@
 .page.new-order {
 	.component.order-form {
 		margin-top: $std-mg-lg;
+	
+		.comment-wrap {
+			margin-top: 0;
+		}
 	}
 
 	@include uadpost-card-std-adaptive();

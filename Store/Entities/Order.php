@@ -64,4 +64,8 @@ class Order extends \Store\Middleware\Entity {
 		$this -> seller() -> statistics() -> total_saled_increase();
 		return $this -> update();	
 	}
+
+	public function remove() {
+		$this -> remove_entity();
+	}
 }

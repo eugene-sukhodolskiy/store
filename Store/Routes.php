@@ -194,8 +194,8 @@ class Routes {
 		);
 
 		$this -> router -> post(
-			[ "nova_poshta_api_request" ],
-			"{$this -> cn}\\OrderController@nova_poshta_api",
+			[ "req" ],
+			"{$this -> cn}\\NPDeliveryController@api_req",
 			"/tech/nova_poshta_api"
 		);
 	}

@@ -1,3 +1,5 @@
+document.querySelector(".simple-err-disp").style.display = "none";
+
 const eh_error = JSON.parse(eh_err);
 
 const ehRenderCode = () => {

@@ -83,13 +83,13 @@ class Order {
 			if (xhr.status == 200) {
 				const resp = JSON.parse(xhr.response);
 				if(resp.status) {
-					// TODO: redirect to success page 
 					document.location = ROUTES["OrderController@order_success_page"].replace("$order_id", resp.data.details.order_id);
 				} else {
 					this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
 				}
 			} else {
-				this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
+				// TODO: Need text of error getting from central text file
+				this.alert = createAlertComponent("danger", "Request error of creating new order", true, true).showIn(this.alertContainer);
 				console.error("Request error of creating new order");
 			}
 		}

@@ -100,7 +100,7 @@ class NovaPoshta {
 		const xhr = new XMLHttpRequest();
 		xhr.open(
 			"POST",
-			"/tech/nova_poshta_api"
+			ROUTES["NPDeliveryController@api_req"]
 		);
 
 		xhr.onload = () => {
@@ -149,7 +149,7 @@ class NovaPoshta {
 		});
 
 		xhr.send(new URLSearchParams({
-				"nova_poshta_api_request": data
+				"req": data
 			})
 		)
 	}
@@ -158,7 +158,7 @@ class NovaPoshta {
 		const xhr = new XMLHttpRequest();
 		xhr.open(
 			"POST",
-			"/tech/nova_poshta_api"
+			ROUTES["NPDeliveryController@api_req"]
 		);
 
 		xhr.onload = () => {
@@ -215,7 +215,7 @@ class NovaPoshta {
 		});
 
 		xhr.send(new URLSearchParams({
-				"nova_poshta_api_request": data
+				"req": data
 			})
 		)
 	}

@@ -139,6 +139,7 @@ class ErrorHandler{
 		$json_data = json_encode($data);
 		echo "<title></title>";
 		echo '<link rel="stylesheet" type="text/css" href="/Store/Resources/css/server-error-handler.css">';
+		echo "<div class='simple-err-disp'><b>{$data["err_type"]}</b>: {$data["errstr"]}<br>{$data["errfile"]} In line <b>{$data["errline"]}</b></div>";
 		echo "<script>const eh_err = `{$json_data}`;</script>";
 		echo '<script src="/Store/Resources/js/dist/server-error-handler.js"></script>';
 		echo "<div class='error-handler'></div>";

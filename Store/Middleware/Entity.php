@@ -62,7 +62,7 @@ class Entity {
 		return static::$fields;
 	}
 
-	public function remove_entity() {
+	protected function remove_entity() {
 		return app() -> thin_builder -> delete(static::$table_name, [ "id", "=", $this -> id() ]);
 	}
 }
