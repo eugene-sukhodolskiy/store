@@ -12,10 +12,33 @@
 		height: max-content;
 	}
 
+	.addr-inp {
+		padding-right: 40px;
+	}
+
+	.component.preloader {
+		&.addr-inp-preloader {
+			position: absolute;
+			right: 10px;
+			top: 24px;
+
+			@include preloader-params(2px, $color-text);
+			@include preloader-size-sm();
+		}
+
+		&.nova-poshta-department-number-selector-preloader {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+
+			@include preloader-params(3px, $color-text-lite);
+		}
+	}
+
 	.variants-addrs {
 		overflow-y: auto;
-    max-height: 200px;
-    position: absolute;
+		max-height: 200px;
+		position: absolute;
 		left: 0;
 		top: auto;
 		margin-top: $std-mg-md;
@@ -33,7 +56,7 @@
 			visibility: visible;
 		}
 
-    &::-webkit-scrollbar {
+		&::-webkit-scrollbar {
 			width: 7px;
 		}
 
@@ -48,7 +71,7 @@
 		}
 	}
 
-	.nova-poshta-department-number-selector-wrap {
+	.nova-poshta-department-number-selector-group {
 		opacity: 0;
 		visibility: hidden;
 		display: none;

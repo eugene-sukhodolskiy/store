@@ -15,3 +15,24 @@
 		}
 	}
 }
+
+@mixin preloader-size-sm() {
+	.loadingio-spinner-rolling {
+		width: 20px;
+		height: 20px;
+	}
+
+	.ldio div {
+		width: 14px;
+		height: 14px;
+		top: 10px;
+		left: 10px;
+	}
+}
+
+@mixin preloader-params($thickness, $color) {
+	.ldio div {
+		border: $thickness solid $color;
+		border-top-color: transparent;
+	}
+}

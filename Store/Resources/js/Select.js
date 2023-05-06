@@ -139,4 +139,9 @@ class Select {
 		this.resultValueInput.value = value;
 		this.runChangeHandlers(value);
 	}
+
+	reset() {
+		this.resultValueInput.value = "";
+		this.viewContainer.innerHTML = this.component.dataset.defaultText;
+	}
 }

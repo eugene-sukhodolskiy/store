@@ -4,12 +4,14 @@ class NovaPoshta {
 		this.component.getInstance = () => this;
 		this.orderInstance = orderInstance;
 		this.addrInp = this.component.querySelector("#nova_poshta_addr");
+		this.addrInpPreloaderComponent = new Preloader(this.component.querySelector(".addr-inp-preloader"));
 		this.addrCityRefInp = this.component.querySelector(`[name="np_city_ref"]`);
 		this.addrCityName = this.component.querySelector(`[name="np_city_name"]`);
 		this.variantsList = this.component.querySelector(".variants-addrs");
-		this.novaPoshtaDepartmentNumberSelectorWrap = this.component.querySelector(".nova-poshta-department-number-selector-wrap");
+		this.novaPoshtaDepartmentNumberSelectorWrap = this.component.querySelector(".nova-poshta-department-number-selector-group");
 		this.novaPoshtaDepartmentNumber = this.component.querySelector("#np_department");
 		this.novaPoshtaDepartmentNumberComponent = new Select(this.novaPoshtaDepartmentNumber);
+		this.novaPoshtaDepartmentNumberPreloaderComponent = new Preloader(this.component.querySelector(".nova-poshta-department-number-selector-preloader"));
 		this.minValueLength = 2;
 
 		this.initEvents();
@@ -104,6 +106,8 @@ class NovaPoshta {
 		);
 
 		xhr.onload = () => {
+			this.addrInpPreloaderComponent.hide();
+
 			if (xhr.status == 200) {
 				let resp = JSON.parse(xhr.response);
 				
@@ -135,6 +139,7 @@ class NovaPoshta {
 		xhr.onerror = () => {
 			// TODO: Show error in central error bar
 			this.showErrServerNotAvailable();
+			this.addrInpPreloaderComponent.hide();
 			console.error("Request error of creating new order");
 		};
 
@@ -148,6 +153,7 @@ class NovaPoshta {
 			}
 		});
 
+		this.addrInpPreloaderComponent.show();
 		xhr.send(new URLSearchParams({
 				"req": data
 			})
@@ -214,6 +220,8 @@ class NovaPoshta {
 			}
 		});
 
+		this.novaPoshtaDepartmentNumberPreloaderComponent.show();
+		this.hideNovaPoshtaDepartmentNumberComponent();
 		xhr.send(new URLSearchParams({
 				"req": data
 			})
@@ -222,6 +230,17 @@ class NovaPoshta {
 	
 	showNovaPoshtaDepartmentNumberComponent() {
 		this.novaPoshtaDepartmentNumberSelectorWrap.style.display = "block";
+		this.novaPoshtaDepartmentNumberPreloaderComponent.hide();
 		this.novaPoshtaDepartmentNumberSelectorWrap.classList.add("show");
+	}
+
+	hideNovaPoshtaDepartmentNumberComponent() {
+		this.resetNovaPoshtaDepartmentNumberValue();
+		this.novaPoshtaDepartmentNumberSelectorWrap.style.display = "block";
+		this.novaPoshtaDepartmentNumberSelectorWrap.classList.remove("show");
+	}
+
+	resetNovaPoshtaDepartmentNumberValue() {
+		this.novaPoshtaDepartmentNumberComponent.reset();
 	}
 }
