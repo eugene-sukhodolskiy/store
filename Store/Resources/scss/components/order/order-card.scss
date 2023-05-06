@@ -36,10 +36,10 @@
 			height: min-content;
 
 			.customer-userpic {
-			  position: relative;
-			  top: 2px;
+				position: relative;
+				top: 2px;
 				width: 18px;
-			  height: 18px;
+				height: 18px;
 				border-radius: 100%;
 				display: inline-block;
 				background-size: cover;
@@ -57,5 +57,27 @@
 		.order-timestamp {
 			color: $color-text-lite;
 		}
+
+		.order-delivery {
+			.mdi-chevron-down {
+				transform-origin: 50% 50%;
+				display: inline-block;
+				height: 20px;
+				position: relative;
+				top: 0px;
+				transition-duration: $trans-du;
+				transition-property: transform;
+			}
+
+			&.opened {
+				.mdi-chevron-down {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	.component.order-delivery-details {
+		display: none;
 	}
 }

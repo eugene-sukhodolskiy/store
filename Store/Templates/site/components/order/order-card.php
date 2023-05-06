@@ -55,14 +55,26 @@
 			<? endif ?>
 		</div>
 
-		<div class="order-delivery">
-			<span class="mdi mdi-truck-fast-outline"></span>
-			<?= $order -> get_delivery_method_text_name() ?>
-		</div>
+		<? if($order -> delivery_method === "1"): ?>
+			<button class="std-btn btn-default order-delivery" data-show-delivery-details="<?= $order -> id ?>">
+				<span class="mdi mdi-truck-fast-outline"></span>
+				<?= $order -> get_delivery_method_text_name() ?>
+				<span class="mdi mdi-chevron-down"></span>
+			</button>
+		<? else: ?>
+			<div class="order-delivery">
+				<span class="mdi mdi-truck-fast-outline"></span>
+				<?= $order -> get_delivery_method_text_name() ?>
+			</div>
+		<? endif ?>
 
 		<div class="order-timestamp">
 			<span class="mdi mdi-calendar"></span>
 			<?= $order -> get_formatted_create_at() ?>
 		</div>
 	</div>	
+	
+	<?= $this -> join("site/components/order/order-delivery-details", [
+		"order" => $order
+	]) ?>
 </div>

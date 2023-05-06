@@ -205,4 +205,26 @@ class Utils {
 
 		return $jpg_data;
 	}
+
+	public function dayname_translate(String $dayname, String $lang = "ru"): ?String {
+		$days = [
+			["en" => "monday", "ru" => "понедельник", "uk" => "понеділок"],
+			["en" => "tuesday", "ru" => "вторник", "uk" => "вівторок"],
+			["en" => "wednesday", "ru" => "среда", "uk" => "середа"],
+			["en" => "thursday", "ru" => "четверг", "uk" => "четвер"],
+			["en" => "friday", "ru" => "пятница", "uk" => "п'ятниця"],
+			["en" => "saturday", "ru" => "суббота", "uk" => "субота"],
+			["en" => "sunday", "ru" => "воскресенье", "uk" => "неділя"]
+		];
+
+		$dayname = strtolower($dayname);
+
+		foreach($days as $day) {
+			if($day["en"] == $dayname) {
+				return $day[$lang];
+			}
+		}
+
+		return null;
+	}
 }

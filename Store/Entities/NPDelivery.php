@@ -16,5 +16,7 @@ class NPDelivery extends \Store\Middleware\Entity {
 		);
 	}
 
-	
+	public function department(): Mixed {
+		return json_decode($this -> np_department);
+	}	
 }

@@ -1,4 +1,4 @@
-class Order {
+class OrderForm {
 	constructor() {
 		this.alert;
 		this.form = document.querySelector("form.form.order");

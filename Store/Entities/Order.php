@@ -1,6 +1,7 @@
 <?php
 
 namespace Store\Entities;
+use \Store\Models\NovaPoshta;
 
 class Order extends \Store\Middleware\Entity {
 	public static $table_name = "orders";
@@ -67,5 +68,16 @@ class Order extends \Store\Middleware\Entity {
 
 	public function remove() {
 		$this -> remove_entity();
+	}
+
+	public function nova_poshta_delivery(): ?NPDelivery {
+		if($this -> delivery_method !== "1") {
+			return null;
+		}
+
+		return $this -> get_pet_instance(
+			"NPDelivery", 
+			fn() => (new NovaPoshta()) -> get_by_order_id($this -> id)
+		);
 	}
 }

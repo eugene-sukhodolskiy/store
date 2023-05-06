@@ -1,0 +1,33 @@
+.component.order-delivery-details {
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: $std-pd-sm;
+	}
+
+	.schedule {
+		padding-left: $std-pd-lg;
+		margin-top: $std-mg-md;
+		font-size: $fsize-sm;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: $std-mg-md;
+
+		.week-item {
+			border: 1px solid $color-bg;
+			padding: $std-pd-sm;
+			border-radius: $border-rad-lg;
+
+			&.current {
+				background-color: $color-bg;
+			}
+
+			.day-name {
+				&::first-letter {
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+}
