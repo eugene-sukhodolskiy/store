@@ -21,7 +21,7 @@
 			<? endforeach ?>
 		</div>
 
-		<div class="preloader-wrap hide">
+		<div class="preloader-wrap">
 			<?= $this -> join("site/components/preloader") ?>
 		</div>
 	</div>
@@ -31,7 +31,7 @@
 			<span class="mdi mdi-close"></span>
 		</button>
 		
-		<div class="preloader-wrap hide">
+		<div class="preloader-wrap">
 			<?= $this -> join("site/components/preloader") ?>
 		</div>
 

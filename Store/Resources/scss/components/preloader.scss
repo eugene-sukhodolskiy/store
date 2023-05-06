@@ -8,32 +8,45 @@
 	}
 }
 
-.loadingio-spinner-rolling {
-	width: 50px;
-	height: 50px;
-	display: inline-block;
-	overflow: hidden;
-	background: none;
-}
+.component.preloader {
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: $trans-du;
+	transition-property: opacity, visibility;
 
-.ldio {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	transform: translateZ(0) scale(1);
-	backface-visibility: hidden;
-	transform-origin: 0 0;
+	&.show {
+		opacity: 1;
+		visibility: visible;
+	}
 
-	div {
-		position: absolute;
-		width: 30px;
-		height: 30px;
-		border: 6px solid #ffffff;
-		border-top-color: transparent;
-		border-radius: 50%;
-		animation: ldio 1s linear infinite;
-		top: 25px;
-		left: 25px;
-		box-sizing: content-box;
+	.loadingio-spinner-rolling {
+		width: 50px;
+		height: 50px;
+		display: inline-block;
+		overflow: hidden;
+		background: none;
+	}
+
+	.ldio {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		transform: translateZ(0) scale(1);
+		backface-visibility: hidden;
+		transform-origin: 0 0;
+
+		div {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			border: 6px solid #ffffff;
+			border-top-color: transparent;
+			border-radius: 50%;
+			animation: ldio 1s linear infinite;
+			top: 25px;
+			left: 25px;
+			box-sizing: content-box;
+		}
 	}
 }
+

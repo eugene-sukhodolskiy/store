@@ -13,7 +13,9 @@ class Carousel {
 		this.imgViewObject = this.imgViewer.querySelector(".view");
 		this.controlPanel = this.container.querySelector(".carousel-control");
 		this.imgViewerPreloader = this.imgViewer.querySelector(".preloader-wrap");
+		this.imgViewerPreloaderComponent = new Preloader(this.imgViewerPreloader.querySelector(".component.preloader"));
 		this.renderFieldPreloader = this.container.querySelector(".render-field .preloader-wrap");
+		this.renderFieldPreloaderComponent = new Preloader(this.renderFieldPreloader.querySelector(".component.preloader"));
 
 		this.container.getInstance = () => this; 
 		this.viewerMode = false;
@@ -47,7 +49,7 @@ class Carousel {
 		this.imgs.forEach(
 			item => item.querySelector("img").addEventListener("load", e => {
 				if(!e.currentTarget.getAttribute("data-lazy-load")){
-					this.renderFieldPreloader.classList.add("hide");
+					this.renderFieldPreloaderComponent.hide();
 				}
 			})
 		);
@@ -56,7 +58,7 @@ class Carousel {
 
 		this.imgViewObject.addEventListener("load", e => {
 			e.currentTarget.classList.remove("hide");
-			this.imgViewerPreloader.classList.add("hide");
+			this.imgViewerPreloaderComponent.hide();
 		});
 
 		this.keyboardEvents();
@@ -100,13 +102,13 @@ class Carousel {
 		this.imgsContainer.style.marginLeft = `-${this.currentNum}00%`;
 		if(this.currentNum <= 0) {
 			this.prevBtns.forEach(item => item.classList.add("disable"));
-		}else {
+		} else {
 			this.prevBtns.forEach(item => item.classList.remove("disable"));
 		}
 
 		if(this.currentNum >= this.total - 1) {
 			this.nextBtns.forEach(item => item.classList.add("disable"));
-		}else {
+		} else {
 			this.nextBtns.forEach(item => item.classList.remove("disable"));
 		}
 
@@ -115,7 +117,7 @@ class Carousel {
 		this.lazyLoad(this.imgs[this.currentNum].querySelector("img"));
 
 		if(this.viewerMode) {
-			this.imgViewerPreloader.classList.remove("hide");
+			this.imgViewerPreloaderComponent.show();
 			this.imgViewObject.classList.add("hide");
 			this.imgViewObject.src = this.imgs[this.currentNum].querySelector("img").getAttribute("data-carousel-control-view");
 		}
@@ -137,7 +139,7 @@ class Carousel {
 	lazyLoad(img) {
 		const largeImgUrl = img.getAttribute("data-lazy-load");
 		if(largeImgUrl){
-			this.renderFieldPreloader.classList.remove("hide");
+			this.renderFieldPreloaderComponent.show();
 			img.src = largeImgUrl;
 			img.removeAttribute("data-lazy-load");
 		}
@@ -156,7 +158,7 @@ class Carousel {
 
 	view(url) {
 		this.viewerMode = true;
-		this.imgViewerPreloader.classList.remove("hide");
+		this.imgViewerPreloaderComponent.show();
 		this.imgViewObject.src = url;
 		this.imgViewObject.classList.add("hide");
 		this.imgViewer.classList.add("show");
@@ -167,7 +169,7 @@ class Carousel {
 
 	closeView() {
 		this.viewerMode = false;
-		this.imgViewerPreloader.classList.add("hide");
+		this.imgViewerPreloaderComponent.hide();
 		this.imgViewer.classList.remove("show");
 		this.controlPanel.classList.remove("viewer-mode");
 	}

@@ -8,6 +8,7 @@ class App {
 		
 		this.initBaseEvents();
 		this.initControlPanelEvents();
+		this.initPreloaders();
 	}
 
 	initBaseEvents() {
@@ -156,6 +157,15 @@ class App {
 				})
 			})
 		);
+	}
+
+	initPreloaders() {
+		// init Preloaders 
+		document.querySelectorAll(".component.preloader").forEach(i => {
+			if(typeof i.getInstance == "undefined") {
+				new Preloader(i);
+			}
+		});
 	}
 }
 
