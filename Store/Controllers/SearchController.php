@@ -118,7 +118,11 @@ class SearchController extends \Store\Middleware\Controller {
 			"total_uadposts" => $total_uadposts,
 			"search_query" => $s,
 			"sorting" => $sorting,
-			"sorting_params_map" => $sorting_params_map,
+			"sorting_variants" => array_map(
+				fn($val, $text) => [ "value" => $val, "text" => $text ],
+				array_keys($sorting_params_map), 
+				array_map(fn($item) => $item["name"], $sorting_params_map)
+			),
 			"location_country" => app() -> sessions -> is_auth() 
 				? app() -> sessions -> auth_user() -> profile() -> country_en 
 				: null,

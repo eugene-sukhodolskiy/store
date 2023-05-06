@@ -9,15 +9,26 @@
 	 */
 	
 	$default_text = $default_text ?? "Undefined";
+	$text = $default_text;
+	if($value) {
+		foreach($variants as $item) {
+			if($item["value"] == $value) {
+				$text = $item["text"];
+				break;
+			}
+		}
+	}
 ?>
+
 <div 
 	class="component select" 
 	id="<?= $component_id ?>"
 	data-default-text="<?= $default_text ?>"
+	data-default-value="<?= $value ?? "" ?>"
 >
 	<div class="displaying-current-selected std-input">
 		<?= $prefix ?? "" ?>
-		<span class="current-selected"><?= $variants[$value] ?? $default_text ?></span>
+		<span class="current-selected"><?= $text ?></span>
 		<span class="mdi mdi-chevron-down select-icon"></span>
 	</div>
 

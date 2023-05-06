@@ -13,11 +13,9 @@
 				<div class="search-header">
 					<h3>По запросу "<?= $search_query ?>" найдено <?= $total_uadposts ?> результатов</h3>
 					<?= $this -> join("site/components/uadpost/sorting", [
-						"value" => $sorting,
-						"variants" => array_combine(
-								array_keys($sorting_params_map), 
-								array_map(fn($item) => $item["name"], $sorting_params_map)
-							)
+						"input_name" => "sorting-inp",
+						"value" => $sorting ?? $sorting_variants[0]["value"],
+						"variants" => $sorting_variants
 						]);
 					?>
 				</div>

@@ -1,38 +1,5 @@
 .component.sorting {
 	position: relative;
 	height: 20px;
-	width: max-content;
-
-	.displaying-current-selected {
-		display: flex;
-		flex-direction: row;
-		gap: $std-mg-sm;
-		cursor: default;
-		width: max-content;
-	}
-
-	.select {
-		position: absolute;
-		width: max-content;
-		top: 25px;
-		right: 0;
-		padding-top: $std-pd-sm;
-		visibility: hidden;
-		opacity: 0;
-		transition-duration: $trans-du;
-		transition-property: visibility, opacity, top;
-
-		.clickable-list {
-			box-shadow: $shadow-sm;
-		}
-	}
-
-	&:hover, 
-	&.show {
-		.select {
-			top: 20px;
-			opacity: 1;
-			visibility: visible;
-		}
-	}
+	width: 210px;
 }

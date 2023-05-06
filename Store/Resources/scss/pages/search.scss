@@ -33,7 +33,7 @@
 			justify-content: space-between;
 
 			.component.sorting {
-				top: 3px;
+				top: -10px;
 
 				@include media("max", "md") {
 					position: absolute;
