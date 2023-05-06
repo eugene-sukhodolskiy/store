@@ -22,6 +22,7 @@
 						class="std-input"
 						min="0" 
 						placeholder="От"
+						tabindex="1"
 					>
 					<span class="sep">-</span>
 					<input 
@@ -31,6 +32,7 @@
 						class="std-input" 
 						min="1"
 						placeholder="До"
+						tabindex="2"
 					>
 				</div>
 			</div>
@@ -64,6 +66,7 @@
 							id="condition_any"
 							value="any"
 							title="Любой"
+							tabindex="4"
 							checked
 						>
 						<label class="form-label" for="condition_any">Любой</label>
@@ -77,6 +80,7 @@
 							id="condition_used"
 							value="used"
 							title="Б/У"
+							tabindex="5"
 						>
 						<label class="form-label" for="condition_used">Б/У</label>
 					</div>
@@ -89,6 +93,7 @@
 							id="condition_new"
 							value="new"
 							title="Новый"
+							tabindex="6"
 						>
 						<label class="form-label" for="condition_new">Новый</label>
 					</div>
@@ -102,6 +107,7 @@
 					name="exchange_flag"
 					id="exchange_flag"
 					checked
+					tabindex="7"
 				>
 				<label for="exchange_flag" class="form-label">
 					Возможен обмен
@@ -109,10 +115,10 @@
 			</div>
 
 			<div class="form-group std-row space-between btns">
-				<button class="std-btn btn-primary apply-filters">
+				<button class="std-btn btn-primary apply-filters" tabindex="9">
 					Применить
 				</button>
-				<button class="std-btn btn-default clear-filters">
+				<button class="std-btn btn-default clear-filters" tabindex="10">
 					<span class="mdi mdi-close"></span>
 					Очистить
 				</button>

@@ -13,6 +13,7 @@
 		"default_text" => "Undefined",
 		"value" => $value,
 		"input_name" => $input_name,
-		"variants" => $variants
+		"variants" => $variants,
+		"tabindex" => 8
 	]) ?>
 </div>

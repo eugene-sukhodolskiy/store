@@ -36,6 +36,7 @@
 			?>
 			<?= $this -> join("site/components/select", [
 					"component_id" => "delivery_method",
+					"tabindex" => 1,
 					"input_name" => "delivery_method",
 					"default_text" => "Выберите метод доставки", 
 					"value" => "",
@@ -56,12 +57,20 @@
 				class="std-input"
 				mexlength="600"
 				placeholder="Коментарий к заказу"
+				tabindex="4"
 			></textarea>
 		</div>
 		<div class="alert-container"></div>
 		<div class="form-gorup">
-			<button class="std-btn btn-success submit">Оформить покупку</button>
-			<button class="std-btn btn-default cancel" data-cancel-url="<?= $uadpost -> get_url() ?>">Отмена</button>
+			<button 
+				class="std-btn btn-success submit" 
+				tabindex="5"
+			>Оформить покупку</button>
+			<button 
+				class="std-btn btn-default cancel" 
+				data-cancel-url="<?= $uadpost -> get_url() ?>" 
+				tabindex="6"
+			>Отмена</button>
 		</div>
 	</form>
 </div>

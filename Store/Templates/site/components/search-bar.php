@@ -6,6 +6,7 @@
 			class="std-input search-field"
 			value="<?= isset($_GET["s"]) ? $_GET["s"] : "" ?>"
 			placeholder="Поиск"
+			tabindex="-1"
 		>
 		
 		<button class="submit">

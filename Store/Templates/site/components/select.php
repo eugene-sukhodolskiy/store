@@ -6,6 +6,7 @@
 	 * @var String $value
 	 * @var String $input_name
 	 * @var Array $variants
+	 * @var Int $tabindex
 	 */
 	
 	$default_text = $default_text ?? "Undefined";
@@ -26,7 +27,10 @@
 	data-default-text="<?= $default_text ?>"
 	data-default-value="<?= $value ?? "" ?>"
 >
-	<div class="displaying-current-selected std-input">
+	<div 
+		class="displaying-current-selected std-input" 
+		tabindex="<?= $tabindex ?? 1 ?>"
+	>
 		<?= $prefix ?? "" ?>
 		<span class="current-selected"><?= $text ?></span>
 		<span class="mdi mdi-chevron-down select-icon"></span>

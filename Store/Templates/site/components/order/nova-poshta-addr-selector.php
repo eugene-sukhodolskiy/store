@@ -9,6 +9,7 @@
 			maxlength="200"
 			placeholder="Введите адрес отделения"
 			autocomplete="off"
+			tabindex="2"
 		>
 		<?= $this -> join("site/components/preloader", [
 			"addition_class" => "addr-inp-preloader"
@@ -28,6 +29,7 @@
 		<label class="form-label">Номер отделения или поштомата</label>
 		<?= $this -> join("site/components/select", [
 				"component_id" => "np_department",
+				"tabindex" => 3,
 				"input_name" => "np_department",
 				"default_text" => "Выберите отделение или поштомат", 
 				"value" => "",

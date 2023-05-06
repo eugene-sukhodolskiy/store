@@ -9,6 +9,12 @@ class App {
 		this.initBaseEvents();
 		this.initControlPanelEvents();
 		this.initPreloaders();
+
+		document.querySelectorAll("a, button").forEach(i => {
+			if(!i.getAttribute("tabindex")) {
+				i.setAttribute("tabindex", -1);
+			}
+		})
 	}
 
 	initBaseEvents() {

@@ -14,13 +14,11 @@ class Select {
 	initEvents() {
 		this.initOptions();
 
-		this.displayingCurrentSelected.addEventListener("click", e => {
-			setTimeout(() => {
-				this.component.classList.toggle("show");
-			}, 10);
+		this.displayingCurrentSelected.addEventListener("focus", e => {
+			this.component.classList.add("show");
 		});
 
-		document.addEventListener("click", e => {
+		this.displayingCurrentSelected.addEventListener("blur", e => {
 			this.blurComponent();
 		});
 
@@ -36,12 +34,12 @@ class Select {
 			}
 
 			if(e.code == "Escape") {
-				this.blurComponent();
+				this.displayingCurrentSelected.blur();
 			}
 
 			if(e.code == "Enter") {
 				this.selectOption(this.optionsContainer.querySelector(".active"));
-				this.blurComponent();
+				this.displayingCurrentSelected.blur();
 			}
 		});
 	}
