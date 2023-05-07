@@ -82,11 +82,6 @@ class Routes {
 		);
 
 		$this -> router -> uri(
-			'/profile/orders/$utype/exclude-states/$excluding', 
-			"{$this -> cn}\\OrderController@orders_cur_user_page"
-		);
-
-		$this -> router -> uri(
 			'/profile/orders/change-state/$state/$order_id', 
 			"{$this -> cn}\\OrderController@change_order_state"
 		);

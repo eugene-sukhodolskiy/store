@@ -37,14 +37,16 @@ class Orders {
 					}
 				}
 
-				let currentPathname = document.location.pathname;
-				if(currentPathname.indexOf("exclude-states") > -1) {
-					let tmp = currentPathname.split("exclude-states");
-					tmp[1] = "/" + excludingStates.join("+");
-					document.location = tmp.join("exclude-states");
-				} else {
-					document.location += "/exclude-states/" + excludingStates.join("+");
+				const searchParams = new URLSearchParams(document.location.search);
+				if(searchParams.has("excluding")) {
+					searchParams.delete("excluding");
 				}
+				
+				if(excludingStates.length) {
+					searchParams.append("excluding", excludingStates.join(","));
+				}
+
+				document.location.search = searchParams.toString();
 			})
 		});
 	}
