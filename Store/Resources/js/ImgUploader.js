@@ -1,21 +1,21 @@
 class ImgUploader {
-	constructor(selector, maxNumberImgs, uploadAction) {
-		this.container = document.querySelector(selector);
+	constructor(component, maxNumberImgs, uploadAction) {
+		this.component = component;
 		this.initEvents();
-		this.counter = this.container.querySelectorAll("[data-alias]").length;
+		this.counter = this.component.querySelectorAll("[data-alias]").length;
 		this.maxNumberImgs = maxNumberImgs;
-		this.emptyTemplate = this.container.querySelector(".reference-selected-img .selected-img.empty").cloneNode(true);
+		this.emptyTemplate = this.component.querySelector(".reference-selected-img .selected-img.empty").cloneNode(true);
 		this.uploadAction = uploadAction;
 
-		this.container.parentNode.getInstance = () => this;
+		this.component.parentNode.getInstance = () => this;
 	}
 
 	initEvents() {
-		this.container.querySelector(".add-img").addEventListener("click", e => {
-			this.container.querySelector('input[name="imgs"]').click();
+		this.component.querySelector(".add-img").addEventListener("click", e => {
+			this.component.querySelector('input[name="imgs"]').click();
 		});
 
-		this.container.querySelector('input[name="imgs"]').addEventListener("change", e => {
+		this.component.querySelector('input[name="imgs"]').addEventListener("change", e => {
 			for(let file of e.currentTarget.files) {
 				this.setFile(file);
 			}
@@ -23,24 +23,24 @@ class ImgUploader {
 			e.currentTarget.value = "";
 		});
 
-		this.container.addEventListener("dragover", e => {
+		this.component.addEventListener("dragover", e => {
 			e.preventDefault();
 			for(let item of e.dataTransfer.items) {
 				if(item.kind == "file" && item.type == "image/jpeg") {
-					this.container.classList.add("drag-and-drop");
+					this.component.classList.add("drag-and-drop");
 					break;
 				}
 			}
 		});
 
-		this.container.addEventListener("dragleave", e => {
+		this.component.addEventListener("dragleave", e => {
 			e.preventDefault();
-			this.container.classList.remove("drag-and-drop");
+			this.component.classList.remove("drag-and-drop");
 		});
 
-		this.container.addEventListener("drop", e => {
+		this.component.addEventListener("drop", e => {
 			e.preventDefault();
-			this.container.classList.remove("drag-and-drop");
+			this.component.classList.remove("drag-and-drop");
 			
 			for(let item of e.dataTransfer.items) {
 				if(item.kind == "file"){
@@ -49,7 +49,7 @@ class ImgUploader {
 			}
 		});
 
-		this.container.querySelectorAll(".selected-img").forEach(item => {
+		this.component.querySelectorAll(".selected-img").forEach(item => {
 			if(!item.classList.contains(".empty")) {
 				this.addEventsTo(item);
 			}
@@ -60,10 +60,10 @@ class ImgUploader {
 		imgContainer.querySelector(".btn-remove").addEventListener("click", e => {
 			e.preventDefault();
 			e.currentTarget.parentNode.parentNode.remove();
-			this.container.querySelector(".add-img").classList.remove("dnone");
+			this.component.querySelector(".add-img").classList.remove("dnone");
 			this.counter--;
 
-			this.container.querySelector(".selected-imgs-grid").appendChild(this.emptyTemplate.cloneNode(true));
+			this.component.querySelector(".selected-imgs-grid").appendChild(this.emptyTemplate.cloneNode(true));
 		});
 
 		imgContainer.querySelector(".btn-move-left").addEventListener("click", e => {
@@ -79,7 +79,7 @@ class ImgUploader {
 
 	checkNumberImgsOnMax() {
 		if(this.counter >= this.maxNumberImgs) {
-			this.container.querySelector(".add-img").classList.add("dnone");
+			this.component.querySelector(".add-img").classList.add("dnone");
 			return true;
 		}
 
@@ -88,7 +88,7 @@ class ImgUploader {
 
 	getPreparedData() {
 		const data = [];
-		this.container.querySelectorAll(".selected-img img[data-alias]").forEach(img => {
+		this.component.querySelectorAll(".selected-img img[data-alias]").forEach(img => {
 			data.push({
 				"alias": img.getAttribute("data-alias"),
 				"path": img.getAttribute("data-path"),
@@ -112,7 +112,7 @@ class ImgUploader {
 
 			const img = document.createElement('img');
 			img.src = reader.result;
-			const imgContainer = this.container.querySelector(".selected-imgs-grid .selected-img.empty");
+			const imgContainer = this.component.querySelector(".selected-imgs-grid .selected-img.empty");
 			imgContainer.classList.remove("empty");
 			imgContainer.appendChild(img);
 			this.uploadImg(imgContainer, reader.result);

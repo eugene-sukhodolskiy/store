@@ -1,6 +1,6 @@
 class Favorite {
-	constructor(btnsSelector) {
-		this.btns = document.querySelectorAll(btnsSelector);
+	constructor(btns) {
+		this.btns = btns;
 		this.btns.forEach( btn => btn.getInstance = () => this );
 		this.initEvents();
 	}

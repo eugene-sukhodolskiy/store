@@ -1,9 +1,9 @@
 class Paginator {
-	constructor(id) {
-		this.id = id;
-		this.paginator = document.querySelector(`#${this.id}`);
+	constructor(component) {
+		this.component = component;
+		this.id = this.component.id;
 
-		this.inp = this.paginator.querySelector(".page-num-selector");
+		this.inp = this.component.querySelector(".page-num-selector");
 
 		this.inp.addEventListener("keyup", e => {
 			let val = Math.floor(e.currentTarget.value);

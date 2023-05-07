@@ -1,20 +1,20 @@
 class Slider {
-	constructor(slider) {
-		this.slider = slider;
-		this.slider.getInstance = () => this;
+	constructor(component) {
+		this.component = component;
+		this.component.getInstance = () => this;
 		this.val = 0;
 		this.startTrackMoving = false;
 
-		this.min = parseInt(this.slider.getAttribute("data-min-val"));
-		this.max = parseInt(this.slider.getAttribute("data-max-val"));
-		this.start = this.slider.getAttribute("data-val");
-		this.defaultVal = this.slider.getAttribute("data-default-val");
-		this.formValContainer = this.slider.querySelector(".form-value-container");
+		this.min = parseInt(this.component.getAttribute("data-min-val"));
+		this.max = parseInt(this.component.getAttribute("data-max-val"));
+		this.start = this.component.getAttribute("data-val");
+		this.defaultVal = this.component.getAttribute("data-default-val");
+		this.formValContainer = this.component.querySelector(".form-value-container");
 
-		this.bar = this.slider.querySelector(".bar");
-		this.track = this.slider.querySelector(".track");
-		this.manipulator = this.slider.querySelector(".manipulator");
-		this.currentSliderVal = this.slider.querySelector(".current-slider-val");
+		this.bar = this.component.querySelector(".bar");
+		this.track = this.component.querySelector(".track");
+		this.manipulator = this.component.querySelector(".manipulator");
+		this.currentSliderVal = this.component.querySelector(".current-slider-val");
 		this.manipulatorWidth = this.manipulator.offsetWidth;
 
 		this.setPos(this.start);
@@ -69,7 +69,7 @@ class Slider {
 
 					this.bar.style.width = valInPercent + "%";
 
-					this.slider.setAttribute("data-val", this.val);
+					this.component.setAttribute("data-val", this.val);
 					this.currentSliderVal.innerHTML = Math.round(this.val);
 				}
 			)

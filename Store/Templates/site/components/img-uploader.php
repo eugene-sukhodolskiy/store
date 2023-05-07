@@ -75,6 +75,10 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		new ImgUploader(".img-uploader-container", <?= $number_images ?>, "<?= app() -> routes -> urlto("ImgUploaderController@upload_img") ?>");
+		new ImgUploader(
+			document.querySelector(".img-uploader-container"), 
+			<?= $number_images ?>, 
+			"<?= app() -> routes -> urlto("ImgUploaderController@upload_img") ?>"
+		);
 	});
 </script>

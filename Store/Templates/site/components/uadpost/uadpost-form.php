@@ -254,6 +254,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		new UAdPostForm(".component.uadpost-form");
+		new UAdPostForm(document.querySelector(".component.uadpost-form"));
 	});
 </script>

@@ -1,9 +1,9 @@
 class Search {
-	constructor() {
-		this.container = document.querySelector(".component.search-bar");
-		this.searchFieldContainer = this.container.querySelector(".search-field-container");
-		this.searchInput = this.container.querySelector(".search-field");
-		this.btnSubmit = this.container.querySelector(".submit");
+	constructor(component) {
+		this.component = component;
+		this.searchFieldContainer = this.component.querySelector(".search-field-container");
+		this.searchInput = this.component.querySelector(".search-field");
+		this.btnSubmit = this.component.querySelector(".submit");
 		this.filtersContainer = document.querySelector(".component.search-filters");
 		if(this.filtersContainer) {
 			this.filtersForm = this.filtersContainer.querySelector("form.form");

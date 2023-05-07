@@ -2,9 +2,9 @@ class App {
 	constructor() {
 		console.log("App Start");
 
-		this.search = new Search();
-		this.favorite = new Favorite("[data-make-favorite]");
-		this.orderForm = new OrderForm();
+		this.search = new Search(document.querySelector(".component.search-bar"));
+		this.favorite = new Favorite(document.querySelectorAll("[data-make-favorite]"));
+		this.orderForm = new OrderForm(document.querySelector("form.form.order"));
 		this.orders = new Orders();
 		
 		this.initBaseEvents();

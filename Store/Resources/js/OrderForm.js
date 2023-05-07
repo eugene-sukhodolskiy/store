@@ -1,19 +1,19 @@
 class OrderForm {
-	constructor() {
+	constructor(component) {
+		this.component = component;
 		this.alert;
-		this.form = document.querySelector("form.form.order");
-		this.alertContainer = this.form?.querySelector(".alert-container");
-		this.submitBtn = this.form?.querySelector("button.submit");
-		this.cancelBtn = this.form?.querySelector("button.cancel");
-		this.novaPoshtaGroup = this.form?.querySelector(".nova-poshta-group");
-		this.deliveryMethodSelector = this.form?.querySelector("#delivery_method");
+		this.alertContainer = this.component?.querySelector(".alert-container");
+		this.submitBtn = this.component?.querySelector("button.submit");
+		this.cancelBtn = this.component?.querySelector("button.cancel");
+		this.novaPoshtaGroup = this.component?.querySelector(".nova-poshta-group");
+		this.deliveryMethodSelector = this.component?.querySelector("#delivery_method");
 
-		if(this.form) {
-			this.novaPoshtaComponent = new NovaPoshta(this.form.querySelector(".component.nova-poshta-addr-selector"), this);
+		if(this.component) {
+			this.novaPoshtaComponent = new NovaPoshta(this.component.querySelector(".component.nova-poshta-addr-selector"), this);
 			this.deliveryMethodSelectorComponent = new Select(this.deliveryMethodSelector);
 		}
 
-		this.form && (this.form.getInstance = () => this);
+		this.component && (this.component.getInstance = () => this);
 		this.initEvents();
 		this.initOrdersControl();
 	}
@@ -26,7 +26,7 @@ class OrderForm {
 			});
 		});
 
-		this.form?.addEventListener("submit", e => {
+		this.component?.addEventListener("submit", e => {
 			e.preventDefault();
 			if(!this.submitBtn.classList.contains("disable")) {
 				this.createNewOrder();
@@ -59,7 +59,7 @@ class OrderForm {
 	}
 	
 	getOrderData() {
-		const data = new FormData(this.form);
+		const data = new FormData(this.component);
 		return data;
 	}
 
@@ -73,8 +73,8 @@ class OrderForm {
 
 		const xhr = new XMLHttpRequest();
 		xhr.open(
-			this.form.getAttribute("method"),
-			this.form.getAttribute("action")
+			this.component.getAttribute("method"),
+			this.component.getAttribute("action")
 		);
 
 		xhr.onload = () => {

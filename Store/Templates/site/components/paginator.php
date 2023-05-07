@@ -40,7 +40,7 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", e => {
-			new Paginator("<?= $id ?>");
+			new Paginator(document.querySelector("#<?= $id ?>"));
 		});
 	</script>
 <? endif ?>

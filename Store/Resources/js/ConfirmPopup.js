@@ -13,15 +13,15 @@
  */
 
 class ConfirmPopup {
-	constructor(selector) {
-		this.container = document.querySelector(selector);
-		this.container.getInstance = () => this;
-		this.heading = this.container.querySelector(".heading");
-		this.body = this.container.querySelector(".body");
-		this.btnApply = this.container.querySelector(".apply");
-		this.btnCancel = this.container.querySelector(".cancel");
-		this.btnClose = this.container.querySelector(".btn-popup-close");
-		this.backBlur = this.container.querySelector(".popup-back-blur");
+	constructor(component) {
+		this.component = component;
+		this.component.getInstance = () => this;
+		this.heading = this.component.querySelector(".heading");
+		this.body = this.component.querySelector(".body");
+		this.btnApply = this.component.querySelector(".apply");
+		this.btnCancel = this.component.querySelector(".cancel");
+		this.btnClose = this.component.querySelector(".btn-popup-close");
+		this.backBlur = this.component.querySelector(".popup-back-blur");
 
 		this.resetCallbacks();
 		this.resetTexts();
@@ -97,11 +97,11 @@ class ConfirmPopup {
 
 		this.setTexts(params.heading, params.body, params.applyBtnText, params.cancelBtnText);
 		this.setBtnsTypes(params.applyBtnType, params.cancelBtnType);
-		this.container.classList.add("show");
+		this.component.classList.add("show");
 	}
 
 	close() {
-		this.container.classList.remove("show");
+		this.component.classList.remove("show");
 		this.resetCallbacks();
 
 		setTimeout(() => {

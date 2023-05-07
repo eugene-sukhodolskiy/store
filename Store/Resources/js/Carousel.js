@@ -1,23 +1,22 @@
 class Carousel {
-	constructor(selector) {
-		this.selector = selector;
-		this.container = document.querySelector(selector);
-		this.imgsContainer = this.container.querySelector(".imgs-container");
+	constructor(component) {
+		this.component = component;
+		this.imgsContainer = this.component.querySelector(".imgs-container");
 		this.imgs = this.imgsContainer.querySelectorAll(".img-item");
-		this.prevBtns = this.container.querySelectorAll(`[data-carousel-control="prev"]`);
-		this.nextBtns = this.container.querySelectorAll(`[data-carousel-control="next"]`);
-		this.imgPreviewsContainer = this.container.querySelector(".img-previews");
+		this.prevBtns = this.component.querySelectorAll(`[data-carousel-control="prev"]`);
+		this.nextBtns = this.component.querySelectorAll(`[data-carousel-control="next"]`);
+		this.imgPreviewsContainer = this.component.querySelector(".img-previews");
 		this.previews = this.imgPreviewsContainer.querySelectorAll(".img-preview-item");
-		this.imgViewer = this.container.querySelector(".carousel-img-view");
+		this.imgViewer = this.component.querySelector(".carousel-img-view");
 		this.imgViewerCloseBtn = this.imgViewer.querySelector(".btn-popup-close");
 		this.imgViewObject = this.imgViewer.querySelector(".view");
-		this.controlPanel = this.container.querySelector(".carousel-control");
+		this.controlPanel = this.component.querySelector(".carousel-control");
 		this.imgViewerPreloader = this.imgViewer.querySelector(".preloader-wrap");
 		this.imgViewerPreloaderComponent = new Preloader(this.imgViewerPreloader.querySelector(".component.preloader"));
-		this.renderFieldPreloader = this.container.querySelector(".render-field .preloader-wrap");
+		this.renderFieldPreloader = this.component.querySelector(".render-field .preloader-wrap");
 		this.renderFieldPreloaderComponent = new Preloader(this.renderFieldPreloader.querySelector(".component.preloader"));
 
-		this.container.getInstance = () => this; 
+		this.component.getInstance = () => this; 
 		this.viewerMode = false;
 		this.initEvents();
 

@@ -1,9 +1,9 @@
 class UAdPostForm {
-	constructor(selector) {
-		this.container = document.querySelector(selector);
-		this.container.getInstance = () => this;
-		this.form = this.container.querySelector(".form.uadpost");
-		this.alertContainer = this.container.querySelector(".alert-container");
+	constructor(component) {
+		this.component = component;
+		this.component.getInstance = () => this;
+		this.form = this.component.querySelector(".form.uadpost");
+		this.alertContainer = this.component.querySelector(".alert-container");
 		this.alert;
 
 		this.initEvents();
@@ -34,7 +34,7 @@ class UAdPostForm {
 	getFormData() {
 		const data = new FormData(this.form);
 		data.delete("imgs");
-		const imgs = this.container.querySelector(".component.img-uploader").getInstance().getPreparedData();
+		const imgs = this.component.querySelector(".component.img-uploader").getInstance().getPreparedData();
 		data.append(`imgs`, imgs.map(img => img.alias, imgs));
 		return data;
 	}
@@ -47,14 +47,14 @@ class UAdPostForm {
 		const data = this.getFormData();
 
 		this.form.classList.add("disable");
-		this.container.querySelectorAll(".submit-group button").forEach(btn => btn.classList.add("disable"));
-		this.container.querySelectorAll("input.error, textarea.error").forEach(input => input.classList.remove("error"));
+		this.component.querySelectorAll(".submit-group button").forEach(btn => btn.classList.add("disable"));
+		this.component.querySelectorAll("input.error, textarea.error").forEach(input => input.classList.remove("error"));
 		this.alert && this.alert.close();
 
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", this.form.getAttribute("action"));
 		xhr.onload = () => {
-			this.container.querySelectorAll(".submit-group button").forEach(btn => btn.classList.remove("disable"));
+			this.component.querySelectorAll(".submit-group button").forEach(btn => btn.classList.remove("disable"));
 			this.form.classList.remove("disable");
 
 			if(xhr.status == 200) {
@@ -70,7 +70,7 @@ class UAdPostForm {
 
 				if(!resp.status) {
 					for(let field of resp.failed_fields) {
-						this.container.querySelector(`[name="${field}"]`).classList.add("error");
+						this.component.querySelector(`[name="${field}"]`).classList.add("error");
 					}
 
 					if(resp.msg) {

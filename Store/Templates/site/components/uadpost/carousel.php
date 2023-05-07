@@ -63,6 +63,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		new Carousel("#<?= $id ?>")
+		new Carousel(document.querySelector("#<?= $id ?>"))
 	});
 </script>

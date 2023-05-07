@@ -18,6 +18,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", e => {
-		window.confirmPopup = new ConfirmPopup(".confirm-popup");
+		window.confirmPopup = new ConfirmPopup(document.querySelector(".confirm-popup"));
 	});
 </script>
