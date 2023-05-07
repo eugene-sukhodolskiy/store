@@ -30,12 +30,6 @@
 			transition-duration: $trans-du;
 			transition-property: color, background-color;
 
-			&:hover, 
-			&.active {
-				background-color: rgba(0,0,0,.05);
-				color: $color-primary;
-			}
-
 			.counter {
 				position: absolute;
 				right: $std-mg-sm;
@@ -58,9 +52,18 @@
 			text-align: left;
 			transition-duration: $trans-du;
 			transition-property: color, background-color;
+		}
 
+		button, a {
 			&:hover,
 			&.active {
+				background-color: rgba(0,0,0,.05);
+				color: $color-primary;
+			}
+		}
+
+		&.active {
+			button, a {
 				background-color: rgba(0,0,0,.05);
 				color: $color-primary;
 			}

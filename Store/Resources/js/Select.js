@@ -5,51 +5,34 @@ class Select {
 		this.viewContainer = this.component.querySelector(".current-selected");
 		this.resultValueInput = this.component.querySelector("[data-name='result-value']");
 		this.displayingCurrentSelected = this.component.querySelector(".displaying-current-selected");
-		this.optionsContainer = this.component.querySelector(".clickable-list");
+		this.advancedClickableListComponent = new AdvancedClickableList(this.component.querySelector(".component.advanced-clickable-list"));
+
 		this.onChangeHandlers = []; // List of event handlers
 
 		this.initEvents();
 	}
 
 	initEvents() {
-		this.initOptions();
-
 		this.displayingCurrentSelected.addEventListener("focus", e => {
-			this.component.classList.add("show");
+			this.advancedClickableListComponent.focus();
 		});
 
 		this.displayingCurrentSelected.addEventListener("blur", e => {
+			if(this.stateActive()){
+				this.advancedClickableListComponent.blur();
+			}
+		});
+
+		this.advancedClickableListComponent.addEventOnClickItem(aclComponent => {
+			this.selectOption(aclComponent.getSelectedItem());
+		});
+
+		this.advancedClickableListComponent.addEventOnBlur(aclComponent => {
 			this.blurComponent();
 		});
 
-		document.addEventListener("keydown", e => {
-			if(!this.stateActive()) {
-				return ;
-			}
-
-			if(e.code == "ArrowDown") {
-				this.makeNextOptionActive();
-			} else if(e.code == "ArrowUp") {
-				this.makePrevOptionActive();
-			}
-
-			if(e.code == "Escape") {
-				this.displayingCurrentSelected.blur();
-			}
-
-			if(e.code == "Enter") {
-				this.selectOption(this.optionsContainer.querySelector(".active"));
-				this.displayingCurrentSelected.blur();
-			}
-		});
-	}
-
-	initOptions() {
-		this.optionsContainer.querySelectorAll("[data-option-value]").forEach(item => {
-			item.addEventListener("click", e => {
-				e.preventDefault();
-				this.selectOption(e.currentTarget);
-			});
+		this.advancedClickableListComponent.addEventOnFocus(aclComponent => {
+			this.component.classList.add("show");
 		});
 	}
 
@@ -71,68 +54,34 @@ class Select {
 	}
 
 	renderOptions(options) {
-		let html = "";
+		this.advancedClickableListComponent.clearItemsContainer();
+
+		const items = [];
 		for(let option of options) {
-			html += `<li class="list-item">
-					<button data-option-value='${option.value}'>${option.text}</button>
-				</li>`;
+			items.push({
+				"attrs": {
+					"data-option-value": option.value,
+					"data-option-text": option.text
+				},
+				"text": `<button>${option.text}</button>`
+			});
 		}
 
-		this.optionsContainer.innerHTML = html;
-		this.initOptions();
+		this.advancedClickableListComponent.appendItems(items);	
 	}
 
 	stateActive() {
-		return this.component.classList.contains("show");
-	}
-
-	makeNextOptionActive() {
-		const activeListItem = this.optionsContainer.querySelector(".active");
-		if(activeListItem) {			
-			activeListItem.classList.remove("active");
-			const nextElement = activeListItem.parentNode?.nextElementSibling;
-			if(!nextElement) {
-				this.makeNextOptionActive();
-			}
-			nextElement?.children[0].classList.add("active");
-		} else {
-			this.optionsContainer?.children[0]?.children[0].classList.add("active");
-		}
-
-		this.scrollToSelectedOption();
-	}
-
-	makePrevOptionActive() {
-		const activeListItem = this.optionsContainer.querySelector(".active");
-		if(activeListItem) {			
-			activeListItem.classList.remove("active");
-			const prevElement = activeListItem.parentNode?.previousElementSibling;
-			if(!prevElement) {
-				this.makePrevOptionActive();
-			}
-			prevElement?.children[0].classList.add("active");
-		} else {
-			this.optionsContainer?.children[this.optionsContainer?.children.length - 1]?.children[0].classList.add("active");
-		}
-
-		this.scrollToSelectedOption();
-	}
-
-	scrollToSelectedOption() {
-		let scrollHeight = this.optionsContainer.scrollHeight;
-		let offsetTop = this.optionsContainer.querySelector(".active").parentNode.offsetTop - this.optionsContainer.querySelector(".active").parentNode.clientHeight;
-		this.optionsContainer.scrollTop = offsetTop;
+		return this.advancedClickableListComponent.isFocused();
 	}
 
 	blurComponent() {
-		if(this.component.classList.contains("show")) {
-			this.component.classList.remove("show");
-		}
+		this.component.classList.remove("show");
+		this.displayingCurrentSelected.blur();
 	}
 
 	selectOption(element) {
 		const value = element.dataset.optionValue;
-		const name = element.innerHTML;
+		const name = element.dataset.optionText;
 		this.viewContainer.innerHTML = name;
 		this.resultValueInput.value = value;
 		this.runChangeHandlers(value);

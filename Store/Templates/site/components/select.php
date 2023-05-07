@@ -39,12 +39,20 @@
 	<input type="hidden" data-name="result-value" name="<?= $input_name ?? "undefined" ?>" value="<?= $value ?? "" ?>">
 
 	<div class="selector">
-		<ul class="clickable-list">
-			<? foreach($variants as $i => $variant): ?>
-				<li class="list-item">
-					<button data-option-value="<?= $variant["value"] ?>"><?= $variant["text"] ?></button>
-				</li>
-			<? endforeach; ?>
-		</ul>
+		<?
+			$items = [];
+			foreach($variants as $variant) {
+				$items[] = [
+					"attrs" => [
+						"data-option-value" => $variant["value"],
+						"data-option-text" => $variant["text"]
+					],
+					"text" => "<button>{$variant["text"]}</button>"
+				];
+			}
+		?>
+		<?= $this -> join("site/components/advanced-clickable-list", [
+			"items" => $items
+		]) ?>
 	</div>
 </div>
