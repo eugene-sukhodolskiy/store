@@ -24,7 +24,9 @@ class Favorite extends \Store\Middleware\Entity {
 			return false;
 		}
 
-		// TODO: uadpost stats
+		if($this -> assignment == "UAdPost") {
+			(new UAdPost($this -> ent_id)) -> statistics() -> in_favorites_decrease();
+		}
 		
 		return true;
 	}

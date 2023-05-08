@@ -3,9 +3,10 @@
 namespace Store\Models;
 
 use \Store\Entities\Favorite;
+use \Store\Entities\UAdPost;
 
 class Favourites extends \Store\Middleware\Model {
-	public function create(Int $uid, Int $ent_id, String $assignment) {
+	public function create(Int $uid, Int $ent_id, String $assignment): ?Favorite {
 		$data = [
 			"uid" => $uid,
 			"ent_id" => $ent_id,
@@ -20,6 +21,10 @@ class Favourites extends \Store\Middleware\Model {
 
 		if(!$id) {
 			return null;
+		}
+
+		if($assignment == "UAdPost") {
+			(new UAdPost($ent_id)) -> statistics() -> in_favorites_increase();
 		}
 
 		return new Favorite($id, array_merge(
