@@ -63,6 +63,7 @@ class Order extends \Store\Middleware\Entity {
 	public function complete() {
 		$this -> state = "completed";
 		$this -> seller() -> statistics() -> total_saled_increase();
+		$this -> uadpost() -> statistics() -> sales_increase();
 		return $this -> update();	
 	}
 

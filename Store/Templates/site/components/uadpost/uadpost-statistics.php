@@ -17,4 +17,8 @@
 		<div class="stat-name">Просмотров тел. номера:</div>
 		<div class="stat-val"><?= $uadpost -> statistics() -> phone_views ?></div>
 	</div>
+	<div class="stat-item">
+		<div class="stat-name">Продано:</div>
+		<div class="stat-val"><?= $uadpost -> statistics() -> sales ?></div>
+	</div>
 </div>
