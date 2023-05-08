@@ -49,11 +49,17 @@ trait MetaContainer {
 
 	public function update() {
 		foreach($this -> data as $item) {
-			return $item -> update();
+			$item -> update();
 		}
 	}
 
 	public function total() {
 		return $this -> total_meta_items;
+	}
+
+	public function clear_all_fields() {
+		foreach ($this -> data as $item) {
+			$item -> remove();
+		}
 	}
 }

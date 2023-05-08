@@ -20,4 +20,8 @@ class Meta extends \Store\Middleware\Entity {
 	public function __toString() {
 		return $this -> value . "";
 	}
+
+	public function remove() {
+		$this -> remove_entity();
+	}
 }

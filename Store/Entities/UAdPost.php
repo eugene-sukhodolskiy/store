@@ -97,6 +97,7 @@ class UAdPost extends \Store\Middleware\Entity {
 			$this -> deactivate();
 		}
 
+		$this -> statistics() -> clear_all_fields();
 		$this -> remove_entity();
 	}
 
