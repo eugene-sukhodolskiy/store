@@ -20,6 +20,9 @@
 		border-radius: $border-rad-lg;
 		box-shadow: $shadow-sm;
 		overflow: hidden;
+		position: absolute;
+		z-index: 1;
+		width: 100%;
 		@include std-animation-fade($trans-du);
 		@include std-animation-hide();
 
@@ -27,7 +30,12 @@
 			@include std-animation-show();
 		}
 
-		.no-results {
+		.clickable-list {
+			overflow-y: auto;
+			max-height: 250px;
+		}
+
+		.service-msg{
 			background-color: $color-bg-card;
 			text-align: center;
 			width: 100%;

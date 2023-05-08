@@ -9,7 +9,7 @@ class OrderForm {
 		this.deliveryMethodSelector = this.component?.querySelector("#delivery_method");
 
 		if(this.component) {
-			this.novaPoshtaComponent = new NovaPoshta(this.component.querySelector(".component.nova-poshta-addr-selector"), this);
+			this.novaPoshtaComponent = new NovaPoshta(this.component.querySelector(".component.nova-poshta-addr-selector"));
 			this.deliveryMethodSelectorComponent = new Select(this.deliveryMethodSelector);
 		}
 

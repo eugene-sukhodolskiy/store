@@ -121,7 +121,7 @@ class AdvancedClickableList {
 			}
 			nextElement?.classList?.add("active");
 		} else {
-			this.itemsContainer?.children[0].classList.add("active");
+			this.itemsContainer?.children[0]?.classList.add("active");
 		}
 
 		this.scrollToSelectedOption();

@@ -31,6 +31,6 @@
 			"items" => $items ?? []
 		]) ?>
 		
-		<div class="no-results dnone">Нет подходящих вариантов</div>
+		<div class="service-msg dnone"></div>
 	</div>
 </div>

@@ -1,74 +1,56 @@
 class NovaPoshta {
-	constructor(component, orderInstance) {
+	constructor(component) {
 		this.component = component;
 		this.component.getInstance = () => this;
-		this.orderInstance = orderInstance;
-		this.addrInp = this.component.querySelector("#nova_poshta_addr");
-		this.addrInpPreloaderComponent = new Preloader(this.component.querySelector(".addr-inp-preloader"));
 		this.addrCityRefInp = this.component.querySelector(`[name="np_city_ref"]`);
 		this.addrCityName = this.component.querySelector(`[name="np_city_name"]`);
-		this.variantsList = this.component.querySelector(".variants-addrs");
+		this.searchableDropdownComponent = new SearchableDropdown(this.component.querySelector("#searchable-np-addr"));
+
+
 		this.novaPoshtaDepartmentNumberSelectorWrap = this.component.querySelector(".nova-poshta-department-number-selector-group");
 		this.novaPoshtaDepartmentNumber = this.component.querySelector("#np_department");
 		this.novaPoshtaDepartmentNumberComponent = new Select(this.novaPoshtaDepartmentNumber);
 		this.novaPoshtaDepartmentNumberPreloaderComponent = new Preloader(this.component.querySelector(".nova-poshta-department-number-selector-preloader"));
-		this.minValueLength = 2;
+		this.minValueLength = 1;
 
-		this.initEvents();
+		this.init();
 	}
 
-	initEvents() {
-		this.addrInp.addEventListener("input", e => {
-			const val = e.currentTarget.value;
-			this.loadAndRenderCity(val);
-		});
+	init() {
+		this.searchableDropdownComponent.showServiceMsg("Начните вводить название");
 
-		this.addrInp.addEventListener("blur", e => {
-			this.hideVariantsList();
-		});
-
-		this.addrInp.addEventListener("focus", e => {
-			if(this.addrInp.value.length > this.minValueLength) {
-				this.showVariantsList();
+		this.searchableDropdownComponent.setCustomFilter((dropdown, acl) => {
+			const searchString = dropdown.getSearchString().toLowerCase();
+			if(searchString.length <= this.minValueLength) {
+				dropdown.showServiceMsg("Начните вводить название");
+			}	else {
+				this.loadAndRenderCity(searchString);
 			}
 		});
-	}
 
-	renderError(msg) {
-		return `<div class="msg-container">${msg}</div>`;
+		this.searchableDropdownComponent.addEventOnChange((dropdown, data) => {
+			this.addrCityRefInp.value = data.attrs["data-cityRef"];
+			this.addrCityName.value = data.attrs["data-cityName"];
+			this.loadAndRenderDepartments();
+			this.searchableDropdownComponent.blur();
+		});
 	}
 
 	renderList(addrs) {
-		let html = `<ul class="clickable-list">`;
+		const dataForRendering = [];
 		for(let addr of addrs) {
-			html += `<li class="list-item">
-				<button 
-					class="addr-item" 
-					data-value="${addr.Present}" 
-					data-city-ref="${addr.DeliveryCity}"
-					data-city-name="${addr.MainDescription}"
-				>${addr.Present}</button>
-			</li>`;
-		}
-		html += "</ul>";
-
-		return html;
-	}
-
-	initListEvents(html) {
-		const element = document.createElement("DIV");
-		element.innerHTML = html;
-		element.querySelectorAll(".addr-item")?.forEach(i => {
-			i.addEventListener("click", e => {
-				e.preventDefault();
-				this.addrInp.value = e.currentTarget.dataset.value;
-				this.addrCityRefInp.value = e.currentTarget.dataset.cityRef;
-				this.addrCityName.value = e.currentTarget.dataset.cityName;
-				this.loadAndRenderDepartments();
-				this.hideVariantsList();
+			dataForRendering.push({
+				"text": `<button tabindex="-1">${addr.Present}</button>`,
+				"attrs": {
+					"data-value": addr.Present,
+					"data-city-ref": addr.DeliveryCity,
+					"data-city-name": addr.MainDescription
+				}
 			});
-		});
-		return element.childNodes[0];
+		}
+
+		this.searchableDropdownComponent.renderItems(dataForRendering);
+		this.searchableDropdownComponent.refreshData();
 	}
 
 	show() {
@@ -79,26 +61,11 @@ class NovaPoshta {
 		this.component.classList.remove("show");	
 	}
 
-	showVariantsList() {
-		this.variantsList.classList.add("show");
-	}
-
-	hideVariantsList() {
-		this.variantsList.classList.remove("show");
-	}
-
 	showErrServerNotAvailable() {
-		const msg = this.renderError("Сервер новой почты не доступен");
-		this.variantsList.innerHTML = msg;
-		this.showVariantsList();
+		this.searchableDropdownComponent.showServiceMsg("Сервер новой почты не доступен");
 	}
 
 	loadAndRenderCity(val) {
-		if(val.length <= this.minValueLength) {
-			this.hideVariantsList();
-			return;
-		}
-
 		const xhr = new XMLHttpRequest();
 		xhr.open(
 			"POST",
@@ -106,15 +73,12 @@ class NovaPoshta {
 		);
 
 		xhr.onload = () => {
-			this.addrInpPreloaderComponent.hide();
+			this.searchableDropdownComponent.hidePreloader();
 
 			if (xhr.status == 200) {
 				let resp = JSON.parse(xhr.response);
 				
-				this.variantsList.innerHTML = "";
-				
 				if(!resp.status) {
-					// TODO: Show error in central error bar
 					this.showErrServerNotAvailable();
 					return false;
 				}
@@ -122,24 +86,20 @@ class NovaPoshta {
 				resp = resp.data;
 
 				if(resp.data.length && resp.data[0].Addresses.length) {
-					const list = this.initListEvents(this.renderList(resp.data[0].Addresses));
-					this.variantsList.appendChild(list);
+					this.renderList(resp.data[0].Addresses);
 				} else {
-					const msg = this.renderError("Ничего не найдено");
-					this.variantsList.innerHTML = msg;
+					this.renderList([]);
+					this.searchableDropdownComponent.showServiceMsg("Ничего не найдено")
 				}
-				
-				this.showVariantsList();
-
 			} else {
+				this.showErrServerNotAvailable();
 				console.error("Request error of creating new order");
 			}
 		}
 
 		xhr.onerror = () => {
-			// TODO: Show error in central error bar
 			this.showErrServerNotAvailable();
-			this.addrInpPreloaderComponent.hide();
+			this.searchableDropdownComponent.hidePreloader();
 			console.error("Request error of creating new order");
 		};
 
@@ -153,7 +113,7 @@ class NovaPoshta {
 			}
 		});
 
-		this.addrInpPreloaderComponent.show();
+		this.searchableDropdownComponent.showPreloader();
 		xhr.send(new URLSearchParams({
 				"req": data
 			})
@@ -196,10 +156,14 @@ class NovaPoshta {
 					}
 
 					this.novaPoshtaDepartmentNumberComponent.renderOptions(dataStruct);
-					this.showNovaPoshtaDepartmentNumberComponent();
+				} else {
+					this.novaPoshtaDepartmentNumberComponent.renderOptions([]);
 				}
+				
+				this.showNovaPoshtaDepartmentNumberComponent();
 
 			} else {
+				// TODO: Show error in central error bar
 				console.error("Request error of creating new order");
 			}
 		}

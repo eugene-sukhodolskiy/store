@@ -4,7 +4,7 @@ class SearchableDropdown {
 		this.advancedClickableListComponent = new AdvancedClickableList(this.component.querySelector(".component.advanced-clickable-list"));
 		this.searchField = this.component.querySelector("input.search");
 		this.selector = this.component.querySelector(".selector");
-		this.noResults = this.component.querySelector(".no-results");
+		this.serviceMsg = this.component.querySelector(".service-msg");
 		this.preloaderComponent = new Preloader(this.component.querySelector(".searchable-dropdown-preloader"));
 
 		this.data = [];
@@ -65,7 +65,7 @@ class SearchableDropdown {
 		});
 
 		this.advancedClickableListComponent.addEventOnBlur(aclComponent => {
-			this.blurComponent();
+			this.blur();
 		});
 
 		this.advancedClickableListComponent.addEventOnFocus(aclComponent => {
@@ -83,10 +83,10 @@ class SearchableDropdown {
 		
 		if(!items.length) {
 			this.advancedClickableListComponent.component.classList.add("dnone");
-			this.showNoResults();
+			this.showNoResultsMsg();
 		} else {
 			this.advancedClickableListComponent.component.classList.remove("dnone");
-			this.hideNoResults();
+			this.hideServiceMsg();
 		}
 	}
 
@@ -110,8 +110,9 @@ class SearchableDropdown {
 		return this.searchField.value;
 	}
 
-	blurComponent() {
+	blur() {
 		this.selector.classList.remove("show");
+		this.searchField.blur();
 	}
 
 	stateActive() {
@@ -135,6 +136,11 @@ class SearchableDropdown {
 		return this.filterFunc(this, this.advancedClickableListComponent);
 	}
 
+	refreshData() {
+		this.initData();
+		this.renderItems(this.data);
+	}
+
 	setCustomFilter(filter) {
 		if(typeof filter != "function") {
 			return console.error("SearchableDropdown.setCustomFilter()", "Filter must be a function");
@@ -150,11 +156,17 @@ class SearchableDropdown {
 		this.preloaderComponent.hide();
 	}
 
-	showNoResults() {
-		this.noResults.classList.remove("dnone");
+	showNoResultsMsg() {
+		this.showServiceMsg("Нет подходящих вариантов");
 	}
 
-	hideNoResults() {
-		this.noResults.classList.add("dnone");
+	showServiceMsg(msg) {
+		this.serviceMsg.innerHTML = msg;
+		this.serviceMsg.classList.remove("dnone");
+	}
+
+	hideServiceMsg() {
+		this.serviceMsg.innerHTML = "";
+		this.serviceMsg.classList.add("dnone");
 	}
 }
