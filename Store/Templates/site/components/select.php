@@ -28,7 +28,7 @@
 	data-default-value="<?= $value ?? "" ?>"
 >
 	<div 
-		class="displaying-current-selected std-input" 
+		class="displaying-current-selected std-input <?= $input_name ?? "" ?>" 
 		tabindex="<?= $tabindex ?? 1 ?>"
 	>
 		<?= $prefix ?? "" ?>

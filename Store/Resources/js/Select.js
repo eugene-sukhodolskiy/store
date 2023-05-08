@@ -15,6 +15,7 @@ class Select {
 	initEvents() {
 		this.displayingCurrentSelected.addEventListener("focus", e => {
 			this.advancedClickableListComponent.focus();
+			this.displayingCurrentSelected.classList.remove("error");
 		});
 
 		this.displayingCurrentSelected.addEventListener("blur", e => {

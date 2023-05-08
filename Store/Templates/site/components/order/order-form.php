@@ -39,7 +39,7 @@
 					"tabindex" => 1,
 					"input_name" => "delivery_method",
 					"default_text" => "Выберите метод доставки", 
-					"value" => "",
+					"value" => 0,
 					"variants" => $delivery_data
 				]);
 			?>

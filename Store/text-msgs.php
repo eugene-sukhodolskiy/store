@@ -36,6 +36,9 @@ return [
 	"fail_creating_order" => "Не удалось создать запрос покупки",
 	"fail_access_to_order" => "Не удалось получить доступ к заказу",
 	"selected_state_not_exists" => "Выбраного состояния не существует",
+	"uncorrect_delivery_method" => "Укажите метод доставки",
+	"np_fail_of_department_number" => "Укажите номер отделения или поштомата",
+	"np_fail_of_selected_city" => "Выберите населённый пункт",
 
 	// Other
 	"accept_removing" => "Подтвердите удаление",

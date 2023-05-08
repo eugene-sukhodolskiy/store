@@ -86,6 +86,7 @@ class OrderForm {
 					document.location = ROUTES["OrderController@order_success_page"].replace("$order_id", resp.data.details.order_id);
 				} else {
 					this.alert = createAlertComponent("danger", resp.msg, true, true).showIn(this.alertContainer);
+					this.lightningOfMistake(resp.failed_fields);
 				}
 			} else {
 				// TODO: Need text of error getting from central text file
@@ -168,5 +169,14 @@ class OrderForm {
 				})
 			})
 		);
+	}
+
+	lightningOfMistake(failed_fields) {
+		if(failed_fields.length) {
+			for(let field of failed_fields) {
+				this.component.querySelector(`[name="${field}"]`)?.classList.add("error");
+				this.component.querySelector(`.std-input.${field}`)?.classList.add("error");
+			}
+		}
 	}
 }

@@ -71,6 +71,10 @@ class OrderController extends \Store\Middleware\Controller {
 			return app() -> utils -> response_error("price_was_changed");
 		}
 
+		if(!in_array($delivery_method, [1, 2, 3, 4])) {
+			return app() -> utils -> response_error("uncorrect_delivery_method", ["delivery_method"]);
+		}
+
 		$comment = trim(strip_tags($comment));
 
 		// Handling delivery method data
@@ -99,10 +103,10 @@ class OrderController extends \Store\Middleware\Controller {
 				strlen($nova_poshta_addr) < 5
 				or strlen($np_city_ref) < 20
 				or strlen($np_city_name) == 0
-				or strlen($np_department) < 2
 			) {
 				// Error
-				return app() -> utils -> response_error("fail_creating_order");
+				$order -> remove();
+				return app() -> utils -> response_error("np_fail_of_selected_city", ["nova_poshta_addr"]);
 			}
 
 			$np_department_data = json_decode($np_department, true);
@@ -116,7 +120,8 @@ class OrderController extends \Store\Middleware\Controller {
 				or !intval($np_department_data["Number"])
 				or !isset($np_department_data["PlaceMaxWeightAllowed"])
 			) {
-				return app() -> utils -> response_error("fail_creating_order");
+				$order -> remove();
+				return app() -> utils -> response_error("np_fail_of_department_number", ["np_department"]);
 			}
 
 			$np_delivery_item = $np_delivery_model -> create(

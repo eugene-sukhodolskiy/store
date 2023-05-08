@@ -6,11 +6,11 @@ class NovaPoshta {
 		this.addrCityName = this.component.querySelector(`[name="np_city_name"]`);
 		this.searchableDropdownComponent = new SearchableDropdown(this.component.querySelector("#searchable-np-addr"));
 
-
 		this.novaPoshtaDepartmentNumberSelectorWrap = this.component.querySelector(".nova-poshta-department-number-selector-group");
 		this.novaPoshtaDepartmentNumber = this.component.querySelector("#np_department");
 		this.novaPoshtaDepartmentNumberComponent = new Select(this.novaPoshtaDepartmentNumber);
 		this.novaPoshtaDepartmentNumberPreloaderComponent = new Preloader(this.component.querySelector(".nova-poshta-department-number-selector-preloader"));
+		
 		this.minValueLength = 1;
 
 		this.init();

@@ -52,6 +52,7 @@ class SearchableDropdown {
 	init() {
 		this.searchField.addEventListener("focus", e => {
 			this.advancedClickableListComponent.focus();
+			this.searchField.classList.remove("error");
 		});
 
 		this.searchField.addEventListener("blur", e => {
