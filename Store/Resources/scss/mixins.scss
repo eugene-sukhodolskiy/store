@@ -36,3 +36,18 @@
 		border-top-color: transparent;
 	}
 }
+
+@mixin std-animation-hide() {
+	visibility: hidden;
+	opacity: 0;
+}
+
+@mixin std-animation-fade($duration) {
+	transition-duration: $duration;
+	transition-property: opacity, visibility;
+}
+
+@mixin std-animation-show() {
+	visibility: visible;
+	opacity: 1;
+}

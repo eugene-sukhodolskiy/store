@@ -56,6 +56,10 @@ class AdvancedClickableList {
 	}
 
 	makeClickOnItem(item) {
+		if(!item) {
+			return ;
+		}
+		
 		this.selectedItem = item;
 		this.callEvent("clickItem");
 		this.blur();
@@ -169,5 +173,9 @@ class AdvancedClickableList {
 
 	getSelectedItem() {
 		return this.selectedItem;
+	}
+
+	getItems() {
+		return this.itemsContainer.children;
 	}
 }

@@ -1,0 +1,38 @@
+.component.searchable-dropdown {
+	position: relative;
+
+	.search {
+		padding-right: 40px;
+	}
+	
+	.component.preloader {
+		&.searchable-dropdown-preloader {
+			position: absolute;
+			right: 10px;
+			top: 7px;
+
+			@include preloader-params(2px, $color-text);
+			@include preloader-size-sm();
+		}
+	}
+
+	.selector {
+		border-radius: $border-rad-lg;
+		box-shadow: $shadow-sm;
+		overflow: hidden;
+		@include std-animation-fade($trans-du);
+		@include std-animation-hide();
+
+		&.show {
+			@include std-animation-show();
+		}
+
+		.no-results {
+			background-color: $color-bg-card;
+			text-align: center;
+			width: 100%;
+			padding: $std-pd-md;
+			box-sizing: border-box;
+		}
+	}
+}

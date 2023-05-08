@@ -106,6 +106,13 @@ class Routes {
 			'/order/success/$order_id', 
 			"{$this -> cn}\\OrderController@order_success_page"
 		);
+
+		$this -> router -> uri("/test", function(){
+			return (new \Fury\Modules\Template\Template(PROJECT_FOLDER, FCONF['templates_folder'])) -> make("site/test", [
+				"page_title" => "TEST",
+				"page_alias" => "test"
+			]);
+		});
 	}
 
 	protected function get_routes() {
