@@ -77,7 +77,8 @@
 	<div class="sidebar-container">
 		<div class="author">
 			<?= $this -> join("site/components/user/user-card.php", [
-				"user" => $uadpost -> user()
+				"user" => $uadpost -> user(),
+				"uap_id" => $uadpost -> id()
 			]) ?>
 		</div>
 

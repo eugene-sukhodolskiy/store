@@ -1,6 +1,7 @@
 <?php
 	/**
-	 * @var \Store\Entitties\User $user
+	 * @var \Store\Entities\User $user
+	 * @var Int ?$uap_id
 	 */
 ?>
 <div class="component user-card">
@@ -66,6 +67,9 @@
 			<a 
 				href="#"
 				data-show-phone-number="<?= $user -> profile() -> phone_number ?>"
+				<? if(isset($uap_id) and $uap_id): ?>
+					data-uadpost-id="<?= $uap_id ?>"
+				<? endif ?>
 			>
 				Показать номер
 			</a>

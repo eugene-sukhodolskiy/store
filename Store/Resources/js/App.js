@@ -52,13 +52,28 @@ class App {
 			});
 		});
 
-		document.querySelectorAll("[data-show-phone-number]").forEach(item => item.addEventListener("click", e => {
-				e.preventDefault();
+		document.querySelectorAll("[data-show-phone-number]").forEach(item => {
+			item.addEventListener("click", e => {
+				if(typeof e.currentTarget.dataset.viewFlag == "undefined") {
+					e.preventDefault();
+				}
 				const number = e.currentTarget.getAttribute("data-show-phone-number");
 				e.currentTarget.innerHTML = number;
 				e.currentTarget.href = `tel:${number}`;
 			})
-		);
+		});
+
+		document.querySelectorAll("[data-show-phone-number][data-uadpost-id]").forEach(item => {
+			item.addEventListener("click", e => {
+				if(typeof e.currentTarget.dataset.viewFlag != "undefined") {
+					return false;
+				}
+
+				const uapId = e.currentTarget.dataset.uadpostId;
+				e.currentTarget.dataset.viewFlag = true;
+				fetch(ROUTES["UAdPostController@view_phone_number"].replace("$uap_id", uapId));
+			})
+		});
 		
 		document.addEventListener("click", e => {
 			document.querySelectorAll(".component.local-menu.active").forEach(item => item.classList.remove("active"));

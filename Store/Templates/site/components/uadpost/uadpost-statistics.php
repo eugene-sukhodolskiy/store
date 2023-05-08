@@ -13,4 +13,8 @@
 		<div class="stat-name">В избранных у:</div>
 		<div class="stat-val"><?= $uadpost -> statistics() -> in_favorites ?></div>
 	</div>
+	<div class="stat-item">
+		<div class="stat-name">Просмотров тел. номера:</div>
+		<div class="stat-val"><?= $uadpost -> statistics() -> phone_views ?></div>
+	</div>
 </div>

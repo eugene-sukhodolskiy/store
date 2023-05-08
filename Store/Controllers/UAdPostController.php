@@ -404,4 +404,14 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$keywords = $uadposts[0] -> refresh_keywords();
 		return $this -> utils() -> response_success([ "keywords" => $keywords ]);
 	}
+
+	public function view_phone_number(Int $uap_id) {
+		$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $uap_id);
+		if(!count($uadposts)) {
+			return false;
+		}
+
+		$uadposts[0] -> statistics() -> phone_views_increase();
+		return true;
+	}
 }

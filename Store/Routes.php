@@ -56,6 +56,10 @@ class Routes {
 			'/uadpost/f/regenerate-keywords/$uadpost_alias',
 			"{$this -> cn}\\UAdPostController@regenerate_keywords"
 		);
+		$this -> router -> uri(
+			'/uadpost/$uap_id/view-phone-number', 
+			"{$this -> cn}\\UAdPostController@view_phone_number"
+		);
 		
 		// profile
 		$this -> router -> uri(
