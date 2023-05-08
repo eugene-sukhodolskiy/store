@@ -85,6 +85,10 @@
 			<?= $this -> join("site/components/uadpost/uadpost-control-panel", [
 				"uadpost" => $uadpost
 			]) ?>
+
+			<?= $this -> join("site/components/uadpost/uadpost-statistics", [
+				"uadpost" => $uadpost
+			]) ?>
 		<? endif ?>
 	</div>
 </div>

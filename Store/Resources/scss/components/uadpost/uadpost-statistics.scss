@@ -1,0 +1,24 @@
+.component.uadpost-statistics {
+	background-color: $color-bg-card;
+	border-radius: $border-rad-lg;
+	padding: $std-pd-lg;
+	display: flex;
+	flex-direction: column;
+	gap: $std-mg-md;
+
+	.stat-item {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: no-wrap;
+		gap: $std-mg-sm;
+		font-size: $fsize-sm;
+
+		.stat-name {
+
+		}
+
+		.stat-val {
+
+		}
+	}
+}

@@ -30,6 +30,7 @@ class UAdPostController extends \Store\Middleware\Controller {
 		}
 
 		app() -> factory -> initer() -> init_group_profiles_for_users( $uadposts );
+		$uadposts[0] -> statistics() -> views_increase();
 
 		return $this -> new_template() -> make("site/view.uadpost", [
 			"page_title" => $uadposts[0] -> title,

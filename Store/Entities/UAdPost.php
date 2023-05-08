@@ -5,6 +5,7 @@ namespace Store\Entities;
 use \Store\Models\Favourites;
 use \Store\Models\Keywords;
 use \Store\Containers\KeywordsContainer;
+use \Store\Wrappers\UAdPostStatistics;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -37,6 +38,12 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	public function user(): User {
 		return $this -> get_pet_instance("User", fn() => new User($this -> uid));
+	}
+
+	public function statistics() {
+		return $this -> get_pet_instance("UAdPostStatistics", function() {
+			return new UAdPostStatistics($this -> id, "UAdPost");
+		});
 	}
 
 	public function get_url(): String {
