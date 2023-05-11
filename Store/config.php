@@ -16,6 +16,7 @@ return [
 	"templates_folder" => "Templates",
 	"logs_enable" => true,
 	"logs_folder" => "Store/Logs",
+	"devmode" => true,
 
 	"controllers_folder" => "Controllers",
 	"text_msgs" => require_once("Store/text-msgs.php"),
@@ -45,7 +46,7 @@ return [
 	],
 
 	"orders" => [
-		"timeout_of_state_complete" => 24, // 24 hours
+		"timeout_of_state_complete" => 60 * 60 * 24, // 24 hours
 		"existing_states" => [
 			"confirmed", "canceled", "completed", "unconfirmed"
 		] 

@@ -94,6 +94,10 @@ class User extends \Store\Middleware\Entity {
 		return (new Orders()) -> total_by_user($utype, $this -> id, $including_states);
 	}
 
+	public function role_is(String $role_name) {
+		return $this -> role == $role_name;
+	}
+
 	// Static methods
 
 	public static function is_exists_by(String $field_name, String $field_value) {

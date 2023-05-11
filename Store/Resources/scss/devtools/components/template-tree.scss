@@ -1,0 +1,16 @@
+.devtools.component.template-tree {
+	.tree-branch {
+		padding: 1px $std-pd-lg;
+		margin-bottom: $std-mg-md;
+		color: $color-text-inverted;
+		border-radius: $border-rad-lg;
+	}
+
+	.meta-info {
+		margin-bottom: $std-mg-md;
+
+		.slide-toggle-tree {
+			margin: $std-mg-md 0;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+.devtools.devtools-panel {
+	.btn-open-panel {
+		position: fixed;
+		left: $std-mg-lg;
+		bottom: 100px;
+		z-index: 900;
+		border-radius: 100%;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		width: 50px;
+		height: 50px;
+		max-height: initial;
+		box-shadow: $shadow-lg;
+
+		.mdi {
+			font-size: 32px;
+		}
+	}
+
+	.panel {
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1000;
+		overflow: auto;
+		background-color: $color-bg;
+		padding: $std-mg-lg;
+
+		.btn-close-panel {
+			position: fixed;
+			right: $std-mg-lg;
+			top: $std-mg-lg;
+			z-index: 10;
+			box-shadow: $shadow-md;
+		}
+	}
+}

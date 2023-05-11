@@ -1,0 +1,14 @@
+.std-table {
+	text-align: left;
+	border: $border-1;
+	border-spacing: $std-pd-xsm;
+	border-radius: $border-rad-lg;
+
+	td, th {
+		padding: $std-pd-sm $std-pd-md;
+	}
+
+	th {
+		background-color: $color-disable;
+	}
+}

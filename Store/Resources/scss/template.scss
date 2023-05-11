@@ -24,6 +24,7 @@
 @import "components/confirm-popup.scss";
 @import "user.area.scss";
 @import "components/abstract/clickable-list.scss";
+@import "components/abstract/std-table.scss";
 @import "components/uadpost/uadpost-control-panel.scss";
 @import "components/advanced-clickable-list.scss";
 @import "components/slider.scss";
@@ -52,6 +53,11 @@
 @import "pages/order.success.scss";
 @import "pages/user.orders.scss";
 @import "pages/profile.scss";
+
+// DEVTOOLS
+@import "devtools/devtools-panel.scss";
+@import "devtools/components/template-tree.scss";
+@import "devtools/components/template-tree-element.scss";
 
 
 .footer {

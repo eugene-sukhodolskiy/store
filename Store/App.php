@@ -6,6 +6,7 @@ use \Fury\Modules\Router\Router;
 use \Fury\Modules\ThinBuilder\ThinBuilder;
 use \Fury\Modules\ErrorHandler\ErrorHandler;
 use \Store\Factory\Factory;
+use \Store\DevTools;
 
 class App extends \Fury\Kernel\BaseApp{
 	public $routes;
@@ -19,6 +20,7 @@ class App extends \Fury\Kernel\BaseApp{
 	public $utils;
 	public $sessions;
 	public $factory;
+	public $devtools;
 
 	public function __construct(){
 		parent::__construct();
@@ -32,6 +34,10 @@ class App extends \Fury\Kernel\BaseApp{
 		if(!$this -> console_flag) {
 			$this -> error_handlers = new ErrorHandler();
 		}
+		
+		\Fury\Modules\Template\Template::set_driver(new \Fury\Drivers\TemplateDriver());
+
+		$this -> devtools = new DevTools();
 		$this -> router = new Router();
 		$this -> routes = new Routes($this -> router);
 		$this -> thin_builder = new ThinBuilder(FCONF['db']);

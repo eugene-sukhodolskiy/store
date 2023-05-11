@@ -287,7 +287,14 @@ textarea.std-input {
 	color: $color-text-lite;
 }
 
-a {
+button.std-link {
+	background: transparent;
+	padding: 0;
+	border: 0;
+	font-size: 1em;
+}
+
+a, .std-link {
 	color: $color-primary;
 	text-decoration: none;
 	display: inline-block;
