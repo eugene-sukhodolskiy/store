@@ -29,6 +29,12 @@
 		background-color: $color-bg;
 		padding: $std-mg-lg;
 
+		.panel-elements {
+			display: flex;
+			flex-direction: column;
+			gap: $std-mg-lg;
+		}
+
 		.btn-close-panel {
 			position: fixed;
 			right: $std-mg-lg;

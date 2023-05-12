@@ -12,6 +12,10 @@ class DevTools {
 	protected Int $total_template_calls = 0;
 	protected $root_template;
 
+	protected String $action_name = "";
+	protected String $action_type = "";
+	protected Array $action_params = [];
+
 	public function __construct() {
 
 	}
@@ -56,13 +60,22 @@ class DevTools {
 		$this -> templates_timelog[$template_name]["rendering_time"] += $render_time;
 	}
 
+	public function loging_action_call(String $action_name, String $action_type, Array $action_params) {
+		$this -> action_name = $action_name;
+		$this -> action_type = $action_type;
+		$this -> action_params = $action_params;
+	}
+
 	public function show_template_map() {
 		if($this -> root_template) {
 			$this -> template_map = $this -> make_template_map([ $this -> root_template ]);
 			echo (new Template(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("devtools/devtools-panel", [
 				"template_map" => $this -> template_map,
 				"total_template_calls" => $this -> total_template_calls,
-				"total_uniq_template_parts" => $this -> total_uniq_template_parts
+				"total_uniq_template_parts" => $this -> total_uniq_template_parts,
+				"action_name" => $this -> action_name,
+				"action_type" => $this -> action_type,
+				"action_params" => $this -> action_params,
 			]);
 		}
 	}

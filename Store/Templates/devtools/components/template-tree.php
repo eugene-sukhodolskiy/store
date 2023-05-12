@@ -26,6 +26,7 @@
 <div class="devtools component template-tree">
 	<div class="meta-info">
 		<table class="std-table">
+			<caption>Template info</caption>
 			<tbody>
 				<tr>
 					<th>Unique template parts</th>
@@ -35,9 +36,13 @@
 					<th>Total template calls</th>
 					<td><?= $total_template_calls ?></td>
 				</tr>
+				<tr>
+					<td>
+						<button class="std-link slide-toggle-tree" data-inverse-text="Hide template tree">Show template tree</button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
-		<button class="std-link slide-toggle-tree" data-inverse-text="Hide template tree">Show template tree</button>
 	</div>
 	<div class="tree" style="display: none">
 		<? template_tree_recursive_view($template_map, $this) ?>

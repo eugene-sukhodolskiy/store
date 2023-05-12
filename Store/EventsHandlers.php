@@ -31,6 +31,14 @@ class EventsHandlers{
 				);
 			});
 
+			events() -> handler("kernel:CallControl.leading_call", function(Array $params) {
+				app() -> devtools -> loging_action_call(
+					$params["action"],
+					$params["type"],
+					$params["params"]
+				);
+			});
+
 			events() -> handler("kernel:Bootstrap.app_finished", function(Array $params){
 				app() -> devtools -> show_template_map();
 			});

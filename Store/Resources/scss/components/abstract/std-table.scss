@@ -11,4 +11,12 @@
 	th {
 		background-color: $color-disable;
 	}
+
+	caption {
+		padding: $std-pd-sm 0;
+		background-color: $color-disable;
+		font-size: $fsize-lg;
+		border-radius: $border-rad-lg;
+		margin-bottom: $std-mg-xsm;
+	}
 }

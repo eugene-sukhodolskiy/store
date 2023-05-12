@@ -15,6 +15,26 @@
 		</button>
 
 		<div class="panel-elements">
+			<div class="action">
+				<table class="std-table">
+					<caption>Controller</caption>
+					<tbody>
+						<tr>
+							<th>Request type</th>
+							<td><?= $action_type ?></td>
+						</tr>
+						<tr>
+							<th>Action</th>
+							<td><?= $action_name ?></td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><?= dd($action_params, false) ?></td>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+
 			<?= $this -> join("devtools/components/template-tree", [
 				"template_map" => $template_map,
 				"total_template_calls" => $total_template_calls,
