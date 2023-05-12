@@ -7,6 +7,7 @@ use \Fury\Modules\Template\Template;
 class DevTools {
 	protected Array $template_map = [];
 	protected Array $templates_counter = [];
+	protected Array $templates_timelog = [];
 	protected Int $total_uniq_template_parts = 0;
 	protected Int $total_template_calls = 0;
 	protected $root_template;
@@ -25,6 +26,14 @@ class DevTools {
 			$this -> total_uniq_template_parts++;
 		}
 
+		if(!isset($this -> templates_timelog[$template_name])) {
+			$this -> templates_timelog[$template_name] = [
+				"rendering_start" => 0, 
+				"rendering_time" => 0
+			];
+		}
+
+		$this -> templates_timelog[$template_name]["rendering_start"] = microtime(true);
 		$this -> templates_counter[$template_name]++;
 		$this -> total_template_calls++;
 	}
@@ -34,11 +43,17 @@ class DevTools {
 		foreach($templates as $template) {
 			$arr[$template -> template_name] = [
 				"calls" => $this -> templates_counter[$template -> template_name], 
+				"rendering_time" => $this -> templates_timelog[$template -> template_name]["rendering_time"],
 				"childs" => $this -> make_template_map($template -> childs())
 			];
 		}
 
 		return $arr;
+	}
+
+	public function render_template_done(String $template_name) {
+		$render_time = microtime(true) - $this -> templates_timelog[$template_name]["rendering_start"];
+		$this -> templates_timelog[$template_name]["rendering_time"] += $render_time;
 	}
 
 	public function show_template_map() {

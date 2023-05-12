@@ -11,6 +11,7 @@
 			echo '<div class="tree-branch" style="'. $bgcolor .'">';
 			echo $ctx -> join("devtools/components/template-tree-element", [
 				"name" => $name,
+				"rendering_time" => $template["rendering_time"],
 				"calls" => $template["calls"]
 			]);
 

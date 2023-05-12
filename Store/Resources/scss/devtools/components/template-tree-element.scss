@@ -1,11 +1,25 @@
 .devtools.component.template-tree-element {
 	padding: $std-pd-md;
+	
+	&.success {
+		color: $color-success;
+	}
+
+	&.warning {
+		color: $color-warning;
+	}
+
+	&.danger {
+		color: $color-danger;
+	}
 
 	.name {
 		font-weight: bold;
 	}
 
 	.calls {
+		.rendering-time {
 
+		}
 	}
 }
