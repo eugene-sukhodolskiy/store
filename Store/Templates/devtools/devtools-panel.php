@@ -28,6 +28,10 @@
 							<td><?= $action_name ?></td>
 						</tr>
 						<tr>
+							<th>Execute time</th>
+							<td><?= round($action_execute_time * 1000, 4) ?> ms</td>
+						</tr>
+						<tr>
 							<th>Params</th>
 							<td><?= dd($action_params, false) ?></td>
 						</tr>

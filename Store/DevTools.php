@@ -15,6 +15,7 @@ class DevTools {
 	protected String $action_name = "";
 	protected String $action_type = "";
 	protected Array $action_params = [];
+	protected Float $action_execute_time = 0;
 
 	public function __construct() {
 
@@ -64,6 +65,11 @@ class DevTools {
 		$this -> action_name = $action_name;
 		$this -> action_type = $action_type;
 		$this -> action_params = $action_params;
+		$this -> action_execute_time = microtime(true);
+	}
+
+	public function loging_action_time() {
+		$this -> action_execute_time = microtime(true) - $this -> action_execute_time;
 	}
 
 	public function show_template_map() {
@@ -76,6 +82,7 @@ class DevTools {
 				"action_name" => $this -> action_name,
 				"action_type" => $this -> action_type,
 				"action_params" => $this -> action_params,
+				"action_execute_time" => $this -> action_execute_time,
 			]);
 		}
 	}

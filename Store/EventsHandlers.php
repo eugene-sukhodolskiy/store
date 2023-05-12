@@ -39,6 +39,10 @@ class EventsHandlers{
 				);
 			});
 
+			events() -> handler("kernel:CallControl.completed_call", function(Array $params) {
+				app() -> devtools -> loging_action_time();
+			});
+
 			events() -> handler("kernel:Bootstrap.app_finished", function(Array $params){
 				app() -> devtools -> show_template_map();
 			});
