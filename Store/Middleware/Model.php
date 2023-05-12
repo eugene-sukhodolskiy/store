@@ -7,6 +7,9 @@ class Model extends \Fury\Kernel\Model{
 
 	public function __construct(){
 		parent::__construct();
+
+		// TODO: Add normal event to Fury\Kernel\Model
+		app() -> devtools -> using_model(get_class($this));
 	}
 
 	public function utils(){

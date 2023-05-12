@@ -39,6 +39,20 @@
 				</table>	
 			</div>
 
+			<div class="models">
+				<table class="std-table">
+					<caption>Using models</caption>
+					<tbody>
+						<? foreach ($models as $i => $model): ?>
+							<tr>
+								<th>#<?= $i + 1 ?></th>
+								<td><?= $model ?></td>
+							</tr>
+						<? endforeach ?>
+					</tbody>
+				</table>
+			</div>
+
 			<?= $this -> join("devtools/components/template-tree", [
 				"template_map" => $template_map,
 				"total_template_calls" => $total_template_calls,

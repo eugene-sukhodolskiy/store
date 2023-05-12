@@ -17,6 +17,8 @@ class DevTools {
 	protected Array $action_params = [];
 	protected Float $action_execute_time = 0;
 
+	protected Array $models = [];
+
 	public function __construct() {
 
 	}
@@ -72,6 +74,10 @@ class DevTools {
 		$this -> action_execute_time = microtime(true) - $this -> action_execute_time;
 	}
 
+	public function using_model(String $model_name) {
+		$this -> models[] = $model_name;
+	}
+
 	public function show_template_map() {
 		if($this -> root_template) {
 			$this -> template_map = $this -> make_template_map([ $this -> root_template ]);
@@ -79,10 +85,13 @@ class DevTools {
 				"template_map" => $this -> template_map,
 				"total_template_calls" => $this -> total_template_calls,
 				"total_uniq_template_parts" => $this -> total_uniq_template_parts,
+				
 				"action_name" => $this -> action_name,
 				"action_type" => $this -> action_type,
 				"action_params" => $this -> action_params,
 				"action_execute_time" => $this -> action_execute_time,
+
+				"models" => $this -> models,
 			]);
 		}
 	}
