@@ -40,7 +40,7 @@ class App extends \Fury\Kernel\BaseApp{
 		$this -> devtools = new DevTools();
 		$this -> router = new Router();
 		$this -> routes = new Routes($this -> router);
-		$this -> thin_builder = new ThinBuilder(FCONF['db']);
+		$this -> thin_builder = new ThinBuilder(FCONF['db'], new \Fury\Drivers\ThinBuilderDriver(bootstrap()));
 		$this -> events_handlers = new EventsHandlers();
 		$this -> events_handlers -> handlers();
 

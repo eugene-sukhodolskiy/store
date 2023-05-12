@@ -10,11 +10,11 @@ class ThinBuilderDriver implements \Fury\Modules\ThinBuilder\DriverInterface{
 	}
 
 	public function event_ready_sql(String $sql){
-		$this -> bootstrap -> events -> kernel_call('ThinBuilder.ready_sql', ['sql' => $sql]);
+		events() -> module_call('ThinBuilder.ready_sql', ['sql' => $sql]);
 	}
 
 	public function event_query(String $sql, $result){
-		$this -> bootstrap -> events -> kernel_call('ThinBuilder.query', [
+		events() -> module_call('ThinBuilder.query', [
 			'sql' => $sql, 
 			'result' => $result
 		]);

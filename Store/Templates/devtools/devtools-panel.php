@@ -15,43 +15,21 @@
 		</button>
 
 		<div class="panel-elements">
-			<div class="action">
-				<table class="std-table">
-					<caption>Controller</caption>
-					<tbody>
-						<tr>
-							<th>Request type</th>
-							<td><?= $action_type ?></td>
-						</tr>
-						<tr>
-							<th>Action</th>
-							<td><?= $action_name ?></td>
-						</tr>
-						<tr>
-							<th>Execute time</th>
-							<td><?= round($action_execute_time * 1000, 4) ?> ms</td>
-						</tr>
-						<tr>
-							<th>Params</th>
-							<td><?= dd($action_params, false) ?></td>
-						</tr>
-					</tbody>
-				</table>	
-			</div>
+			<?= $this -> join("devtools/components/action", [
+				"action_type" => $action_type,
+				"action_name" => $action_name,
+				"action_execute_time" => $action_execute_time,
+				"action_params" => $action_params
+			]) ?>
 
-			<div class="models">
-				<table class="std-table">
-					<caption>Using models</caption>
-					<tbody>
-						<? foreach ($models as $i => $model): ?>
-							<tr>
-								<th>#<?= $i + 1 ?></th>
-								<td><?= $model ?></td>
-							</tr>
-						<? endforeach ?>
-					</tbody>
-				</table>
-			</div>
+			<?= $this -> join("devtools/components/models", [
+				"models" => $models
+			]) ?>
+
+			<?= $this -> join("devtools/components/sql-queries", [
+				"sql_queries" => $sql_queries,
+				"sql_summary_time" => $sql_summary_time
+			]) ?>
 
 			<?= $this -> join("devtools/components/template-tree", [
 				"template_map" => $template_map,

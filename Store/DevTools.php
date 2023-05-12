@@ -19,6 +19,9 @@ class DevTools {
 
 	protected Array $models = [];
 
+	protected Array $sql_queries = [];
+	protected Float $sql_summary_time = 0;
+
 	public function __construct() {
 
 	}
@@ -78,6 +81,19 @@ class DevTools {
 		$this -> models[] = $model_name;
 	}
 
+	public function loging_sql_query(String $sql) {
+		$this -> sql_queries[] = [
+			"query" => $sql,
+			"time" => microtime(true)
+		];
+	}
+
+	public function loging_sql_query_result() {
+		$last_inx = count($this -> sql_queries) - 1;
+		$this -> sql_queries[$last_inx]["time"] = microtime(true) - $this -> sql_queries[$last_inx]["time"];
+		$this -> sql_summary_time += $this -> sql_queries[$last_inx]["time"];
+	}
+
 	public function show_template_map() {
 		if($this -> root_template) {
 			$this -> template_map = $this -> make_template_map([ $this -> root_template ]);
@@ -92,6 +108,9 @@ class DevTools {
 				"action_execute_time" => $this -> action_execute_time,
 
 				"models" => $this -> models,
+
+				"sql_queries" => $this -> sql_queries,
+				"sql_summary_time" => $this -> sql_summary_time,
 			]);
 		}
 	}

@@ -46,6 +46,14 @@ class EventsHandlers{
 			events() -> handler("kernel:Bootstrap.app_finished", function(Array $params){
 				app() -> devtools -> show_template_map();
 			});
+
+			events() -> handler("module:ThinBuilder.ready_sql", function(Array $params){
+				app() -> devtools -> loging_sql_query($params["sql"]);
+			});
+
+			events() -> handler("module:ThinBuilder.query", function(Array $params){
+				app() -> devtools -> loging_sql_query_result();
+			});
 		}
 	}
 }
