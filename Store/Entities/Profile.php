@@ -10,13 +10,23 @@ class Profile extends \Store\Middleware\Entity {
 		"region_ru", "city_ru", "city_en", "update_at", "create_at"
 	];
 
+	public $imgs = [];
+	public $exists_imgs = true;
+
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
 	}	
 
 	public function userpic() {
-		$imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "Profile", 1);
-		return $imgs ? $imgs[0] : false;
+		if($this -> exists_imgs) {
+			$this -> imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "Profile", 1);
+		}
+
+		if(!$this -> imgs) {
+			$this -> exists_imgs = false;
+		}
+
+		return $this -> imgs ? $this -> imgs[0] : false;
 	}
 
 	public function userpic_url(String $size) {

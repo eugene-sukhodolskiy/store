@@ -105,8 +105,9 @@ class SearchController extends \Store\Middleware\Controller {
 
 		app() -> factory -> initer() -> init_group_users( $uadposts );
 		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
-		$authors = array_map( fn($uadp) => $uadp -> user(), $uadposts );
-		app() -> factory -> initer() -> init_group_profiles_for_users( $authors );
+		app() -> factory -> initer() -> init_uadposts_group_images( $uadposts );
+		app() -> factory -> initer() -> init_group_profiles_for_uadposts_users( $uadposts );
+		app() -> factory -> initer() -> init_uadposts_profiles_group_images( $uadposts );
 
 		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 

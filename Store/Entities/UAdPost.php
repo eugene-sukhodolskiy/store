@@ -18,22 +18,33 @@ class UAdPost extends \Store\Middleware\Entity {
 	];
 
 	protected $favorite_state_for_current_user = null;
+	public $imgs = [];
+	public $exists_imgs = true;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
 	}
 
 	public function get_images() {
-		return app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost");
+		if($this -> exists_imgs) {
+			$this -> imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost");
+		}
+
+		if(!$this -> imgs) {
+			$this -> exists_imgs = false;
+		}
+
+		return $this -> imgs ? $this -> imgs[0] : false;
 	}
 
 	public function get_first_image() {
-		$imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost", 1);
-		if(!$imgs) {
-			return null;
+		if(count($this -> imgs)) {
+			return $this -> imgs[0];
 		}
 
-		return $imgs[0];
+		$this -> get_images();
+
+		return $this -> imgs ? $this -> imgs[0] : false;
 	}
 
 	public function user(): User {
