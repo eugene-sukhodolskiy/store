@@ -3,6 +3,7 @@
 namespace Store\Controllers;
 
 use \Store\Entities\UAdPost;
+use \Store\COntainers\ImgsContainer;
 
 class SearchController extends \Store\Middleware\Controller {
 	public function search_page() {
@@ -105,9 +106,10 @@ class SearchController extends \Store\Middleware\Controller {
 
 		app() -> factory -> initer() -> init_group_users( $uadposts );
 		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
-		app() -> factory -> initer() -> init_uadposts_group_images( $uadposts );
+		// app() -> factory -> initer() -> init_uadposts_group_images( $uadposts );
 		app() -> factory -> initer() -> init_group_profiles_for_uadposts_users( $uadposts );
-		app() -> factory -> initer() -> init_uadposts_profiles_group_images( $uadposts );
+		// app() -> factory -> initer() -> init_uadposts_profiles_group_images( $uadposts );
+		ImgsContainer::fill_containers();
 
 		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 

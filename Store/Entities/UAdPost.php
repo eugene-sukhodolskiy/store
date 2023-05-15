@@ -5,6 +5,7 @@ namespace Store\Entities;
 use \Store\Models\Favourites;
 use \Store\Models\Keywords;
 use \Store\Containers\KeywordsContainer;
+use \Store\Containers\ImgsContainer;
 use \Store\Wrappers\UAdPostStatistics;
 
 class UAdPost extends \Store\Middleware\Entity {
@@ -18,33 +19,27 @@ class UAdPost extends \Store\Middleware\Entity {
 	];
 
 	protected $favorite_state_for_current_user = null;
-	public $imgs = [];
-	public $exists_imgs = true;
+	protected $imgs_container = null;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
+		$this -> imgs_container = new ImgsContainer($id, "UAdPost");
 	}
 
-	public function get_images() {
-		if($this -> exists_imgs) {
-			$this -> imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "UAdPost");
+	public function get_images(): Array {
+		if(!$this -> imgs_container -> was_filled()) {
+			$this -> imgs_container -> fill_container();
 		}
 
-		if(!$this -> imgs) {
-			$this -> exists_imgs = false;
-		}
-
-		return $this -> imgs ? $this -> imgs[0] : false;
+		return $this -> imgs_container -> get_imgs();
 	}
 
-	public function get_first_image() {
-		if(count($this -> imgs)) {
-			return $this -> imgs[0];
-		}
+	public function get_first_image(): ?Image {
+		return $this -> imgs_container -> get_first_img();
+	}
 
-		$this -> get_images();
-
-		return $this -> imgs ? $this -> imgs[0] : false;
+	public function has_images(): Bool {
+		return count($this -> get_images()) != 0;
 	}
 
 	public function user(): User {
@@ -61,10 +56,6 @@ class UAdPost extends \Store\Middleware\Entity {
 		return app() -> routes -> urlto("UAdPostController@view_page", [
 			"alias" => "{$this -> alias}.html"
 		]);
-	}
-
-	public function has_images() {
-		return $this -> images_number ? true : false;
 	}
 
 	public function get_formatted_timestamp() {

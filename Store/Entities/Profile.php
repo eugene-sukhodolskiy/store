@@ -1,6 +1,7 @@
 <?php
 
 namespace Store\Entities;
+use \Store\Containers\ImgsContainer;
 
 class Profile extends \Store\Middleware\Entity {
 	public static $table_name = "profiles"; 
@@ -10,23 +11,15 @@ class Profile extends \Store\Middleware\Entity {
 		"region_ru", "city_ru", "city_en", "update_at", "create_at"
 	];
 
-	public $imgs = [];
-	public $exists_imgs = true;
+	protected $imgs_container = null;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
+		$this -> imgs_container = new ImgsContainer($id, "Profile");
 	}	
 
-	public function userpic() {
-		if($this -> exists_imgs) {
-			$this -> imgs = app() -> factory -> getter() -> get_images_by_entity($this -> id(), "Profile", 1);
-		}
-
-		if(!$this -> imgs) {
-			$this -> exists_imgs = false;
-		}
-
-		return $this -> imgs ? $this -> imgs[0] : false;
+	public function userpic(): ?Image {
+		return $this -> imgs_container -> get_first_img();
 	}
 
 	public function userpic_url(String $size) {

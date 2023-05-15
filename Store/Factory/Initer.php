@@ -66,71 +66,38 @@ class Initer {
 		return $entities;
 	}
 
-	public function init_uadposts_group_images(Array $uadposts): Array {
-		$count_uadposts = count($uadposts);
-
-		$ids = array_map(fn($uap) => $uap -> id(), $uadposts);
-
-		$rows = app() -> thin_builder -> select(
-			Image::$table_name, 
-			Image::get_fields(), 
-			[ ["ent_id", "IN", $ids], "AND", ["assignment", "=", "UAdPost"] ],
-			[], "",
-			[0, $count_uadposts]
-		);
-
-		foreach($uadposts as $uap) {
-			$uap -> exists_imgs = false;
-		}
-
-		foreach($rows as $row) {
-			foreach($uadposts as $uap) {
-				if($uap -> id() == $row["ent_id"]) {
-					$uap -> imgs[] = new Image($row["id"], $row);
-					$uap -> exists_imgs = true;
-					break;
-				}
-			}
-		}
-
-		return $uadposts;
-	}
-
 	public function init_uadposts_group_favorite_state(Array $uadposts): void {
 		if(count($uadposts)) {
 			(new Favourites()) -> assignment_group_is_favorite("UAdPost", $uadposts);
 		}
 	}
 
-	public function init_uadposts_profiles_group_images(Array $uadposts): Array {
-		$count_entities = count($uadposts);
-		if(!$count_entities) {
-			return [];
-		}
+	public function init_group_profiles_for_users(Array $users) {
+		$count_users = count($users);
 
-		$profiles_ids = array_map(fn($uap) => $uap -> user() -> profile() -> id(), $uadposts);
+		$ids = array_map(fn($user) => $user -> id(), $users);
+
 		$rows = app() -> thin_builder -> select(
-			Image::$table_name, 
-			Image::get_fields(), 
-			[ ["ent_id", "IN", $profiles_ids], "AND", ["assignment", "=", "Profile"] ],
+			Profile::$table_name, 
+			Profile::get_fields(), 
+			[ ["uid", "IN", $ids] ],
 			[], "",
-			[0, $count_entities]
+			[0, $count_users]
 		);
 
-		foreach($uadposts as $uap) {
-			$uap -> user() -> profile() -> exists_imgs = false;
+		if(!$rows) {
+			return null;
 		}
 
 		foreach($rows as $row) {
-			foreach($uadposts as $uap) {
-				if($uap -> user() -> profile() -> id() == $row["ent_id"]) {
-					$uap -> user() -> profile() -> imgs[] = new Image($row["id"], $row);
-					$uap -> user() -> profile() -> exists_imgs = true;
+			foreach($users as $user) {
+				if($user -> id() == $row["id"]) {
+					$user -> forward_instance_init("Profile", new Profile($row["id"], $row));
 					break;
 				}
 			}
 		}
 
-		return $uadposts;
+		return $users;
 	}
 }
