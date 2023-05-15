@@ -6,7 +6,7 @@ use \Store\Models\Favourites;
 use \Store\Models\Keywords;
 use \Store\Containers\KeywordsContainer;
 use \Store\Containers\ImgsContainer;
-use \Store\Wrappers\UAdPostStatistics;
+use \Store\Containers\UAdPostStatistics;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -20,9 +20,11 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	protected $favorite_state_for_current_user = null;
 	protected $imgs_container = null;
+	protected UAdPostStatistics $statistics;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
+		$this -> statistics = new UAdPostStatistics($id);
 		$this -> imgs_container = new ImgsContainer($id, "UAdPost");
 	}
 
@@ -47,9 +49,7 @@ class UAdPost extends \Store\Middleware\Entity {
 	}
 
 	public function statistics() {
-		return $this -> get_pet_instance("UAdPostStatistics", function() {
-			return new UAdPostStatistics($this -> id, "UAdPost");
-		});
+		return $this -> statistics;
 	}
 
 	public function get_url(): String {

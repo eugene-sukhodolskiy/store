@@ -3,7 +3,7 @@
 namespace Store\Entities;
 
 use \Store\Entities\Session;
-use \Store\Wrappers\UserStatistics;
+use \Store\Containers\UserStatistics;
 use \Store\Models\UAdPosts;
 use \Store\Models\Favourites;
 use \Store\Models\Orders;
@@ -13,9 +13,11 @@ class User extends \Store\Middleware\Entity {
 	protected static $fields = [
 		"id", "alias", "status", "role", "email", "password", "create_at", "update_at"
 	];
+	protected UserStatistics $statistics;
 	
 	public function __construct(Int $uid, Array $data = []) {
 		parent::__construct(self::$table_name, $uid, $data);
+		$this -> statistics = new UserStatistics($uid);
 	}	
 
 	public function profile() {
@@ -25,9 +27,7 @@ class User extends \Store\Middleware\Entity {
 	}
 
 	public function statistics() {
-		return $this -> get_pet_instance("UserStatistics", function() {
-			return new UserStatistics($this -> id(), "User");
-		});
+		return $this -> statistics;
 	}
 
 	public function get_last_uadpost() {

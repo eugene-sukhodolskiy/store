@@ -1,19 +1,18 @@
 <?php
 
-namespace Store\Wrappers; 
+namespace Store\Containers; 
 
-class UserStatistics {
-	use \Store\Containers\MetaContainer;
-
-	protected static Array $fields = [
-		"total_published_uadposts",
-		"total_saled"
-	];
-	
+class UserStatistics extends \Store\Containers\MetaContainer {
+	protected static Array $fields = [];
 	protected static Array $fields_types = [
 		"total_published_uadposts" => "Int",
 		"total_saled" => "Int"
 	];
+
+	public function __construct(Int $ent_id) {
+		self::$fields = array_keys(self::$fields_types);
+		parent::__construct($ent_id, "User");
+	}
 
 	public function total_published_uadposts_increase() {
 		$this -> total_published_uadposts_change(+1);

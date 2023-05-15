@@ -13,7 +13,7 @@ trait GetSetImplementation {
 
 	public function get(String $field_name) {
 		if(in_array($field_name, static::$fields)) {
-			return $this -> data[$field_name] ;
+			return $this -> data[$field_name];
 		}
 		
 		throw new \Exception("Error of GET, field `{$field_name}` not found");
@@ -36,5 +36,4 @@ trait GetSetImplementation {
 	public function __set($field_name, $field_val) {
 		return $this -> set($field_name, $field_val);
 	}
-
 }

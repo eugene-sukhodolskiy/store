@@ -43,7 +43,7 @@ class ImgsContainer {
 
 	public static function fill_containers(): Array {
 		foreach (self::$containers as $name => $group) {
-			$count_items = count($group);
+			$count_items = count($group) * 20;
 			$ids = array_map(fn($container) => $container -> get_ent_id(), $group);
 			
 			$rows = app() -> thin_builder -> select(
