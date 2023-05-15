@@ -22,9 +22,9 @@ class DevTools {
 	protected Array $sql_queries = [];
 	protected Float $sql_summary_time = 0;
 
-	public function __construct() {
+	protected Array $time_logs = [];
 
-	}
+	public function __construct() {}
 
 	public function add_template_to_map($template, $template_name) {
 		if(!$this -> root_template) {
@@ -94,6 +94,22 @@ class DevTools {
 		$this -> sql_summary_time += $this -> sql_queries[$last_inx]["time"];
 	}
 
+	public function timelog_start(String $logname, String $title = "Untitled"): Void {
+		$this -> time_logs[$logname] = [
+			"title" => $title,
+			"timestamp" => microtime(true),
+		];
+	}
+
+	public function timelog_end(String $logname): Bool {
+		if(!isset($this -> time_logs[$logname])) {
+			return false;
+		}
+
+		$this -> time_logs[$logname]["timestamp"] = microtime(true) - $this -> time_logs[$logname]["timestamp"];
+		return true;
+	}
+
 	public function show_template_map() {
 		if($this -> root_template) {
 			$this -> template_map = $this -> make_template_map([ $this -> root_template ]);
@@ -111,6 +127,8 @@ class DevTools {
 
 				"sql_queries" => $this -> sql_queries,
 				"sql_summary_time" => $this -> sql_summary_time,
+
+				"time_logs" => $this -> time_logs,
 			]);
 		}
 	}

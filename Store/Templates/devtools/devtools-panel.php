@@ -22,6 +22,12 @@
 				"action_params" => $action_params
 			]) ?>
 
+			<? if($time_logs and count($time_logs)): ?>
+				<?= $this -> join("devtools/components/timelogs", [
+					"time_logs" => $time_logs
+				]) ?>
+			<? endif ?>
+
 			<?= $this -> join("devtools/components/models", [
 				"models" => $models
 			]) ?>

@@ -69,6 +69,8 @@ class SearchController extends \Store\Middleware\Controller {
 		$filters = json_encode($filters);
 
 		try {
+			app() -> devtools -> timelog_start("search_query", "Request to search server");
+
 			$resp = @file_get_contents(
 				str_replace(
 					[ "{{search_query}}", "{{filters}}", "{{sorting}}" ], 
@@ -76,6 +78,8 @@ class SearchController extends \Store\Middleware\Controller {
 					FCONF["services"]["keywords"]["search"]
 				)
 			);
+
+			app() -> devtools -> timelog_end("search_query");
 
 			if(!$resp) {
 				throw new \Exception("Error of search service");
