@@ -12,7 +12,7 @@ class Utils {
 		return uniqid() . "-" . $alias;
 	}
 
-	public function table_row_is_exists(\Fury\Modules\ThinBuilder\ThinBuilder $tb_instance, String $tablename, String $field_name, String $value) {
+	public function table_row_is_exists(\Fury\Modules\ThinBuilder\ThinBuilder $tb_instance, String $tablename, String $field_name, String $value): Bool {
 		return $tb_instance -> count($tablename, [ [$field_name, "=", $value] ]) ? true : false;
 	}
 
@@ -156,7 +156,7 @@ class Utils {
 		return app() -> routes -> urlto($action, $params) == app() -> router -> uri;
 	}
 
-	public function formatted_timestamp(String $timestamp, $with_clock = false) {
+	public function formatted_timestamp(String $timestamp, $with_clock = false): String {
 		if($with_clock) {
 			return date("d.m.Y H:i", strtotime($timestamp));
 		}

@@ -100,7 +100,7 @@ class MetaContainer {
 		$this -> data[$field_name] = $meta;
 	}
 
-	public static function fill_containers(): Array {
+	public static function fill(): Array {
 		foreach (self::$containers as $name => $group) {
 			$count_items = count($group) * 100;
 			$ids = array_map(fn($container) => $container -> get_ent_id(), $group);

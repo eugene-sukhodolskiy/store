@@ -2,6 +2,7 @@
 
 namespace Store\Entities;
 use \Store\Containers\ImgsContainer;
+use \Store\Containers\Registration\ProfilesContainer;
 
 class Profile extends \Store\Middleware\Entity {
 	public static $table_name = "profiles"; 
@@ -13,16 +14,17 @@ class Profile extends \Store\Middleware\Entity {
 
 	protected $imgs_container = null;
 
-	public function __construct(Int $id, Array $data = []) {
-		parent::__construct(self::$table_name, $id, $data);
-		$this -> imgs_container = new ImgsContainer($id, "Profile");
+	public function __construct(Int $profile_id, Array $data = []) {
+		parent::__construct(self::$table_name, $profile_id, $data);
+		ProfilesContainer::add_entity_item($this);
+		$this -> imgs_container = new ImgsContainer($profile_id, "Profile");
 	}	
 
 	public function userpic(): ?Image {
 		return $this -> imgs_container -> get_first_img();
 	}
 
-	public function userpic_url(String $size) {
+	public function userpic_url(String $size): String {
 		$userpic = $this -> userpic();
 		return $userpic 
 			? $userpic -> get_url($size) 

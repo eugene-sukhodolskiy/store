@@ -7,6 +7,8 @@ use \Store\Models\Keywords;
 use \Store\Containers\KeywordsContainer;
 use \Store\Containers\ImgsContainer;
 use \Store\Containers\UAdPostStatistics;
+use \Store\Containers\Registration\UAdPostsContainer;
+use \Store\Entities\User;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -21,9 +23,11 @@ class UAdPost extends \Store\Middleware\Entity {
 	protected $favorite_state_for_current_user = null;
 	protected $imgs_container = null;
 	protected UAdPostStatistics $statistics;
+	protected ?User $user = null;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
+		UAdPostsContainer::add_entity_item($this);
 		$this -> statistics = new UAdPostStatistics($id);
 		$this -> imgs_container = new ImgsContainer($id, "UAdPost");
 	}
@@ -44,8 +48,17 @@ class UAdPost extends \Store\Middleware\Entity {
 		return count($this -> get_images()) != 0;
 	}
 
+	public function fill(Array $data = []) {
+		parent::fill($data);
+		$this -> user();
+	}
+
 	public function user(): User {
-		return $this -> get_pet_instance("User", fn() => new User($this -> uid));
+		if(!$this -> user) {
+			$this -> user = new User($this -> uid);
+		}
+
+		return $this -> user;
 	}
 
 	public function statistics() {
@@ -58,7 +71,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		]);
 	}
 
-	public function get_formatted_timestamp() {
+	public function get_formatted_timestamp(): String {
 		return app() -> utils -> formatted_timestamp($this -> create_at);
 	}
 
@@ -87,7 +100,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		return $t[ strlen($currency) ? $currency : $this -> currency ];
 	}
 
-	public function remove() {
+	public function remove(): Void {
 		if($this -> has_images()) {
 			$imgs = $this -> get_images();
 			foreach($imgs as $img) {
@@ -103,7 +116,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> remove_entity();
 	}
 
-	public function make_removed(){
+	public function make_removed(): Void {
 		if($this -> state == "published") {
 			$this -> deactivate();
 		}
@@ -112,7 +125,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		$this -> update();
 	}
 
-	public function deactivate() {
+	public function deactivate(): Void {
 		$this -> state = "unpublished";
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts_decrease();
@@ -120,7 +133,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		(new Favourites()) -> remove_for_assignment_unit($this -> id(), "UAdPost");
 	}
 
-	public function activate() {
+	public function activate(): Void {
 		$this -> state = "published";
 		$this -> update();
 		$this -> user() -> statistics() -> total_published_uadposts_increase();
@@ -152,7 +165,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		return $keywords;
 	}
 
-	public function remove_keywords() {
+	public function remove_keywords(): Bool {
 		$res = (new Keywords) -> remove_keywords_by_uap_id($this -> id);
 		$keywords_reload_url = FCONF["services"]["keywords"]["keywords_reload"];
 		if($keywords_reload_url) {

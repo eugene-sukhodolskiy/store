@@ -5,6 +5,9 @@ namespace Store\Controllers;
 use \Store\Entities\UAdPost;
 use \Store\Containers\ImgsContainer;
 use \Store\Containers\MetaContainer;
+use \Store\Containers\Registration\ProfilesContainer;
+use \Store\Containers\Registration\UsersContainer;
+use \Store\Containers\Registration\UAdPostsContainer;
 
 class SearchController extends \Store\Middleware\Controller {
 	public function search_page() {
@@ -109,11 +112,12 @@ class SearchController extends \Store\Middleware\Controller {
 			$uadposts[] = new UAdPost($row["id"], $row);
 		}
 
-		app() -> factory -> initer() -> init_group_users( $uadposts );
 		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
-		app() -> factory -> initer() -> init_group_profiles_for_uadposts_users( $uadposts );
-		ImgsContainer::fill_containers();
-		MetaContainer::fill_containers();
+		UAdPostsContainer::fill();
+		UsersContainer::fill();
+		ProfilesContainer::fill();
+		ImgsContainer::fill();
+		MetaContainer::fill();
 
 		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 
@@ -218,10 +222,10 @@ class SearchController extends \Store\Middleware\Controller {
 			$uadposts[] = new UAdPost($row["id"], $row);
 		}
 
-		app() -> factory -> initer() -> init_group_users( $uadposts );
+		// app() -> factory -> initer() -> init_group_users( $uadposts );
 		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
 		$authors = array_map( fn($uadp) => $uadp -> user(), $uadposts );
-		app() -> factory -> initer() -> init_group_profiles_for_users( $authors );
+		// app() -> factory -> initer() -> init_group_profiles_for_users( $authors );
 
 		$total_uadposts = app() -> thin_builder -> count( UAdPost::$table_name, $where );
 

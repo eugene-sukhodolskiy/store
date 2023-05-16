@@ -101,7 +101,7 @@ function dd($var, $die_flag = true){
 
 	// JAVASCRIPT
 	$js = '<script>
-		let ddJS = function(){
+		(function(){
 			let btnsShow = document.getElementsByClassName("dd-block-show");
 			for(let i in btnsShow){
 				let btn = btnsShow[i];
@@ -121,9 +121,7 @@ function dd($var, $die_flag = true){
 					block.classList.remove("show");
 				}
 			}
-		}
-
-		ddJS();
+		})();
 	</script>';
 
 	$lines = explode("\n", $dump);

@@ -45,7 +45,7 @@ class Keywords extends \Store\Middleware\Model {
 		return $result;
 	}
 
-	public function remove_keywords_by_uap_id(Int $uap_id) {
+	public function remove_keywords_by_uap_id(Int $uap_id): Bool {
 		return $this -> thin_builder() -> delete(
 			"uadposts_keywords",
 			["uap_id", "=", $uap_id]

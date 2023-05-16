@@ -85,7 +85,7 @@ class Getter {
 		return $uadposts;
 	}
 
-	public function get_session_by(String $field_name, $field_value) {
+	public function get_session_by(String $field_name, $field_value): ?Session {
 		$result = app() -> thin_builder -> select(
 			Session::$table_name,
 			Session::get_fields(),
