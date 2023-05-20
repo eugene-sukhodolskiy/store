@@ -40,7 +40,7 @@ class UAdPosts extends \Store\Middleware\Model{
 	public function get_by_user(Int $uid, String $state, Int $amount = 10, Int $page_num = 1, String $order_by = "id"): Array {
 		$uadposts = $this -> thin_builder() -> select(
 			UAdPost::$table_name,
-			UAdPost::get_fields(),
+			["id"],
 			[
 				[ "uid", "=", $uid ],
 				"AND",
@@ -51,7 +51,7 @@ class UAdPosts extends \Store\Middleware\Model{
 			[ ($page_num - 1) * $amount, $amount ]
 		);
 
-		$uadposts = array_map(fn($item) => new UAdPost($item["id"], $item), $uadposts);
+		$uadposts = array_map(fn($item) => new UAdPost($item["id"]), $uadposts);
 
 		return $uadposts ? $uadposts : [];
 	}

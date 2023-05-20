@@ -8,19 +8,12 @@ class RegistrationContainer {
 			throw new \Exception("Entity must be an object");
 		}
 
-		$inx = static::search_in_entities_map($entity -> id());
-		if(!is_null($inx)) {
-			static::$entities[$inx]["entity"] = $entity;
+		static::$entities[] = [
+			"ent_id" => $entity -> id(),
+			"entity" => $entity
+		];
 
-			return static::$entities[$inx];
-		} else {
-			static::$entities[] = [
-				"ent_id" => $entity -> id(),
-				"entity" => $entity
-			];
-
-			return static::$entities[count(static::$entities) - 1];
-		}
+		return static::$entities[count(static::$entities) - 1];
 	}
 
 	public static function get_entities_map(): Array {

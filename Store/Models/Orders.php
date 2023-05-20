@@ -51,7 +51,6 @@ class Orders extends \Store\Middleware\Model {
 		String $order_by_type = "DESC",
 		Array $including_states = []
 	): Array {
-		$fields = implode("`,`", Order::get_fields());
 		$tablename = Order::$table_name;
 		$limit_from = ($page_num - 1) * $amount;
 		$limit_amount = $amount;
@@ -62,10 +61,10 @@ class Orders extends \Store\Middleware\Model {
 		}
 		$including_states = implode("','", $including_states);
 		$where = "WHERE `{$utype}`='{$uid}' AND `state` IN ('{$including_states}')";
-		$q = "SELECT `{$fields}` FROM `{$tablename}` {$where} ORDER BY {$order_by} {$order_by_type} LIMIT {$limit_from},{$limit_amount}";
+		$q = "SELECT `id` FROM `{$tablename}` {$where} ORDER BY {$order_by} {$order_by_type} LIMIT {$limit_from},{$limit_amount}";
 
 		$orders = $this -> thin_builder() -> query($q, 'fetchAll', \PDO::FETCH_ASSOC);
-		$orders = array_map(fn($item) => new Order($item["id"], $item), $orders);
+		$orders = array_map(fn($item) => new Order($item["id"]), $orders);
 
 		return $orders ? $orders : [];
 	}

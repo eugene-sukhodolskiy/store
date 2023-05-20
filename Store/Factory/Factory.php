@@ -5,7 +5,6 @@ namespace Store\Factory;
 class Factory {
 	protected $creator_instance;
 	protected $getter_instance;
-	protected $initer_instance;
 
 	public function creator() {
 		if(!$this -> creator_instance) {
@@ -21,13 +20,5 @@ class Factory {
 		}
 
 		return $this -> getter_instance;	
-	}
-
-	public function initer() {
-		if(!$this -> initer_instance) {
-			$this -> initer_instance = new Initer();
-		}
-
-		return $this -> initer_instance;	
 	}
 }

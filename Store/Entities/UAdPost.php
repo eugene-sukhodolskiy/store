@@ -24,7 +24,7 @@ class UAdPost extends \Store\Middleware\Entity {
 	protected $favorite_state_for_current_user = null;
 	protected $imgs_container = null;
 	protected UAdPostStatistics $statistics;
-	protected ?User $user = null;
+	protected User $user;
 	protected ?Favorite $favorite = null;
 
 	public function __construct(Int $id, Array $data = []) {
@@ -52,12 +52,12 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	public function fill(Array $data = []) {
 		parent::fill($data);
-		$this -> user();
+		$this -> user = new User($this -> uid);
 	}
 
 	public function user(): User {
-		if(!$this -> user) {
-			$this -> user = new User($this -> uid);
+		if(!$this -> was_filled()) {
+			$this -> fill();
 		}
 
 		return $this -> user;

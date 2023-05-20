@@ -1,7 +1,11 @@
 <?php
 
 namespace Store\Entities;
+
 use \Store\Models\NovaPoshta;
+use \Store\Containers\Registration\OrdersContainer;
+use \Store\Entities\UAdPost;
+use \Store\Entities\User;
 
 class Order extends \Store\Middleware\Entity {
 	public static $table_name = "orders";
@@ -11,22 +15,34 @@ class Order extends \Store\Middleware\Entity {
 		"delivery_id", "create_at", "update_at"
 	];
 
+	protected UAdPost $uadpost;
+	protected User $seller;
+	protected User $customer;
+
 	public function __construct(Int $id, Array $data = []){
 		parent::__construct(
 			self::$table_name,
 			$id,
 			$data
 		);
+		OrdersContainer::add_entity_item($this);
 	}
 
-	public function uadpost() {
-		return $this -> get_pet_instance("UAdPost", function() {
-			$uadposts = app() -> factory -> getter() -> get_uadposts_by("id", $this -> uap_id, 1);
-			$uadpost = count($uadposts) ? $uadposts[0] : null;
-			$uadpost -> currency = $this -> currency;
-			$uadpost -> price = $this -> price;
-			return $uadpost;
-		});
+	public function fill(Array $data = []) {
+		parent::fill($data);
+		$this -> uadpost = new UAdPost($this -> uap_id);
+		$this -> seller = new User($this -> seller_id);
+		$this -> customer = new User($this -> customer_id);
+	}
+
+	public function uadpost(): UAdPost {
+		if(!$this -> was_filled()) {
+			$this -> fill();
+		}
+
+		$this -> uadpost -> currency = $this -> currency;
+		$this -> uadpost -> price = $this -> price;
+		return $this -> uadpost;
 	}
 
 	public function get_formatted_create_at() {
@@ -38,16 +54,20 @@ class Order extends \Store\Middleware\Entity {
 		return isset($delivery_map[$this -> delivery_method]) ? $delivery_map[$this -> delivery_method] : "";
 	}
 
-	public function seller() {
-		return $this -> get_pet_instance("Seller", function() {
-			return app() -> factory -> getter() -> get_user_by("id", $this -> seller_id, 1);
-		});
+	public function seller(): User {
+		if(!$this -> was_filled()) {
+			$this -> fill();
+		}
+
+		return $this -> seller;
 	}
 
-	public function customer() {
-		return $this -> get_pet_instance("Customer", function() {
-			return app() -> factory -> getter() -> get_user_by("id", $this -> customer_id, 1);
-		});
+	public function customer(): User {
+		if(!$this -> was_filled()) {
+			$this -> fill();
+		}
+
+		return $this -> customer;
 	}
 
 	public function confirm() {

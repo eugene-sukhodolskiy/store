@@ -9,6 +9,7 @@ use \Store\Entities\UAdPost;
 use \Store\Entities\Session;
 use \Store\Entities\Meta;
 use \Store\Entities\Order;
+use \Store\Containers\Registration\UAdPostsContainer;
 
 class Getter {
 	public function get_user_by(String $field_name, $field_value): ?User {
@@ -80,7 +81,7 @@ class Getter {
 			$uadposts[] = new UAdPost($item["id"], $item);
 		}
 
-		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
+		UAdPostsContainer::fill();
 
 		return $uadposts;
 	}

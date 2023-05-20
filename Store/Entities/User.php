@@ -5,6 +5,7 @@ namespace Store\Entities;
 use \Store\Entities\Session;
 use \Store\Containers\UserStatistics;
 use \Store\Containers\Registration\UsersContainer;
+use \Store\Containers\Registration\UAdPostsContainer;
 use \Store\Models\UAdPosts;
 use \Store\Models\Favourites;
 use \Store\Models\Orders;
@@ -20,7 +21,6 @@ class User extends \Store\Middleware\Entity {
 	
 	public function __construct(Int $uid, Array $data = []) {
 		parent::__construct(self::$table_name, $uid, $data);
-		// TODO: Check logic. `uid` is normal?
 		$this -> statistics = new UserStatistics($uid);
 		// TODO: `uid` - is fail, need `profile_id`
 		$this -> profile = new Profile($uid);
@@ -53,7 +53,7 @@ class User extends \Store\Middleware\Entity {
 			"update_at"
 		);
 
-		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
+		UAdPostsContainer::fill();
 
 		return $uadposts;
 	}

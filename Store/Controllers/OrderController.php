@@ -6,6 +6,12 @@ use \Store\Entities\UAdPost;
 use \Store\Models\UAdPosts;
 use \Store\Models\Orders;
 use \Store\Models\NovaPoshta;
+use \Store\Containers\ImgsContainer;
+use \Store\Containers\MetaContainer;
+use \Store\Containers\Registration\ProfilesContainer;
+use \Store\Containers\Registration\UsersContainer;
+use \Store\Containers\Registration\UAdPostsContainer;
+use \Store\Containers\Registration\OrdersContainer;
 
 class OrderController extends \Store\Middleware\Controller {
 	public function new_order_page($uadpost_alias) {
@@ -188,6 +194,12 @@ class OrderController extends \Store\Middleware\Controller {
 		$user = app() -> sessions -> auth_user();
 		$total = $user -> total_orders($utype, $including_states);
 		$orders = $total ? $user -> get_orders($utype, $pnum ? $pnum : 1, $including_states) : [];
+		OrdersContainer::fill();
+		UAdPostsContainer::fill();
+		UsersContainer::fill();
+		ProfilesContainer::fill();
+		ImgsContainer::fill();
+		MetaContainer::fill();
 		
 		switch($utype) {
 			case "seller":

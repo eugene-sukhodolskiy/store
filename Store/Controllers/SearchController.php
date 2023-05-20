@@ -222,7 +222,7 @@ class SearchController extends \Store\Middleware\Controller {
 		}
 
 		// app() -> factory -> initer() -> init_group_users( $uadposts );
-		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
+		// app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
 		$authors = array_map( fn($uadp) => $uadp -> user(), $uadposts );
 		// app() -> factory -> initer() -> init_group_profiles_for_users( $authors );
 
