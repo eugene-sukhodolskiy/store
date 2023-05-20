@@ -7,6 +7,10 @@ use \Store\Models\Profiles;
 use \Store\Models\Images;
 use \Store\Entities\UAdPost;
 use \Store\Templates\Logic\UserUAdPosts;
+use \Store\Containers\Registration\UsersContainer;
+use \Store\Containers\Registration\ProfilesContainer;
+use \Store\Containers\ImgsContainer;
+use \Store\Containers\MetaContainer;
 
 class UAdPostController extends \Store\Middleware\Controller {
 	public function create_page() {
@@ -29,7 +33,6 @@ class UAdPostController extends \Store\Middleware\Controller {
 			return $this -> new_template() -> make("site/404.php");
 		}
 
-		// app() -> factory -> initer() -> init_group_profiles_for_users( $uadposts );
 		$uadposts[0] -> statistics() -> views_increase();
 
 		return $this -> new_template() -> make("site/view.uadpost", [
@@ -333,6 +336,11 @@ class UAdPostController extends \Store\Middleware\Controller {
 		$user = app() -> sessions -> auth_user();
 		$total = $user -> total_uadposts($state);
 		$uadposts = $total ? $user -> get_uadposts($state, $pnum ? $pnum : 1) : [];
+
+		UsersContainer::fill();
+		ProfilesContainer::fill();
+		ImgsContainer::fill();
+		MetaContainer::fill();
 		
 		switch($state) {
 			case "published": 

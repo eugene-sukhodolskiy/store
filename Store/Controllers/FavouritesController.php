@@ -5,6 +5,11 @@ namespace Store\Controllers;
 use \Store\Models\Favourites;
 use \Store\Models\UAdPosts;
 use \Store\Templates\Logic\UserUAdPosts;
+use \Store\Containers\Registration\UsersContainer;
+use \Store\Containers\Registration\ProfilesContainer;
+use \Store\Containers\ImgsContainer;
+use \Store\Containers\MetaContainer;
+
 
 class FavouritesController extends \Store\Middleware\Controller {
 	public function make(Int $uadpost_id) {
@@ -50,6 +55,11 @@ class FavouritesController extends \Store\Middleware\Controller {
 			array_map(fn($fav) => $fav -> ent_id, $favs),
 			count($favs)
 		);
+
+		UsersContainer::fill();
+		ProfilesContainer::fill();
+		ImgsContainer::fill();
+		MetaContainer::fill();
 
 		$uadposts = array_filter( $uadposts, fn($uadpost) => $uadpost -> state == "published" );
 		$total = $user -> total_favourites_uadposts();

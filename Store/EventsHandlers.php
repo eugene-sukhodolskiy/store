@@ -44,7 +44,9 @@ class EventsHandlers{
 			});
 
 			events() -> handler("kernel:Bootstrap.app_finished", function(Array $params){
-				app() -> devtools -> show_template_map();
+				if(isset($_GET["devp"])) {
+					app() -> devtools -> show();
+				}
 			});
 
 			events() -> handler("module:ThinBuilder.ready_sql", function(Array $params){

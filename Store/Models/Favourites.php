@@ -44,7 +44,7 @@ class Favourites extends \Store\Middleware\Model {
 
 		$result = $this -> thin_builder() -> select(
 			Favorite::$table_name,
-			Favorite::get_fields(),
+			[],
 			[
 				[ "uid", "=", $uid ],
 				"AND",

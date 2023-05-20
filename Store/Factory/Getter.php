@@ -27,7 +27,7 @@ class Getter {
 	public function get_profile_by(String $field_name, $field_value) {
 		$result = app() -> thin_builder -> select(
 			Profile::$table_name, 
-			Profile::get_fields(), 
+			["id"], 
 			[ [$field_name, "=", $field_value] ],
 			[], "",
 			[0, 1]
@@ -37,7 +37,7 @@ class Getter {
 			return null;
 		}
 
-		return new Profile($result[0]["id"], $result[0]);
+		return new Profile($result[0]["id"]);
 	}
 
 	public function get_images_by_entity(Int $ent_id, String $assignment, Int $amount = 10) {
@@ -64,9 +64,9 @@ class Getter {
 
 	public function get_uadposts_by(String $field_name, $field_value, Int $amount = 10): Array {
 		$result = app() -> thin_builder -> select(
-			UAdPost::$table_name, UAdPost::get_fields(), [ 
-				[ $field_name, is_array($field_value) ? "IN" : "=", $field_value ]
-			],
+			UAdPost::$table_name, 
+			["id"], 
+			[[ $field_name, is_array($field_value) ? "IN" : "=", $field_value ]],
 			[ "id" ],
 			"DESC",
 			[0, $amount]
@@ -78,7 +78,7 @@ class Getter {
 
 		$uadposts = [];
 		foreach($result as $item) {
-			$uadposts[] = new UAdPost($item["id"], $item);
+			$uadposts[] = new UAdPost($item["id"]);
 		}
 
 		UAdPostsContainer::fill();

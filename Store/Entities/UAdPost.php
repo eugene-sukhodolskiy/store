@@ -186,7 +186,7 @@ class UAdPost extends \Store\Middleware\Entity {
 		return $keywords;
 	}
 
-	public function remove_keywords(): Bool {
+	public function remove_keywords(): Mixed {
 		$res = (new Keywords) -> remove_keywords_by_uap_id($this -> id);
 		$keywords_reload_url = FCONF["services"]["keywords"]["keywords_reload"];
 		if($keywords_reload_url) {

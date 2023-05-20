@@ -110,7 +110,7 @@ class DevTools {
 		return true;
 	}
 
-	public function show_template_map() {
+	public function show() {
 		if($this -> root_template) {
 			$this -> template_map = $this -> make_template_map([ $this -> root_template ]);
 			echo (new Template(PROJECT_FOLDER, FCONF["templates_folder"])) -> make("devtools/devtools-panel", [
