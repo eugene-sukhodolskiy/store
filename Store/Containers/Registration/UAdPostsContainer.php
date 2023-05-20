@@ -3,11 +3,14 @@
 namespace Store\Containers\Registration;
 
 use \Store\Entities\UAdPost;
+use \Store\Models\Favourites;
 
 class UAdPostsContainer extends RegistrationContainer {
 	protected static Array $entities = [];
 	
 	public static function fill(): Array {
+		UAdPostsContainer::fill_favourites();
+		
 		$no_filled = array_filter(self::$entities, fn($i) => !$i["entity"] -> was_filled());
 		$count_entities = count($no_filled);
 		$ids = array_map(fn($i) => $i["ent_id"], $no_filled);
@@ -36,5 +39,10 @@ class UAdPostsContainer extends RegistrationContainer {
 		}
 
 		return $filled_uadposts;
+	}
+
+	public static function fill_favourites(): Array {
+		$uadposts = array_map(fn($item) => $item["entity"], self::$entities);
+		return (new Favourites()) -> assignment_group_is_favorite("UAdPost", $uadposts);
 	}
 }

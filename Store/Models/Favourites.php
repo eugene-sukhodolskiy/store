@@ -118,7 +118,7 @@ class Favourites extends \Store\Middleware\Model {
 		if(app() -> sessions -> is_auth()) {
 			$result = $this -> thin_builder() -> select(
 				Favorite::$table_name,
-				Favorite::get_fields(),
+				[],
 				[
 					["uid", "=", app() -> sessions -> auth_user() -> id()],
 					"AND",
@@ -131,7 +131,6 @@ class Favourites extends \Store\Middleware\Model {
 			$result = [];
 		}
 
-
 		foreach($group as $item) {
 			$item -> set_favorite_state_for_current_user( false );
 		}
@@ -139,7 +138,7 @@ class Favourites extends \Store\Middleware\Model {
 		foreach($result as $val) {
 			foreach($group as $item) {
 				if( $item -> id() == $val["ent_id"] ) {
-					$item -> set_favorite_state_for_current_user( true );
+					$item -> set_favorite(new Favorite($val["id"], $val));
 					continue;
 				}
 			}
@@ -157,5 +156,24 @@ class Favourites extends \Store\Middleware\Model {
 				[ "assignment", "=", $assignment ]
 			]
 		);
+	}
+
+	public function get_one_by(Int $ent_id, String $assignment, Int $uid): ?Favorite {
+		$result = $this -> thin_builder() -> select(
+			Favorite::$table_name,
+			[],
+			[ 
+				["ent_id", "=", $ent_id], 
+				"AND", 
+				["assignment", "=", $assignment], 
+				"AND", 
+				["uid", "=", $uid] 
+			],
+			["id"],
+			"DESC",
+			[0, 1]
+		);
+
+		return count($result) ? new Favorite($result[0]["id"], $result[0]) : null; 
 	}
 }

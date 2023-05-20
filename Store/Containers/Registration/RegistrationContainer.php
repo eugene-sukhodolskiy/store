@@ -40,4 +40,14 @@ class RegistrationContainer {
 	public static function get_no_filled_entities(): Array {
 		return array_filter(static::$entities, fn($i) => !$i["entity"] -> was_filled());
 	}
+
+	public function get_by_id(Int $ent_id): Mixed {
+		$inx = self::search_in_entities_map($ent_id);
+
+		if(is_null($inx)) {
+			return null;
+		}
+
+		return self::entities[$inx];
+	}
 }

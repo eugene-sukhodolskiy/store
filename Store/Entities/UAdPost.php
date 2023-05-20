@@ -9,6 +9,7 @@ use \Store\Containers\ImgsContainer;
 use \Store\Containers\UAdPostStatistics;
 use \Store\Containers\Registration\UAdPostsContainer;
 use \Store\Entities\User;
+use \Store\Entities\Favorite;
 
 class UAdPost extends \Store\Middleware\Entity {
 	public static $table_name = "uadposts";
@@ -24,6 +25,7 @@ class UAdPost extends \Store\Middleware\Entity {
 	protected $imgs_container = null;
 	protected UAdPostStatistics $statistics;
 	protected ?User $user = null;
+	protected ?Favorite $favorite = null;
 
 	public function __construct(Int $id, Array $data = []) {
 		parent::__construct(self::$table_name, $id, $data);
@@ -61,8 +63,27 @@ class UAdPost extends \Store\Middleware\Entity {
 		return $this -> user;
 	}
 
-	public function statistics() {
+	public function statistics(): UAdPostStatistics {
 		return $this -> statistics;
+	}
+
+	public function favorite(): ?Favorite {
+		if(app() -> sessions -> is_auth() and !$this -> favorite and is_null($this -> favorite_state_for_current_user)) {
+			$this -> favorite = (new Favourites()) -> get_one_by(
+				$this -> id(), 
+				"UAdPost", 
+				app() -> sessions -> auth_user() -> id()
+			);
+		}
+
+		$this -> set_favorite_state_for_current_user(!is_null($this -> favorite));
+
+		return $this -> favorite;
+	}
+
+	public function set_favorite(Favorite $favorite): ?Favorite {
+		$this -> favorite = $favorite;
+		return $this -> favorite();
 	}
 
 	public function get_url(): String {
@@ -142,7 +163,7 @@ class UAdPost extends \Store\Middleware\Entity {
 
 	public function is_favorite_for_current_user(): Bool {
 		if(is_null($this -> favorite_state_for_current_user)) {
-			throw new \Exception("Favorite state is not inited");
+			$this -> favorite();
 		}
 
 		return $this -> favorite_state_for_current_user;

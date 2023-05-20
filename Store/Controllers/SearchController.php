@@ -100,7 +100,7 @@ class SearchController extends \Store\Middleware\Controller {
 
 		$uadposts_rows = app() -> thin_builder -> select(
 			UAdPost::$table_name, 
-			UAdPost::get_fields(), 
+			[], 
 			$where, 
 			[$sorting_params_map[$sorting]["field"] ?? "id"],
 			$sorting_params_map[$sorting]["type"] ?? "DESC",
@@ -112,7 +112,6 @@ class SearchController extends \Store\Middleware\Controller {
 			$uadposts[] = new UAdPost($row["id"], $row);
 		}
 
-		app() -> factory -> initer() -> init_uadposts_group_favorite_state( $uadposts );
 		UAdPostsContainer::fill();
 		UsersContainer::fill();
 		ProfilesContainer::fill();

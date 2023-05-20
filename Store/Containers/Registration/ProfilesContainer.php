@@ -8,7 +8,7 @@ class ProfilesContainer extends RegistrationContainer {
 	protected static Array $entities = [];
 	
 	public static function fill(): Array {
-		$no_filled = array_filter(self::$entities, fn($i) => !$i["entity"] -> was_filled());
+		$no_filled = self::get_no_filled_entities();
 		$count_entities = count($no_filled);
 		$ids = array_map(fn($i) => $i["ent_id"], $no_filled);
 
