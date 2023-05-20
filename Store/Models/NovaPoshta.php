@@ -22,6 +22,6 @@ class NovaPoshta extends \Store\Middleware\Model {
 
 	public function get_by_order_id(Int $order_id): ?NPDelivery {
 		$result_data = $this -> thin_builder() -> select(NPDelivery::$table_name, [], ["order_id", "=", $order_id]);
-		return count($result_data) ? new NPDelivery($order_id, $result_data[0]) : null;
+		return count($result_data) ? new NPDelivery($result_data[0]["id"], $result_data[0]) : null;
 	}
 }
