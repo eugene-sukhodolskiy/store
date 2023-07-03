@@ -42,9 +42,9 @@ class Getter {
 
 	public function get_images_by_entity(Int $ent_id, String $assignment, Int $amount = 10) {
 		$result = app() -> thin_builder -> select(
-			Image::$table_name, Image::get_fields(), [ 
-				["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] 
-			],
+			Image::$table_name, 
+			[], 
+			[ ["ent_id", "=", $ent_id], "AND", ["assignment", "=", $assignment] ],
 			[ "sequence" ],
 			"ASC",
 			[0, $amount]
